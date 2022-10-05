@@ -1,6 +1,6 @@
 <div class="full-box page-header">
 	<h3 class="text-left">
-		<i class="fas fa-plus fa-fw"></i> &nbsp; AGREGAR CLIENTE
+		<i class="fas fa-plus fa-fw"></i> &nbsp; AGREGAR PROVEEDOR
 	</h3>
 
 </div>
@@ -8,13 +8,13 @@
 <div class="container-fluid">
 	<ul class="full-box list-unstyled page-nav-tabs">
 		<li>
-			<a class="active" href="<?php echo SERVERURL; ?>client-new/"><i class="fas fa-plus fa-fw"></i> &nbsp; AGREGAR CLIENTE</a>
+			<a class="active" href="<?php echo SERVERURL; ?>proveedor-new/"><i class="fas fa-plus fa-fw"></i> &nbsp; AGREGAR PROVEEDOR</a>
 		</li>
 		<li>
-			<a href="<?php echo SERVERURL; ?>client-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE CLIENTES</a>
+			<a href="<?php echo SERVERURL; ?>proveedor-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE PROVEEDORES</a>
 		</li>
 		<li>
-			<a href="<?php echo SERVERURL; ?>client-search/"><i class="fas fa-search fa-fw"></i> &nbsp; BUSCAR CLIENTE</a>
+			<a href="<?php echo SERVERURL; ?>proveedor-search/"><i class="fas fa-search fa-fw"></i> &nbsp; BUSCAR PROVEEDOR</a>
 		</li>
 	</ul>	
 </div>

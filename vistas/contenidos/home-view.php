@@ -8,7 +8,7 @@
 
 <!-- Content -->
 <div class="full-box tile-container">
-	<a href="<?php echo SERVERURL; ?>client-list/" class="tile">
+	<a href="<?php echo SERVERURL; ?>proveedor-list/" class="tile">
 		<div class="tile-tittle">PROVEEDORES</div>
 		<div class="tile-icon">
 			<i class="fas fa-users fa-fw"></i>
