@@ -22,6 +22,8 @@
 <!-- General Styles -->
 <link rel="stylesheet" href="<?php echo SERVERURL; ?>vistas/css/style.css">
 
+<link rel="stylesheet" href="<?php echo SERVERURL; ?>vistas/css/estilos-login.css">
+
 
     <!-- General Styles 
     //// eliminanos el punto de inicio y colocamos <?php echo SERVERURL;?>vistas  para poder reconocer los CSS
