@@ -31,6 +31,21 @@
 				</li>
 
 				<li>
+					<a href="#" class="nav-btn-submenu"><i class="fas fa-pallet fa-fw"></i> &nbsp; Compras <i class="fas fa-chevron-down"></i></a>
+					<ul>
+						<li>
+							<a href="<?php echo SERVERURL; ?>item-new/"><i class="fas fa-plus fa-fw"></i> &nbsp; Agregar Compras</a>
+						</li>
+						<li>
+							<a href="<?php echo SERVERURL; ?>item-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Compras</a>
+						</li>
+						<li>
+							<a href="<?php echo SERVERURL; ?>item-search/"><i class="fas fa-search fa-fw"></i> &nbsp; Buscar Compras</a>
+						</li>
+					</ul>
+				</li>
+
+				<li>
 					<a href="#" class="nav-btn-submenu"><i class="fas fa-pallet fa-fw"></i> &nbsp; Inventario <i class="fas fa-chevron-down"></i></a>
 					<ul>
 						<li>

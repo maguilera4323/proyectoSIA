@@ -48,7 +48,7 @@ class loginControlador extends mainModel{
 				/* $parametroIntentosValidos=new Usuario();
 				$valorParametro=$verificarDatos->intentosValidos(); */
 	
-				if($ingresos_erroneos>=2){
+				if($ingresos_erroneos>=3){
 					$respuesta = $verificarDatos->bloquearUsuario($usuario);
 					$_SESSION['fallo_login'] = 'Usuario bloqueado';//Creamos una nueva variable de sesion
     				return header("Location:".SERVERURL."login/");
