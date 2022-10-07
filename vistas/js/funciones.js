@@ -2,10 +2,10 @@ function mostrarContrasena(){
         let tipo = document.getElementById("clave");
         if(tipo.type == "password"){
             tipo.type = "text";
-            $('.icono').removeClass('fas fa-eye-slash').addClass('fas fa-eye');
+            $('.icon-clave').removeClass('fas fa-eye-slash').addClass('fas fa-eye');
         }else{
             tipo.type = "password";
-            $('.icono').removeClass('fas fa-eye').addClass('fas fa-eye-slash');
+            $('.icon-clave').removeClass('fas fa-eye').addClass('fas fa-eye-slash');
         }
     }
 

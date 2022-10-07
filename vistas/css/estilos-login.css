@@ -1,32 +1,21 @@
-#h3-login,p{
+#imagen-cafe{
+    width:30%;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.icon-clave, .icon-user{
     color:white;
 }
 
-.login-wrap {
-    width: 370px;
-    border: 1px solid #7731e7;
-    padding: 20px;
-    top: 10%;
-    left: 5%;
-    justify-content: center;
-    align-items: center;
-    background-color:rgb(0, 0, 0);
-    border-radius: 15px;
-    font-family: 'calibri';
-
-}
-
-#btn-usuario,#btn-clave{
+#h3-login,#p-login{
     color:white;
 }
 
 #usuario,#clave{
-    background-color:rgb(66, 66, 66);
     color:white;
-    border-radius: 5px;
-    padding: 4px;
-    position: absolute;
-    top:15%;
+    border-color: transparent transparent blue transparent;
 }
 
 #usuario::placeholder,#clave::placeholder {color: rgb(255, 255, 255);opacity: 0.7;}
@@ -42,23 +31,28 @@
     color:rgb(238, 238, 238);
 }
 
-#btn-enviar{
-    background-color: rgb(3, 179, 179);
-    color:black;
-    font-size: 16.5px;
-}
+.icon {
+    background-position: center;
+    background-repeat: no-repeat;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+  }
+  
+  #loginForm input{
+      display: inline-block;
+      position: relative;
+      float: none;
+      }
 
-#btn-enviar:hover{
-    background-color:rgb(218, 136, 13);
-    color:rgb(66, 66, 66);
-}
-
-#imagen-cafe{
-    width:25%;
-    justify-content: center;
-    align-items: center;
-}
-
-.btn btn-dark{
-    color:white;
-}
+  #loginForm input[type="text"] {
+      width: calc(100% - 40px);
+  }
+  #loginForm input[type="password"] {
+      width: calc(100% - 40px);
+  }
+  #loginForm input[type="submit"] {
+      width: 76px;
+      top: auto;
+      right: auto;
+  }

@@ -30,7 +30,7 @@
 					break;
 				}
 
-			}elseif($vistas=="login" || $vistas=="index"|| $vistas=="prueba"){
+			}elseif($vistas=="login" || $vistas=="index" || $vistas=="prueba" || $vistas=="rec-correo" || $vistas=="rec-preguntas"){
 				$contenido="login";
 
 			}else{
