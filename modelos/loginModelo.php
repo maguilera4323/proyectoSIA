@@ -5,6 +5,8 @@ require_once "./modelos/mainModel.php";
 class Usuario extends mainModel{
 	public $user;
 	public $password;
+	public $preg;
+	public $response;
     private $db;
 
 
@@ -12,7 +14,7 @@ class Usuario extends mainModel{
 		return $this->user;
 	}
 
-	function getPassword() {
+	function getContrasena() {
 		return $this->password;
 	}
 
@@ -20,8 +22,24 @@ class Usuario extends mainModel{
 		$this->user = $user;
 	}
 
-	function setPassword($password) {
+	function setContrasena($password) {
 		$this->password = $password;
+	}
+
+	function getPregunta() {
+		return $this->preg;
+	}
+
+	function getRespuesta() {
+		return $this->response;
+	}
+
+	function setPregunta($preg) {
+		$this->preg = $preg;
+	}
+
+	function setRespuesta($response) {
+		$this->response = $response;
 	}
 
 	//Funcion que realiza un select para encontrar un usuario con los datos ingresados
@@ -40,12 +58,27 @@ class Usuario extends mainModel{
 		return $respuesta = $db->actualizarRegistros($query);
 	}
 
+	//Función que realiza un select para obtener el parametro de intentos válidos de ingreso
+	//Aún no funciona, se sigue trabajando en ella
 	public function intentosValidos() {
 		$db = new mainModel();
 		$query = "SELECT valor FROM TBL_ms_parametros WHERE parametro = 'ADMIN_INTENTOS_INVALIDOS' LIMIT 1";
 		return $respuesta = $db->ejecutar_consulta_simple($query);
 	}
 
+	//Función que realiza un select para revisar si el usuario ingresado para recuperacion de contraseña existe en la bd
+	public function verificaUsuarioExistente($user) {
+		$db = new mainModel();
+		$query = "SELECT * FROM TBL_usuarios WHERE usuario = '".$user. "' LIMIT 1";
+		return $respuesta = $db->ejecutar_consulta_simple($query);
+	}
 
-
+	public function verificaPregunta($preg,$response,$user) {
+		$db = new mainModel();
+		$query = ("SELECT COUNT(*) as registro_encontrado FROM TBL_ms_preguntas_usuario pu 
+							inner JOIN TBL_usuarios u ON pu.id_usuario = u.id_usuario 
+							inner JOIN TBL_preguntas p ON pu.id_pregunta = p.id_pregunta
+			WHERE pu.respuesta='$response'and p.pregunta='$preg' and u.usuario='$user' limit 1");
+		return $respuesta = $db->ejecutar_consulta_simple($query);
+	}
 }

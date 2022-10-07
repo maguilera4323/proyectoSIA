@@ -5,7 +5,9 @@
 			<i class="far fa-times-circle show-nav-lateral"></i>
 			<img src="<?php echo SERVERURL; ?>vistas/assets/avatar/Avatar.png" class="img-fluid" alt="Avatar">
 			<figcaption class="roboto-medium text-center">
-				SIA <br><small class="roboto-condensed-light">cafeteria</small>
+				<?php echo $_SESSION['usuario_login']?>
+				<br><small class="roboto-condensed-light"><?php echo $_SESSION['nombre_usuario']?> </small>
+				<br><small class="roboto-condensed-light"><?php echo $_SESSION['estado']?> </small>
 			</figcaption>
 		</figure>
 		<div class="full-box nav-lateral-bar"></div>

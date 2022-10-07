@@ -1,34 +1,64 @@
-
-h3,p{
+#h3-login,p{
     color:white;
 }
 
 .login-wrap {
-    width: 500px;
+    width: 370px;
     border: 1px solid #7731e7;
-    padding: 25px;
-    position: absolute;
+    padding: 20px;
     top: 10%;
     left: 5%;
     justify-content: center;
     align-items: center;
-    background-color:rgb(41, 41, 41);
-    border-radius: 10px;
+    background-color:rgb(0, 0, 0);
+    border-radius: 15px;
     font-family: 'calibri';
+
+}
+
+#btn-usuario,#btn-clave{
+    color:white;
 }
 
 #usuario,#clave{
-    background-color:rgb(41, 41, 41);
+    background-color:rgb(66, 66, 66);
     color:white;
+    border-radius: 5px;
+    padding: 4px;
+    position: absolute;
+    top:15%;
 }
+
+#usuario::placeholder,#clave::placeholder {color: rgb(255, 255, 255);opacity: 0.7;}
 
 #opcion_rec, #opcion_reg{ 
     color:rgb(39, 243, 243);
     text-decoration: none;
+    font-size: 16px;
+    margin:0%;
 }
 
-button #btn_enviar .btn{
-    background-color: aqua;
+#opcion_rec:hover, #opcion_reg:hover{
+    color:rgb(238, 238, 238);
 }
 
-         
+#btn-enviar{
+    background-color: rgb(3, 179, 179);
+    color:black;
+    font-size: 16.5px;
+}
+
+#btn-enviar:hover{
+    background-color:rgb(218, 136, 13);
+    color:rgb(66, 66, 66);
+}
+
+#imagen-cafe{
+    width:25%;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn btn-dark{
+    color:white;
+}

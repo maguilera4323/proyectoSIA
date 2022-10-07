@@ -14,18 +14,19 @@
 
 		$vistas=$IV->obtener_vistas_controlador();
 
-		if($vistas=="login" || $vistas=="404"){
+		if($vistas=="login" || $vistas=="404" || $vistas=="olvido-contrasena" || $vistas=="rec-correo" || $vistas=="rec-preguntas"){
 			require_once "./vistas/contenidos/".$vistas."-view.php";
 
 		}else{
-			if (session_status() == PHP_SESSION_NONE) {
-				session_start();
+			session_start();
+
+			require_once './controladores/loginControlador.php';
+			$lc= new loginControlador();
+			
+			if(!isset($_SESSION['usuario_login'])){
+				echo $lc->forzarCierreSesionControlador();
+				exit;
 			}
-			$usuario_conectado=$_SESSION['usuario_login'];
-			echo $usuario_conectado;
-				if(!isset($usuario_conectado)){
-				header("Location:".SERVERURL."login/");
-	}
 	?>
 	<!-- Main container -->
 	<main class="full-box main-container">
@@ -36,7 +37,6 @@
 		<section class="full-box page-content">
 			<?php 
 				include "./vistas/inc/NavBar.php";
-
 				include  $vistas;
 			?>
 		</section>

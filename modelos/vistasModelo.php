@@ -11,8 +11,24 @@
 				}else{
 					$contenido="404";
 				}
-			}elseif($vistas=="login" || $vistas=="index"){
-				$contenido="login";
+			}elseif($vistas=="login" || $vistas=="index" || $vistas=="olvido-contrasena" || $vistas=="rec-correo" || $vistas=="rec-preguntas"){
+				switch($vistas){
+					case 'login':
+						$contenido="login";
+					break;
+					case 'index':
+						$contenido="login";
+					break;
+					case 'olvido-contrasena':
+						$contenido="olvido-contrasena";
+					break;
+					case 'rec-correo':
+						$contenido="rec-correo";
+					break;
+					case 'rec-preguntas':
+						$contenido="rec-preguntas";
+					break;
+				}
 			}else{
 				$contenido="404";
 			}

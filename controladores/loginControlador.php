@@ -1,10 +1,6 @@
 <?php
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
-}
 
 require_once './modelos/loginModelo.php';
-require_once './controladores/loginControlador.php';
 require_once "./controladores/VistasControlador.php";
 require_once "./modelos/mainModel.php";
 
@@ -30,6 +26,8 @@ class loginControlador extends mainModel{
 					case 'Activo':
 						session_start();
 						$_SESSION['usuario_login']=$array['usuario'];
+						$_SESSION['nombre_usuario']=($array['nombre']);
+						$_SESSION['estado']=$array['estado'];
 						return header("Location:".SERVERURL."home/");
 					break;
 					case 'Inactivo':
@@ -60,4 +58,69 @@ class loginControlador extends mainModel{
             }  
 		} 
 
-	} 
+
+		public function verificaUsuarioExistente($datos){
+			$usuario=mainModel::limpiar_cadena($datos['usuario']);
+			$metodo_rec=mainModel::limpiar_cadena($datos['metodo_recuperacion']);
+			$array=array();
+
+			$verificarUsuario = new Usuario(); //se crea una instancia en el archivo modelo de Login
+			$respuesta = $verificarUsuario->verificaUsuarioExistente($usuario);
+			foreach ($respuesta as $fila) { //se recorre el arreglo recibido
+				//datos guardados para ser usados posteriormenete en el sistema
+				$array['usuario'] = $fila['usuario'];
+			}
+
+			if (isset($array['usuario'])>0 && $metodo_rec=='Por medio de email'){
+				session_start();
+				$_SESSION['usuario_rec']=$array['usuario'];
+				echo $_SESSION['usuario_rec'];
+				return header("Location:".SERVERURL."rec-correo/");
+				die();
+			}elseif (isset($array['usuario'])>0 && $metodo_rec=='Por preguntas de seguridad'){
+				session_start();
+				$_SESSION['usuario_rec']=$array['usuario'];
+				return header("Location:".SERVERURL."rec-preguntas/");
+				die();
+			}else{
+				$_SESSION['fallo_login'] = 'Datos incorrectos';//Creamos una nueva variable de sesion
+				return header("Location:".SERVERURL."olvido-contrasena/");
+				die();
+			}
+		
+		}
+
+
+		public function verificaPregunta($datos){
+			$pregunta=mainModel::limpiar_cadena($datos['pregunta']);
+			$respuesta=mainModel::limpiar_cadena($datos['respuesta']);
+			$usuario=$_SESSION['usuario_rec'];
+			$array=array();
+
+			$verificarRespuesta = new Usuario(); //se crea una instancia en el archivo modelo de Login
+			$respuesta = $verificarRespuesta->verificaPregunta($pregunta,$respuesta,$usuario);
+			foreach ($respuesta as $fila) { //se recorre el arreglo recibido
+				//datos guardados para ser usados posteriormenete en el sistema
+				$array['registro_encontrado']=$fila['registro_encontrado'];
+			}
+
+			if ($array['registro_encontrado']>0){
+				echo 'Si funciona';
+		
+			}else{
+				echo 'Houston, tenemos un problema';
+			} 
+		
+		}
+
+
+		public function forzarCierreSesionControlador(){
+			session_unset();
+			session_destroy();
+			if(headers_sent()){
+				return "<script> window.location.href='".SERVERURL."login/'; </script>";
+			}else{
+				return header("Location:".SERVERURL."login/");
+			}
+		}
+} 
