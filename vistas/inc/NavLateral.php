@@ -101,6 +101,10 @@
 				<li>
 					<a href="<?php echo SERVERURL; ?>company/"><i class="fas fa-store-alt fa-fw"></i> &nbsp; Facturacion</a>
 				</li>
+
+				<li>
+					<a href="<?php echo SERVERURL; ?>bitacora/"><i class="fas fa-store-alt fa-fw"></i> &nbsp; Bitacora</a>
+				</li>
 			</ul>
 		</nav>
 	</div>
