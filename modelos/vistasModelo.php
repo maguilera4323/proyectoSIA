@@ -4,14 +4,14 @@
 
 		/*--------- Modelo obtener vistas ---------*/
 		protected static function obtener_vistas_modelo($vistas){
-			$listaBlanca=["proveedor-list","proveedor-new","proveedor-search","client-update","company","home","item-list","item-new","item-search","item-update","reservation-list","reservation-new","reservation-pending","reservation-search","reservation-update","user-list","reservation-reservation","user-new","user-search","user-update","salir"];
+			$listaBlanca=["prueba","proveedor-list","proveedor-new","proveedor-search","client-update","company","home","item-list","item-new","item-search","item-update","reservation-list","reservation-new","reservation-pending","reservation-search","reservation-update","user-list","reservation-reservation","user-new","user-search","user-update","salir"];
 			if(in_array($vistas, $listaBlanca)){
 				if(is_file("./vistas/contenidos/".$vistas."-view.php")){
 					$contenido="./vistas/contenidos/".$vistas."-view.php";
 				}else{
 					$contenido="404";
 				}
-			}elseif($vistas=="login" || $vistas=="index"){
+			}elseif($vistas=="login" || $vistas=="index"|| $vistas=="prueba"){
 				$contenido="login";
 			}else{
 				$contenido="404";
