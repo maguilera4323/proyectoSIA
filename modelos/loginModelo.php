@@ -73,12 +73,24 @@ class Usuario extends mainModel{
 		return $respuesta = $db->ejecutar_consulta_simple($query);
 	}
 
-	public function verificaPregunta($preg,$response,$user) {
+	public function verificaPreguntaSeguridad($preg,$response,$user) {
 		$db = new mainModel();
 		$query = ("SELECT COUNT(*) as registro_encontrado FROM TBL_ms_preguntas_usuario pu 
 							inner JOIN TBL_usuarios u ON pu.id_usuario = u.id_usuario 
 							inner JOIN TBL_preguntas p ON pu.id_pregunta = p.id_pregunta
 			WHERE pu.respuesta='$response'and p.pregunta='$preg' and u.usuario='$user' limit 1");
 		return $respuesta = $db->ejecutar_consulta_simple($query);
+	}
+
+	public function verificarContrasenaActual($user,$password) {
+		$db = new mainModel();
+		$query = "SELECT * FROM TBL_usuarios WHERE usuario = '".$user. "' AND contrasena = '".$password . "' LIMIT 1";
+		return $respuesta = $db->ejecutar_consulta_simple($query);
+	}
+
+	public function cambioContrasena($user,$password) {
+		$db = new mainModel();
+		$query = "UPDATE TBL_usuarios set contrasena='$password' where usuario='$user'";
+		return $respuesta = $db->actualizarRegistros($query);
 	}
 }

@@ -14,49 +14,27 @@
     }
 	?>
 
-<section class="ftco-section">
-		<div class="container">
-			<div class="row justify-content-center">
-            <form action="" method="POST" id="formlg">
-				<div class="col-md-6 text-center mb-5">
-				</div>
-			</div>
-		<form action="" method="POST" id="formlg">
-			<div class="row justify-content-center">
-				<div class="col-md-6 col-lg-4">
-					<div class="login-wrap py-5">
-		      	<div class="img d-flex align-items-center justify-content-center" style="background-image: url(images/CityCoffe.jpeg);"></div>
-		      	<center><img src="<?php echo SERVERURL; ?>images/CityCoffe.jpeg" id="imagen-cafe" alt="logo-empresa"></center>
-				<h3 class="text-center mb-0" id="h3-login">Opciones de recuperación de contraseña</h3>
-		      	<p class="text-center">Ingrese su usuario y seleccione un método de recuperación</p>
-				  <?php
+<div class="login-container">
+		<div class="login-content">
+		<center><img src="<?php echo SERVERURL; ?>images/CityCoffe.jpeg" id="imagen-cafe" alt="logo-empresa"></center>
+		<h4 class="text-center mb-0" id="h3-login">Recuperación de Contraseña</h4>
+		<p class="text-center" id="p-login">Ingrese su usuario y seleccione un método de recuperación</p>
+		<?php
 				  if(isset($_SESSION['fallo_login'])){
-					/* echo $_SESSION['fallo_login']; */
 					switch($_SESSION['fallo_login']){
-						case 'Datos incorrectos':
+						case 'Usuario incorrecto':
 							echo '<div div class="alert alert-danger" role="alert">El usuario ingresado no existe en el sistema</div>';
 						break;
 					 	}
 				 	}
-			 		?>
-				<br>
-				<form action="#" class="login-form">
+			 	?>
+			<form action="" method="POST" autocomplete="off" id="loginForm">
 				<div class="form-group">
-		      			<div class="icon d-flex align-items-center justify-content-center"></span></div>
-		      			<input type="text" class="form-control" name="usuario" id="usuario" style="text-transform: uppercase" placeholder="Usuario" 
-						required pattern="[A-Za-zñÑ!#$%&/=?¡*.-_@\~^]+" title="Ingrese solo letras y números sin espacios" />
-		      		</div>
-					  <br>
-	            <div class="form-group">
-	            	<button type="submit" id="btn-enviar" class="btn form-control btn-primary rounded submit px-3"
-					data-bs-toggle="modal" name="acceder" value="Por preguntas de seguridad" data-bs-target="#exampleModal">Por Preguntas de Seguridad</button>
-	            </div>
-				<div class="form-group">
-	            	<button type="submit" id="btn-enviar" class="btn form-control btn-primary rounded submit px-3"
-					data-bs-toggle="modal" name="acceder" value="Por medio de email" data-bs-target="#exampleModal">Por Correo Electrónico</button>
-	            </div>
+					<i class="fas fa-user icon-user"></i>
+					<input type="text" class="form-control" id="usuario" name="usuario" placeholder="Usuario" pattern="[a-zA-Z0-9]{5,35}" maxlength="35" required="" >
 				</div>
-			</div>
-		 </form>
+				<button type="submit" id="btn-enviar" value="Por preguntas de seguridad" name="acceder" class="btn-login text-center">Por Preguntas de Seguridad</button>
+				<button type="submit" name="acceder" value="Por medio de email" class="btn-login text-center">Por Correo Electrónico</button>
+			</form>
 		</div>
-	</section> -->
+	</div>

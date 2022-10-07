@@ -5,7 +5,7 @@
 }
 
 
-.icon-clave, .icon-user{
+.icon-clave, .icon-user, .icono_nuevoconf, .icono_nuevo{
     color:white;
 }
 
@@ -13,17 +13,28 @@
     color:white;
 }
 
-#usuario,#clave{
+#usuario,#clave,#clave_new,#conf_clave_new{
+    background-color:rgb(0, 0, 0);
     color:white;
-    border-color: transparent transparent blue transparent;
+    border-radius: 2px;
+    padding: 4px;
+    position: absolute;
+    top:15%;
+    border: 1px solid;
+    border-color: transparent transparent rgb(0, 132, 255) transparent;
 }
+
+#usuario:focus{
+    border-color: transparent;
+}
+
 
 #usuario::placeholder,#clave::placeholder {color: rgb(255, 255, 255);opacity: 0.7;}
 
 #opcion_rec, #opcion_reg{ 
     color:rgb(39, 243, 243);
     text-decoration: none;
-    font-size: 16px;
+    font-size: 15px;
     margin:0%;
 }
 

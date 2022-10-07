@@ -43,7 +43,7 @@ class loginControlador extends mainModel{
             }else{
 				//validacion cuando usuario o contraseña son incorrectos
 				$ingresos_erroneos=mainModel::limpiar_cadena($datos['contador']);
-				/* $parametroIntentosValidos=new Usuario();
+ 				/* $parametroIntentosValidos=new Usuario();
 				$valorParametro=$verificarDatos->intentosValidos(); */
 	
 				if($ingresos_erroneos>=3){
@@ -56,7 +56,7 @@ class loginControlador extends mainModel{
 				return header("Location:".SERVERURL."login/");
 				die();
             }  
-		} 
+		}
 
 
 		public function verificaUsuarioExistente($datos){
@@ -74,16 +74,18 @@ class loginControlador extends mainModel{
 			if (isset($array['usuario'])>0 && $metodo_rec=='Por medio de email'){
 				session_start();
 				$_SESSION['usuario_rec']=$array['usuario'];
+				$_SESSION['fallo_login'] = '';
 				echo $_SESSION['usuario_rec'];
 				return header("Location:".SERVERURL."rec-correo/");
 				die();
 			}elseif (isset($array['usuario'])>0 && $metodo_rec=='Por preguntas de seguridad'){
 				session_start();
 				$_SESSION['usuario_rec']=$array['usuario'];
+				$_SESSION['fallo_login'] = '';
 				return header("Location:".SERVERURL."rec-preguntas/");
 				die();
 			}else{
-				$_SESSION['fallo_login'] = 'Datos incorrectos';//Creamos una nueva variable de sesion
+				$_SESSION['fallo_login'] = 'Usuario incorrecto';//Creamos una nueva variable de sesion
 				return header("Location:".SERVERURL."olvido-contrasena/");
 				die();
 			}
@@ -91,36 +93,85 @@ class loginControlador extends mainModel{
 		}
 
 
-		public function verificaPregunta($datos){
+		public function verificaPreguntaSeguridad($datos){
 			$pregunta=mainModel::limpiar_cadena($datos['pregunta']);
 			$respuesta=mainModel::limpiar_cadena($datos['respuesta']);
 			$usuario=$_SESSION['usuario_rec'];
 			$array=array();
 
 			$verificarRespuesta = new Usuario(); //se crea una instancia en el archivo modelo de Login
-			$respuesta = $verificarRespuesta->verificaPregunta($pregunta,$respuesta,$usuario);
+			$respuesta = $verificarRespuesta->verificaPreguntaSeguridad($pregunta,$respuesta,$usuario);
 			foreach ($respuesta as $fila) { //se recorre el arreglo recibido
 				//datos guardados para ser usados posteriormenete en el sistema
 				$array['registro_encontrado']=$fila['registro_encontrado'];
 			}
 
 			if ($array['registro_encontrado']>0){
-				echo 'Si funciona';
-		
+				$_SESSION['fallo_login'] = '';
+				return header("Location:".SERVERURL."cambiocontrasena/");
+				die();
 			}else{
-				echo 'Houston, tenemos un problema';
+				$respuesta = $verificarRespuesta->bloquearUsuario($usuario);
+				$_SESSION['fallo_login'] = 'Respuesta incorrecta';
+				return header("Location:".SERVERURL."rec-preguntas/");
+				die();
 			} 
-		
 		}
 
 
-		public function forzarCierreSesionControlador(){
-			session_unset();
-			session_destroy();
-			if(headers_sent()){
-				return "<script> window.location.href='".SERVERURL."login/'; </script>";
-			}else{
-				return header("Location:".SERVERURL."login/");
+		public function modificarContrasena($datos){
+			$contrasena_actual=mainModel::limpiar_cadena($datos['contrasena_actual']);
+			$contrasena_nueva=mainModel::limpiar_cadena($datos['contrasena_nueva']);
+			$conf_contrasena_nueva=mainModel::limpiar_cadena($datos['conf_contrasena_nueva']);
+			$usuario=$_SESSION['usuario_rec'];
+			$array=array();
+
+			echo $usuario;
+			echo $contrasena_actual;
+
+			$cambioContrasena = new Usuario(); //se crea una instancia en el archivo modelo de Login
+			$respuesta = $cambioContrasena->verificarContrasenaActual($usuario,$contrasena_actual);
+			foreach($respuesta as $fila){
+				$array['contrasena']=$fila['contrasena'];
 			}
-		}
-} 
+
+			if (($array['contrasena'])==''){
+				$_SESSION['fallo_login'] = 'Contraseña actual no existe';
+				return header("Location:".SERVERURL."cambiocontrasena/");
+				die();
+			}
+			
+			if(($contrasena_nueva==$contrasena_actual)){
+				$_SESSION['fallo_login'] = 'Contraseña nueva igual a la actual';
+				return header("Location:".SERVERURL."cambiocontrasena/");
+				die();
+			}
+			
+			if($contrasena_nueva!=$conf_contrasena_nueva){
+					$_SESSION['fallo_login'] = 'Contraseñas no coinciden';
+					return header("Location:".SERVERURL."cambiocontrasena/");
+					die();
+			}else{
+				$_SESSION['fallo_login'] = 'Cambio de contraseña exitoso';
+				$respuesta = $cambioContrasena->cambioContrasena($usuario,$contrasena_nueva);
+				return header("Location:".SERVERURL."cambiocontrasena/");
+				die();
+			}
+					 
+				}
+
+
+				public function forzarCierreSesionControlador(){
+					session_unset();
+					session_destroy();
+					if(headers_sent()){
+						return "<script> window.location.href='".SERVERURL."login/'; </script>";
+					}else{
+						return header("Location:".SERVERURL."login/");
+					}
+				}
+			
+}
+
+
+		

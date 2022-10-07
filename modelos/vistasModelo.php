@@ -11,7 +11,7 @@
 				}else{
 					$contenido="404";
 				}
-			}elseif($vistas=="login" || $vistas=="index" || $vistas=="olvido-contrasena" || $vistas=="rec-correo" || $vistas=="rec-preguntas"){
+			}elseif($vistas=="login" || $vistas=="index" || $vistas=="olvido-contrasena" || $vistas=="rec-correo" || $vistas=="rec-preguntas" || $vistas=="cambiocontrasena"){
 				switch($vistas){
 					case 'login':
 						$contenido="login";
@@ -28,9 +28,12 @@
 					case 'rec-preguntas':
 						$contenido="rec-preguntas";
 					break;
+					case 'cambiocontrasena':
+						$contenido="cambiocontrasena";
+					break;
 				}
 
-			}elseif($vistas=="login" || $vistas=="index" || $vistas=="prueba" || $vistas=="rec-correo" || $vistas=="rec-preguntas"){
+			}elseif($vistas=="login" || $vistas=="index" || $vistas=="prueba" || $vistas=="rec-correo" || $vistas=="rec-preguntas" || $vistas=="cambiocontrasena"){
 				$contenido="login";
 
 			}else{

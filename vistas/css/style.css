@@ -193,14 +193,17 @@ table form{
 	background: #0575E6;
 	background: -webkit-linear-gradient(to right, #021B79, #0575E6);
 	background: linear-gradient(to right, #021B79, #0575E6);
+	background-image: url('../assets/img/bg.jpg');
+	background-position: center center;
+	background-size: cover;
 
 }
 .login-content{
 	width: 95%;
-	max-width: 400px;
+	max-width: 350px;
 	height: auto;
 	border: 2px solid var(--border-color);
-	background-color: rgb(77, 77, 77);
+	background-color: rgb(0, 0, 0);
 	border-radius: 6px;
 	padding: 15px;
 	color: var(--accent-color);
@@ -213,9 +216,10 @@ table form{
 	border-radius: 3px;
 	margin-top: 30px;
 	background-color: rgb(1, 173, 173);
-	color: var(--accent-color);
+	color: black;
 	border: 1px solid var(--accent-color);
 	transition: all .2s ease-out;
+	font-size:17px;
 }
 .btn-login:hover{
 	background-color: var(--color-three);
