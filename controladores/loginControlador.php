@@ -136,6 +136,7 @@ class loginControlador extends mainModel{
 			}
 
 			if (isset($array['registro_encontrado'])>0){
+				$_SESSION['respuesta'] = '';
 				return header("Location:".SERVERURL."cambiocontrasena/");
 				die();
 			}else{
@@ -148,45 +149,35 @@ class loginControlador extends mainModel{
 
 
 		public function modificarContrasena($datos){
-			$contrasena_actual=mainModel::limpiar_cadena($datos['contrasena_actual']);
 			$contrasena_nueva=mainModel::limpiar_cadena($datos['contrasena_nueva']);
 			$conf_contrasena_nueva=mainModel::limpiar_cadena($datos['conf_contrasena_nueva']);
 			$usuario=$_SESSION['usuario_rec'];
 			$array=array();
 
-			echo $usuario;
-			echo $contrasena_actual;
-
 			$cambioContrasena = new Usuario(); //se crea una instancia en el archivo modelo de Login
-			$respuesta = $cambioContrasena->verificarContrasenaActual($usuario,$contrasena_actual);
+			$respuesta = $cambioContrasena->verificarContrasenaActual($usuario);
 			foreach($respuesta as $fila){
 				$array['contrasena']=$fila['contrasena'];
 			}
-
-			if (($array['contrasena'])==''){
-				$_SESSION['respuesta'] = 'Contraseña actual no existe';
-				return header("Location:".SERVERURL."cambiocontrasena/");
-				die();
-			}
 			
-			if(($contrasena_nueva==$contrasena_actual)){
+			if(($contrasena_nueva==$array['contrasena'])){
 				$_SESSION['respuesta'] = 'Contraseña nueva igual a la actual';
-				return header("Location:".SERVERURL."cambiocontrasena/");
+					return header("Location:".SERVERURL."cambiocontrasena/");
 				die();
 			}
 			
 			if($contrasena_nueva!=$conf_contrasena_nueva){
-					$_SESSION['respuesta'] = 'Contraseñas no coinciden';
+				$_SESSION['respuesta'] = 'Contraseñas no coinciden';
 					return header("Location:".SERVERURL."cambiocontrasena/");
-					die();
+				die();
 			}else{
 				$_SESSION['respuesta'] = 'Cambio de contraseña exitoso';
-				$respuesta = $cambioContrasena->cambioContrasena($usuario,$contrasena_nueva);
-				return header("Location:".SERVERURL."cambiocontrasena/");
+					$respuesta = $cambioContrasena->cambioContrasena($usuario,$contrasena_nueva);
+					return header("Location:".SERVERURL."cambiocontrasena/");
 				die();
 			}
 					 
-				}
+		}
 
 
 				public function forzarCierreSesionControlador(){

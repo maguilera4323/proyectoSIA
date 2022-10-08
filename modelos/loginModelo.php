@@ -90,9 +90,9 @@ class Usuario extends mainModel{
 		return $respuesta = $db->ejecutar_consulta_simple($query);
 	}
 
-	public function verificarContrasenaActual($user,$password) {
+	public function verificarContrasenaActual($user) {
 		$db = new mainModel();
-		$query = "SELECT * FROM TBL_usuarios WHERE usuario = '".$user. "' AND BINARY contrasena = '".$password . "' LIMIT 1";
+		$query = "SELECT * FROM TBL_usuarios WHERE usuario = '".$user. "' LIMIT 1";
 		return $respuesta = $db->ejecutar_consulta_simple($query);
 	}
 

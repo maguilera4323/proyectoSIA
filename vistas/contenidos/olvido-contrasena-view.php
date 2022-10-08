@@ -33,7 +33,10 @@
 			<form action="" method="POST" autocomplete="off" id="loginForm">
 				<div class="form-group">
 					<i class="fas fa-user icon-user"></i>
-					<input type="text" class="form-control" id="usuario" name="usuario" placeholder="Usuario" pattern="[a-zA-Z0-9]{5,35}" maxlength="35" required="" >
+					<input type="text" class="form-control" id="usuario" name="usuario" placeholder="Usuario" onkeyup="validarUsuario()" required />
+					<div id="message_usuario" style="position: absolute; left: 20px; top: 60px; background-color: #EFEFEF; 
+					color:black; font-weight: 500; z-index:5; padding:8px;  border: 2px solid #FF4C12;" hidden>
+      				Introduzca solo letras mayúsculas(A-Z).</div>
 				</div>
 				<button type="submit" id="btn-enviar" value="Por preguntas de seguridad" name="acceder" class="btn-login text-center">Por Preguntas de Seguridad</button>
 				<button type="submit" name="acceder" value="Por medio de email" class="btn-login text-center">Por Correo Electrónico</button>

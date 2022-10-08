@@ -55,12 +55,18 @@
 				<div class="form-group">
 					<i class="fas fa-user icon-user"></i>
 					<input type="text" class="form-control" id="usuario" name="usuario" placeholder="Usuario" 
-					onkeypress="return validarInputUsuario(event)" maxlength="35" required />
+					onkeyup="validarUsuario()" required />
+					<div id="message_usuario" style="position: absolute; left: 20px; top: 60px; background-color: #EFEFEF; 
+					color:black; font-weight: 500; z-index:5; padding:8px;  border: 2px solid #FF4C12;" hidden>
+      				Introduzca solo letras mayúsculas(A-Z).</div>
 					<br>
 					<br>
 					<i class="fas fa-eye-slash icon-clave" onclick="mostrarContrasena()"></i>
 					<input type="password" class="form-control" id="clave" name="clave" placeholder="Contraseña" 
-					onkeypress="return validarInputContrasena(event)" minlength="5" maxlength="100" required="" />
+					onkeyup="validarContrasena()" required />
+					<div id="message_contrasena" style="position: absolute; left: 20px; top: 120px; background-color: #EFEFEF; 
+					color:black; font-weight: 500; z-index:5; padding:8px; border: 2px solid #FF4C12;" hidden>
+      				Introduzca solo letras, números y caracteres especiales(!#$%&/()=?¡*+-_.@).</div>
 					<input type="hidden" class="form-control" name="contador" id="contador" value=<?php echo ($_SESSION["contador_intentos"]) ?> >
 				
 				</div>
@@ -76,7 +82,7 @@
 							<a href="nuevo_usuario.php" id=opcion_reg>Registrese</a>
 						</div>
 	            </div>
-				<button type="submit" name="acceder" class="btn-login text-center">Iniciar Sesión</button>
+				<button type="submit" name="acceder" onclick="verificar()" class="btn-login text-center">Iniciar Sesión</button>
 			</form>
 		</div>
 	</div>
