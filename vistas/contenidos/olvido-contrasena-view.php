@@ -23,7 +23,7 @@
 				  if(isset($_SESSION['fallo_login'])){
 					switch($_SESSION['fallo_login']){
 						case 'Usuario incorrecto':
-							echo '<div div class="alert alert-danger" role="alert">El usuario ingresado no existe en el sistema</div>';
+							echo '<div div class="alert alert-danger tex-center justify-content-center" role="alert">El usuario ingresado no existe en el sistema</div>';
 						break;
 					 	}
 				 	}
