@@ -21,42 +21,71 @@ class loginControlador extends mainModel{
 			}
 
 			//validacion en caso de que el estado del usuario sea Activo
+			//y que tanto usuario como contraseña son correctos
 			if (isset($array['nombre'])>0){
 				switch ($array['estado']){
-					case 'Activo':
-						session_start();
-						$_SESSION['usuario_login']=$array['usuario'];
-						$_SESSION['nombre_usuario']=($array['nombre']);
-						$_SESSION['estado']=$array['estado'];
-						return header("Location:".SERVERURL."home/");
-					break;
-					case 'Inactivo':
-						$_SESSION['fallo_login'] = 'Usuario inactivo';//Creamos una nueva variable de sesion
-    					return header("Location:".SERVERURL."login/");
-					break;
-					case 'Bloqueado':
-						$_SESSION['fallo_login'] = 'Usuario bloqueado';//Creamos una nueva variable de sesion
-    					return header("Location:".SERVERURL."login/");
-					break;
-				}
-				die();
+						case 'Activo':
+							session_start();
+							$_SESSION['usuario_login']=$array['usuario'];
+							$_SESSION['nombre_usuario']=($array['nombre']);
+							$_SESSION['estado']=$array['estado'];
+							return header("Location:".SERVERURL."home/");
+						break;
+						case 'Inactivo':
+							$_SESSION['respuesta'] = 'Usuario inactivo';//Creamos una nueva variable de sesion
+							return header("Location:".SERVERURL."login/");
+						break;
+						case 'Bloqueado':
+							$_SESSION['respuesta'] = 'Usuario bloqueado';//Creamos una nueva variable de sesion
+							return header("Location:".SERVERURL."login/");
+						break;
+					}
+					die();
             }else{
 				//validacion cuando usuario o contraseña son incorrectos
 				$ingresos_erroneos=mainModel::limpiar_cadena($datos['contador']);
  				/* $parametroIntentosValidos=new Usuario();
 				$valorParametro=$verificarDatos->intentosValidos(); */
-	
-				if($ingresos_erroneos>=3){
-					$respuesta = $verificarDatos->bloquearUsuario($usuario);
-					$_SESSION['fallo_login'] = 'Usuario bloqueado';//Creamos una nueva variable de sesion
-    				return header("Location:".SERVERURL."login/");
-				die();
-				} 
-				$_SESSION['fallo_login'] = 'Datos incorrectos';//Creamos una nueva variable de sesion
-				return header("Location:".SERVERURL."login/");
-				die();
-            }  
+
+				//validacion para revisar si el usuario ingresado existe en el sistema y ver si está activo
+				$query=$verificarDatos->verificarEstado($usuario);
+					foreach ($query as $fila) { //se recorre el arreglo recibido
+						//datos guardados para ser usados posteriormenete en el sistema
+						$array['usuario'] = $fila['usuario'];
+						$array['estado'] = $fila['estado_usuario'];
+					}
+					
+					//Switch que valida si el usuario encontrado está activo
+					//si no está activo o está bloqueado no se sigue la verificación para bloquearlo
+					if (isset($array['usuario'])>0){
+							switch ($array['estado']){
+								case 'Bloqueado':
+									$_SESSION['respuesta'] = 'Usuario bloqueado';
+									return header("Location:".SERVERURL."login/");
+								break;
+								case 'Inactivo':
+									$_SESSION['respuesta'] = 'Usuario inactivo';
+									return header("Location:".SERVERURL."login/");
+								break;
+								case 'Activo':
+									if(($ingresos_erroneos>=2)){
+										$respuesta = $verificarDatos->bloquearUsuario($usuario);
+										$_SESSION['respuesta'] = 'Usuario bloqueado';
+										return header("Location:".SERVERURL."login/");
+									}else{
+										$_SESSION['respuesta'] = 'Contraseña incorrecta';
+										return header("Location:".SERVERURL."login/");
+									break;
+									}
+								}  
+						}else{
+							$_SESSION['respuesta'] = 'Datos incorrectos';
+							return header("Location:".SERVERURL."login/");
+							die();
+						}
+					}
 		}
+				
 
 
 		public function verificaUsuarioExistente($datos){
@@ -73,19 +102,19 @@ class loginControlador extends mainModel{
 
 			if (isset($array['usuario'])>0 && $metodo_rec=='Por medio de email'){
 				session_start();
-				$_SESSION['usuario_rec']=$array['usuario'];
-				$_SESSION['fallo_login'] = '';
-				echo $_SESSION['usuario_rec'];
-				return header("Location:".SERVERURL."rec-correo/");
+					$_SESSION['usuario_rec']=$array['usuario'];
+					$_SESSION['fallo'] = '';
+					echo $_SESSION['usuario_rec'];
+					return header("Location:".SERVERURL."rec-correo/");
 				die();
 			}elseif (isset($array['usuario'])>0 && $metodo_rec=='Por preguntas de seguridad'){
 				session_start();
-				$_SESSION['usuario_rec']=$array['usuario'];
-				$_SESSION['fallo_login'] = '';
-				return header("Location:".SERVERURL."rec-preguntas/");
+					$_SESSION['usuario_rec']=$array['usuario'];
+					$_SESSION['fallo'] = '';
+					return header("Location:".SERVERURL."rec-preguntas/");
 				die();
 			}else{
-				$_SESSION['fallo_login'] = 'Usuario incorrecto';//Creamos una nueva variable de sesion
+				$_SESSION['respuesta'] = 'Usuario incorrecto';//Creamos una nueva variable de sesion
 				return header("Location:".SERVERURL."olvido-contrasena/");
 				die();
 			}
@@ -100,22 +129,21 @@ class loginControlador extends mainModel{
 			$array=array();
 
 			$verificarRespuesta = new Usuario(); //se crea una instancia en el archivo modelo de Login
-			$respuesta = $verificarRespuesta->verificaPreguntaSeguridad($pregunta,$respuesta,$usuario);
+			$respuesta = $verificarRespuesta->verificarPreguntaSeguridad($pregunta,$respuesta,$usuario);
 			foreach ($respuesta as $fila) { //se recorre el arreglo recibido
 				//datos guardados para ser usados posteriormenete en el sistema
-				$array['registro_encontrado']=$fila['registro_encontrado'];
+				$array['registro_encontrado']=$fila['respuesta'];
 			}
 
-			if ($array['registro_encontrado']>0){
-				$_SESSION['fallo_login'] = '';
+			if (isset($array['registro_encontrado'])>0){
 				return header("Location:".SERVERURL."cambiocontrasena/");
 				die();
 			}else{
 				$respuesta = $verificarRespuesta->bloquearUsuario($usuario);
-				$_SESSION['fallo_login'] = 'Respuesta incorrecta';
+				$_SESSION['fallo'] = 'Respuesta incorrecta';
 				return header("Location:".SERVERURL."rec-preguntas/");
 				die();
-			} 
+			}
 		}
 
 
@@ -136,23 +164,23 @@ class loginControlador extends mainModel{
 			}
 
 			if (($array['contrasena'])==''){
-				$_SESSION['fallo_login'] = 'Contraseña actual no existe';
+				$_SESSION['respuesta'] = 'Contraseña actual no existe';
 				return header("Location:".SERVERURL."cambiocontrasena/");
 				die();
 			}
 			
 			if(($contrasena_nueva==$contrasena_actual)){
-				$_SESSION['fallo_login'] = 'Contraseña nueva igual a la actual';
+				$_SESSION['respuesta'] = 'Contraseña nueva igual a la actual';
 				return header("Location:".SERVERURL."cambiocontrasena/");
 				die();
 			}
 			
 			if($contrasena_nueva!=$conf_contrasena_nueva){
-					$_SESSION['fallo_login'] = 'Contraseñas no coinciden';
+					$_SESSION['respuesta'] = 'Contraseñas no coinciden';
 					return header("Location:".SERVERURL."cambiocontrasena/");
 					die();
 			}else{
-				$_SESSION['fallo_login'] = 'Cambio de contraseña exitoso';
+				$_SESSION['respuesta'] = 'Cambio de contraseña exitoso';
 				$respuesta = $cambioContrasena->cambioContrasena($usuario,$contrasena_nueva);
 				return header("Location:".SERVERURL."cambiocontrasena/");
 				die();

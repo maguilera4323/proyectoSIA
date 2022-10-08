@@ -5,8 +5,8 @@
 	}
 
 	//verifica si la variable del contador está creada
-	if (!isset($_SESSION['count'])){
-		$_SESSION['count'] = 0;
+	if (!isset($_SESSION['contador_intentos'])){
+		$_SESSION['contador_intentos'] = 1;
    }
 	//llamado al controlador de login
     require_once 'controladores/loginControlador.php';
@@ -29,18 +29,24 @@
 		<h4 class="text-center mb-0" id="h3-login">Bienvenido</h4>
 		<p class="text-center" id="p-login">Ingrese sus datos de acceso</p>
 			<?php
-				 if(isset($_SESSION['fallo_login'])){
-					switch($_SESSION['fallo_login']){
-						case 'Datos incorrectos':
-							echo '<div div class="alert alert-danger text-center" role="alert">Los datos introducidos son incorrectos</div>';
-							$_SESSION['count']+=0.5;
+				 if(isset($_SESSION['respuesta'])){
+					switch($_SESSION['respuesta']){
+						case 'Contraseña incorrecta':
+							echo '<div div class="alert alert-danger text-center" role="alert">Usuario y/o contraseña inválidos</div>';
+							$_SESSION['contador_intentos']+=0.5;
 						break;
 						case 'Usuario inactivo':
-							echo '<div class="alert alert-warning text-center">El usuario está inactivo</div>';
+							echo '<div class="alert alert-warning text-center">El usuario está inactivo. Comuniquese con el 
+							administrador del sistema</div>';
 						break;
 						case 'Usuario bloqueado':
-							echo '<div class="alert alert-dark text-center">El usuario está bloqueado</div>';
-							$_SESSION['count']=0;
+							echo '<div class="alert alert-dark text-center">El usuario está bloqueado. Comuniquese con el 
+							administrador del sistema</div>';
+							$_SESSION['contador_intentos']=0;
+						break;
+						case 'Datos incorrectos':
+							echo '<div class="alert alert-danger text-center">Usuario y/o contraseña inválidos</div>';
+							$_SESSION['contador_intentos']=0;
 						break;
 					 }
 				 }
@@ -48,12 +54,14 @@
 			<form action="" method="POST" autocomplete="off" id="loginForm">
 				<div class="form-group">
 					<i class="fas fa-user icon-user"></i>
-					<input type="text" class="form-control" id="usuario" name="usuario" placeholder="Usuario" pattern="[a-zA-Z0-9]{1,35}" maxlength="35" required="" >
+					<input type="text" class="form-control" id="usuario" name="usuario" placeholder="Usuario" 
+					onkeypress="return validarInputUsuario(event)" maxlength="35" required />
 					<br>
 					<br>
 					<i class="fas fa-eye-slash icon-clave" onclick="mostrarContrasena()"></i>
-					<input type="password" class="form-control" id="clave" name="clave" placeholder="Contraseña" pattern="[a-zA-Z0-9!#$%&/@*^_-.]{5,100}" maxlength="100" required="" >
-					<input type="hidden" class="form-control" name="contador" id="contador" value=<?php echo ($_SESSION["count"]) ?> >
+					<input type="password" class="form-control" id="clave" name="clave" placeholder="Contraseña" 
+					onkeypress="return validarInputContrasena(event)" minlength="5" maxlength="100" required="" />
+					<input type="hidden" class="form-control" name="contador" id="contador" value=<?php echo ($_SESSION["contador_intentos"]) ?> >
 				
 				</div>
 				<div class="form-group">

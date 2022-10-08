@@ -1,5 +1,7 @@
 <?php
-	session_start();
+	if (session_status() == PHP_SESSION_NONE) {
+		session_start();
+	}
 	//llamado al controlador de login
     require_once 'controladores/loginControlador.php';
     $usuario = new loginControlador(); //se crea nueva instancia de usuario
@@ -7,7 +9,7 @@
 	//valdacion para ver si se recibieron datos de ingreso
     if (isset($_POST['acceder'])) {
 		$datos = array(
-            'usuario'=> $_POST['usuario'],
+            'usuario'=>$_POST['usuario'],
             'metodo_recuperacion'=> $_POST['acceder'],
         );
         $respuesta = $usuario->verificaUsuarioExistente($datos); //se envian los datos a la funcion accesoUsuario de modelo Login
@@ -20,8 +22,8 @@
 		<h4 class="text-center mb-0" id="h3-login">Recuperación de Contraseña</h4>
 		<p class="text-center" id="p-login">Ingrese su usuario y seleccione un método de recuperación</p>
 		<?php
-				  if(isset($_SESSION['fallo_login'])){
-					switch($_SESSION['fallo_login']){
+				  if(isset($_SESSION['respuesta'])){
+					switch($_SESSION['respuesta']){
 						case 'Usuario incorrecto':
 							echo '<div div class="alert alert-danger tex-center justify-content-center" role="alert">El usuario ingresado no existe en el sistema</div>';
 						break;

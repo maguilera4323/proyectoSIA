@@ -1,3 +1,4 @@
+//funciones para poder ver la contraseña con el icono del ojo
 function mostrarContrasena(){
         let tipo = document.getElementById("clave");
         if(tipo.type == "password"){
@@ -31,6 +32,37 @@ function mostrarConfContrasenaNueva(){
        $('.icono_nuevoconf').removeClass('fas fa-eye').addClass('fas fa-eye-slash');
    }
 }
+
+
+//funciones para validar el texto ingresado en las cajas de texto
+function validarInputUsuario(e) {
+    tecla = (document.all) ? e.keyCode : e.which;
+
+    //Tecla de retroceso para borrar
+    if (tecla == 8) {
+        return true;
+    }
+
+    // Patrón de entrada, en este caso solo acepta numeros y letras
+    patron = /[A-ZÑ]/;
+    tecla_final = String.fromCharCode(tecla);
+    return patron.test(tecla_final);
+}
+
+function validarInputContrasena(e) {
+    tecla = (document.all) ? e.keyCode : e.which;
+
+    //Tecla de retroceso para borrar
+    if (tecla == 8) {
+        return true;
+    }
+
+     // Patrón de entrada, en este caso solo acepta numeros y letras
+    patron = /[A-Za-zñÑ0-9!#$%&=?¿¡*-_.+@]+/;
+    tecla_final = String.fromCharCode(tecla);
+    return patron.test(tecla_final);
+    }
+
 
 
 

@@ -13,7 +13,7 @@
     color:white;
 }
 
-#usuario,#clave,#clave_new,#conf_clave_new{
+#usuario,#clave,#clave_new,#conf_clave_new,#respuesta{
     background-color:rgb(0, 0, 0);
     color:white;
     border-radius: 2px;
@@ -29,7 +29,8 @@
 }
 
 
-#usuario::placeholder,#clave::placeholder {color: rgb(255, 255, 255);opacity: 0.7;}
+#usuario::placeholder,#clave::placeholder,#clave_new::placeholder,#conf_clave_new::placeholder, #respuesta::placeholder 
+{color: rgb(255, 255, 255);opacity: 0.7;}
 
 #opcion_rec, #opcion_reg{ 
     color:rgb(39, 243, 243);
@@ -59,11 +60,46 @@
   #loginForm input[type="text"] {
       width: calc(100% - 40px);
   }
+
   #loginForm input[type="password"] {
       width: calc(100% - 40px);
   }
+
   #loginForm input[type="submit"] {
       width: 76px;
       top: auto;
       right: auto;
   }
+
+  .caja {
+    margin:0 auto;	
+    border:1px solid #d9d9d9;
+    overflow: hidden;
+    width: 230px;
+    position:relative;
+ }
+ select {
+    background: WHITE;
+    color:black;
+    border: none;
+    font-size: 15px;
+    height: 30px;
+    padding: 5px;
+    width: 250px;
+ }
+ 
+ select:focus{ outline: none;}
+ 
+ .caja::after{
+     content:"\025be";
+     display:table-cell;
+     padding-top:7px;
+     text-align:center;
+     width:30px;
+     height:30px;
+     background-color:#d9d9d9;
+     position:absolute;
+     top:0;
+     right:0px;	
+     pointer-events: none;
+ }

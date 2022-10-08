@@ -1,5 +1,8 @@
 <?php
-	session_start();
+	if (session_status() == PHP_SESSION_NONE) {
+		session_start();
+	}
+
 	//llamado al controlador de login
     require_once 'controladores/loginControlador.php';
     $usuario = new loginControlador(); //se crea nueva instancia de usuario
@@ -20,18 +23,19 @@
 		<h4 class="text-center mb-0" id="h3-login">Recuperación por Preguntas de Seguridad</h4>
 		<p class="text-center" id="p-login">Seleccione una pregunta y responda correctamente</p>
 		<?php
-				 if(isset($_SESSION['fallo_login'])=='Respuesta incorrecta'){
-					/* header("refresh:4;url=".SERVERURL."login/"); */
-
-						echo '<div class="alert alert-danger text-center" role="alert">
-						Respuesta inválida, su usuario ha sido bloqueado. Redirigiendo
-						a la página de login...
-					  	</div>';
-						$_SESSION['fallo_login']='';
-				 	}
+			if(isset($_SESSION['fallo'])){
+				switch($_SESSION['fallo']){
+				case 'Respuesta incorrecta':
+					header("refresh:4;url=".SERVERURL."login/"); 
+					echo '<div div class="alert alert-danger text-center justify-content-center" 
+					role="alert">Respuesta incorrecta. El usuario ha sido bloqueado</div>';
+				break;
+				}
+			}
 		?>
 			<br>
 			<form action="" method="POST" autocomplete="off" id="loginForm">
+			<div class="caja">
 			<select name="preguntas" id="preguntas">
 				    <option selected>Seleccione una pregunta</option>
 				    <option value="Cual es su deporte favorito?">¿Cual es su deporte favorito</option>
@@ -39,11 +43,9 @@
 					<option value="Lugar de nacimiento">¿Lugar de nacimiento?</option>
 					<option value="Comida favorita">¿Comida favorita?</option>
                  </select>
-	
+			</div>
 				<div class="form-group">
-					<i class="fas fa-user icon-user"></i>
-					<input type="text" class="form-control" id="usuario" name="respuesta" placeholder="Respuesta" maxlength="35" required="" >
-				
+					<input type="text" class="form-control" id="respuesta" name="respuesta" placeholder="Respuesta" maxlength="35" required="" >
 				</div>
 				<button type="submit" name="acceder" class="btn-login text-center">Enviar Respuesta</button>
 			</form>
