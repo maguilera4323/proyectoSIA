@@ -27,15 +27,15 @@
 				<div class="row">
 					<div class="col-12 col-md-4">
 						<div class="form-group">
-							<label for="usuario_dni" class="bmd-label-floating">Usuario</label>
-							<input type="text" pattern="[A-Z]{5,15}" class="form-control" name="usuario_dni_reg" id="usuario_dni" maxlength="20" required="" >
+							<label for="usuario" class="bmd-label-floating">Usuario</label>
+							<input type="text" pattern="[A-Z]{5,15}" class="form-control" name="usuario_reg" id="usuario" maxlength="20" required="" >
 						</div>
 					</div>
 					
 					<div class="col-12 col-md-4">
 						<div class="form-group">
-							<label for="usuario_nombre" class="bmd-label-floating">Nombre</label>
-							<input type="text" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,20}" class="form-control" name="usuario_nombre_reg" id="usuario_nombre" maxlength="35" required="" >
+							<label for="nombre_usuario" class="bmd-label-floating">Nombre</label>
+							<input type="text" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,20}" class="form-control" name="nombre_usuario_reg" id="nombre_usuario" maxlength="35" required="" >
 						</div>
 
 					</div>
@@ -50,37 +50,37 @@
 				</div>
 				<div class="col-12 col-md-6">
 						<div class="form-group">
-							<label for="usuario_email" class="bmd-label-floating">Correo</label>
-							<input type="email" class="form-control" name="usuario_email_reg" id="usuario_email" maxlength="70">
+							<label for="correo_electronico" class="bmd-label-floating">Correo</label>
+							<input type="email" class="form-control" name="correo_electronico_reg" id="correo_electronico" maxlength="70">
 						</div>
 					</div>
 					<div class="col-12 col-md-6">
 						<div class="form-group">
-							<label for="usuario_clave_1" class="bmd-label-floating">Contraseña</label>
-							<input type="password" class="form-control" name="usuario_clave_1_reg" id="usuario_clave_1" pattern="[a-zA-Z0-9!#%&/()=?¡*+_$@.-]{8,100}" maxlength="100" required="" >
+							<label for="contrasena" class="bmd-label-floating">Contraseña</label>
+							<input type="password" class="form-control" name="contrasena_reg" id="contrasena" pattern="[a-zA-Z0-9!#%&/()=?¡*+_$@.-]{8,100}" maxlength="100" required="" >
 						</div>
 					</div>
 					<div class="col-12 col-md-6">
 						<div class="form-group">
-							<label for="usuario_direccion" class="bmd-label-floating">Ingreso</label>
-							<input type="text" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,#\- ]{1,190}" class="form-control" name="usuario_direccion_reg" id="usuario_direccion" maxlength="190">
+							<label for="primer_ingreso" class="bmd-label-floating">Ingreso</label>
+							<input type="text" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,#\- ]{1,190}" class="form-control" name="primer_ingreso_reg" id="primer_ingreso" maxlength="190">
 						</div>
 					<div class="col-12 col-md-6">
 						<div class="form-group">
-							<label for="usuario_usuario" class="label-floating">Vencimiento</label>
-							<input type="date" pattern="" class="form-control" name="usuario_direccion_reg" id="usuario_direccion" maxlength="190">
+							<label for="fecha_vencimiento" class="label-floating">Vencimiento</label>
+							<input type="date" pattern="" class="form-control" name="fecha_vencimiento_reg" id="fecha_vencimiento" maxlength="190">
 						</div>
 					</div>	
 					<div class="col-12 col-md-6">
 						<div class="form-group">
-							<label for="usuario_clave_2" class="bmd-label-floating">creado</label>
-							<input type="text" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,#\- ]{1,190}" class="form-control" name="usuario_direccion_reg" id="usuario_direccion" maxlength="190">
+							<label for="creado_por" class="bmd-label-floating">creado</label>
+							<input type="text" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,#\- ]{1,190}" class="form-control" name="creado_por_reg" id="creado_por" maxlength="190">
 						</div>
 					</div>
 					<div class="col-12 col-md-6">
 						<div class="form-group">
-							<label for="usuario_clave_2" class="label-floating">Fecha Creacion</label>
-							<input type="date" class="form-control" name="feha" >
+							<label for="fecha_creacion" class="label-floating">Creacion</label>
+							<input type="date" class="form-control" name="fecha_creacion_reg" id="fecha_creacion" maxlength="190">
 						</div>
 					</div>
 				</div>
@@ -96,7 +96,7 @@
 						<p><span class="badge badge-success">Edición</span> Permisos para registrar y actualizar</p>
 						<!-- <p><span class="badge badge-dark">Registrar</span> Solo permisos para registrar</p> -->
 						<div class="form-group">
-							<select class="form-control" name="usuario_privilegio_reg">
+							<select class="form-control" name="id_rol">
 								<option value="" selected="" disabled="">Seleccione una opción</option>
 								<option value="1">Control total</option>
 								<option value="2">Edición</option>

@@ -1,41 +1,40 @@
 <?php
 
-	if($peticionAjax){
-		require_once "../modelos/usuarioModelo.php";
-	}else{
-		require_once "./modelos/usuarioModelo.php";//aqui se ejecuta dentro del index y no se utiliza Ajax
-	}
+if($peticionAjax){
+	require_once "../modelos/usuarioModelo.php";
+}else{
+	require_once "./modelos/usuarioModelo.php";//aqui se ejecuta dentro del index y no se utiliza Ajax
+}
 
-	class usuarioControlador extends usuarioModelo{
+class usuarioControlador extends usuarioModelo{
 
-		/*--------- Controlador agregar usuario ---------*/
-		public function agregar_usuario_controlador(){
-			$dni=mainModel::limpiar_cadena($_POST['usuario_dni_reg']);
-			$nombre=mainModel::limpiar_cadena($_POST['usuario_nombre_reg']);
-			$apellido=mainModel::limpiar_cadena($_POST['usuario_apellido_reg']);
-			$telefono=mainModel::limpiar_cadena($_POST['usuario_telefono_reg']);
-			$direccion=mainModel::limpiar_cadena($_POST['usuario_direccion_reg']);
+	/*--------- Controlador agregar usuario ---------*/
+	public function agregar_usuario_controlador(){
+		$Usuario=mainModel::limpiar_cadena($_POST['usuario_reg']);
+		$Nombre=mainModel::limpiar_cadena($_POST['nombre_usuario_reg']);
 
-			$usuario=mainModel::limpiar_cadena($_POST['usuario_usuario_reg']);
-			$email=mainModel::limpiar_cadena($_POST['usuario_email_reg']);
-			$clave1=mainModel::limpiar_cadena($_POST['usuario_clave_1_reg']);
-			$clave2=mainModel::limpiar_cadena($_POST['usuario_clave_2_reg']);
-
-
-			$privilegio=mainModel::limpiar_cadena($_POST['usuario_privilegio_reg']);
+		$Correo=mainModel::limpiar_cadena($_POST['correo_electronico_reg']);
+		$Contraseña=mainModel::limpiar_cadena($_POST['contrasena_reg']);
+		$Ingreso=mainModel::limpiar_cadena($_POST['primer_ingreso_reg']);
+		$Vencimiento=mainModel::limpiar_cadena($_POST['fecha_vencimiento_reg']);
+		$creado=mainModel::limpiar_cadena($_POST['creado_por_reg']);
+		$Creacion=mainModel::limpiar_cadena($_POST['fecha_creacion_reg']);
 
 
-			/*== comprobar campos vacios ==*/
-			if($dni=="" || $nombre=="" || $apellido=="" || $usuario=="" || $clave1=="" || $clave2==""){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"No has llenado todos los campos que son obligatorios",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
+		$privilegio=mainModel::limpiar_cadena($_POST['id_rol']);
+
+
+		/*== comprobar campos vacios ==*/
+		if($Usuario=="" || $Nombre=="" || $Correo=="" || $Contraseña=="" || $Vencimiento=="" || $Creacion==""){
+			$alerta=[
+				"Alerta"=>"simple",
+				"Titulo"=>"Ocurrió un error inesperado",
+				"Texto"=>"No se an llenado todos los campos que son obligatorios",
+				"Tipo"=>"error"
+			];
+			echo json_encode($alerta);
+			exit();
+		}
 
 
 			/*== Verificando integridad de los datos ==*/

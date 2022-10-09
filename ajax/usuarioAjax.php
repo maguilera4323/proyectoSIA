@@ -2,7 +2,7 @@
 	$peticionAjax=true;
 	require_once "../config/APP.php";
 
-	if(isset($_POST['usuario_dni_reg'])){
+	if(isset($_POST['usuario_reg'])){
 
 		/*--------- Instancia al controlador ---------*/
 		require_once "../controladores/usuarioControlador.php";
@@ -10,7 +10,7 @@
 
 
 		/*--------- Agregar un usuario ---------*/
-		if(isset($_POST['usuario_dni_reg']) && isset($_POST['usuario_nombre_reg'])){
+		if(isset($_POST['usuario_reg']) && isset($_POST['nombre_usuario_reg'])){
 			echo $ins_usuario->agregar_usuario_controlador();
 		}
 
