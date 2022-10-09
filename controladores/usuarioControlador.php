@@ -3,7 +3,7 @@
 	if($peticionAjax){
 		require_once "../modelos/usuarioModelo.php";
 	}else{
-		require_once "./modelos/usuarioModelo.php";
+		require_once "./modelos/usuarioModelo.php";//aqui se ejecuta dentro del index y no se utiliza Ajax
 	}
 
 	class usuarioControlador extends usuarioModelo{
