@@ -38,18 +38,18 @@ class usuarioControlador extends usuarioModelo{
 
 
 			/*== Verificando integridad de los datos ==*/
-			if(mainModel::verificar_datos("[0-9-]{10,20}",$dni)){
+			if(mainModel::verificar_datos("[A-Z]{1,15}",$Usuario)){
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El DNI no coincide con el formato solicitado",
+					"Texto"=>"El USUARIO no coincide con el formato solicitado",
 					"Tipo"=>"error"
 				];
 				echo json_encode($alerta);
 				exit();
 			}
 
-			if(mainModel::verificar_datos("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,35}",$nombre)){
+			if(mainModel::verificar_datos("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,20}",$Nombre)){
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
@@ -120,12 +120,12 @@ class usuarioControlador extends usuarioModelo{
 			}
 
 			/*== Comprobando DNI ==*/
-			$check_dni=mainModel::ejecutar_consulta_simple("SELECT usuario_dni FROM usuario WHERE usuario_dni='$dni'");
-			if($check_dni->rowCount()>0){
+			$check_usuario=mainModel::ejecutar_consulta_simple("SELECT usuario_dni FROM usuario WHERE usuario_dni='$Usuario'");
+			if($check_usuario->rowCount()>0){
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El DNI ingresado ya se encuentra registrado en el sistema",
+					"Texto"=>"El USUARIO ingresado ya se encuentra registrado en el sistema",
 					"Tipo"=>"error"
 				];
 				echo json_encode($alerta);
