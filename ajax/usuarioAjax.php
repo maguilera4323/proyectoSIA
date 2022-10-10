@@ -16,7 +16,7 @@
 
 		
 	}else{
-		session_start(['name'=>'SIA']);//se cambio de SPM  a SIA
+		session_start();//se cambio de SPM  a SIA
 		session_unset();//Vaciamos la sesion
 		session_destroy();//destruimos la sesion
 		header("Location: ".SERVERURL."login/");//lo redirigimos al login para que ingrese con su usuario

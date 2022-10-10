@@ -12,7 +12,6 @@ class usuarioControlador extends usuarioModelo{
 	public function agregar_usuario_controlador(){
 		$Usuario=mainModel::limpiar_cadena($_POST['usuario_reg']);
 		$Nombre=mainModel::limpiar_cadena($_POST['nombre_usuario_reg']);
-
 		$Correo=mainModel::limpiar_cadena($_POST['correo_electronico_reg']);
 		$Contraseña=mainModel::limpiar_cadena($_POST['contrasena_reg']);
 		$Ingreso=mainModel::limpiar_cadena($_POST['primer_ingreso_reg']);
@@ -63,7 +62,7 @@ class usuarioControlador extends usuarioModelo{
 			/*== Comprobando email ==*/
 			if($Correo!=""){
 				if(filter_var($Correo,FILTER_VALIDATE_EMAIL)){
-					$check_correo=mainModel::ejecutar_consulta_simple("SELECT correo_electronico FROM TBL_usuario WHERE correo_electronico='$Correo'");
+					$check_correo=mainModel::ejecutar_consulta_simple("SELECT correo_electronico FROM TBL_usuarios WHERE correo_electronico='$Correo'");
 					if($check_correo->rowCount()>0){
 						$alerta=[
 							"Alerta"=>"simple",
@@ -88,7 +87,7 @@ class usuarioControlador extends usuarioModelo{
 
 			/*== Comprobando CLAVE ==*/
 
-			if(mainModel::verificar_datos("[a-zA-Z0-9$@.-]{7,100}",$clave1) || mainModel::verificar_datos("[a-zA-Z0-9$@.-]{7,100}",$clave2)){
+			/* if(mainModel::verificar_datos("[a-zA-Z0-9$@.-]{7,100}",$clave1) || mainModel::verificar_datos("[a-zA-Z0-9$@.-]{7,100}",$clave2)){
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
@@ -97,10 +96,10 @@ class usuarioControlador extends usuarioModelo{
 				];
 				echo json_encode($alerta);
 				exit();
-			}
+			} */
 
 			/*== Comprobando DNI ==*/
-			$check_usuario=mainModel::ejecutar_consulta_simple("SELECT usuario_dni FROM usuario WHERE usuario_dni='$Usuario'");
+			/* $check_usuario=mainModel::ejecutar_consulta_simple("SELECT usuario_dni FROM usuario WHERE usuario_dni='$Usuario'");
 			if($check_usuario->rowCount()>0){
 				$alerta=[
 					"Alerta"=>"simple",
@@ -110,10 +109,10 @@ class usuarioControlador extends usuarioModelo{
 				];
 				echo json_encode($alerta);
 				exit();
-			}
+			} */
 
 			/*== Comprobando usuario ==*/
-			$check_user=mainModel::ejecutar_consulta_simple("SELECT usuario_usuario FROM usuario WHERE usuario_usuario='$usuario'");
+			$check_user=mainModel::ejecutar_consulta_simple("SELECT usuario FROM TBL_usuarios WHERE usuario='$Usuario'");
 			if($check_user->rowCount()>0){
 				$alerta=[
 					"Alerta"=>"simple",
@@ -129,7 +128,7 @@ class usuarioControlador extends usuarioModelo{
 
 
 			/*== Comprobando claves ==*/
-			if($clave1!=$clave2){
+			/* if($clave1!=$clave2){
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
@@ -140,7 +139,7 @@ class usuarioControlador extends usuarioModelo{
 				exit();
 			}else{
 				$clave=mainModel::encryption($clave1);
-			}
+			} */
 
 			/*== Comprobando privilegio ==*/
 			if($privilegio<1 || $privilegio>2){
@@ -155,16 +154,16 @@ class usuarioControlador extends usuarioModelo{
 			}
 
 			$datos_usuario_reg=[
-				"Usu"=>$Usuario,
-				"Nombre"=>$Nombre,
-				"Estado"=>"activo",
-				"correo"=>$Correo,
+				"usu"=>$Usuario,
+				"nombre"=>$Nombre,
+				"estado"=>"1",
 				"contrase"=>$Contraseña,
+				"rol"=>$privilegio,
 				"ingreso"=>$Ingreso,
 				"vencimiento"=>$Vencimiento,
+				"correo"=>$Correo,
 				"creador"=>$creado,
-				"fecha_crea"=>"Creacion",
-				"Rol"=>$privilegio
+				"fecha_crea"=>$Creacion,
 			];
 
 			$agregar_usuario=usuarioModelo::agregar_usuario_modelo($datos_usuario_reg);
