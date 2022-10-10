@@ -86,7 +86,61 @@ class usuarioControlador extends usuarioModelo{
 				}
 			}
 
-	
+			/*== Comprobando CLAVE ==*/
+
+			if(mainModel::verificar_datos("[a-zA-Z0-9$@.-]{7,100}",$clave1) || mainModel::verificar_datos("[a-zA-Z0-9$@.-]{7,100}",$clave2)){
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error inesperado",
+					"Texto"=>"Las CLAVES no coinciden con el formato solicitado",
+					"Tipo"=>"error"
+				];
+				echo json_encode($alerta);
+				exit();
+			}
+
+			/*== Comprobando DNI ==*/
+			$check_usuario=mainModel::ejecutar_consulta_simple("SELECT usuario_dni FROM usuario WHERE usuario_dni='$Usuario'");
+			if($check_usuario->rowCount()>0){
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error inesperado",
+					"Texto"=>"El USUARIO ingresado ya se encuentra registrado en el sistema",
+					"Tipo"=>"error"
+				];
+				echo json_encode($alerta);
+				exit();
+			}
+
+			/*== Comprobando usuario ==*/
+			$check_user=mainModel::ejecutar_consulta_simple("SELECT usuario_usuario FROM usuario WHERE usuario_usuario='$usuario'");
+			if($check_user->rowCount()>0){
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error inesperado",
+					"Texto"=>"El NOMBRE DE USUARIO ingresado ya se encuentra registrado en el sistema",
+					"Tipo"=>"error"
+				];
+				echo json_encode($alerta);
+				exit();
+			}
+
+
+
+
+			/*== Comprobando claves ==*/
+			if($clave1!=$clave2){
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error inesperado",
+					"Texto"=>"Las claves que acaba de ingresar no coinciden",
+					"Tipo"=>"error"
+				];
+				echo json_encode($alerta);
+				exit();
+			}else{
+				$clave=mainModel::encryption($clave1);
+			}
 
 			/*== Comprobando privilegio ==*/
 			if($privilegio<1 || $privilegio>2){
@@ -103,7 +157,7 @@ class usuarioControlador extends usuarioModelo{
 			$datos_usuario_reg=[
 				"Usu"=>$Usuario,
 				"Nombre"=>$Nombre,
-				"Estado"=>"1",
+				"Estado"=>"activo",
 				"correo"=>$Correo,
 				"contrase"=>$Contraseña,
 				"ingreso"=>$Ingreso,
