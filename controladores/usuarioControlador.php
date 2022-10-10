@@ -60,100 +60,15 @@ class usuarioControlador extends usuarioModelo{
 				exit();
 			}
 
-			if(mainModel::verificar_datos("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,35}",$apellido)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El APELLIDO no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-
-			if($telefono!=""){
-				if(mainModel::verificar_datos("[0-9()+]{8,20}",$telefono)){
-					$alerta=[
-						"Alerta"=>"simple",
-						"Titulo"=>"Ocurrió un error inesperado",
-						"Texto"=>"El TELEFONO no coincide con el formato solicitado",
-						"Tipo"=>"error"
-					];
-					echo json_encode($alerta);
-					exit();
-				}
-			}
-
-			if($direccion!=""){
-				if(mainModel::verificar_datos("[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,#\- ]{1,190}",$direccion)){
-					$alerta=[
-						"Alerta"=>"simple",
-						"Titulo"=>"Ocurrió un error inesperado",
-						"Texto"=>"La DIRECCION no coincide con el formato solicitado",
-						"Tipo"=>"error"
-					];
-					echo json_encode($alerta);
-					exit();
-				}
-			}
-
-			if(mainModel::verificar_datos("[a-zA-Z0-9]{1,35}",$usuario)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El NOMBRE DE USUARIO no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-
-			if(mainModel::verificar_datos("[a-zA-Z0-9$@.-]{7,100}",$clave1) || mainModel::verificar_datos("[a-zA-Z0-9$@.-]{7,100}",$clave2)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"Las CLAVES no coinciden con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-
-			/*== Comprobando DNI ==*/
-			$check_usuario=mainModel::ejecutar_consulta_simple("SELECT usuario_dni FROM usuario WHERE usuario_dni='$Usuario'");
-			if($check_usuario->rowCount()>0){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El USUARIO ingresado ya se encuentra registrado en el sistema",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-
-			/*== Comprobando usuario ==*/
-			$check_user=mainModel::ejecutar_consulta_simple("SELECT usuario_usuario FROM usuario WHERE usuario_usuario='$usuario'");
-			if($check_user->rowCount()>0){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El NOMBRE DE USUARIO ingresado ya se encuentra registrado en el sistema",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-
 			/*== Comprobando email ==*/
-			if($email!=""){
-				if(filter_var($email,FILTER_VALIDATE_EMAIL)){
-					$check_email=mainModel::ejecutar_consulta_simple("SELECT usuario_email FROM usuario WHERE usuario_email='$email'");
-					if($check_email->rowCount()>0){
+			if($Correo!=""){
+				if(filter_var($Correo,FILTER_VALIDATE_EMAIL)){
+					$check_correo=mainModel::ejecutar_consulta_simple("SELECT correo_electronico FROM TBL_usuario WHERE correo_electronico='$Correo'");
+					if($check_correo->rowCount()>0){
 						$alerta=[
 							"Alerta"=>"simple",
 							"Titulo"=>"Ocurrió un error inesperado",
-							"Texto"=>"El EMAIL ingresado ya se encuentra registrado en el sistema",
+							"Texto"=>"El Correp ingresado ya se encuentra registrado en el sistema",
 							"Tipo"=>"error"
 						];
 						echo json_encode($alerta);
@@ -171,23 +86,10 @@ class usuarioControlador extends usuarioModelo{
 				}
 			}
 
-
-			/*== Comprobando claves ==*/
-			if($clave1!=$clave2){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"Las claves que acaba de ingresar no coinciden",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}else{
-				$clave=mainModel::encryption($clave1);
-			}
+	
 
 			/*== Comprobando privilegio ==*/
-			if($privilegio<1 || $privilegio>3){
+			if($privilegio<1 || $privilegio>2){
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
@@ -199,16 +101,16 @@ class usuarioControlador extends usuarioModelo{
 			}
 
 			$datos_usuario_reg=[
-				"DNI"=>$dni,
-				"Nombre"=>$nombre,
-				"Apellido"=>$apellido,
-				"Telefono"=>$telefono,
-				"Direccion"=>$direccion,
-				"Email"=>$email,
-				"Usuario"=>$usuario,
-				"Clave"=>$clave,
-				"Estado"=>"Activa",
-				"Privilegio"=>$privilegio
+				"Usu"=>$Usuario,
+				"Nombre"=>$Nombre,
+				"Estado"=>"1",
+				"correo"=>$Correo,
+				"contrase"=>$Contraseña,
+				"ingreso"=>$Ingreso,
+				"vencimiento"=>$Vencimiento,
+				"creador"=>$creado,
+				"fecha_crea"=>"Creacion",
+				"Rol"=>$privilegio
 			];
 
 			$agregar_usuario=usuarioModelo::agregar_usuario_modelo($datos_usuario_reg);

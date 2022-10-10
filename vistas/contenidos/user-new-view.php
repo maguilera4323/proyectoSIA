@@ -27,8 +27,8 @@
 				<div class="row">
 					<div class="col-12 col-md-4">
 						<div class="form-group">
-							<label for="usuario" class="bmd-label-floating">Usuario</label>
-							<input type="text" pattern="[A-Z]{5,15}" class="form-control" name="usuario_reg" id="usuario" maxlength="15" required="" >
+							<label for="nom_usuario" class="bmd-label-floating">Usuario</label>
+							<input type="text" pattern="[A-Z]{5,15}" class="form-control" name="usuario_reg" id="nom_usuario" maxlength="15" required="" >
 						</div>
 					</div>
 					
@@ -48,46 +48,49 @@
 			<div class="container-fluid">
 				<div class="row">
 				</div>
-				<div class="col-12 col-md-6">
+				<div class="col-12 col-md-4">
 						<div class="form-group">
 							<label for="correo_electronico" class="bmd-label-floating">Correo</label>
 							<input type="email" class="form-control" name="correo_electronico_reg" id="correo_electronico" maxlength="70" required="">
 						</div>
+				</div>
+				<div class="col-12 col-md-4">
+					<div class="form-group">
+						<label for="contrasena" class="bmd-label-floating">Contraseña</label>
+						<input type="password" class="form-control" name="contrasena_reg" id="contrasena" pattern="[a-zA-Z0-9!#%&/()=?¡*+_$@.-]{8,100}" maxlength="100" required="" >
 					</div>
-					<div class="col-12 col-md-6">
-						<div class="form-group">
-							<label for="contrasena" class="bmd-label-floating">Contraseña</label>
-							<input type="password" class="form-control" name="contrasena_reg" id="contrasena" pattern="[a-zA-Z0-9!#%&/()=?¡*+_$@.-]{8,100}" maxlength="100" required="" >
-						</div>
+				</div>
+<!--
+				<div class="col-12 col-md-4">
+					<div class="form-group">
+						<label for="contrasena" class="bmd-label-floating">Contraseña2</label>
+						<input type="password" class="form-control" name="contrasena_reg" id="contrasena" pattern="[a-zA-Z0-9!#%&/()=?¡*+_$@.-]{8,100}" maxlength="100" required="" >
 					</div>
-					<div class="col-12 col-md-6">
-						<div class="form-group">
-							<label for="contrasena" class="bmd-label-floating">Contraseña2</label>
-							<input type="password" class="form-control" name="contrasena_reg" id="contrasena" pattern="[a-zA-Z0-9!#%&/()=?¡*+_$@.-]{8,100}" maxlength="100" required="" >
-						</div>
-					</div>
+				</div>
+
+-->					
 					<div class="col-12 col-md-6">
 						<div class="form-group">
 							<label for="primer_ingreso" class="bmd-label-floating">Ingreso</label>
 							<input type="text" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,#\- ]{1,20}" class="form-control" name="primer_ingreso_reg" id="primer_ingreso" maxlength="20">
 						</div>
-					<div class="col-12 col-md-6">
-						<div class="form-group">
-							<label for="fecha_vencimiento" class="label-floating">Vencimiento</label>
-							<input type="date" pattern="" class="form-control" name="fecha_vencimiento_reg" id="fecha_vencimiento" maxlength="190">
-						</div>
-					</div>	
-					<div class="col-12 col-md-6">
-						<div class="form-group">
-							<label for="creado_por" class="bmd-label-floating">creado</label>
-							<input type="text" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,#\- ]{1,20}" class="form-control" name="creado_por_reg" id="creado_por" maxlength="20">
-						</div>
+
+				<div class="col-12 col-md-4">
+					<div class="form-group">
+						<label for="fecha_vencimiento" class="label-floating">Vencimiento</label>
+						<input type="date" pattern="" class="form-control" name="fecha_vencimiento_reg" id="fecha_vencimiento" maxlength="190">
 					</div>
-					<div class="col-12 col-md-6">
-						<div class="form-group">
-							<label for="fecha_creacion" class="label-floating">Creacion</label>
-							<input type="date" class="form-control" name="fecha_creacion_reg" id="fecha_creacion" maxlength="190" required="">
-						</div>
+				</div>	
+				<div class="col-12 col-md-4">
+					<div class="form-group">
+						<label for="creado_por" class="bmd-label-floating">creado</label>
+						<input type="text" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,#\- ]{1,20}" class="form-control" name="creado_por_reg" id="creado_por" maxlength="20">
+					</div>
+				</div>
+				<div class="col-12 col-md-4">
+					<div class="form-group">
+						<label for="fecha_creacion" class="label-floating">Creacion</label>
+						<input type="date" class="form-control" name="fecha_creacion_reg" id="fecha_creacion" maxlength="190" required="">
 					</div>
 				</div>
 			</div>
