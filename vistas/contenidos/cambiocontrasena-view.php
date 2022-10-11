@@ -45,12 +45,12 @@
 				<div class="form-group">
 					<i class="fas fa-eye-slash icono_nuevo" onclick="mostrarContrasenaNueva()"></i>
 					<input type="password" class="form-control" id="clave_new" name="clave_new" placeholder="Nueva contraseña" 
-					onkeypress="return validarInputContrasena(event)" minlength="5" maxlength="30" required="" >
+					 minlength="<?php echo $_SESSION['min_contrasena'] ?>" maxlength="<?php echo $_SESSION['max_contrasena'] ?>" required />
 					<br>
 					<br>
 					<i class="fas fa-eye-slash icono_nuevoconf" onclick="mostrarConfContrasenaNueva()"></i>
 					<input type="password" class="form-control" id="conf_clave_new" name="conf_clave_new" placeholder="Confirmar nueva contraseña" 
-					onkeypress="return validarInputContrasena(event)" minlength="5" maxlength="30" required="" >
+					minlength="<?php echo $_SESSION['min_contrasena'] ?>" maxlength="<?php echo $_SESSION['max_contrasena'] ?>" required />
 				</div>
 				
 				<button type="submit" name="acceder" class="btn-login text-center">Cambiar Contraseña</button>

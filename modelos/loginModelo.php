@@ -74,6 +74,18 @@ class Usuario extends mainModel{
 		return $respuesta = $db->ejecutar_consulta_simple($query);
 	}
 
+	public function minContrasena() {
+		$db = new mainModel();
+		$query = "SELECT valor FROM TBL_ms_parametros WHERE parametro = 'MIN_CONTRASENA' LIMIT 1";
+		return $respuesta = $db->ejecutar_consulta_simple($query);
+	}
+
+	public function maxContrasena() {
+		$db = new mainModel();
+		$query = "SELECT valor FROM TBL_ms_parametros WHERE parametro = 'MAX_CONTRASENA' LIMIT 1";
+		return $respuesta = $db->ejecutar_consulta_simple($query);
+	}
+
 	//Función que realiza un select para revisar si el usuario ingresado para recuperacion de contraseña existe en la bd
 	public function verificaUsuarioExistente($user) {
 		$db = new mainModel();
