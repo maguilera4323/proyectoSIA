@@ -1,13 +1,3 @@
 cambiar en el laber de correo en REGISTRO DE USUARIOS  el auto complerta
 
 buscar como capturar la fecha actual para el form de fecha cheacion de registro ususarios
-
-esto es para la tabla detalle de compra
-<th>Nombre Insumo</th>
-<th>Cantidad</th>
-<th>Precio Unitario HNL</th>
-<th>Fecha Caducidad</th>
-<th>Fecha Compra</th>
-<th>Proveedor</th>
-<th>Estado Compra</th>
-<th>Total Compra</th>
