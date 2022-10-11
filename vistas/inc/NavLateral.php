@@ -33,22 +33,22 @@
 				</li>
 
 				<li>
-					<a href="#" class="nav-btn-submenu"><i class="fas fa-pallet fa-fw"></i> &nbsp; Compras <i class="fas fa-chevron-down"></i></a>
+					<a href="#" class="nav-btn-submenu"><i class="fas fa-shopping-cart"></i></i> &nbsp; Compras <i class="fas fa-chevron-down"></i></a>
 					<ul>
 						<li>
-							<a href="<?php echo SERVERURL; ?>item-new/"><i class="fas fa-plus fa-fw"></i> &nbsp; Agregar Compras</a>
+							<a href="<?php echo SERVERURL; ?>compra-new/"><i class="fas fa-plus fa-fw"></i> &nbsp; Agregar Compras</a>
 						</li>
 						<li>
-							<a href="<?php echo SERVERURL; ?>item-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Compras</a>
+							<a href="<?php echo SERVERURL; ?>compra-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Compras</a>
 						</li>
 						<li>
-							<a href="<?php echo SERVERURL; ?>item-search/"><i class="fas fa-search fa-fw"></i> &nbsp; Buscar Compras</a>
+							<a href="<?php echo SERVERURL; ?>compra-search/"><i class="fas fa-search fa-fw"></i> &nbsp; Buscar Compras</a>
 						</li>
 					</ul>
 				</li>
 
 				<li>
-					<a href="#" class="nav-btn-submenu"><i class="fas fa-pallet fa-fw"></i> &nbsp; Clientes <i class="fas fa-chevron-down"></i></a>
+					<a href="#" class="nav-btn-submenu"><i class="fas fa-user-friends"></i> &nbsp; Clientes <i class="fas fa-chevron-down"></i></a>
 					<ul>
 						<li>
 							<a href="<?php echo SERVERURL; ?>item-new/"><i class="fas fa-plus fa-fw"></i> &nbsp; Agregar Cliente</a>

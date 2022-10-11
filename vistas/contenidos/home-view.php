@@ -16,6 +16,14 @@
 		</div>
 	</a>
 	
+	<a href="<?php echo SERVERURL; ?>compra-list/" class="tile">
+		<div class="tile-tittle">COMPRAS</div>
+		<div class="tile-icon">
+			<i class="fas fa-shopping-cart"></i>
+			<p>4 Registrados</p>
+		</div>
+	</a>
+
 	<a href="<?php echo SERVERURL; ?>item-list/" class="tile">
 		<div class="tile-tittle">INVENTARIO</div>
 		<div class="tile-icon">
