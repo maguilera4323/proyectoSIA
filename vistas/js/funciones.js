@@ -89,7 +89,7 @@ function validarUsuario() {
   }
 
   
-  // La siguiente funcion valida el elemento input
+
 function validarContrasena() {
     // Variable que usaremos para determinar si el input es valido
     let isValid = false;
@@ -141,6 +141,7 @@ function validarContrasena() {
     return isValid;
   }
 
+ 
  
 
 
