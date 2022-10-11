@@ -19,7 +19,7 @@
 
 		}else{
 			session_start();
-
+			$pagina=explode("/", $_GET['views']);//LA VARIABLE PAGINA YA TIENEN TODOS LOS PARAMETROS DE LA URL MAS LA PLECA /
 			require_once './controladores/loginControlador.php';
 			$lc= new loginControlador();
 			

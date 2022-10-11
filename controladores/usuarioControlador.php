@@ -6,10 +6,12 @@ if($peticionAjax){
 	require_once "./modelos/usuarioModelo.php";//aqui se ejecuta dentro del index y no se utiliza Ajax
 }
 
-class usuarioControlador extends usuarioModelo{
+class usuarioControlador extends usuarioModelo
+{
 
 	/*--------- Controlador agregar usuario ---------*/
-	public function agregar_usuario_controlador(){
+	public function agregar_usuario_controlador()
+	{
 		$Usuario=mainModel::limpiar_cadena($_POST['usuario_reg']);
 		$Nombre=mainModel::limpiar_cadena($_POST['nombre_usuario_reg']);
 		$Correo=mainModel::limpiar_cadena($_POST['correo_electronico_reg']);
@@ -184,6 +186,109 @@ class usuarioControlador extends usuarioModelo{
 				];
 			}
 			echo json_encode($alerta);
-		} /* Fin controlador */
+	} /* Fin controlador */
 
-	}
+	
+
+
+/*                           MUCHA PAJA CON ESTE CONTROLADOR MEJOR HICE UN SELEC NORNAL */
+
+
+
+
+
+	/*--------- Controlador lista usuario ---------*/
+	/*public function paginador_usuario_controlador($pagina,$registros,$id,$url,$busqueda)
+	{
+		$pagina=mainModel::limpiar_cadena($pagina);
+		$registros=mainModel::limpiar_cadena($registros);
+		$id=mainModel::limpiar_cadena($id);
+		$url=mainModel::limpiar_cadena($url);
+		$url=SERVERURL.$url."/"; //aqui concatenamos la url
+		$busqueda=mainModel::limpiar_cadena($busqueda);
+
+		$tabla=""; //esta sera la tabala que crearemos
+
+		$pagina= (isset($pagina) && $pagina>0) ?(int) $pagina : 1 ; //controla que siempre este en la pagina que es no se ingresen letras
+		$inicio= ($pagina>0)  ? (($pagina*$registros)-$registros) : 0 ;
+
+		if(isset($busqueda) &&! $busqueda=""){ 
+			$consulta="SELECT SQL_CALC_FOUNT_ROWS * FROM TBL_usuarios WHERE ((id_usuario!='$id' AND id_usuario!='1')AND (usuario LIKE '%$busqueda%' OR
+			 nombre_usuario LIKE '%$busqueda%' OR estado_usuario LIKE '%$busqueda%' OR correo_electronico LIKE '%$busqueda%' OR creado_por LIKE '%$busqueda%'))
+				ORDER BY nombre_usuario ASC LIMIT $inicio,$registros";
+
+		}else{
+			$consulta="SELECT SQL_CALC_FOUNT_ROWS * FROM TBL_usuarios WHERE id_usuario!='$id' AND id_usuario!='1'
+				ORDER BY nombre_usuario ASC LIMIT $inicio,$registros";
+
+		}
+		$conexion = mainModel::conectar();
+		$datos =$conexion->query($consulta);
+		$datos = $datos->fetchAll();
+
+		$total = $conexion->query("SELECT FOUND_ROWS()");
+		$total = (int)$total->fetchColumn();
+		
+		$Npaginas=ceil($total/$registros);
+
+		$tabla.='<div class="table-responsive">
+			<table class="table table-dark table-sm">
+				<thead>
+					<tr class="text-center roboto-medium">
+						<th>#</th>
+						<th>USUARIO</th>
+						<th>NOMBRE</th>
+						<th>ESTADO</th>
+						<th>ROL</th>
+						<th>CORREO</th>
+						<th>CREADO POR</th>
+						<th>ACTUALIZAR</th>
+						<th>ELIMINAR</th>
+					</tr>
+				</thead>
+				<tbody>';
+			if($total>=1 && $pagina<=$Npaginas)
+			{
+				$contador=$inicio+1;
+				foreach($datos as $rows) {
+					$tabla.='	
+					<tr class="text-center" >
+						<td>'.$contador.'</td>
+						<td>'.$rows['usuario'].'</td>
+						<td>'.$rows['nombre_usuario'].'</td>
+						<td>'.$rows['estado_usuario'].'</td>
+						<td>'.$rows['id_rol'].'</td>
+						<td>'.$rows['correo_electronico'].'</td>
+						<td>'.$rows['creado_por'].'</td>
+						<td>
+							<a href="user-update.html" class="btn btn-success">
+									<i class="fas fa-sync-alt"></i>	
+							</a>
+						</td>
+						<td>
+							<form action="">
+								<button type="button" class="btn btn-warning">
+										<i class="far fa-trash-alt"></i>
+								</button>
+							</form>
+						</td>
+					</tr>';
+					$contador++;
+				}
+				}else{
+				if($total>=1){
+					$tabla.='<tr class="text-center" ><td colspan="9">
+					<a>href="'.$url.'" class="btn btn-raised btn-primary btn-sm">Recargar Lista</a>
+					</td></tr>';
+				}else{
+					$tabla.='<tr class="text-center" ><td colspan="9">no hay resgistros guardados en el sistema</td></tr>';
+				}
+				
+			}
+			$tabla.='</tbody></table></div>';
+
+	} Fin controlador */
+
+
+
+}
