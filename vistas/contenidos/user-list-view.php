@@ -56,7 +56,7 @@ $conexion=mysqli_connect('20.25.134.34','admin_bd','admin1234','proyecto_cafeter
 						<td><?php echo $mostrar['creado_por']?></td>
 						
 						<td>
-							<a href="user-update.html" class="btn btn-success">
+							<a href="<?php echo SERVERURL; ?>user-update/" class="btn btn-success">
 									<i class="fas fa-sync-alt"></i>	
 							</a>
 						</td>
