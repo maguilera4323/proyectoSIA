@@ -20,14 +20,20 @@
 </div>
 
 
+
 <div class="container-fluid">
-
-
+<?php
+$busqueda= strtolower( $_REQUEST['busqueda']);//strtolower comvierte en miniscula lo enviado
+if(empty($busqueda))
+{
+		header("location: user-list-view.php");
+}
+?>
 
 <div class="table-responsive">
 	<!-- BOTON DE BUSQUEDA-->
 	<form action="buscar_usuario.php" method="get" class="form_search" >
-		<input type="text" name="busqueda" id="busqueda" placeholder="Usuario a Buscar">
+		<input type="text" name="busqueda" id="busqueda" placeholder="Usuario a Buscar" value="<?php echo $busqueda; ?>">
 		<input type="submit" value="buscar" class="btn_search">
 	</form>
 	<!-- AQUI TERMINA EL BOTON DE BUSQUEDA-->
@@ -49,7 +55,7 @@
 			include ("./cone.php");
 			$sql="SELECT * FROM TBL_usuarios";
 			$result=mysqli_query($conexion,$sql);
-			while($mostrar=mysqli_fetch_assoc($result)){			
+			while($mostrar=mysqli_fetch_array($result)){			
 		?>
 				<tbody>
 					<tr class="text-center" >
