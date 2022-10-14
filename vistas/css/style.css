@@ -510,3 +510,28 @@ table form{
 }
 
 /*----------  Keyframes  ----------*/
+
+/*----------  ESTILO BUSCADOR  ----------*/
+.form_search
+{
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	float: right;
+	background: initial;
+	padding: 10px;
+	border-radius: 10px;
+	
+}
+.btn_search
+{
+	background-color: dodgerblue;
+	color: #FFF;
+	padding: 0 20px;
+	border: 0;
+	cursor: pointer;
+	margin-left: 10px;
+
+}

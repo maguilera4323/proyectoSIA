@@ -60,9 +60,6 @@
 	</form>
 </div>
 //////////////           APARTIR DE AQUI COMIENZA LA CONSULTA A LA BASE DE DATOS
-<?php 
-$conexion=mysqli_connect('20.25.134.34','admin_bd','admin1234','proyecto_cafeteria');
-?>
 <div class="container-fluid">
 	<table class="table table-dark table-sm">
 		<thead>
@@ -79,6 +76,7 @@ $conexion=mysqli_connect('20.25.134.34','admin_bd','admin1234','proyecto_cafeter
 			</tr>
 		</thead>
 		<?php
+			include ("./cone.php");
 			$sql="SELECT * FROM TBL_usuarios";
 			$result=mysqli_query($conexion,$sql);
 			while($mostrar=mysqli_fetch_array($result)){			
