@@ -41,10 +41,10 @@
 				    <option value="Cual es su deporte favorito?">¿Cual es su deporte favorito</option>
 					<option value="Nombre de su mascota">¿Nombre de su mascota?</option>
 					<option value="Lugar de nacimiento">¿Lugar de nacimiento?</option>
-					<option value="Comida favorita">¿Comida favorita?</option>
                  </select>
 			</div>
 				<div class="form-group">
+				<i class="fab fa-adn icon-user"></i>
 					<input type="text" class="form-control" id="respuesta" name="respuesta" placeholder="Respuesta" maxlength="35" required="" >
 				</div>
 				<button type="submit" name="acceder" class="btn-login text-center">Enviar Respuesta</button>
