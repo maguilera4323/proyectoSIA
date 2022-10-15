@@ -26,7 +26,7 @@
 
 <div class="table-responsive">
 	<!-- BOTON DE BUSQUEDA-->
-	<form action="buscar_usuario.php" method="get" class="form_search" >
+	<form action="buscar_usuario.php" method="get" class="" >
 		<input type="text" name="busqueda" id="busqueda" placeholder="Usuario a Buscar">
 		<input type="submit" value="buscar" class="btn_search">
 	</form>
