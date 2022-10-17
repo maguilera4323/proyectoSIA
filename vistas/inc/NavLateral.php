@@ -101,15 +101,19 @@
 				<li>
 					<a href="#" class="nav-btn-submenu"><i class="fas  fa-user-secret fa-fw"></i> &nbsp; Mantenimiento <i class="fas fa-chevron-down"></i></a>
 					<ul>
-						<li>
+						<!-- <li>
 							<a href="<?php echo SERVERURL; ?>user-new/"><i class="fas fa-plus fa-fw"></i> &nbsp; Nuevo usuario</a>
-						</li>
+						</li> -->
 						<li>
+
+
 							<a href="<?php echo SERVERURL; ?>user-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de usuarios</a>
 						</li>
-						<li>
+
+						
+						<!-- <li>
 							<a href="<?php echo SERVERURL; ?>user-search/"><i class="fas fa-search fa-fw"></i> &nbsp; Buscar usuario</a>
-						</li>
+						</li> -->
 					</ul>
 				</li>
 
