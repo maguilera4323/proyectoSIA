@@ -97,12 +97,18 @@ class loginControlador extends mainModel{
 									return header("Location:".SERVERURL."login/");
 								break;
 								case 'Activo':
+									//si el usuario es ADMIN no se puede bloquear bajo ninguna circunstancia
+									if(($array['usuario']=='ADMIN')){
+										$_SESSION['respuesta'] = 'Datos incorrectos';
+										return header("Location:".SERVERURL."login/");
+										die();
 									//se usa el valor de ingresos erroneos recibido del contador
 									//y el valor del parametro ADMIN_INTENTOS_INVALIDOS
-									if(($ingresos_erroneos>=($array_param['valor'])) && $array['usuario']!='ADMIN'){
+									}else if(($ingresos_erroneos>=($array_param['valor']))){
 										$respuesta = $verificarDatos->bloquearUsuario($usuario);
 										$_SESSION['respuesta'] = 'Usuario bloqueado';
 										return header("Location:".SERVERURL."login/");
+									//si los intentos erroneos aun no superan el valor del parametro
 									}else{
 										$_SESSION['respuesta'] = 'Contraseña incorrecta';
 										return header("Location:".SERVERURL."login/");
@@ -169,33 +175,33 @@ class loginControlador extends mainModel{
 
 			echo $array['estado'];
 
-			
-		/* 	if (isset($array['usuario'])>0 && isset($array['estado'])=='Inactivo'){
+			//Se valida si el usuario no está inactivo para realizar la recuperacion de contraseña
+			if (isset($array['usuario'])>0 && $array['estado']!='Inactivo'){
+				//se revisa la existencia del usuario y el metodo de recuperacion seleccionado
+				if (isset($array['usuario'])>0 && $metodo_rec=='Por medio de email'){
+					session_start();
+						$_SESSION['usuario_rec']=$array['usuario'];
+						$_SESSION['respuesta'] = '';
+						echo $_SESSION['usuario_rec'];
+						return header("Location:".SERVERURL."rec-correo/");
+					die();
+				}elseif (isset($array['usuario'])>0 && $metodo_rec=='Por preguntas de seguridad'){
+					session_start();
+						$_SESSION['usuario_rec']=$array['usuario'];
+						$_SESSION['fallo'] = '';
+						return header("Location:".SERVERURL."rec-preguntas/");
+					die();
+				}else{
+					//si el usuario es inválido se envia un mensaje de alerta indicando que no se puede hacer la recuperacion
+					$_SESSION['respuesta'] = 'Usuario incorrecto';
+					return header("Location:".SERVERURL."olvido-contrasena/");
+					die();
+				}
+			}else{
 				$_SESSION['respuesta'] = 'Usuario inactivo';
 				return header("Location:".SERVERURL."olvido-contrasena/");
 				die();
-			} */
-			
-			 //se revisa la existencia del usuario y el metodo de recuperacion seleccionado
-			if (isset($array['usuario'])>0 && $metodo_rec=='Por medio de email'){
-				session_start();
-					$_SESSION['usuario_rec']=$array['usuario'];
-					$_SESSION['respuesta'] = '';
-					echo $_SESSION['usuario_rec'];
-					return header("Location:".SERVERURL."rec-correo/");
-				die();
-			}elseif (isset($array['usuario'])>0 && $metodo_rec=='Por preguntas de seguridad'){
-				session_start();
-					$_SESSION['usuario_rec']=$array['usuario'];
-					$_SESSION['fallo'] = '';
-					return header("Location:".SERVERURL."rec-preguntas/");
-				die();
-			}else{
-				$_SESSION['respuesta'] = 'Usuario incorrecto';
-				return header("Location:".SERVERURL."olvido-contrasena/");
-				die();
 			}
-		
 		}
 
 		//funcion para validar la respuesta ingresada de la pregunta de seguridad
