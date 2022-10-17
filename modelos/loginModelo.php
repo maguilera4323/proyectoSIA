@@ -9,6 +9,7 @@ class Usuario extends mainModel{
 	public $preg;
 	public $preg_id;
 	public $response;
+	public $fec_venc;
     private $db;
 
 
@@ -58,6 +59,14 @@ class Usuario extends mainModel{
 
 	function setUsuarioId($user_id) {
 		$this->user_id = $user_id;
+	}
+
+	function getFecha() {
+		return $this->fec_venc;
+	}
+
+	function setFecha($fec_venc) {
+		$this->fec_venc = $fec_venc;
 	}
 
 	//Funciones de Vista de Login
@@ -116,29 +125,54 @@ class Usuario extends mainModel{
 
 
 	//Funciones de Vista Cambio de Contraseña
+	//Función que busca la contraseña actual del usuario para validar que la contraseña nueva no sea igual a esa
 	public function verificarContrasenaActual($user) {
 		$db = new mainModel();
 		$query = "SELECT * FROM TBL_usuarios WHERE usuario = '".$user. "' LIMIT 1";
 		return $respuesta = $db->ejecutar_consulta_simple($query);
 	}
 
-
+	//Función que actualiza la contraseña del usuario
 	public function cambioContrasena($user,$password) {
 		$db = new mainModel();
 		$query = "UPDATE TBL_usuarios set contrasena='$password' where usuario='$user'";
 		return $respuesta = $db->actualizarRegistros($query);
 	}
 
+	//Función que actualiza el estado del usuario a Activo
+	public function desbloquearUsuario($user) {
+		$db = new mainModel();
+		$query= ("UPDATE TBL_usuarios SET estado_usuario=1 where usuario='$user'");
+		return $respuesta = $db->actualizarRegistros($query);
+	}
+
+	//Función que actualiza la fecha de vencimiento del usuario
+	//sumando 360 dias al dia en que se hizo el cambio de contraseña
+	public function actualizarFechaVencimiento($user,$fec_venc) {
+		$db = new mainModel();
+		$query= ("UPDATE TBL_usuarios SET fecha_vencimiento=(date_add(now(), INTERVAL '$fec_venc' day)) where usuario='$user'");
+		return $respuesta = $db->actualizarRegistros($query);
+	}
+
+	//función para el obtener el parametro minimo de caracteres para la contraseña
 	public function minContrasena() {
 		$db = new mainModel();
 		$query = "SELECT valor FROM TBL_ms_parametros WHERE parametro = 'MIN_CONTRASENA' LIMIT 1";
 		return $respuesta = $db->ejecutar_consulta_simple($query);
 	}
 
-
+	//función para el obtener el parametro maximo de caracteres para la contraseña
 	public function maxContrasena() {
 		$db = new mainModel();
 		$query = "SELECT valor FROM TBL_ms_parametros WHERE parametro = 'MAX_CONTRASENA' LIMIT 1";
+		return $respuesta = $db->ejecutar_consulta_simple($query);
+	}
+
+	//función para el obtener el parametro de los dias que se deben sumar a la fecha actual
+	//para la fecha de vencimiento
+	public function diasVencimiento() {
+		$db = new mainModel();
+		$query = "SELECT valor FROM TBL_ms_parametros WHERE parametro = 'ADMIN_DIAS_VIGENCIA' LIMIT 1";
 		return $respuesta = $db->ejecutar_consulta_simple($query);
 	}
 
@@ -165,4 +199,5 @@ class Usuario extends mainModel{
 		$query= ("UPDATE TBL_usuarios SET estado_usuario=1 WHERE id_usuario = '$user_id'");
 		return $respuesta = $db->actualizarRegistros($query);
 	}
+	
 }	
