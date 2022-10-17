@@ -6,7 +6,7 @@
 
 	//verifica si la variable del contador está creada
 	if (!isset($_SESSION['contador_intentos'])){
-		$_SESSION['contador_intentos'] = 1;
+		$_SESSION['contador_intentos'] = 0;
    }
 	//llamado al controlador de login
     require_once 'controladores/loginControlador.php';

@@ -19,11 +19,12 @@
 		<div class="login-content">
 		<center><img src="<?php echo SERVERURL; ?>images/CityCoffe.jpeg" id="imagen-cafe" alt="logo-empresa"></center>
 		<h4 class="text-center mb-0" id="h3-login">Bienvenido</h4>
-		<p class="text-center" id="p-login">Configure sus preguntas de seguridad. Ingrese la respuesta de las siguientes preguntas:</p>
-		<p class="text-center" id="p-login" style="font-weight:italic;" ><?php echo $_SESSION['id_pregunta']-1?>. <?php echo $_SESSION['pregunta_seguridad']?> </p>
-			<form action="" method="POST" autocomplete="off" id="loginFor">
+		<p class="text-center" id="p-login">Configure sus preguntas de seguridad</p>
+		<p class="text-center" id="p-login"><?php echo $_SESSION['pregunta_seguridad']?> </p>
+		<p class="text-center" id="p-login"><?php echo $_SESSION['id_pregunta']?> </p>
+			<form action="" method="POST" autocomplete="off" id="loginForm">
 				<div class="form-group">
-					<input type="text" class="form-control" id="ing_respuesta" name="agg_respuesta" placeholder="Respuesta" 
+					<input type="text" class="form-control" id="usuario" name="agg_respuesta" placeholder="Respuesta" 
 					 required />
 				</div>
 				<button type="submit" name="acceder" class="btn-login text-center">Enviar</button>

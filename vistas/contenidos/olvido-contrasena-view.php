@@ -25,7 +25,11 @@
 				  if(isset($_SESSION['respuesta'])){
 					switch($_SESSION['respuesta']){
 						case 'Usuario incorrecto':
-							echo '<div div class="alert alert-danger tex-center justify-content-center" role="alert">El usuario ingresado no existe en el sistema</div>';
+							echo '<div div class="alert alert-danger text-center justify-content-center" role="alert">El usuario ingresado no existe en el sistema</div>';
+						break;
+						case 'Usuario inactivo':
+							echo '<div div class="alert alert-danger text-center justify-content-center" role="alert">El usuario está inactivo, por lo que no se puede realizar
+							la recuperación de contraseña</div>';
 						break;
 					 	}
 				 	}

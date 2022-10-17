@@ -20,8 +20,6 @@ class usuarioControlador extends usuarioModelo
 		$Vencimiento=mainModel::limpiar_cadena($_POST['fecha_vencimiento_reg']);
 		$creado=mainModel::limpiar_cadena($_POST['creado_por_reg']);
 		$Creacion=mainModel::limpiar_cadena($_POST['fecha_creacion_reg']);
-
-
 		$privilegio=mainModel::limpiar_cadena($_POST['id_rol']);
 
 

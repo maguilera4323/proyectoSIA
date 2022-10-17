@@ -4,6 +4,10 @@ const SERVER="20.25.134.34";/* servidor de base de datos */
 const DB="proyecto_cafeteria";/* NOMBRE DE BD */
 const USER="admin_bd";/* */
 const PASS="admin1234";/* */
+const HOST_SMTP='smtp.gmail.com';
+const USER_SMTP="maynoraguileraosorto@gmail.com";
+const CLAVE_SMTP="uqgreqxcohuazgbd";
+const PUERTO_SMTP=465;
 
 
 const SGBD="mysql:host=".SERVER.";dbname=".DB; /* SGBD sera la constante que usaremos para conectarnos a la base ded datos */
