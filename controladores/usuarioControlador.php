@@ -87,7 +87,7 @@ class usuarioControlador extends usuarioModelo
 
 			/*== Comprobando CLAVE ==*/
 
-			/* if(mainModel::verificar_datos("[a-zA-Z0-9$@.-]{7,100}",$clave1) || mainModel::verificar_datos("[a-zA-Z0-9$@.-]{7,100}",$clave2)){
+			 if(mainModel::verificar_datos("[a-zA-Z0-9$@.-]{7,100}",$Contraseña) ){
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
@@ -96,7 +96,7 @@ class usuarioControlador extends usuarioModelo
 				];
 				echo json_encode($alerta);
 				exit();
-			} */
+			} 
 
 			/*== Comprobando DNI ==*/
 			/* $check_usuario=mainModel::ejecutar_consulta_simple("SELECT usuario_dni FROM usuario WHERE usuario_dni='$Usuario'");
@@ -127,8 +127,7 @@ class usuarioControlador extends usuarioModelo
 
 
 
-			/*== Comprobando claves ==*/
-			/* if($clave1!=$clave2){
+			if($Contraseña=""){
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
@@ -138,8 +137,8 @@ class usuarioControlador extends usuarioModelo
 				echo json_encode($alerta);
 				exit();
 			}else{
-				$clave=mainModel::encryption($clave1);
-			} */
+				$clave=mainModel::encryption($Contraseña);
+			}
 
 			/*== Comprobando privilegio ==*/
 			if($privilegio<1 || $privilegio>2){
@@ -157,7 +156,7 @@ class usuarioControlador extends usuarioModelo
 				"usu"=>$Usuario,
 				"nombre"=>$Nombre,
 				"estado"=>"1",
-				"contrase"=>$Contraseña,
+				"contrase"=>$clave,//$Contraseña,
 				"rol"=>$privilegio,
 				"ingreso"=>$Ingreso,
 				"vencimiento"=>$Vencimiento,
