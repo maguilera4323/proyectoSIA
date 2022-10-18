@@ -10,6 +10,9 @@ class Usuario extends mainModel{
 	public $preg_id;
 	public $response;
 	public $fec_venc;
+	public $email;
+	public $token;
+	public $code;
     private $db;
 
 
@@ -61,6 +64,30 @@ class Usuario extends mainModel{
 		$this->user_id = $user_id;
 	}
 
+	function getCorreo() {
+		return $this->email;
+	}
+
+	function setCorreo($email) {
+		$this->email = $email;
+	}
+
+	function getToken() {
+		return $this->token;
+	}
+
+	function setToken($token) {
+		$this->token = $token;
+	}
+
+	function getCodigo() {
+		return $this->code;
+	}
+
+	function setCodigo($code) {
+		$this->code = $code;
+	}
+
 	function getFecha() {
 		return $this->fec_venc;
 	}
@@ -68,6 +95,7 @@ class Usuario extends mainModel{
 	function setFecha($fec_venc) {
 		$this->fec_venc = $fec_venc;
 	}
+
 
 	//Funciones de Vista de Login
 	//Funcion que realiza un select para encontrar un usuario con los datos ingresados
@@ -199,5 +227,19 @@ class Usuario extends mainModel{
 		$query= ("UPDATE TBL_usuarios SET estado_usuario=1 WHERE id_usuario = '$user_id'");
 		return $respuesta = $db->actualizarRegistros($query);
 	}
+
+	//Funciones para recuperacion de contraseña por email
+	//Funcion que inserta los valores que se usurán para verificar si es posible recuperar por email
+	public function insertToken($email,$token,$code){
+		$db = new mainModel();
+		$query = ("INSERT into TBL_restablece_clave_email(id_restablecer,email,token,codigo)VALUES(null,'$email','$token','$code')");
+		return $respuesta = $db->actualizarRegistros($query);
+	}
 	
+	//Funcion que verifica si los valores que se envian al sistema para recuperar contraseña son los mismos registrados en la bd
+	public function verificaCodigoToken($email,$token,$code){
+		$db = new mainModel();
+		$query = "SELECT*from TBL_restablece_clave_email where email='$email' and token='$token' and codigo='$code' limit 1";
+		return $respuesta = $db->ejecutar_consulta_simple($query);
+	}
 }	

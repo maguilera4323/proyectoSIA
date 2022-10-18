@@ -34,7 +34,7 @@
 							echo '<div class="alert alert-danger text-center">Las nuevas contraseñas ingresadas no coinciden</div>';
 						break;
 						case 'Cambio de contraseña exitoso':
-							header("refresh:4;url=".SERVERURL."login/");
+							header("refresh:3;url=".SERVERURL."login/");
 							echo '<div class="alert alert-success text-center">Contraseña cambiada exitosamente.
 							Se le redirigirá a la página de Login...</div>';
 						break;
