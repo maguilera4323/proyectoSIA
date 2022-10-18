@@ -5,7 +5,7 @@ if($peticionAjax){
 }else{
 	require_once "./modelos/usuarioModelo.php";//aqui se ejecuta dentro del index y no se utiliza Ajax
 }
-require_once "../controladores/emailControlador.php";
+include "./controladores/emailControladorSistema.php";
 
 class usuarioControlador extends usuarioModelo
 {
@@ -172,8 +172,8 @@ class usuarioControlador extends usuarioModelo
 					"Texto"=>"Los datos del usuario han sido registrados con exito",
 					"Tipo"=>"success"
 				];
-				$envioCorreo = new Correo();
-				$respuesta = $envioCorreo->CorreoCreacionUsuario($Correo,$Usuario,$Contraseña);
+				/* $envioCorreo = new Correo();
+				$respuesta = $envioCorreo->CorreoCreacionUsuario($Correo,$Usuario,$Contraseña); */
 			}else{
 				$alerta=[
 					"Alerta"=>"simple",
