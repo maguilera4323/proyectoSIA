@@ -74,6 +74,7 @@
 							<label for="primer_ingreso" class="bmd-label-floating">Ingreso</label>
 							<input type="text" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,#\- ]{1,20}" class="form-control" name="primer_ingreso_reg" id="primer_ingreso" maxlength="20">
 						</div>
+					</div>	
 
 				<div class="col-12 col-md-4">
 					<div class="form-group">
