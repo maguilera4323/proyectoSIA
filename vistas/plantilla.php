@@ -23,7 +23,7 @@
 			require_once './controladores/loginControlador.php';
 			$lc= new loginControlador();
 			
-			if(!isset($_SESSION['usuario_login'])){
+			if(!isset($_SESSION['usuario_login']) || !isset($_SESSION['token_login'])){
 				echo $lc->forzarCierreSesionControlador();
 				exit;
 			}
@@ -42,6 +42,7 @@
 		</section>
 	</main>
 	<?php
+		include "./vistas/inc/LogOut.php"; 
 		}
 		include "./vistas/inc/Script.php"; 
 	?>
