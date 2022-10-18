@@ -62,7 +62,7 @@
 						<td><?php echo $mostrar['creado_por']?></td>
 						
 						<td>
-							<a href="<?php echo SERVERURL; ?>user-update/" class="btn btn-success">
+							<a href="<?php echo SERVERURL; ?>user-update/?<?php echo $mostrar['id_usuario']?>" class="btn btn-success">
 									<i class="fas fa-sync-alt"></i>	
 							</a>
 						</td>

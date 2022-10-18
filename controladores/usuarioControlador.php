@@ -152,7 +152,7 @@ class usuarioControlador extends usuarioModelo
 				echo json_encode($alerta);
 				exit();
 			}
-
+			/*== AGREGAR USUARIOS ==*/
 			$datos_usuario_reg=[
 				"usu"=>$Usuario,
 				"nombre"=>$Nombre,
@@ -190,10 +190,6 @@ class usuarioControlador extends usuarioModelo
 
 
 /*                           MUCHA PAJA CON ESTE CONTROLADOR MEJOR HICE UN SELEC NORNAL */
-
-
-
-
 
 	/*--------- Controlador lista usuario ---------*/
 	/*public function paginador_usuario_controlador($pagina,$registros,$id,$url,$busqueda)
@@ -287,6 +283,51 @@ class usuarioControlador extends usuarioModelo
 
 	} Fin controlador */
 
+
+	/*--------- Controlador actualizar usuario ---------*/
+	public function actualizar_usuario_controlador()
+	{
+		$Usuario=mainModel::limpiar_cadena($_POST['usuario_actu']);
+		$Nombre=mainModel::limpiar_cadena($_POST['nombre_usuario_actu']);
+		$Correo=mainModel::limpiar_cadena($_POST['correo_electronico_actu']);
+		$Contraseña=mainModel::limpiar_cadena($_POST['contrasena_actu']);
+		$privilegio=mainModel::limpiar_cadena($_POST['id_rol_actu']);
+
+
+
+			/*== ACTUALIZAR USUARIOS ==*/
+			$datos_usuario_actu=
+			[
+				"usua"=>$Usuario,
+				"nombrea"=>$Nombre,
+				"correoa"=>$Correo,	
+				"contrasea"=>$Contraseña,
+				"rola"=>$privilegio,
+							
+			];
+
+			$actualizar_usuario=usuarioModelo::actualizar_usuario_modelo($datos_usuario_actu);
+
+			if($actualizar_usuario->rowCount()==1)
+			{
+				$alerta=[
+					"Alerta"=>"limpiar",
+					"Titulo"=>"usuario registrado",
+					"Texto"=>"Los datos del usuario han sido registrados con exito",
+					"Tipo"=>"success"
+				];
+			}else
+			{
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error inesperado",
+					"Texto"=>"No hemos podido registrar el usuario",
+					"Tipo"=>"error"
+				];
+			}
+			echo json_encode($alerta);
+	} /* Fin controlador */
+	
 
 
 }
