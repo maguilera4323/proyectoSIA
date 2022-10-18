@@ -38,8 +38,8 @@ class loginControlador extends mainModel{
 							$datos_bitacora = [
 								"id_objeto" => 0,
 								"fecha" => date('Y-m-d h:i:s'),
-								"id_usuario" => null,
-								"accion" => "LOGIN",
+								"id_usuario" => $fila['id_usuario'],
+								"accion" => "inicio de sesion",
 								"descripcion" => "Acceso de usuario"
 							];
 							Bitacora::guardar_bitacora($datos_bitacora);
