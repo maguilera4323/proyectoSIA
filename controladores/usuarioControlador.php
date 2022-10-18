@@ -68,7 +68,7 @@ class usuarioControlador extends usuarioModelo
 						$alerta=[
 							"Alerta"=>"simple",
 							"Titulo"=>"Ocurrió un error inesperado",
-							"Texto"=>"El Correp ingresado ya se encuentra registrado en el sistema",
+							"Texto"=>"El Correo ingresado ya se encuentra registrado en el sistema",
 							"Tipo"=>"error"
 						];
 						echo json_encode($alerta);
