@@ -68,7 +68,7 @@ class usuarioControlador extends usuarioModelo
 						$alerta=[
 							"Alerta"=>"simple",
 							"Titulo"=>"Ocurrió un error inesperado",
-							"Texto"=>"El Correp ingresado ya se encuentra registrado en el sistema",
+							"Texto"=>"El Correo ingresado ya se encuentra registrado en el sistema",
 							"Tipo"=>"error"
 						];
 						echo json_encode($alerta);
@@ -99,18 +99,7 @@ class usuarioControlador extends usuarioModelo
 				exit();
 			} 
 
-			/*== Comprobando DNI ==*/
-			/* $check_usuario=mainModel::ejecutar_consulta_simple("SELECT usuario_dni FROM usuario WHERE usuario_dni='$Usuario'");
-			if($check_usuario->rowCount()>0){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El USUARIO ingresado ya se encuentra registrado en el sistema",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			} */
+
 
 			/*== Comprobando usuario ==*/
 			$check_user=mainModel::ejecutar_consulta_simple("SELECT usuario FROM TBL_usuarios WHERE usuario='$Usuario'");
@@ -129,7 +118,7 @@ class usuarioControlador extends usuarioModelo
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"Las claves que acaba de ingresar no coinciden",
+					"Texto"=>"Usted no ha ingresado una contraseña o no ha respetado los parametros de validacion",
 					"Tipo"=>"error"
 				];
 				echo json_encode($alerta);

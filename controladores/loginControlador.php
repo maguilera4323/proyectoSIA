@@ -4,6 +4,7 @@ require_once './modelos/loginModelo.php';
 require_once "./controladores/VistasControlador.php";
 require_once "./controladores/emailControlador.php";
 require_once './modelos/mainModel.php';
+require_once "./pruebabitacora.php";
 
 class loginControlador extends mainModel{
 	//funcion para validar datos e iniciar sesion
@@ -34,6 +35,15 @@ class loginControlador extends mainModel{
 							$_SESSION['nombre_usuario']=($array['nombre']);
 							$_SESSION['estado']=$array['estado'];
 							$_SESSION['token_login']=md5(uniqid(mt_rand(),true));
+							$datos_bitacora = [
+								"id_objeto" => 0,
+								"fecha" => date('Y-m-d h:i:s'),
+								"id_usuario" => $fila['id_usuario'],
+								"accion" => "inicio de sesion",
+								"descripcion" => "Acceso de usuario"
+							];
+							Bitacora::guardar_bitacora($datos_bitacora);
+
 							return header("Location:".SERVERURL."home/");
 						break;
 						case 'Inactivo':
@@ -314,7 +324,7 @@ class loginControlador extends mainModel{
 				$usuario=mainModel::decryption($_POST['usuario']);
 
 				if($token==$_SESSION['token_login'] && $usuario==$_SESSION['usuario_login']){
-					sesion_unset();
+					session_unset();
 					session_destroy();
 					$alerta=[
 						"Alerta"=>"redireccionar",
