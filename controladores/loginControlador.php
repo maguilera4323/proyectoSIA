@@ -2,6 +2,7 @@
 
 require_once './modelos/loginModelo.php';
 require_once "./controladores/VistasControlador.php";
+require_once "./controladores/emailControlador.php";
 require_once './modelos/mainModel.php';
 
 class loginControlador extends mainModel{
