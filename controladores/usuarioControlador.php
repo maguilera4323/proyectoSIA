@@ -129,7 +129,7 @@ class usuarioControlador extends usuarioModelo
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"Las claves que acaba de ingresar no coinciden",
+					"Texto"=>"Usted no ha ingresado una contraseña o no ha respetado los parametros de validacion",
 					"Tipo"=>"error"
 				];
 				echo json_encode($alerta);
