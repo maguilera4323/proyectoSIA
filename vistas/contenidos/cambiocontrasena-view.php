@@ -9,7 +9,7 @@
     $usuario = new loginControlador(); //se crea nueva instancia de usuario
 
 	//valdacion para ver si se recibieron datos de ingreso
-    if (isset($_POST['acceder'])) {
+     if (isset($_POST['acceder'])) {
 		$datos = array(
             'contrasena_nueva'=> $_POST['clave_new'],
 			'conf_contrasena_nueva'=> $_POST['conf_clave_new']

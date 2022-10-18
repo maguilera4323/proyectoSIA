@@ -31,11 +31,11 @@ $(document).ready(function(){
 	});
 
 	/*  Exit system buttom */
-	$('.btn-exit-system').on('click', function(e){
+	/* $('.btn-exit-system').on('click', function(e){
 		e.preventDefault();
 		Swal.fire({
-			title: 'QUIERE CERRAR SESSION?',
-			text: "Con esto saldras de sistema, y se cerrara la session",
+			title: 'QUIERE CERRAR SESIÓN?',
+			text: "Con esto saldras de sistema, y se cerrara la sesión",
 			type: 'question',
 			showCancelButton: true,
 			confirmButtonColor: '#3085d6',
@@ -44,10 +44,25 @@ $(document).ready(function(){
 			cancelButtonText: 'No, cancelar'
 		}).then((result) => {
 			if (result.value) {
-				window.location="index.html";
+				let url='<?php echo SERVERURL; ?>ajax/loginAjax.php';
+				let token='<?php echo $lc->encryption($_SESSION["token_login"])';
+				let usuario='<?php echo $lc->encryption($_SESSION["usuario_login"])';
+
+				let datos=new FormData();
+				datos.append("token",token);
+				datos.append("usuario",usuario);
+
+				fetch(url,{
+					method:'POST',
+					body:datos
+				})
+				.then(respuesta=>respuesta.json())
+				.then(respuesta=>{
+					return alertas_ajax(respuesta)
+				});
 			}
 		});
-	});
+	}); */
     
 });
 (function($){
