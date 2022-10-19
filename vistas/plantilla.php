@@ -14,7 +14,7 @@
 
 		$vistas=$IV->obtener_vistas_controlador();
 
-		if($vistas=="login" || $vistas=="404" || $vistas=="olvido-contrasena" || $vistas=="rec-correo" || $vistas=="rec-preguntas" || $vistas=="cambiocontrasena" || $vistas=="primer-ingreso"){
+		if($vistas=="login" || $vistas=="404" || $vistas=="olvido-contrasena" || $vistas=="rec-correo" || $vistas=="rec-preguntas" || $vistas=="cambiocontrasena" || $vistas=="primer-ingreso" || $vistas=="autoregistro" || $vistas=="preguntasusuario"){
 			require_once "./vistas/contenidos/".$vistas."-view.php";
 
 		}else{

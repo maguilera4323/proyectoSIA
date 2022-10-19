@@ -14,7 +14,7 @@
 				}else{
 					$contenido="404";
 				}
-			}elseif($vistas=="login" || $vistas=="index" || $vistas=="olvido-contrasena" || $vistas=="rec-correo" || $vistas=="rec-preguntas" || $vistas=="cambiocontrasena" || $vistas=="primer-ingreso"){
+			}elseif($vistas=="login" || $vistas=="index" || $vistas=="olvido-contrasena" || $vistas=="rec-correo" || $vistas=="rec-preguntas" || $vistas=="cambiocontrasena" || $vistas=="primer-ingreso" || $vistas=="autoregistro" || $vistas=="preguntasusuario"){
 				switch($vistas){
 					case 'login':
 						$contenido="login";
@@ -37,9 +37,15 @@
 					case 'primer-ingreso':
 						$contenido="primer-ingreso";
 					break;
+					case 'autoregistro':
+						$contenido="autoregistro";
+					break;
+					case 'preguntasusuario':
+						$contenido="preguntasusuario";
+					break;
 				}
 
-			}elseif($vistas=="login" || $vistas=="index" || $vistas=="prueba" || $vistas=="rec-correo" || $vistas=="rec-preguntas" || $vistas=="cambiocontrasena" || $vistas=="primer-ingreso"){
+			}elseif($vistas=="login" || $vistas=="index" || $vistas=="prueba" || $vistas=="rec-correo" || $vistas=="rec-preguntas" || $vistas=="cambiocontrasena" || $vistas=="primer-ingreso" || $vistas=="autoregistro" || $vistas=="preguntasusuario"){
 				$contenido="login";
 
 			}else{
