@@ -1,3 +1,8 @@
+<?php
+ if (session_status() == PHP_SESSION_NONE) {
+	session_start();
+}?>
+
 <div class="full-box page-header">
 	<h3 class="text-left">
 		<i class="fas fa-sync-alt fa-fw"></i> &nbsp; ACTUALIZAR USUARIO
@@ -39,6 +44,18 @@
 						</div>
 
 					</div>
+					<div class="col-12 col-md-4">
+						<div class="form-group">
+							<label for="nombre_usuario" class="bmd-label-floating">Estado</label>
+							<select class="form-control" name="estado_actu">
+								<option value="" selected="" disabled="">Seleccione una opción</option>
+								<option value="1">Activo</option>
+								<option value="2">Inactivo</option>
+								<option value="3">Bloqueado</option>
+								<option value="4">Nuevo</option>
+							</select>
+						</div>
+					</div>
 				</div>
 			</div>
 		</fieldset>
@@ -56,32 +73,46 @@
 				</div>
 				<div class="col-12 col-md-4">
 					<div class="form-group">
+					<input type="hidden" pattern="" class="form-control" name="usuario_actualizacion" value="<?php echo $_SESSION['usuario_login']?>">
 						<label for="contrasena" class="bmd-label-floating">Contraseña</label>
 						<input type="password" class="form-control" name="contrasena_actu" id="contrasena" pattern="[a-zA-Z0-9!#%&/()=?¡*+_$@.-]{8,100}" maxlength="100">
 					</div>
+					<div class="col-12 col-md-6">
+						<div class="form-group">
+							<label for="primer_ingreso" class="bmd-label-floating">Ingreso</label>
+							<input type="text" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,#\- ]{1,20}" class="form-control" name="primer_ingreso_actu" id="primer_ingreso" maxlength="20">
+						</div>
+					</div>	
+
+				<div class="col-12 col-md-6">
+					<div class="form-group">
+						<label for="fecha_vencimiento" class="label-floating">Vencimiento</label>
+						<input type="date" pattern="" class="form-control" name="fecha_vencimiento_actu" id="fecha_vencimiento" maxlength="190">
+					</div>
+				</div>	
 				</div>
-			
-
-
-
-
 			</div>
 		</fieldset>
 		<br><br><br>
 		<fieldset>
-			<legend><i class="fas fa-medal"></i> &nbsp; Nivel de privilegio</legend>
+			<legend><i class="fas fa-medal"></i> &nbsp; Roles de Usuario</legend>
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-12">
-						<p><span class="badge badge-info">Control total</span> Permisos para registrar, actualizar y eliminar</p>
-						<p><span class="badge badge-success">Edición</span> Permisos para registrar y actualizar</p>
+					<div class="col-12">
+						<!-- p><span class="badge badge-info">Control total</span> Permisos para registrar, actualizar y eliminar</p>
+						<p><span class="badge badge-success">Edición</span> Permisos para registrar y actualizar</p> -->
+						<!-- <p><span class="badge badge-dark">Registrar</span> Solo permisos para registrar</p> -->
 						<div class="form-group">
+						<label for="nombre_usuario" class="bmd-label-floating">Roles</label>
 							<select class="form-control" name="id_rol_actu">
 								<option value="" selected="" disabled="">Seleccione una opción</option>
-								<option value="1">Control total</option>
-								<option value="2">Edición</option>
+								<option value="1">Administrador</option>
+								<option value="2">Vendedor</option>
+								<option value="3">Inventario</option>
 							</select>
 						</div>
+					</div>
 					</div>
 				</div>
 			</div>

@@ -31,15 +31,20 @@
 		/*--------- Modelo actualizar usuario ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
 		protected static function actualizar_usuario_modelo($dato,$id)
 		{
-			$sql=mainModel::conectar()->prepare("UPDATE TBL_usuarios SET usuario=?,nombre_usuario=?,
-			contrasena=?, id_rol=?, correo_electronico=? WHERE id_usuario=?");
+			$sql=mainModel::conectar()->prepare("UPDATE TBL_usuarios SET usuario=?,nombre_usuario=?,estado_usuario=?,
+			contrasena=?, primer_ingreso=?, id_rol=?, correo_electronico=?,modificado_por=?,fecha_modificacion=? 
+			WHERE id_usuario=?");
 
 			$sql->bindParam(1,$dato['usua']);
-			$sql->bindParam(2,$dato['nombrea']);			
-			$sql->bindParam(3,$dato['contrasea']);
-			$sql->bindParam(4,$dato['rola']);			
-			$sql->bindParam(5,$dato['correoa']);
-			$sql->bindParam(6,$id);
+			$sql->bindParam(2,$dato['nombrea']);	
+			$sql->bindParam(3,$dato['estadoa']);			
+			$sql->bindParam(4,$dato['contrasea']);
+			$sql->bindParam(5,$dato['ingresoa']);
+			$sql->bindParam(6,$dato['rola']);			
+			$sql->bindParam(7,$dato['correoa']);
+			$sql->bindParam(8,$dato['modificador']);
+			$sql->bindParam(9,$dato['fecha_modif']);
+			$sql->bindParam(10,$id);
 			$sql->execute();
 			return $sql;
 			
