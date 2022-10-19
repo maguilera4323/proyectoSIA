@@ -2,7 +2,9 @@
 
 require_once './modelos/loginModelo.php';
 require_once "./controladores/VistasControlador.php";
-require_once "./modelos/mainModel.php";
+require_once "./controladores/emailControlador.php";
+require_once './modelos/mainModel.php';
+require_once "./pruebabitacora.php";
 
 class loginControlador extends mainModel{
 	//funcion para validar datos e iniciar sesion
@@ -32,6 +34,16 @@ class loginControlador extends mainModel{
 							$_SESSION['usuario_login']=$array['usuario'];
 							$_SESSION['nombre_usuario']=($array['nombre']);
 							$_SESSION['estado']=$array['estado'];
+							$_SESSION['token_login']=md5(uniqid(mt_rand(),true));
+							$datos_bitacora = [
+								"id_objeto" => 0,
+								"fecha" => date('Y-m-d h:i:s'),
+								"id_usuario" => $fila['id_usuario'],
+								"accion" => "inicio de sesion",
+								"descripcion" => "Acceso de usuario"
+							];
+							Bitacora::guardar_bitacora($datos_bitacora);
+
 							return header("Location:".SERVERURL."home/");
 						break;
 						case 'Inactivo':
@@ -269,6 +281,7 @@ class loginControlador extends mainModel{
 			$respuesta = $cambioContrasena->verificarContrasenaActual($usuario);
 			foreach($respuesta as $fila){
 				$array['contrasena']=$fila['contrasena'];
+				$array['correo']=$fila['correo_electronico'];
 			}
 			
 			if(($contrasena_nueva==$array['contrasena'])){
@@ -286,13 +299,13 @@ class loginControlador extends mainModel{
 					$respuesta = $cambioContrasena->cambioContrasena($usuario,$contrasena_nueva);
 					$respuesta = $cambioContrasena->desbloquearUsuario($usuario);
 					$respuesta = $cambioContrasena->actualizarFechaVencimiento($usuario,$FechaVencimiento);
+					$envioCorreo = new Correo();
+					$respuesta = $envioCorreo->CorreoCambioContrasena($array['correo'],$contrasena_nueva);
 					return header("Location:".SERVERURL."cambiocontrasena/");
 				die();
 			}
 					 
 		}
-
-
 
 				public function forzarCierreSesionControlador(){
 					session_unset();
@@ -303,6 +316,30 @@ class loginControlador extends mainModel{
 						return header("Location:".SERVERURL."login/");
 					}
 				}
+
+
+			public function cerrarSesion(){
+				session_start();
+				$token=mainModel::decryption($_POST['token']);
+				$usuario=mainModel::decryption($_POST['usuario']);
+
+				if($token==$_SESSION['token_login'] && $usuario==$_SESSION['usuario_login']){
+					session_unset();
+					session_destroy();
+					$alerta=[
+						"Alerta"=>"redireccionar",
+						"URL"=>SERVERURL."login/"
+					];
+				}else{
+					$alerta=[
+						"Alerta"=>"simple",
+						"Titulo"=>"Ocurrió un error inesperado",
+						"Texto"=>"No se pudo cerrar la sesión",
+						"Tipo"=>"error"
+					];
+				}
+				echo json_encode($alerta);
+			}
 			
 }
 

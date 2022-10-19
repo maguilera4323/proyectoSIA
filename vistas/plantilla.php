@@ -14,7 +14,7 @@
 
 		$vistas=$IV->obtener_vistas_controlador();
 
-		if($vistas=="login" || $vistas=="404" || $vistas=="olvido-contrasena" || $vistas=="rec-correo" || $vistas=="rec-preguntas" || $vistas=="cambiocontrasena" || $vistas=="primer-ingreso" || $vistas=="autoregistro" || $vistas=="preguntasusuario"){
+		if($vistas=="login" || $vistas=="404" || $vistas=="olvido-contrasena" || $vistas=="rec-correo" || $vistas=="rec-preguntas" || $vistas=="cambiocontrasena" || $vistas=="primer-ingreso"){
 			require_once "./vistas/contenidos/".$vistas."-view.php";
 
 		}else{
@@ -23,7 +23,7 @@
 			require_once './controladores/loginControlador.php';
 			$lc= new loginControlador();
 			
-			if(!isset($_SESSION['usuario_login'])){
+			if(!isset($_SESSION['usuario_login']) || !isset($_SESSION['token_login'])){
 				echo $lc->forzarCierreSesionControlador();
 				exit;
 			}
@@ -42,6 +42,7 @@
 		</section>
 	</main>
 	<?php
+		include "./vistas/inc/LogOut.php"; 
 		}
 		include "./vistas/inc/Script.php"; 
 	?>

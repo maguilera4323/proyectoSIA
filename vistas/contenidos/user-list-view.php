@@ -1,3 +1,5 @@
+
+
 <div class="full-box page-header">
 	<h3 class="text-left">
 		<i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE USUARIOS
@@ -62,7 +64,8 @@
 						<td><?php echo $mostrar['creado_por']?></td>
 						
 						<td>
-							<a href="<?php echo SERVERURL; ?>user-update/" class="btn btn-success">
+							<?php $_SESSION['id_usuario_actualizar']=$mostrar['id_usuario']?>
+							<a href="<?php echo SERVERURL; ?>user-update/<?php echo $mostrar['id_usuario']?>" class="btn btn-success">
 									<i class="fas fa-sync-alt"></i>	
 							</a>
 						</td>

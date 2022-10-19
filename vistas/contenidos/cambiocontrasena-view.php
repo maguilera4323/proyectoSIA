@@ -9,7 +9,7 @@
     $usuario = new loginControlador(); //se crea nueva instancia de usuario
 
 	//valdacion para ver si se recibieron datos de ingreso
-    if (isset($_POST['acceder'])) {
+     if (isset($_POST['acceder'])) {
 		$datos = array(
             'contrasena_nueva'=> $_POST['clave_new'],
 			'conf_contrasena_nueva'=> $_POST['conf_clave_new']
@@ -34,7 +34,7 @@
 							echo '<div class="alert alert-danger text-center">Las nuevas contraseñas ingresadas no coinciden</div>';
 						break;
 						case 'Cambio de contraseña exitoso':
-							header("refresh:4;url=".SERVERURL."login/");
+							header("refresh:3;url=".SERVERURL."login/");
 							echo '<div class="alert alert-success text-center">Contraseña cambiada exitosamente.
 							Se le redirigirá a la página de Login...</div>';
 						break;

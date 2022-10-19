@@ -1,4 +1,7 @@
 <?php
+if (session_status() == PHP_SESSION_NONE) {
+	session_start();
+}
 
 if($peticionAjax){
 	require_once "../modelos/usuarioModelo.php";
@@ -67,7 +70,7 @@ class usuarioControlador extends usuarioModelo
 						$alerta=[
 							"Alerta"=>"simple",
 							"Titulo"=>"Ocurrió un error inesperado",
-							"Texto"=>"El Correp ingresado ya se encuentra registrado en el sistema",
+							"Texto"=>"El Correo ingresado ya se encuentra registrado en el sistema",
 							"Tipo"=>"error"
 						];
 						echo json_encode($alerta);
@@ -98,18 +101,7 @@ class usuarioControlador extends usuarioModelo
 				exit();
 			} 
 
-			/*== Comprobando DNI ==*/
-			/* $check_usuario=mainModel::ejecutar_consulta_simple("SELECT usuario_dni FROM usuario WHERE usuario_dni='$Usuario'");
-			if($check_usuario->rowCount()>0){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El USUARIO ingresado ya se encuentra registrado en el sistema",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			} */
+
 
 			/*== Comprobando usuario ==*/
 			$check_user=mainModel::ejecutar_consulta_simple("SELECT usuario FROM TBL_usuarios WHERE usuario='$Usuario'");
@@ -124,14 +116,11 @@ class usuarioControlador extends usuarioModelo
 				exit();
 			}
 
-
-
-
 			if($Contraseña=""){
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"Las claves que acaba de ingresar no coinciden",
+					"Texto"=>"Usted no ha ingresado una contraseña o no ha respetado los parametros de validacion",
 					"Tipo"=>"error"
 				];
 				echo json_encode($alerta);
@@ -151,7 +140,7 @@ class usuarioControlador extends usuarioModelo
 				echo json_encode($alerta);
 				exit();
 			}
-
+			/*== AGREGAR USUARIOS ==*/
 			$datos_usuario_reg=[
 				"usu"=>$Usuario,
 				"nombre"=>$Nombre,
@@ -174,6 +163,8 @@ class usuarioControlador extends usuarioModelo
 					"Texto"=>"Los datos del usuario han sido registrados con exito",
 					"Tipo"=>"success"
 				];
+				/* $envioCorreo = new Correo();
+				$respuesta = $envioCorreo->CorreoCreacionUsuario($Correo,$Usuario,$Contraseña); */
 			}else{
 				$alerta=[
 					"Alerta"=>"simple",
@@ -189,10 +180,6 @@ class usuarioControlador extends usuarioModelo
 
 
 /*                           MUCHA PAJA CON ESTE CONTROLADOR MEJOR HICE UN SELEC NORNAL */
-
-
-
-
 
 	/*--------- Controlador lista usuario ---------*/
 	/*public function paginador_usuario_controlador($pagina,$registros,$id,$url,$busqueda)
@@ -286,6 +273,50 @@ class usuarioControlador extends usuarioModelo
 
 	} Fin controlador */
 
+
+	/*--------- Controlador actualizar usuario ---------*/
+	public function actualizar_usuario_controlador()
+	{
+		$Usuario=mainModel::limpiar_cadena($_POST['usuario_actu']);
+		$Nombre=mainModel::limpiar_cadena($_POST['nombre_usuario_actu']);
+		$Correo=mainModel::limpiar_cadena($_POST['correo_electronico_actu']);
+		$Contraseña=mainModel::limpiar_cadena($_POST['contrasena_actu']);
+		$privilegio=mainModel::limpiar_cadena($_POST['id_rol_actu']);
+		$id=$_SESSION['id_usuario_actualizar'];
+
+			/*== ACTUALIZAR USUARIOS ==*/
+			$datos_usuario_actu=
+			[
+				"usua"=>$Usuario,
+				"nombrea"=>$Nombre,
+				"correoa"=>$Correo,	
+				"contrasea"=>$Contraseña,
+				"rola"=>$privilegio,
+							
+			];
+
+			$actualizar_usuario=usuarioModelo::actualizar_usuario_modelo($datos_usuario_actu,$id);
+
+			if($actualizar_usuario->rowCount()==1)
+			{
+				$alerta=[
+					"Alerta"=>"limpiar",
+					"Titulo"=>"usuario registrado",
+					"Texto"=>"Usuario actualizado exitosamente",
+					"Tipo"=>"success"
+				];
+			}else
+			{
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error inesperado",
+					"Texto"=>"No hemos podido actualizar el usuario",
+					"Tipo"=>"error"
+				];
+			}
+			echo json_encode($alerta);
+	} /* Fin controlador */
+	
 
 
 }

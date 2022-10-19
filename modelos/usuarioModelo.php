@@ -5,7 +5,8 @@
 	class usuarioModelo extends mainModel{
 
 		/*--------- Modelo agregar usuario ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
-		protected static function agregar_usuario_modelo($datos){
+		protected static function agregar_usuario_modelo($datos)
+		{
 			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_usuarios(usuario,nombre_usuario,estado_usuario,
 			contrasena,id_rol,primer_ingreso,fecha_vencimiento,correo_electronico,creado_por,fecha_creacion)
 			VALUES(?,?,?,?,?,?,?,?,?,?)");
@@ -20,6 +21,25 @@
 			$sql->bindParam(8,$datos['correo']);
 			$sql->bindParam(9,$datos['creador']);
 			$sql->bindParam(10,$datos['fecha_crea']);
+			$sql->execute();
+			return $sql;
+			
+		}
+
+
+
+		/*--------- Modelo actualizar usuario ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
+		protected static function actualizar_usuario_modelo($dato,$id)
+		{
+			$sql=mainModel::conectar()->prepare("UPDATE TBL_usuarios SET usuario=?,nombre_usuario=?,
+			contrasena=?, id_rol=?, correo_electronico=? WHERE id_usuario=?");
+
+			$sql->bindParam(1,$dato['usua']);
+			$sql->bindParam(2,$dato['nombrea']);			
+			$sql->bindParam(3,$dato['contrasea']);
+			$sql->bindParam(4,$dato['rola']);			
+			$sql->bindParam(5,$dato['correoa']);
+			$sql->bindParam(6,$id);
 			$sql->execute();
 			return $sql;
 			
