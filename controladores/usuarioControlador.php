@@ -1,11 +1,13 @@
 <?php
+if (session_status() == PHP_SESSION_NONE) {
+	session_start();
+}
 
 if($peticionAjax){
 	require_once "../modelos/usuarioModelo.php";
 }else{
 	require_once "./modelos/usuarioModelo.php";//aqui se ejecuta dentro del index y no se utiliza Ajax
 }
-include "./controladores/emailControladorSistema.php";
 
 class usuarioControlador extends usuarioModelo
 {
@@ -280,8 +282,7 @@ class usuarioControlador extends usuarioModelo
 		$Correo=mainModel::limpiar_cadena($_POST['correo_electronico_actu']);
 		$Contraseña=mainModel::limpiar_cadena($_POST['contrasena_actu']);
 		$privilegio=mainModel::limpiar_cadena($_POST['id_rol_actu']);
-
-
+		$id=$_SESSION['id_usuario_actualizar'];
 
 			/*== ACTUALIZAR USUARIOS ==*/
 			$datos_usuario_actu=
@@ -294,14 +295,14 @@ class usuarioControlador extends usuarioModelo
 							
 			];
 
-			$actualizar_usuario=usuarioModelo::actualizar_usuario_modelo($datos_usuario_actu);
+			$actualizar_usuario=usuarioModelo::actualizar_usuario_modelo($datos_usuario_actu,$id);
 
 			if($actualizar_usuario->rowCount()==1)
 			{
 				$alerta=[
 					"Alerta"=>"limpiar",
 					"Titulo"=>"usuario registrado",
-					"Texto"=>"Los datos del usuario han sido registrados con exito",
+					"Texto"=>"Usuario actualizado exitosamente",
 					"Tipo"=>"success"
 				];
 			}else
@@ -309,7 +310,7 @@ class usuarioControlador extends usuarioModelo
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"No hemos podido registrar el usuario",
+					"Texto"=>"No hemos podido actualizar el usuario",
 					"Tipo"=>"error"
 				];
 			}

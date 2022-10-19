@@ -29,18 +29,17 @@
 
 
 		/*--------- Modelo actualizar usuario ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
-		protected static function actualizar_usuario_modelo($dato)
+		protected static function actualizar_usuario_modelo($dato,$id)
 		{
-			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_usuarios(usuario,nombre_usuario,
-			contrasena,id_rol,,correo_electronico)
-			VALUES(?,?,?,?,?)");
+			$sql=mainModel::conectar()->prepare("UPDATE TBL_usuarios SET usuario=?,nombre_usuario=?,
+			contrasena=?, id_rol=?, correo_electronico=? WHERE id_usuario=?");
 
 			$sql->bindParam(1,$dato['usua']);
 			$sql->bindParam(2,$dato['nombrea']);			
-			$sql->bindParam(4,$dato['contrasea']);
-			$sql->bindParam(5,$dato['rola']);			
-			$sql->bindParam(8,$dato['correoa']);
-
+			$sql->bindParam(3,$dato['contrasea']);
+			$sql->bindParam(4,$dato['rola']);			
+			$sql->bindParam(5,$dato['correoa']);
+			$sql->bindParam(6,$id);
 			$sql->execute();
 			return $sql;
 			
