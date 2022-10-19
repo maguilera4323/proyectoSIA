@@ -49,12 +49,12 @@ if (session_status() == PHP_SESSION_NONE) {
 					<div class="col-12 col-md-4">
 						<div class="form-group">
 							<label for="nombre_usuario" class="bmd-label-floating">Estado</label>
-							<select class="form-control" name="estado">
-								<option value="" selected="" disabled="">Seleccione una opción</option>
+							<select class="form-control" name="estado" disabled>
+								<option value="" disabled="">Seleccione una opción</option>
 								<option value="1">Activo</option>
 								<option value="2">Inactivo</option>
 								<option value="3">Bloqueado</option>
-								<option value="4">Nuevo</option>
+								<option value="4" selected="">Nuevo</option>
 							</select>
 						</div>
 					</div>
@@ -91,7 +91,8 @@ if (session_status() == PHP_SESSION_NONE) {
 					<div class="form-group">
 						<label for="fecha_vencimiento" class="label-floating">Vencimiento</label>
 						<input type="hidden" pattern="" class="form-control" name="usuario_creacion" value="<?php echo $_SESSION['usuario_login']?>">
-						<input type="date" pattern="" class="form-control" name="fecha_vencimiento_reg" id="fecha_vencimiento" maxlength="190">
+						<?php $fcha = date("Y-m-d");?>
+						<input type="date" class="form-control" name="fecha_vencimiento_reg" id="fecha_vencimiento" value="<?php echo date("Y-m-d",strtotime($fcha."+ 360 days"))?>" disabled>
 					</div>
 				</div>	
 			</div>
