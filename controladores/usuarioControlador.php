@@ -1,7 +1,7 @@
 <?php
-if (session_status() == PHP_SESSION_NONE) {
+ if (session_status() == PHP_SESSION_NONE) {
 	session_start();
-}
+} 
 
 if($peticionAjax){
 	require_once "../modelos/usuarioModelo.php";
@@ -17,12 +17,13 @@ class usuarioControlador extends usuarioModelo
 	{
 		$Usuario=mainModel::limpiar_cadena($_POST['usuario_reg']);
 		$Nombre=mainModel::limpiar_cadena($_POST['nombre_usuario_reg']);
+		$Estado=mainModel::limpiar_cadena($_POST['estado']);
 		$Correo=mainModel::limpiar_cadena($_POST['correo_electronico_reg']);
 		$Contraseña=mainModel::limpiar_cadena($_POST['contrasena_reg']);
 		$Ingreso=mainModel::limpiar_cadena($_POST['primer_ingreso_reg']);
 		$Vencimiento=mainModel::limpiar_cadena($_POST['fecha_vencimiento_reg']);
-		$creado=mainModel::limpiar_cadena($_POST['creado_por_reg']);
-		$Creacion=mainModel::limpiar_cadena($_POST['fecha_creacion_reg']);
+		$creado=mainModel::limpiar_cadena($_POST['usuario_creacion']);
+		$Creacion=date('y-m-d h:i:s');
 		$privilegio=mainModel::limpiar_cadena($_POST['id_rol']);
 
 
@@ -31,7 +32,7 @@ class usuarioControlador extends usuarioModelo
 			$alerta=[
 				"Alerta"=>"simple",
 				"Titulo"=>"Ocurrió un error inesperado",
-				"Texto"=>"No se an llenado todos los campos que son obligatorios",
+				"Texto"=>"No se han llenado todos los campos que son obligatorios",
 				"Tipo"=>"error"
 			];
 			echo json_encode($alerta);
@@ -130,11 +131,11 @@ class usuarioControlador extends usuarioModelo
 			}
 
 			/*== Comprobando privilegio ==*/
-			if($privilegio<1 || $privilegio>2){
+			if(!$privilegio){
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El privilegio seleccionado no es valido",
+					"Texto"=>"Seleccione un rol",
 					"Tipo"=>"error"
 				];
 				echo json_encode($alerta);
@@ -144,14 +145,14 @@ class usuarioControlador extends usuarioModelo
 			$datos_usuario_reg=[
 				"usu"=>$Usuario,
 				"nombre"=>$Nombre,
-				"estado"=>"1",
+				"estado"=>$Estado,
 				"contrase"=>$clave,//$Contraseña,
 				"rol"=>$privilegio,
 				"ingreso"=>$Ingreso,
 				"vencimiento"=>$Vencimiento,
 				"correo"=>$Correo,
 				"creador"=>$creado,
-				"fecha_crea"=>$Creacion,
+				"fecha_crea"=>$Creacion
 			];
 
 			$agregar_usuario=usuarioModelo::agregar_usuario_modelo($datos_usuario_reg);
@@ -159,7 +160,7 @@ class usuarioControlador extends usuarioModelo
 			if($agregar_usuario->rowCount()==1){
 				$alerta=[
 					"Alerta"=>"limpiar",
-					"Titulo"=>"usuario registrado",
+					"Titulo"=>"Usuario registrado",
 					"Texto"=>"Los datos del usuario han sido registrados con exito",
 					"Tipo"=>"success"
 				];
@@ -276,23 +277,31 @@ class usuarioControlador extends usuarioModelo
 
 	/*--------- Controlador actualizar usuario ---------*/
 	public function actualizar_usuario_controlador()
-	{
+	{	
 		$Usuario=mainModel::limpiar_cadena($_POST['usuario_actu']);
 		$Nombre=mainModel::limpiar_cadena($_POST['nombre_usuario_actu']);
+		$Estado=mainModel::limpiar_cadena($_POST['estado_actu']);
 		$Correo=mainModel::limpiar_cadena($_POST['correo_electronico_actu']);
+		$Ingreso=mainModel::limpiar_cadena($_POST['primer_ingreso_actu']);
 		$Contraseña=mainModel::limpiar_cadena($_POST['contrasena_actu']);
+		$Modificacion=date('y-m-d h:i:s');
+		$Modificado=mainModel::limpiar_cadena($_POST['usuario_actualizacion']);
 		$privilegio=mainModel::limpiar_cadena($_POST['id_rol_actu']);
 		$id=$_SESSION['id_usuario_actualizar'];
+
 
 			/*== ACTUALIZAR USUARIOS ==*/
 			$datos_usuario_actu=
 			[
 				"usua"=>$Usuario,
 				"nombrea"=>$Nombre,
-				"correoa"=>$Correo,	
+				"correoa"=>$Correo,
+				"estadoa"=>$Estado,
+				"ingresoa"=>$Ingreso,	
 				"contrasea"=>$Contraseña,
-				"rola"=>$privilegio,
-							
+				"fecha_modif"=>$Modificacion,
+				"modificador"=>$Modificado,
+				"rola"=>$privilegio,		
 			];
 
 			$actualizar_usuario=usuarioModelo::actualizar_usuario_modelo($datos_usuario_actu,$id);

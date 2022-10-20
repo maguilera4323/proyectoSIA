@@ -210,7 +210,7 @@ class loginControlador extends mainModel{
 					die();
 				}
 			}else{
-				$_SESSION['respuesta'] = 'Usuario inactivo';
+				$_SESSION['respuesta'] = 'Usuario esta inactivo';
 				return header("Location:".SERVERURL."olvido-contrasena/");
 				die();
 			}

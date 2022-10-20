@@ -1,3 +1,10 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+	session_start();
+}
+?>
+
+
 <div class="full-box page-header">
 	<h3 class="text-left">
 		<i class="fas fa-plus fa-fw"></i> &nbsp; NUEVO USUARIO
@@ -37,7 +44,19 @@
 							<label for="nombre_usuario" class="bmd-label-floating">Nombre</label>
 							<input type="text" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,20}" class="form-control" name="nombre_usuario_reg" id="nombre_usuario" maxlength="20" required="" >
 						</div>
+					</div>
 
+					<div class="col-12 col-md-4">
+						<div class="form-group">
+							<label for="nombre_usuario" class="bmd-label-floating">Estado</label>
+							<select class="form-control" name="estado" disabled>
+								<option value="" disabled="">Seleccione una opción</option>
+								<option value="1">Activo</option>
+								<option value="2">Inactivo</option>
+								<option value="3">Bloqueado</option>
+								<option value="4" selected="">Nuevo</option>
+							</select>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -60,15 +79,7 @@
 						<input type="password" class="form-control" name="contrasena_reg" id="contrasena" pattern="[a-zA-Z0-9!#%&/()=?¡*+_$@.-]{8,100}" maxlength="100" required="" >
 					</div>
 				</div>
-<!--
-				<div class="col-12 col-md-4">
-					<div class="form-group">
-						<label for="contrasena" class="bmd-label-floating">Contraseña2</label>
-						<input type="password" class="form-control" name="contrasena_reg" id="contrasena" pattern="[a-zA-Z0-9!#%&/()=?¡*+_$@.-]{8,100}" maxlength="100" required="" >
-					</div>
-				</div>
 
--->					
 					<div class="col-12 col-md-6">
 						<div class="form-group">
 							<label for="primer_ingreso" class="bmd-label-floating">Ingreso</label>
@@ -79,38 +90,29 @@
 				<div class="col-12 col-md-4">
 					<div class="form-group">
 						<label for="fecha_vencimiento" class="label-floating">Vencimiento</label>
-						<input type="date" pattern="" class="form-control" name="fecha_vencimiento_reg" id="fecha_vencimiento" maxlength="190">
+						<input type="hidden" pattern="" class="form-control" name="usuario_creacion" value="<?php echo $_SESSION['usuario_login']?>">
+						<?php $fcha = date("Y-m-d");?>
+						<input type="date" class="form-control" name="fecha_vencimiento_reg" id="fecha_vencimiento" value="<?php echo date("Y-m-d",strtotime($fcha."+ 360 days"))?>" disabled>
 					</div>
 				</div>	
-				<div class="col-12 col-md-4">
-					<div class="form-group">
-						<label for="creado_por" class="bmd-label-floating">creado</label>
-						<input type="text" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,#\- ]{1,20}" class="form-control" name="creado_por_reg" id="creado_por" maxlength="20">
-					</div>
-				</div>
-				<div class="col-12 col-md-4">
-					<div class="form-group">
-						<label for="fecha_creacion" class="label-floating">Creacion</label>
-						<input type="date" class="form-control" name="fecha_creacion_reg" id="fecha_creacion" maxlength="190" required="">
-					</div>
-				</div>
 			</div>
 		</fieldset>
 		<br><br><br>
 		<fieldset>
-			<legend><i class="fas fa-medal"></i> &nbsp; Nivel de privilegio</legend>
+			<legend><i class="fas fa-medal"></i> &nbsp; Roles de Usuario</legend>
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-12">
-						<p><span class="badge badge-info">Control total</span> Permisos para registrar, actualizar y eliminar</p>
-						<p><span class="badge badge-success">Edición</span> Permisos para registrar y actualizar</p>
+						<!-- p><span class="badge badge-info">Control total</span> Permisos para registrar, actualizar y eliminar</p>
+						<p><span class="badge badge-success">Edición</span> Permisos para registrar y actualizar</p> -->
 						<!-- <p><span class="badge badge-dark">Registrar</span> Solo permisos para registrar</p> -->
 						<div class="form-group">
+						<label for="nombre_usuario" class="bmd-label-floating">Roles</label>
 							<select class="form-control" name="id_rol">
 								<option value="" selected="" disabled="">Seleccione una opción</option>
-								<option value="1">Control total</option>
-								<option value="2">Edición</option>
-							<!--	<option value="3">Registrar</option> -->
+								<option value="1">Administrador</option>
+								<option value="2">Vendedor</option>
+								<option value="3">Inventario</option>
 							</select>
 						</div>
 					</div>

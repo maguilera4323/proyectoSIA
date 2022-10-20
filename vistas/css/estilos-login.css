@@ -28,6 +28,7 @@
 #usuario::placeholder,#clave::placeholder,#clave_new::placeholder,#conf_clave_new::placeholder, #respuesta::placeholder 
 {color: rgb(255, 255, 255);opacity: 0.7;}
 
+
 #opcion_rec, #opcion_reg{ 
     color:rgb(39, 243, 243);
     text-decoration: none;

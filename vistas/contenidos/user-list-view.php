@@ -2,7 +2,7 @@
 
 <div class="full-box page-header">
 	<h3 class="text-left">
-		<i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE USUARIOS
+		<i class="fas fa-clipboard-list fa-fw"></i> &nbsp; USUARIOS
 	</h3>
 
 </div>
