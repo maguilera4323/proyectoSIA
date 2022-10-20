@@ -23,7 +23,18 @@
 			$sql->bindParam(10,$datos['fecha_crea']);
 			$sql->execute();
 			return $sql;
-			
+
+				/* VERIFICAR SU GUARDA DEL DATO EN BITACORA */
+				$datos_bitacora = 
+				[
+					"id_objeto" => 0,
+					"fecha" => date('Y-m-d h:i:s'),
+					"id_usuario" => null,
+					"accion" => "insercion de usuario",
+					"descripcion" => "Acceso de usuario"
+				];
+				Bitacora::guardar_bitacora($datos_bitacora);
+							
 		}
 
 
@@ -42,6 +53,17 @@
 			$sql->bindParam(6,$id);
 			$sql->execute();
 			return $sql;
+
+				/* VERIFICAR SU GUARDA DEL DATO EN BITACORA */
+				$datos_bitacora = 
+				[
+					"id_objeto" => 0,
+					"fecha" => date('Y-m-d h:i:s'),
+					"id_usuario" => null,
+					"accion" => "Actualizacion de usuario",
+					"descripcion" => "Acceso de usuario"
+				];
+				Bitacora::guardar_bitacora($datos_bitacora);
 			
 		}
 
