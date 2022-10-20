@@ -49,7 +49,9 @@
 		</thead>
 		<?php
 			include ("./cone.php");
-			$sql="SELECT * FROM TBL_usuarios";
+			$sql="SELECT u.id_usuario, u.usuario, u.nombre_usuario, u.estado_usuario, u.correo_electronico,
+			u.creado_por, r.rol FROM TBL_usuarios u
+			inner JOIN TBL_ms_roles r ON u.id_rol = r.id_rol";
 			$result=mysqli_query($conexion,$sql);
 			while($mostrar=mysqli_fetch_assoc($result)){			
 		?>
@@ -59,13 +61,12 @@
 						<td><?php echo $mostrar['usuario']?></td>
 						<td><?php echo $mostrar['nombre_usuario']?></td>
 						<td><?php echo $mostrar['estado_usuario']?></td>
-						<td><?php echo $mostrar['id_rol']?></td>
+						<td><?php echo $mostrar['rol']?></td>
 						<td><?php echo $mostrar['correo_electronico']?></td>
 						<td><?php echo $mostrar['creado_por']?></td>
-						
 						<td>
-							<?php $_SESSION['id_usuario_actualizar']=$mostrar['id_usuario']?>
-							<a href="<?php echo SERVERURL; ?>user-update/<?php echo $mostrar['id_usuario']?>" class="btn btn-success">
+						<?php $_SESSION['id_update']=$mostrar['id_usuario']?>
+						<a href="<?php echo SERVERURL; ?>user-update?id=<?php echo $_SESSION['id_update']?>" class="btn btn-success">
 									<i class="fas fa-sync-alt"></i>	
 							</a>
 						</td>
@@ -80,7 +81,9 @@
 				</tbody>
 		<?php
 			}
+			
 		?>
+		
 	</table>
 		
 

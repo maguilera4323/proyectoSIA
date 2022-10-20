@@ -7,7 +7,7 @@
 			<figcaption class="roboto-medium text-center">
 				<?php echo $_SESSION['usuario_login']?>
 				<br><small class="roboto-condensed-light"><?php echo $_SESSION['nombre_usuario']?> </small>
-				<br><small class="roboto-condensed-light"><?php echo $_SESSION['estado']?> </small>
+				<br><small class="roboto-condensed-light"><?php echo $_SESSION['rol']?> </small>
 			</figcaption>
 		</figure>
 		<div class="full-box nav-lateral-bar"></div>

@@ -102,7 +102,9 @@ class Usuario extends mainModel{
 	//los resultados de la consulta pasan al controlador por medio del retorno de $respuesta
 	public function accesoUsuario($user, $password) {
 		$db = new mainModel();
-		$query = "SELECT * FROM TBL_usuarios WHERE usuario = '".$user. "' AND BINARY contrasena = '".$password . "' LIMIT 1";
+		$query = "SELECT u.id_usuario, u.usuario, u.nombre_usuario, u.estado_usuario, r.rol FROM TBL_usuarios u
+					inner JOIN TBL_ms_roles r ON u.id_rol = r.id_rol
+		WHERE u.usuario = '".$user. "' AND BINARY u.contrasena = '".$password . "' LIMIT 1";
 		return $respuesta = $db->ejecutar_consulta_simple($query);
 	}
 
@@ -240,6 +242,14 @@ class Usuario extends mainModel{
 	public function verificaCodigoToken($email,$token,$code){
 		$db = new mainModel();
 		$query = "SELECT*from TBL_restablece_clave_email where email='$email' and token='$token' and codigo='$code' limit 1";
+		return $respuesta = $db->ejecutar_consulta_simple($query);
+	}
+
+	//función para el obtener el parametro de los dias que se deben sumar a la fecha actual
+	//para la fecha de vencimiento
+	public function vigenciaCodigo() {
+		$db = new mainModel();
+		$query = "SELECT valor FROM TBL_ms_parametros WHERE parametro = 'HORASVIGENCIA_CODIGO_CORREO' LIMIT 1";
 		return $respuesta = $db->ejecutar_consulta_simple($query);
 	}
 }	

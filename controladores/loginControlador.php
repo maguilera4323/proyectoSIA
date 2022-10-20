@@ -22,18 +22,21 @@ class loginControlador extends mainModel{
 				$array['nombre'] = $fila['nombre_usuario'];
 				$array['usuario'] = $fila['usuario'];
 				$array['estado'] = $fila['estado_usuario'];
+				$array['rol'] = $fila['rol'];
 			}
 
 			//validacion en caso de que el estado del usuario sea Activo
 			//y que tanto usuario como contraseña son correctos
-			if (isset($array['nombre'])>0){
+			 if (isset($array['nombre'])>0){
 				switch ($array['estado']){
 						case 'Activo':
 							session_start();
 							//datos que se envian para uso del sistema
+							$_SESSION['id_login']=$array['id'];
 							$_SESSION['usuario_login']=$array['usuario'];
 							$_SESSION['nombre_usuario']=($array['nombre']);
 							$_SESSION['estado']=$array['estado'];
+							$_SESSION['rol']=$array['rol'];
 							$_SESSION['token_login']=md5(uniqid(mt_rand(),true));
 							$datos_bitacora = [
 								"id_objeto" => 0,
@@ -53,7 +56,7 @@ class loginControlador extends mainModel{
 						case 'Bloqueado':
 							$_SESSION['respuesta'] = 'Usuario bloqueado';
 							return header("Location:".SERVERURL."login/");
-						break;
+						break; 
 						/* case 'Nuevo':
 							$_SESSION['id_pregunta']=1; //se inicializa en 1 la variable para encontrar la pregunta con el id 1
 							$preguntasSeguridad=new Usuario();
@@ -74,7 +77,7 @@ class loginControlador extends mainModel{
 							/* $_SESSION['pregunta_seguridad']=$array_pregunta['pregunta_seguridad'];
 							return header("Location:".SERVERURL."primer-ingreso/");
 						break; */
-					}
+				}
 					die();
             }else{
 				//validacion cuando usuario o contraseña son incorrectos

@@ -1,7 +1,15 @@
 <?php
  if (session_status() == PHP_SESSION_NONE) {
 	session_start();
+
+	if(isset($_GET['id'])){
+		echo 'hOLA';
+	}else{
+		echo 'adui';
+	}
 }?>
+
+
 
 <div class="full-box page-header">
 	<h3 class="text-left">
@@ -10,7 +18,7 @@
 
 </div>
 
-<!-- <div class="container-fluid">
+<div class="container-fluid">
 	<ul class="full-box list-unstyled page-nav-tabs">
 		<li>
 			<a href="<?php echo SERVERURL; ?>user-new/"><i class="fas fa-plus fa-fw"></i> &nbsp; NUEVO USUARIO</a>
@@ -22,12 +30,14 @@
 			<a href="<?php echo SERVERURL; ?>user-search/"><i class="fas fa-search fa-fw"></i> &nbsp; BUSCAR USUARIO</a>
 		</li>
 	</ul>	
-</div> -->
+</div>
 
 <div class="container-fluid">
 	<form class="form-neon FormularioAjax" action="<?php echo SERVERURL; ?>ajax/usuarioAjax.php" method="POST" data-form="save" autocomplete="off">
 		<fieldset>
 			<legend><i class="far fa-address-card"></i> &nbsp; Información personal</legend>
+			<p>"<?php echo $_SESSION['id_update']?>"</p>
+			<p><?php echo isset($_GET['id'])?> </p>
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-12 col-md-4">
@@ -73,8 +83,8 @@
 				</div>
 				<div class="col-12 col-md-4">
 					<div class="form-group">
-					<input type="hidden" pattern="" class="form-control" name="usuario_actualizacion" value="<?php echo $_SESSION['usuario_login']?>">
-						<label for="contrasena" class="bmd-label-floating">Contraseña</label>
+					<input type="hidden" pattern="" class="form-control" name="id_actualizacion" value="<?php echo $_SESSION['usuario_login']?>">
+					<input type="hidden" pattern="" class="form-control" name="usuario_actualizacion" value="<?php echo $_SESSION['id_update']?>"> -->					<label for="contrasena" class="bmd-label-floating">Contraseña</label>
 						<input type="password" class="form-control" name="contrasena_actu" id="contrasena" pattern="[a-zA-Z0-9!#%&/()=?¡*+_$@.-]{8,100}" maxlength="100">
 					</div>
 					<div class="col-12 col-md-6">
@@ -99,11 +109,10 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-12">
-					<div class="col-12">
+					<div class="col-12"> -->
 						<!-- p><span class="badge badge-info">Control total</span> Permisos para registrar, actualizar y eliminar</p>
 						<p><span class="badge badge-success">Edición</span> Permisos para registrar y actualizar</p> -->
-						<!-- <p><span class="badge badge-dark">Registrar</span> Solo permisos para registrar</p> -->
-						<div class="form-group">
+						<!-- <p><span class="badge badge-dark">Registrar</span> Solo permisos para registrar</p> -->						<div class="form-group">
 						<label for="nombre_usuario" class="bmd-label-floating">Roles</label>
 							<select class="form-control" name="id_rol_actu">
 								<option value="" selected="" disabled="">Seleccione una opción</option>

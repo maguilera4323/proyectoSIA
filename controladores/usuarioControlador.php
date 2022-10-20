@@ -17,11 +17,12 @@ class usuarioControlador extends usuarioModelo
 	{
 		$Usuario=mainModel::limpiar_cadena($_POST['usuario_reg']);
 		$Nombre=mainModel::limpiar_cadena($_POST['nombre_usuario_reg']);
-		$Estado=mainModel::limpiar_cadena($_POST['estado']);
+		$Estado=4;
 		$Correo=mainModel::limpiar_cadena($_POST['correo_electronico_reg']);
 		$Contraseña=mainModel::limpiar_cadena($_POST['contrasena_reg']);
 		$Ingreso=mainModel::limpiar_cadena($_POST['primer_ingreso_reg']);
-		$Vencimiento=mainModel::limpiar_cadena($_POST['fecha_vencimiento_reg']);
+		$fcha = date("Y-m-d");
+		$Vencimiento=date("Y-m-d",strtotime($fcha."+ 360 days"));
 		$creado=mainModel::limpiar_cadena($_POST['usuario_creacion']);
 		$Creacion=date('y-m-d h:i:s');
 		$privilegio=mainModel::limpiar_cadena($_POST['id_rol']);
@@ -287,11 +288,13 @@ class usuarioControlador extends usuarioModelo
 		$Modificacion=date('y-m-d h:i:s');
 		$Modificado=mainModel::limpiar_cadena($_POST['usuario_actualizacion']);
 		$privilegio=mainModel::limpiar_cadena($_POST['id_rol_actu']);
-		$id=$_SESSION['id_usuario_actualizar'];
+		/* $id_actualizar=mainModel::limpiar_cadena($_POST['usuario_actualizacion']); */
+
+		echo $id_actualizar;
 
 
 			/*== ACTUALIZAR USUARIOS ==*/
-			$datos_usuario_actu=
+		/* 	$datos_usuario_actu=
 			[
 				"usua"=>$Usuario,
 				"nombrea"=>$Nombre,
@@ -323,7 +326,7 @@ class usuarioControlador extends usuarioModelo
 					"Tipo"=>"error"
 				];
 			}
-			echo json_encode($alerta);
+			echo json_encode($alerta); */
 	} /* Fin controlador */
 	
 

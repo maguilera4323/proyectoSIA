@@ -94,6 +94,15 @@ class Correo extends mainModel{
 				$_SESSION['max_contrasena'] = $fila['valor'];
 		}
 
+        //Parametro para la vigencia del codigo de seguridad ingresado
+        //configurado actualmente en 24 horas
+        $parametroVigenciaCodigo=new Usuario();
+		$valorParametroVigencia=$parametroVigenciaCodigo->VigenciaCodigo();
+			foreach ($valorParametroVigencia as $fila) { //se recorre el arreglo recibido
+			//datos guardados para ser usados posteriormenete en el sistema
+				$horasVigencia = $fila['valor'];
+		}
+
         //se instancia y llama a la funcion que hara un select para verificar si los datos que se envian coinciden con los registrados en la bd
         $enviarCodigoVerif = new Usuario(); 
         $respuesta =  $enviarCodigoVerif->verificaCodigoToken($correo_verificacion,$token_verificacion,$codigo_verificacion);
@@ -107,7 +116,7 @@ class Correo extends mainModel{
         //se resta la fecha en la que se envio el correo para validar que el codigo siga valido de acuerdo al tiempo asignado
         $fecha_actual=date('y-m-d h:i:s');
         $segundos=strtotime($fecha_actual)-strtotime($array['fecha']);
-        $minutos=$segundos/60;
+        $horas=$segundos/3600;
 
         //condicion que verifica si el codigo coincide con el guardado en la bd
         if(isset($array['codigo'])==''){
@@ -115,12 +124,12 @@ class Correo extends mainModel{
             return header("Location:".SERVERURL."verifica-codigo/");
             die();
         //condicion que verifica si el codigo fue ingresado antes del tiempo limite
-        }else if (isset($array['codigo'])>0 && $minutos<=10){
+        }else if (isset($array['codigo'])>0 && $horas<=$horasVigencia){
                 $_SESSION['respuesta'] = 'codigo valido';
                 return header("Location:".SERVERURL."verifica-codigo/");
                 die();
          //condicion que indica que el codigo ya no es válido al ser usado después del tiempo limite
-            }else if(isset($array['codigo'])>0 && $minutos>10){
+            }else if(isset($array['codigo'])>0 && $horas>$horasVigencia){
                 $_SESSION['respuesta'] = 'token vencido';
                 return header("Location:".SERVERURL."verifica-codigo/");
                 die();
