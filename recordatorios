@@ -13,3 +13,13 @@ esto es para la tabla detalle de compra
 <th>Proveedor</th>
 <th>Estado Compra</th>
 <th>Total Compra</th>
+
+$datos_bitacora = 
+					[
+						"id_objeto" => 0,
+						"fecha" => date('Y-m-d h:i:s'),
+						"id_usuario" => $_SESSION['usuario_login'],
+						"accion" => "AGREGO UN USUARIO",
+						"descripcion" => "Usuario"
+					];
+					Bitacora::guardar_bitacora($datos_bitacora);
