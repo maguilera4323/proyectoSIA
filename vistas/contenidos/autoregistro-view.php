@@ -64,7 +64,7 @@
 				</div>
 				<div class="form-group">
 				</div>
-				<button type="submit" name="siguiente" onclick="" class="btn-login text-center"><a href="<?php echo SERVERURL; ?>preguntasusuario/" id=opcion_reg>  Siguiente -> </button>
+				<button type="submit" name="siguiente" onclick="" class="btn-login text-center"><a href="<?php echo SERVERURL; ?>preguntasusuario/" id=opcion_reg><i class="fas fa-arrow-circle-right icon-user"> Siguiente</i></button>
 			</form>
 		</div>
 	</div>
