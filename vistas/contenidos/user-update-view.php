@@ -1,14 +1,7 @@
 <?php
  if (session_status() == PHP_SESSION_NONE) {
 	session_start();
-
-	if(isset($_GET['id'])){
-		echo 'hOLA';
-	}else{
-		echo 'adui';
-	}
 }?>
-
 
 
 <div class="full-box page-header">
@@ -33,31 +26,49 @@
 </div>
 
 <div class="container-fluid">
+	<!-- //codigo php para extraer el id del usuario a editar de la url -->
+			<p><?php 
+				require_once "./controladores/usuarioControlador.php";
+				$ins_usuario=new UsuarioControlador();
+					$host= $_SERVER["HTTP_HOST"];
+					$url= $_SERVER["REQUEST_URI"];
+					$url_completa="http://" . $host . $url; //variable con la url del sitio completa
+					$id_editar = explode('/',$url_completa)[5]; 
+
+					//instancia para obtener los datos ya guardados en la tabla de usuarios
+					//para realizar los cambios de un registro
+					$datos_usuario=$ins_usuario->datosUsuarioControlador("unico",$id_editar);
+
+					if($datos_usuario->rowCount()==1){
+						$campos=$datos_usuario->fetch();
+					}
+				?></p>
 	<form class="form-neon FormularioAjax" action="<?php echo SERVERURL; ?>ajax/usuarioAjax.php" method="POST" data-form="save" autocomplete="off">
 		<fieldset>
 			<legend><i class="far fa-address-card"></i> &nbsp; Información personal</legend>
-			<p>"<?php echo $_SESSION['id_update']?>"</p>
-			<p><?php echo isset($_GET['id'])?> </p>
+			
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-12 col-md-4">
 						<div class="form-group">
 							<label for="nom_usuario" class="bmd-label-floating">Usuario</label>
-							<input type="text" pattern="[A-Z]{5,15}" class="form-control" name="usuario_actu" id="nom_usuario" maxlength="15" required="" >
+							<input type="text" pattern="[A-Z]{5,15}" class="form-control" name="usuario_actu" id="nom_usuario" maxlength="15" 
+							value="<?php echo $campos['usuario']?>" required="" >
 						</div>
 					</div>
 					
 					<div class="col-12 col-md-4">
 						<div class="form-group">
 							<label for="nombre_usuario" class="bmd-label-floating">Nombre</label>
-							<input type="text" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,20}" class="form-control" name="nombre_usuario_actu" id="nombre_usuario" maxlength="20"  >
+							<input type="text" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,20}" class="form-control" name="nombre_usuario_actu" 
+							id="nombre_usuario" maxlength="20" value="<?php echo $campos['nombre_usuario']?>">
 						</div>
 
 					</div>
 					<div class="col-12 col-md-4">
 						<div class="form-group">
 							<label for="nombre_usuario" class="bmd-label-floating">Estado</label>
-							<select class="form-control" name="estado_actu">
+							<select class="form-control" name="estado_actu" >
 								<option value="" selected="" disabled="">Seleccione una opción</option>
 								<option value="1">Activo</option>
 								<option value="2">Inactivo</option>
@@ -78,26 +89,31 @@
 				<div class="col-12 col-md-4">
 						<div class="form-group">
 							<label for="correo_electronico" class="bmd-label-floating">Correo</label>
-							<input type="email" class="form-control" name="correo_electronico_actu" id="correo_electronico" maxlength="70" >
+							<input type="email" class="form-control" name="correo_electronico_actu" id="correo_electronico" 
+							value="<?php echo $campos['correo_electronico']?>"maxlength="70" >
 						</div>
 				</div>
 				<div class="col-12 col-md-4">
 					<div class="form-group">
-					<input type="hidden" pattern="" class="form-control" name="id_actualizacion" value="<?php echo $_SESSION['usuario_login']?>">
-					<input type="hidden" pattern="" class="form-control" name="usuario_actualizacion" value="<?php echo $_SESSION['id_update']?>"> -->					<label for="contrasena" class="bmd-label-floating">Contraseña</label>
-						<input type="password" class="form-control" name="contrasena_actu" id="contrasena" pattern="[a-zA-Z0-9!#%&/()=?¡*+_$@.-]{8,100}" maxlength="100">
+					<input type="hidden" pattern="" class="form-control" name="id_actualizacion" value="<?php echo $id_editar?>">
+					<input type="hidden" pattern="" class="form-control" name="usuario_modificacion" value="<?php echo $_SESSION['usuario_login']?>">					
+					<label for="contrasena" class="bmd-label-floating">Contraseña</label>
+						<input type="password" class="form-control" name="contrasena_actu" id="contrasena" pattern="[a-zA-Z0-9!#%&/()=?¡*+_$@.-]{8,100}" 
+						value="<?php echo $campos['contrasena']?>" maxlength="100">
 					</div>
 					<div class="col-12 col-md-6">
 						<div class="form-group">
 							<label for="primer_ingreso" class="bmd-label-floating">Ingreso</label>
-							<input type="text" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,#\- ]{1,20}" class="form-control" name="primer_ingreso_actu" id="primer_ingreso" maxlength="20">
+							<input type="text" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,#\- ]{1,20}" class="form-control" name="primer_ingreso_actu" id="primer_ingreso"
+							value="<?php echo $campos['primer_ingreso']?>" maxlength="20">
 						</div>
 					</div>	
 
 				<div class="col-12 col-md-6">
 					<div class="form-group">
 						<label for="fecha_vencimiento" class="label-floating">Vencimiento</label>
-						<input type="date" pattern="" class="form-control" name="fecha_vencimiento_actu" id="fecha_vencimiento" maxlength="190">
+						<input type="date" pattern="" class="form-control" name="fecha_vencimiento_actu" id="fecha_vencimiento" 
+						value="<?php echo $campos['fecha_vencimiento']?>" maxlength="190" disabled>
 					</div>
 				</div>	
 				</div>
@@ -109,7 +125,7 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-12">
-					<div class="col-12"> -->
+					<div class="col-12">
 						<!-- p><span class="badge badge-info">Control total</span> Permisos para registrar, actualizar y eliminar</p>
 						<p><span class="badge badge-success">Edición</span> Permisos para registrar y actualizar</p> -->
 						<!-- <p><span class="badge badge-dark">Registrar</span> Solo permisos para registrar</p> -->						<div class="form-group">

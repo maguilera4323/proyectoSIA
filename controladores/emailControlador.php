@@ -64,8 +64,7 @@ class Correo extends mainModel{
             $_SESSION['token']=$token_rec;
             $_SESSION['codigo']=$codigo;
             $_SESSION['correo']=$correo;
-            $_SESSION['respuesta']='';
-			return header("Location:".SERVERURL."verifica-codigo/");
+			return header("Location:".SERVERURL."rec-correo/");
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }

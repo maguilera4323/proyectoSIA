@@ -72,4 +72,13 @@
 			
 		}
 
+		protected static function datos_usuario_modelo($tipo,$id){
+			if($tipo=='unico'){
+				$sql=mainModel::conectar()->prepare("SELECT * FROM TBL_usuarios where id_usuario=?");
+				$sql->bindParam(1,$id);
+			}
+			$sql->execute();
+			return $sql;
+		}
+
 	}
