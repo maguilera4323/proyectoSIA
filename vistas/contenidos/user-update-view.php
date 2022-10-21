@@ -95,7 +95,7 @@
 				</div>
 				<div class="col-12 col-md-4">
 					<div class="form-group">
-					<input type="hidden" pattern="" class="form-control" name="id_actualizacion" value="<?php echo $id_editar?>">
+					<input type="hidden" pattern="" class="form-control" name="id_actualizacion" value="<?php echo $id_editar ?>">
 					<input type="hidden" pattern="" class="form-control" name="usuario_modificacion" value="<?php echo $_SESSION['usuario_login']?>">					
 					<label for="contrasena" class="bmd-label-floating">Contraseña</label>
 						<input type="password" class="form-control" name="contrasena_actu" id="contrasena" pattern="[a-zA-Z0-9!#%&/()=?¡*+_$@.-]{8,100}" 
@@ -126,9 +126,7 @@
 				<div class="row">
 					<div class="col-12">
 					<div class="col-12">
-						<!-- p><span class="badge badge-info">Control total</span> Permisos para registrar, actualizar y eliminar</p>
-						<p><span class="badge badge-success">Edición</span> Permisos para registrar y actualizar</p> -->
-						<!-- <p><span class="badge badge-dark">Registrar</span> Solo permisos para registrar</p> -->						<div class="form-group">
+					<div class="form-group">
 						<label for="nombre_usuario" class="bmd-label-floating">Roles</label>
 							<select class="form-control" name="id_rol_actu">
 								<option value="" selected="" disabled="">Seleccione una opción</option>

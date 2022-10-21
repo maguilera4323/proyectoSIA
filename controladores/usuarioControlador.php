@@ -8,6 +8,7 @@ if($peticionAjax){
 }else{
 	require_once "./modelos/usuarioModelo.php";//aqui se ejecuta dentro del index y no se utiliza Ajax
 }
+/* require_once "../pruebabitacora.php"; */
 
 class usuarioControlador extends usuarioModelo
 {
@@ -29,7 +30,7 @@ class usuarioControlador extends usuarioModelo
 
 
 		/*== comprobar campos vacios ==*/
-		if($Usuario=="" || $Nombre=="" || $Correo=="" || $Contraseña=="" || $Vencimiento=="" || $Creacion==""){
+		if($Usuario=="" || $Nombre=="" || $Correo=="" || $Contraseña==""){
 			$alerta=[
 				"Alerta"=>"simple",
 				"Titulo"=>"Ocurrió un error inesperado",
@@ -72,7 +73,7 @@ class usuarioControlador extends usuarioModelo
 						$alerta=[
 							"Alerta"=>"simple",
 							"Titulo"=>"Ocurrió un error inesperado",
-							"Texto"=>"El Correo ingresado ya se encuentra registrado en el sistema",
+							"Texto"=>"El correo ingresado ya se encuentra registrado en el sistema",
 							"Tipo"=>"error"
 						];
 						echo json_encode($alerta);
@@ -142,6 +143,7 @@ class usuarioControlador extends usuarioModelo
 				echo json_encode($alerta);
 				exit();
 			}
+
 			/*== AGREGAR USUARIOS ==*/
 			$datos_usuario_reg=[
 				"usu"=>$Usuario,
@@ -165,6 +167,7 @@ class usuarioControlador extends usuarioModelo
 					"Texto"=>"Los datos del usuario han sido registrados con exito",
 					"Tipo"=>"success"
 				];
+
 				/* $envioCorreo = new Correo();
 				$respuesta = $envioCorreo->CorreoCreacionUsuario($Correo,$Usuario,$Contraseña); */
 			}else{
@@ -176,104 +179,16 @@ class usuarioControlador extends usuarioModelo
 				];
 			}
 			echo json_encode($alerta);
+
+			/* $datos_bitacora = [
+				"id_objeto" => 0,
+				"fecha" => date('Y-m-d h:i:s'),
+				"id_usuario" => $_SESSION['id_login'],
+				"accion" => "Creación de usuario",
+				"descripcion" => "Se creó un nuevo usuario en el sistema"
+			];
+			Bitacora::guardar_bitacora($datos_bitacora); */
 	} /* Fin controlador */
-
-	
-
-
-/*                           MUCHA PAJA CON ESTE CONTROLADOR MEJOR HICE UN SELEC NORNAL */
-
-	/*--------- Controlador lista usuario ---------*/
-	/*public function paginador_usuario_controlador($pagina,$registros,$id,$url,$busqueda)
-	{
-		$pagina=mainModel::limpiar_cadena($pagina);
-		$registros=mainModel::limpiar_cadena($registros);
-		$id=mainModel::limpiar_cadena($id);
-		$url=mainModel::limpiar_cadena($url);
-		$url=SERVERURL.$url."/"; //aqui concatenamos la url
-		$busqueda=mainModel::limpiar_cadena($busqueda);
-
-		$tabla=""; //esta sera la tabala que crearemos
-
-		$pagina= (isset($pagina) && $pagina>0) ?(int) $pagina : 1 ; //controla que siempre este en la pagina que es no se ingresen letras
-		$inicio= ($pagina>0)  ? (($pagina*$registros)-$registros) : 0 ;
-
-		if(isset($busqueda) &&! $busqueda=""){ 
-			$consulta="SELECT SQL_CALC_FOUNT_ROWS * FROM TBL_usuarios WHERE ((id_usuario!='$id' AND id_usuario!='1')AND (usuario LIKE '%$busqueda%' OR
-			 nombre_usuario LIKE '%$busqueda%' OR estado_usuario LIKE '%$busqueda%' OR correo_electronico LIKE '%$busqueda%' OR creado_por LIKE '%$busqueda%'))
-				ORDER BY nombre_usuario ASC LIMIT $inicio,$registros";
-
-		}else{
-			$consulta="SELECT SQL_CALC_FOUNT_ROWS * FROM TBL_usuarios WHERE id_usuario!='$id' AND id_usuario!='1'
-				ORDER BY nombre_usuario ASC LIMIT $inicio,$registros";
-
-		}
-		$conexion = mainModel::conectar();
-		$datos =$conexion->query($consulta);
-		$datos = $datos->fetchAll();
-
-		$total = $conexion->query("SELECT FOUND_ROWS()");
-		$total = (int)$total->fetchColumn();
-		
-		$Npaginas=ceil($total/$registros);
-
-		$tabla.='<div class="table-responsive">
-			<table class="table table-dark table-sm">
-				<thead>
-					<tr class="text-center roboto-medium">
-						<th>#</th>
-						<th>USUARIO</th>
-						<th>NOMBRE</th>
-						<th>ESTADO</th>
-						<th>ROL</th>
-						<th>CORREO</th>
-						<th>CREADO POR</th>
-						<th>ACTUALIZAR</th>
-						<th>ELIMINAR</th>
-					</tr>
-				</thead>
-				<tbody>';
-			if($total>=1 && $pagina<=$Npaginas)
-			{
-				$contador=$inicio+1;
-				foreach($datos as $rows) {
-					$tabla.='	
-					<tr class="text-center" >
-						<td>'.$contador.'</td>
-						<td>'.$rows['usuario'].'</td>
-						<td>'.$rows['nombre_usuario'].'</td>
-						<td>'.$rows['estado_usuario'].'</td>
-						<td>'.$rows['id_rol'].'</td>
-						<td>'.$rows['correo_electronico'].'</td>
-						<td>'.$rows['creado_por'].'</td>
-						<td>
-							<a href="user-update.html" class="btn btn-success">
-									<i class="fas fa-sync-alt"></i>	
-							</a>
-						</td>
-						<td>
-							<form action="">
-								<button type="button" class="btn btn-warning">
-										<i class="far fa-trash-alt"></i>
-								</button>
-							</form>
-						</td>
-					</tr>';
-					$contador++;
-				}
-				}else{
-				if($total>=1){
-					$tabla.='<tr class="text-center" ><td colspan="9">
-					<a>href="'.$url.'" class="btn btn-raised btn-primary btn-sm">Recargar Lista</a>
-					</td></tr>';
-				}else{
-					$tabla.='<tr class="text-center" ><td colspan="9">no hay resgistros guardados en el sistema</td></tr>';
-				}
-				
-			}
-			$tabla.='</tbody></table></div>';
-
-	} Fin controlador */
 
 
 	/*--------- Controlador actualizar usuario ---------*/
@@ -286,9 +201,66 @@ class usuarioControlador extends usuarioModelo
 		$Ingreso=mainModel::limpiar_cadena($_POST['primer_ingreso_actu']);
 		$Contraseña=mainModel::limpiar_cadena($_POST['contrasena_actu']);
 		$Modificacion=date('y-m-d h:i:s');
-		$Modificado=mainModel::limpiar_cadena($_POST['usuario_actualizacion']);
+		$Modificado=mainModel::limpiar_cadena($_POST['usuario_modificacion']);
 		$privilegio=mainModel::limpiar_cadena($_POST['id_rol_actu']);
 		$id_actualizar=mainModel::limpiar_cadena($_POST['id_actualizacion']); 
+
+		if($Usuario=="" || $Nombre=="" || $Correo=="" || $Contraseña==""){
+			$alerta=[
+				"Alerta"=>"simple",
+				"Titulo"=>"Ocurrió un error inesperado",
+				"Texto"=>"No se han llenado todos los campos que son obligatorios",
+				"Tipo"=>"error"
+			];
+			echo json_encode($alerta);
+			exit();
+		}
+
+
+			/*== Verificando integridad de los datos ==*/
+			if(mainModel::verificar_datos("[A-Z]{1,15}",$Usuario)){
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error inesperado",
+					"Texto"=>"El USUARIO no coincide con el formato solicitado",
+					"Tipo"=>"error"
+				];
+				echo json_encode($alerta);
+				exit();
+			}
+
+			if(mainModel::verificar_datos("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,20}",$Nombre)){
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error inesperado",
+					"Texto"=>"El NOMBRE no coincide con el formato solicitado",
+					"Tipo"=>"error"
+				];
+				echo json_encode($alerta);
+				exit();
+			}
+			
+		if($Usuario=='ADMIN' && $Estado!=1){
+			$alerta=[
+				"Alerta"=>"simple",
+				"Titulo"=>"Ocurrió un error inesperado",
+				"Texto"=>"El usuario Admin no puede ser inactivado o borrado",
+				"Tipo"=>"error"
+			];
+			echo json_encode($alerta);
+			exit();
+		}
+
+		if($Usuario=='ADMIN' && $privilegio!=1){
+			$alerta=[
+				"Alerta"=>"simple",
+				"Titulo"=>"Ocurrió un error inesperado",
+				"Texto"=>"El usuario Admin no puede tener otro rol diferente de Admin Sistema",
+				"Tipo"=>"error"
+			];
+			echo json_encode($alerta);
+			exit();
+		}
 
 			/*== ACTUALIZAR USUARIOS ==*/
 		$datos_usuario_actu=
@@ -310,7 +282,7 @@ class usuarioControlador extends usuarioModelo
 			{
 				$alerta=[
 					"Alerta"=>"limpiar",
-					"Titulo"=>"usuario registrado",
+					"Titulo"=>"Usuario Actualizado",
 					"Texto"=>"Usuario actualizado exitosamente",
 					"Tipo"=>"success"
 				];
@@ -324,6 +296,15 @@ class usuarioControlador extends usuarioModelo
 				];
 			}
 			echo json_encode($alerta);
+
+/* 			$datos_bitacora = [
+				"id_objeto" => 0,
+				"fecha" => date('Y-m-d h:i:s'),
+				"id_usuario" => $_SESSION['id_login'],
+				"accion" => "Actualización de usuario",
+				"descripcion" => "Se actualizaron los datos de un usuario en el sistema"
+			];
+			Bitacora::guardar_bitacora($datos_bitacora); */
 	} /* Fin controlador */
 	
 	public function datosUsuarioControlador($tipo,$id){

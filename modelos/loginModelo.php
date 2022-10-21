@@ -232,16 +232,16 @@ class Usuario extends mainModel{
 
 	//Funciones para recuperacion de contraseña por email
 	//Funcion que inserta los valores que se usurán para verificar si es posible recuperar por email
-	public function insertToken($email,$token,$code){
+	public function insertToken($email,$code){
 		$db = new mainModel();
-		$query = ("INSERT into TBL_restablece_clave_email(id_restablecer,email,token,codigo)VALUES(null,'$email','$token','$code')");
+		$query = ("INSERT into TBL_restablece_clave_email(id_restablecer,email,codigo)VALUES(null,'$email','$code')");
 		return $respuesta = $db->actualizarRegistros($query);
 	}
 	
 	//Funcion que verifica si los valores que se envian al sistema para recuperar contraseña son los mismos registrados en la bd
-	public function verificaCodigoToken($email,$token,$code){
+	public function verificaCodigoToken($email,$code){
 		$db = new mainModel();
-		$query = "SELECT*from TBL_restablece_clave_email where email='$email' and token='$token' and codigo='$code' limit 1";
+		$query = "SELECT*from TBL_restablece_clave_email where email='$email' and codigo='$code' limit 1";
 		return $respuesta = $db->ejecutar_consulta_simple($query);
 	}
 
