@@ -31,7 +31,7 @@
 					color:black; font-weight: 500; z-index:5; padding:8px;  border: 2px solid #FF4C12;" hidden>
       				Llene este campo</div>
             </div>
-
+			<button type="submit" name="siguiente" onclick="" class="btn-login text-center"><i class="fas fa-save icon-user"> Guardar</i></button>
         </form>
     </div>
 </div>
