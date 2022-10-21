@@ -19,7 +19,7 @@
 				if(isset($_SESSION['respuesta'])){
 					switch($_SESSION['respuesta']){
 						case 'codigo valido':
-							header("refresh:3;url=".SERVERURL."cambiocontrasena/");
+							header("refresh:2;url=".SERVERURL."cambiocontrasena/");
 							echo '<div class="alert alert-success text-center">Código correcto. Será redireccionado en unos segundos...</div>';
 						break;
 						case 'codigo invalido':

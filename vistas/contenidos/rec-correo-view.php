@@ -24,7 +24,7 @@
 				if(isset($_SESSION['respuesta'])){
 					switch($_SESSION['respuesta']){
 						case 'Correo enviado':
-							header("refresh:3;url=".SERVERURL."verifica-codigo/");
+							header("refresh:2;url=".SERVERURL."verifica-codigo/");
 							echo '<div class="alert alert-success text-center">Se envió un código de seguridad a la 
 							dirección de correo ingresada.</div>';
 						break;

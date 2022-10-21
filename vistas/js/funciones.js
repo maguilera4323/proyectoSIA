@@ -1,3 +1,5 @@
+//funciones para poder ver ver las contraseñas en los campos de contraseña
+//función del login
 function mostrarContrasena(){
   let tipo = document.getElementById("clave");
  if(tipo.type == "password"){
@@ -9,6 +11,7 @@ function mostrarContrasena(){
  }
 }
 
+//funciones de cambio de contraseña
 function mostrarContrasenaNueva(){
     let tipo = document.getElementById("clave_new");
    if(tipo.type == "password"){
@@ -31,25 +34,14 @@ function mostrarConfContrasenaNueva(){
  }
 }
 
+
 //funciones para validar el texto ingresado en las cajas de texto
-
-// La siguiente funcion valida el elemento input
 function validarUsuario() {
-    // Variable que usaremos para determinar si el input es valido
     let isValid = false;
-
-    // El input que queremos validar
     const input = document.forms['loginForm']['usuario'];
-
-    //El div con el mensaje de advertencia:
     const message = document.getElementById('message_usuario');
-
     input.willValidate = false;
-
-    // El tamaño maximo para nuestro input
     const maximo = 35;
-
-    // El pattern que vamos a comprobar
     const pattern = new RegExp('^[A-ZÑ]+$');
 
     // Primera validacion, si input esta vacio entonces no es valido
@@ -72,37 +64,23 @@ function validarUsuario() {
       }
     }
 
-    //Ahora coloreamos el borde de nuestro input
+    //se envia el mensaje a mostrar
     if(!isValid) {
-      // mostramos mensaje
       message.hidden = false;
     } else {
-      // ocultamos mensaje;
       message.hidden = true;
     }
-
-    // devolvemos el valor de isValid
     return isValid;
   }
 
   
 
 function validarContrasena() {
-    // Variable que usaremos para determinar si el input es valido
     let isValid = false;
-
-    // El input que queremos validar
     const input = document.forms['loginForm']['clave'];
-
-    //El div con el mensaje de advertencia:
     const message = document.getElementById('message_contrasena');
-
     input.willValidate = false;
-
-    // El tamaño maximo para nuestro input
     const maximo = 35;
-
-    // El pattern que vamos a comprobar
     const pattern = new RegExp('^[A-ZÑ!#$%&/()=?¡*+-_.@]+$','i');
 
     // Primera validacion, si input esta vacio entonces no es valido
@@ -125,16 +103,12 @@ function validarContrasena() {
       }
     }
 
-    //Ahora coloreamos el borde de nuestro input
+    //se envia mensaje si es valido
     if(!isValid) {
-      // mostramos mensaje
       message.hidden = false;
     } else {
-      // ocultamos mensaje;
       message.hidden = true;
     }
-
-    // devolvemos el valor de isValid
     return isValid;
   }
 

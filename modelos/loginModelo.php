@@ -172,7 +172,7 @@ class Usuario extends mainModel{
 	//Función que actualiza el estado del usuario a Activo
 	public function desbloquearUsuario($user) {
 		$db = new mainModel();
-		$query= ("UPDATE TBL_usuarios SET estado_usuario=1 where usuario='$user'");
+		$query= ("UPDATE TBL_usuarios SET estado_usuario=1,modificado_por='$user', fecha_modificacion=now() where usuario='$user'");
 		return $respuesta = $db->actualizarRegistros($query);
 	}
 
