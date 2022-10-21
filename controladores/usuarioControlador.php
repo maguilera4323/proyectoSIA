@@ -288,13 +288,10 @@ class usuarioControlador extends usuarioModelo
 		$Modificacion=date('y-m-d h:i:s');
 		$Modificado=mainModel::limpiar_cadena($_POST['usuario_actualizacion']);
 		$privilegio=mainModel::limpiar_cadena($_POST['id_rol_actu']);
-		/* $id_actualizar=mainModel::limpiar_cadena($_POST['usuario_actualizacion']); */
-
-		echo $id_actualizar;
-
+		$id_actualizar=mainModel::limpiar_cadena($_POST['id_actualizacion']); 
 
 			/*== ACTUALIZAR USUARIOS ==*/
-		/* 	$datos_usuario_actu=
+		$datos_usuario_actu=
 			[
 				"usua"=>$Usuario,
 				"nombrea"=>$Nombre,
@@ -307,7 +304,7 @@ class usuarioControlador extends usuarioModelo
 				"rola"=>$privilegio,		
 			];
 
-			$actualizar_usuario=usuarioModelo::actualizar_usuario_modelo($datos_usuario_actu,$id);
+			$actualizar_usuario=usuarioModelo::actualizar_usuario_modelo($datos_usuario_actu,$id_actualizar);
 
 			if($actualizar_usuario->rowCount()==1)
 			{
@@ -326,9 +323,15 @@ class usuarioControlador extends usuarioModelo
 					"Tipo"=>"error"
 				];
 			}
-			echo json_encode($alerta); */
+			echo json_encode($alerta);
 	} /* Fin controlador */
 	
+	public function datosUsuarioControlador($tipo,$id){
+		$tipo=mainModel::limpiar_cadena($tipo);
+		$id=mainModel::limpiar_cadena($id);
+
+		return usuarioModelo::datos_usuario_modelo($tipo,$id);
+	}
 
 
 }

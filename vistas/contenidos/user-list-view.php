@@ -65,8 +65,7 @@
 						<td><?php echo $mostrar['correo_electronico']?></td>
 						<td><?php echo $mostrar['creado_por']?></td>
 						<td>
-						<?php $_SESSION['id_update']=$mostrar['id_usuario']?>
-						<a href="<?php echo SERVERURL; ?>user-update?id=<?php echo $_SESSION['id_update']?>" class="btn btn-success">
+						<a href="<?php echo SERVERURL; ?>user-update/<?php echo $mostrar['id_usuario']?>" class="btn btn-success">
 									<i class="fas fa-sync-alt"></i>	
 							</a>
 						</td>
