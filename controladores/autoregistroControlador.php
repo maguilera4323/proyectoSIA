@@ -18,6 +18,10 @@ class autoregistroControlador extends autoregistroModelo
 		$Nombre=mainModel::limpiar_cadena($_POST['nameusuario_autoreg']);
 		$Correo=mainModel::limpiar_cadena($_POST['correo_electronico_autoreg']);
 		$Contraseña=mainModel::limpiar_cadena($_POST['contrasena_autoreg']);
+		$Rol=5;
+		$fcha = date("Y-m-d");
+		$Vencimiento=date("Y-m-d",strtotime($fcha."+ 360 days"));
+		$Estado=5;
 
         // comprobación de campos vacios
         if($Usuario=="" || $Nombre=="" || $Correo=="" || $Contraseña=="" ){
@@ -125,8 +129,11 @@ class autoregistroControlador extends autoregistroModelo
 			$datos_usuario_reg=[
 				"usu"=>$Usuario,
 				"nombre"=>$Nombre,
-				"correo"=>$Correo,
+				"estado"=>$Estado,
 				"contrase"=>$clave,//$Contraseña,
+				"vencimiento"=>$Vencimiento,
+				"correo"=>$Correo,
+				"rol"=>$Rol,
 			];
 
 			$agregar_usuario=autoregistroModelo::autoregistro_modelo($datos_usuario_reg);
