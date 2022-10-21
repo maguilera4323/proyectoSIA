@@ -1,3 +1,8 @@
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+	session_start();
+}
+?>
 
 <div class="login-container">
 		<div class="login-content">
@@ -27,33 +32,32 @@
 					 }
 				 }
 			 ?>
-			<form action="" method="POST" autocomplete="off" id="loginForm">
+			<form action="<?php echo SERVERURL; ?>ajax/autoregistroAjax.php" method="POST" autocomplete="off" id="loginForm">
 				<div class="form-group">
-					<i class="fas fa-user icon-user"></i>
-					<input type="text" class="form-control" id="usuario" name="usuario" placeholder="Nombre del Usuario" 
+					<i class="fas fa-user icon-user"> Usuario</i>
+					<input type="text" class="form-control" pattern="[A-Z]{5,15}" name="usuario_autoreg" id="nom_usuario" placeholder="Usuario" 
 					onkeyup="validarUsuario()" required />
 					<div id="message_usuario" style="position: absolute; left: 20px; top: 60px; background-color: #EFEFEF; 
 					color:black; font-weight: 500; z-index:5; padding:8px;  border: 2px solid #FF4C12;" hidden>
       				Introduzca solo letras mayúsculas(A-Z).</div>
 					<br>
 					<br>
-					<i class="fas fa-user icon-user"></i>
-					<input type="text" class="form-control" id="usuario" name="nameusuario" placeholder="Usuario" 
-					onkeyup="validarUsuario()" required />
-					<div id="message_usuario" style="position: absolute; left: 20px; top: 60px; background-color: #EFEFEF; 
-					color:black; font-weight: 500; z-index:5; padding:8px;  border: 2px solid #FF4C12;" hidden>
-      				Introduzca solo letras mayúsculas(A-Z).</div>
-					<br>
-					<br>
-					<i class="fas fa-envelope icon-user"></i>
-					<input type="text" class="form-control" id="usuario" name="emailusuario" placeholder="E-Mail" 
+					<i class="fas fa-user icon-user"> Nombre del Usuario</i>
+					<input type="text" class="form-control" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,20}" name="nameusuario_autoreg" id="nombre_usuario" placeholder="Nombre del Usuario" 
 					onkeyup="validarUsuario()" required />
 					<div id="message_usuario" style="position: absolute; left: 20px; top: 60px; background-color: #EFEFEF; 
 					color:black; font-weight: 500; z-index:5; padding:8px;  border: 2px solid #FF4C12;" hidden></div>
 					<br>
 					<br>
-					<i class="fas fa-eye-slash icon-clave" onclick="mostrarContrasena()"></i>
-					<input type="password" class="form-control" id="clave" name="clave" placeholder="Contraseña" 
+					<i class="fas fa-envelope icon-user">  Correo Electrónico</i>
+					<input type="email" class="form-control" name="correo_electronico_autoreg" id="correo_electronico" placeholder="E-Mail" 
+					onkeyup="validarUsuario()" required />
+					<div id="message_usuario" style="position: absolute; left: 20px; top: 60px; background-color: #EFEFEF; 
+					color:black; font-weight: 500; z-index:5; padding:8px;  border: 2px solid #FF4C12;" hidden></div>
+					<br>
+					<br>
+					<i class="fas fa-eye-slash icon-clave" onclick="mostrarContrasena()"> Contraseña</i>
+					<input type="password" class="form-control" name="contrasena_autoreg" id="clave" placeholder="Contraseña" pattern="[a-zA-Z0-9!#%&/()=?¡*+_$@.-]{8,100}"
 					onkeyup="validarContrasena()" required />
 					<div id="message_contrasena" style="position: absolute; left: 20px; top: 120px; background-color: #EFEFEF; 
 					color:black; font-weight: 500; z-index:5; padding:8px; border: 2px solid #FF4C12;" hidden>
@@ -64,7 +68,7 @@
 				</div>
 				<div class="form-group">
 				</div>
-				<button type="submit" name="siguiente" onclick="" class="btn-login text-center"><a href="<?php echo SERVERURL; ?>preguntasusuario/" id=opcion_reg><i class="fas fa-arrow-circle-right icon-user"> Siguiente</i></button>
+				<button type="submit" class="btn-login text-center"><a href="<?php echo SERVERURL; ?> preguntasusuario/" id=opcion_reg><i class="fas fa-arrow-circle-right icon-user"> Siguiente</i></button>
 			</form>
 		</div>
 	</div>

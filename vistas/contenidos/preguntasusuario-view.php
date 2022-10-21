@@ -9,29 +9,29 @@
 
             <div class="form-group">
                 <i class="fas fa-user icon-user"> ¿Cuál es su Deporte Favorito?</i>
-					<input type="text" class="form-control" id="usuario" name="usuario" placeholder="Respuesta" 
-					onkeyup="validarUsuario()" required />
+					<input type="text" class="form-control" id="usuario" name="depfav" placeholder="Respuesta" 
+					 required />
 					<div id="message_usuario" style="position: absolute; left: 20px; top: 60px; background-color: #EFEFEF; 
 					color:black; font-weight: 500; z-index:5; padding:8px;  border: 2px solid #FF4C12;" hidden>
       				Llene este campo</div>
 				<br>
                 <br>
                 <i class="fas fa-dog icon-user"> ¿Nombre de su Mascota?</i>
-					<input type="text" class="form-control" id="usuario" name="usuario" placeholder="Respuesta" 
-					onkeyup="validarUsuario()" required />
+					<input type="text" class="form-control" id="usuario" name="mascota" placeholder="Respuesta" 
+					 required />
 					<div id="message_usuario" style="position: absolute; left: 20px; top: 60px; background-color: #EFEFEF; 
 					color:black; font-weight: 500; z-index:5; padding:8px;  border: 2px solid #FF4C12;" hidden>
       				Llene este campo</div>
 				<br>
                 <br>
                 <i class="fas fa-globe-americas icon-user"> Lugar de Nacimiento</i>
-					<input type="text" class="form-control" id="usuario" name="usuario" placeholder="Respuesta" 
-					onkeyup="validarUsuario()" required />
+					<input type="text" class="form-control" id="usuario" name="lugarnaci" placeholder="Respuesta" 
+					 required />
 					<div id="message_usuario" style="position: absolute; left: 20px; top: 60px; background-color: #EFEFEF; 
 					color:black; font-weight: 500; z-index:5; padding:8px;  border: 2px solid #FF4C12;" hidden>
       				Llene este campo</div>
             </div>
-			<button type="submit" name="siguiente" onclick="" class="btn-login text-center"><i class="fas fa-save icon-user"> Guardar</i></button>
+			<button type="submit" name="siguiente" onclick="" class="btn-login text-center"><a href="<?php echo SERVERURL; ?> login/" id=opcion_reg><i class="fas fa-save icon-user"> Guardar</i></button>
         </form>
     </div>
 </div>
