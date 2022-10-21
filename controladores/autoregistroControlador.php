@@ -18,7 +18,7 @@ class autoregistroControlador extends autoregistroModelo
 		$Nombre=mainModel::limpiar_cadena($_POST['nameusuario_autoreg']);
 		$Correo=mainModel::limpiar_cadena($_POST['correo_electronico_autoreg']);
 		$Contraseña=mainModel::limpiar_cadena($_POST['contrasena_autoreg']);
-		$Rol=5;
+		$Rol=4;
 		$fcha = date("Y-m-d");
 		$Vencimiento=date("Y-m-d",strtotime($fcha."+ 360 days"));
 		$Estado=5;
