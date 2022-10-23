@@ -35,14 +35,16 @@ if (session_status() == PHP_SESSION_NONE) {
 					<div class="col-12 col-md-4">
 						<div class="form-group">
 							<label for="nom_usuario" class="bmd-label-floating">Usuario</label>
-							<input type="text" pattern="[A-Z]{5,15}" class="form-control" name="usuario_reg" id="nom_usuario" maxlength="15" required="" >
+							<input type="text" class="form-control" name="usuario_reg" id="nom_usuario" maxlength="15" 
+							style="text-transform:uppercase;" required="" >
 						</div>
 					</div>
 					
 					<div class="col-12 col-md-4">
 						<div class="form-group">
 							<label for="nombre_usuario" class="bmd-label-floating">Nombre</label>
-							<input type="text" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,20}" class="form-control" name="nombre_usuario_reg" id="nombre_usuario" maxlength="20" required="" >
+							<input type="text" class="form-control" name="nombre_usuario_reg" id="nombre_usuario" 
+							style="text-transform:uppercase;" maxlength="20" required="" >
 						</div>
 					</div>
 
@@ -79,14 +81,6 @@ if (session_status() == PHP_SESSION_NONE) {
 						<input type="password" class="form-control" name="contrasena_reg" id="contrasena" pattern="[a-zA-Z0-9!#%&/()=?¡*+_$@.-]{8,100}" maxlength="100" required="" >
 					</div>
 				</div>
-
-					<div class="col-12 col-md-6">
-						<div class="form-group">
-							<label for="primer_ingreso" class="bmd-label-floating">Ingreso</label>
-							<input type="text" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,#\- ]{1,20}" class="form-control" name="primer_ingreso_reg" id="primer_ingreso" maxlength="20">
-						</div>
-					</div>	
-
 				<div class="col-12 col-md-4">
 					<div class="form-group">
 						<label for="fecha_vencimiento" class="label-floating">Vencimiento</label>

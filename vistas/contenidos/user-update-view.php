@@ -52,16 +52,16 @@
 					<div class="col-12 col-md-4">
 						<div class="form-group">
 							<label for="nom_usuario" class="bmd-label-floating">Usuario</label>
-							<input type="text" pattern="[A-Z]{5,15}" class="form-control" name="usuario_actu" id="nom_usuario" maxlength="15" 
-							value="<?php echo $campos['usuario']?>" required="" >
+							<input type="text" class="form-control" name="usuario_actu" id="nom_usuario" maxlength="15" 
+							style="text-transform:uppercase;" value="<?php echo $campos['usuario']?>" required >
 						</div>
 					</div>
 					
 					<div class="col-12 col-md-4">
 						<div class="form-group">
 							<label for="nombre_usuario" class="bmd-label-floating">Nombre</label>
-							<input type="text" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,20}" class="form-control" name="nombre_usuario_actu" 
-							id="nombre_usuario" maxlength="20" value="<?php echo $campos['nombre_usuario']?>">
+							<input type="text" class="form-control" name="nombre_usuario_actu" style="text-transform:uppercase;" 
+							id="nombre_usuario" maxlength="20" value="<?php echo $campos['nombre_usuario']?>" required>
 						</div>
 
 					</div>
@@ -97,18 +97,7 @@
 					<div class="form-group">
 					<input type="hidden" pattern="" class="form-control" name="id_actualizacion" value="<?php echo $id_editar ?>">
 					<input type="hidden" pattern="" class="form-control" name="usuario_modificacion" value="<?php echo $_SESSION['usuario_login']?>">					
-					<label for="contrasena" class="bmd-label-floating">Contraseña</label>
-						<input type="password" class="form-control" name="contrasena_actu" id="contrasena" pattern="[a-zA-Z0-9!#%&/()=?¡*+_$@.-]{8,100}" 
-						value="<?php echo $campos['contrasena']?>" maxlength="100">
 					</div>
-					<div class="col-12 col-md-6">
-						<div class="form-group">
-							<label for="primer_ingreso" class="bmd-label-floating">Ingreso</label>
-							<input type="text" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,#\- ]{1,20}" class="form-control" name="primer_ingreso_actu" id="primer_ingreso"
-							value="<?php echo $campos['primer_ingreso']?>" maxlength="20">
-						</div>
-					</div>	
-
 				<div class="col-12 col-md-6">
 					<div class="form-group">
 						<label for="fecha_vencimiento" class="label-floating">Vencimiento</label>

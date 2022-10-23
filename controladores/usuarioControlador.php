@@ -16,18 +16,17 @@ class usuarioControlador extends usuarioModelo
 	/*--------- Controlador agregar usuario ---------*/
 	public function agregar_usuario_controlador()
 	{
-		$Usuario=mainModel::limpiar_cadena($_POST['usuario_reg']);
-		$Nombre=mainModel::limpiar_cadena($_POST['nombre_usuario_reg']);
+		$Usuario=mainModel::limpiar_cadena(strtoupper($_POST['usuario_reg']));
+		$Nombre=mainModel::limpiar_cadena(strtoupper($_POST['nombre_usuario_reg']));
 		$Estado=4;
 		$Correo=mainModel::limpiar_cadena($_POST['correo_electronico_reg']);
 		$Contraseña=mainModel::limpiar_cadena($_POST['contrasena_reg']);
-		$Ingreso=mainModel::limpiar_cadena($_POST['primer_ingreso_reg']);
+		$Ingreso=0;
 		$fcha = date("Y-m-d");
 		$Vencimiento=date("Y-m-d",strtotime($fcha."+ 360 days"));
 		$creado=mainModel::limpiar_cadena($_POST['usuario_creacion']);
-		$Creacion=date('y-m-d h:i:s');
+		$Creacion=date('y-m-d H:i:s');
 		$privilegio=mainModel::limpiar_cadena($_POST['id_rol']);
-
 
 		/*== comprobar campos vacios ==*/
 		if($Usuario=="" || $Nombre=="" || $Correo=="" || $Contraseña==""){
@@ -198,14 +197,12 @@ class usuarioControlador extends usuarioModelo
 		$Nombre=mainModel::limpiar_cadena($_POST['nombre_usuario_actu']);
 		$Estado=mainModel::limpiar_cadena($_POST['estado_actu']);
 		$Correo=mainModel::limpiar_cadena($_POST['correo_electronico_actu']);
-		$Ingreso=mainModel::limpiar_cadena($_POST['primer_ingreso_actu']);
-		$Contraseña=mainModel::limpiar_cadena($_POST['contrasena_actu']);
-		$Modificacion=date('y-m-d h:i:s');
+		$Modificacion=date('y-m-d H:i:s');
 		$Modificado=mainModel::limpiar_cadena($_POST['usuario_modificacion']);
 		$privilegio=mainModel::limpiar_cadena($_POST['id_rol_actu']);
 		$id_actualizar=mainModel::limpiar_cadena($_POST['id_actualizacion']); 
 
-		if($Usuario=="" || $Nombre=="" || $Correo=="" || $Contraseña==""){
+		if($Usuario=="" || $Nombre=="" || $Correo==""){
 			$alerta=[
 				"Alerta"=>"simple",
 				"Titulo"=>"Ocurrió un error inesperado",
@@ -269,8 +266,6 @@ class usuarioControlador extends usuarioModelo
 				"nombrea"=>$Nombre,
 				"correoa"=>$Correo,
 				"estadoa"=>$Estado,
-				"ingresoa"=>$Ingreso,	
-				"contrasea"=>$Contraseña,
 				"fecha_modif"=>$Modificacion,
 				"modificador"=>$Modificado,
 				"rola"=>$privilegio,		
