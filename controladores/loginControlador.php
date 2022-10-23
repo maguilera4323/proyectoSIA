@@ -57,26 +57,17 @@ class loginControlador extends mainModel{
 							$_SESSION['respuesta'] = 'Usuario bloqueado';
 							return header("Location:".SERVERURL."login/");
 						break; 
-						/* case 'Nuevo':
-							$_SESSION['id_pregunta']=1; //se inicializa en 1 la variable para encontrar la pregunta con el id 1
-							$preguntasSeguridad=new Usuario();
-							//se llama a la funcion para obtener la primera pregunta de seguridad
-							$pregunta=$preguntasSeguridad->obtenerPreguntas($_SESSION['id_pregunta']);
-							foreach ($pregunta as $fila) { //se recorre el arreglo recibido
-								//datos guardados para ser usados posteriormenete en el sistema
-								$array_pregunta['pregunta_seguridad'] = $fila['pregunta'];
-							}
-
+						case 'Nuevo':
 							session_start();
 							//datos que se envian para el uso del sistema y para el primer ingreso
 							$_SESSION['id_login']=$array['id'];
 							$_SESSION['usuario_login']=$array['usuario'];
 							$_SESSION['nombre_usuario']=($array['nombre']);
 							$_SESSION['estado']=$array['estado'];
-							/* $_SESSION['id_pregunta']+=1; */  ////se aumenta en uno el contador para poder llamar a la siguiente pregunta de seguridad
-							/* $_SESSION['pregunta_seguridad']=$array_pregunta['pregunta_seguridad'];
+							$_SESSION['rol']=$array['rol'];
+							$_SESSION['token_login']=md5(uniqid(mt_rand(),true));
 							return header("Location:".SERVERURL."primer-ingreso/");
-						break; */
+						break;
 				}
 					die();
             }else{
@@ -141,7 +132,7 @@ class loginControlador extends mainModel{
 
 
 		//Función para guardar las respuestas de las preguntas de seguridad en el primer ingreso de un usuario
-		/* public function insertarRespuestasSeguridad($datos){
+		public function insertarRespuestasSeguridad($datos){
 			//valores para guardar las respuestas: respuesta, id de pregunta y id del usuario
 			$res_pregunta=mainModel::limpiar_cadena($datos);
 			$usuario=$_SESSION['usuario_login'];
@@ -171,7 +162,7 @@ class loginControlador extends mainModel{
 			}
 			
 
-		} */
+		} 
 				
 
 		//función que se encarga de validar el usuario ingresado para la recuperacion de contraseña
