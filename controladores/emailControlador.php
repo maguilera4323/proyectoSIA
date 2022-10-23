@@ -33,13 +33,13 @@ class Correo extends mainModel{
             $mail->Port       = PUERTO_SMTP;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
             //Recipients
-            $mail->setFrom('maynoraguileraosorto@gmail.com', 'Recuperacion de Contraseña');
+            $mail->setFrom('citycoffeehn1@gmail.com', 'Recuperacion de Contraseña');
             $mail->addAddress($correo);     //Add a recipient
 
             //Content
             $mail->isHTML(true); 
             $mail -> charSet = 'UTF-8';                                 //Set email format to HTML
-            $mail->Subject = 'Restablecer Contrasena';
+            $mail->Subject = 'Restablecer Contrasena de Usuario - City Coffee';
             $mail->Body    = '<html>
             <head>
                 <title>Restablecer</title>
@@ -49,6 +49,7 @@ class Correo extends mainModel{
                 <div style="text-align: center; background-color: #E5E5E5; font-size:16px;">
                     Su código de seguridad es: <h3>'.$codigo.'</h3>
                     <p>Este código tiene una vigencia de 24 horas. Si es utilizado después de ese tiempo ya no funcionará.</p>
+                    <p>Tambien puede ingresar su código haciendo <a href="http://localhost/proyectoSIA/verifica-codigo/">clic aqui</a></p>
                     <small>Si usted no envio este mensaje favor de omitir</small>
                 </div>
             </body>
@@ -154,7 +155,7 @@ class Correo extends mainModel{
             $mail->Port       = PUERTO_SMTP;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
             //Recipients
-            $mail->setFrom('maynoraguileraosorto@gmail.com', 'City Coffe');
+            $mail->setFrom('citycoffeehn1@gmail.com', 'City Coffe');
             $mail->addAddress($correo);     //Add a recipient
 
             //Content
@@ -198,7 +199,7 @@ class Correo extends mainModel{
             $mail->Port       = PUERTO_SMTP;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
             //Recipients
-            $mail->setFrom('maynoraguileraosorto@gmail.com', 'City Coffe');
+            $mail->setFrom('citycoffeehn1@gmail.com', 'City Coffe');
             $mail->addAddress($correo);     //Add a recipient
 
             //Content

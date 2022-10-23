@@ -186,9 +186,8 @@ class loginControlador extends mainModel{
 				//datos guardados para ser usados posteriormenete en el sistema
 				$array['usuario'] = $fila['usuario'];
 				$array['estado'] = $fila['estado_usuario'];
+				$array['correo'] = $fila['correo_electronico'];
 			}
-
-			echo $array['estado'];
 
 			//Se valida si el usuario no está inactivo para realizar la recuperacion de contraseña
 			if (isset($array['usuario'])>0 && $array['estado']!='Inactivo'){
@@ -196,9 +195,10 @@ class loginControlador extends mainModel{
 				if (isset($array['usuario'])>0 && $metodo_rec=='Por medio de email'){
 					session_start();
 						$_SESSION['usuario_rec']=$array['usuario'];
-						$_SESSION['respuesta'] = '';
-						echo $_SESSION['usuario_rec'];
-						return header("Location:".SERVERURL."rec-correo/");
+						$_SESSION['respuesta'] = 'Correo enviado';
+						$agg_correo = new Correo(); //se crea nueva instancia de usuario
+      					$respuesta = $agg_correo->enviarCorreo($array['correo']);
+						return header("Location:".SERVERURL."olvido-contrasena/");
 					die();
 				}elseif (isset($array['usuario'])>0 && $metodo_rec=='Por preguntas de seguridad'){
 					session_start();
