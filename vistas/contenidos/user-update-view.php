@@ -69,11 +69,18 @@
 						<div class="form-group">
 							<label for="nombre_usuario" class="bmd-label-floating">Estado</label>
 							<select class="form-control" name="estado_actu" >
-								<option value="" selected="" disabled="">Seleccione una opción</option>
-								<option value="1">Activo</option>
-								<option value="2">Inactivo</option>
-								<option value="3">Bloqueado</option>
-								<option value="4">Nuevo</option>
+								<option value="1" <?php if($campos['estado_usuario']==1){
+								echo 'selected';}?> >Activo <?php if($campos['estado_usuario']==1){
+									echo '(Actual)';}?></option>
+
+								<option value="2" <?php if($campos['estado_usuario']==2){
+								echo 'selected';}?> >Inactivo</option>
+
+								<option value="3" <?php if($campos['estado_usuario']==3){
+								echo 'selected';}?> >Bloqueado</option>
+								
+								<option value="4" <?php if($campos['estado_usuario']==4){
+								echo 'selected=""';}?> >Nuevo</option>
 							</select>
 						</div>
 					</div>
@@ -118,7 +125,6 @@
 					<div class="form-group">
 						<label for="nombre_usuario" class="bmd-label-floating">Roles</label>
 							<select class="form-control" name="id_rol_actu">
-								<option value="" selected="" disabled="">Seleccione una opción</option>
 								<option value="1">Administrador</option>
 								<option value="2">Vendedor</option>
 								<option value="3">Inventario</option>

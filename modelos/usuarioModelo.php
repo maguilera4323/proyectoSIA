@@ -79,4 +79,20 @@
 			return $sql;
 		}
 
+		 protected static function eliminar_usuario_modelo($accion,$id){
+			if($accion=='inactivar'){
+				$sql=mainModel::conectar()->prepare("UPDATE TBL_usuarios set estado_usuario=2 where id_usuario=?");
+				$sql->bindParam(1,$id);
+				$sql->execute();
+				return $sql;
+			}else if ($accion=='eliminar'){
+				$sql=mainModel::conectar()->prepare("DELETE FROM TBL_usuarios where id_usuario=?");
+				$sql->bindParam(1,$id);
+				$sql->execute();
+				return $sql;
+			}
+			
+		
+		}
+
 	}
