@@ -131,7 +131,7 @@ class usuarioControlador extends usuarioModelo
 				exit();
 			}
 
-			if($Contraseña=""){
+			if($Contraseña!=$Confirmar_contr){
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
