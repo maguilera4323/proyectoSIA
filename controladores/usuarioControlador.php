@@ -179,6 +179,7 @@ class usuarioControlador extends usuarioModelo
 					"Texto"=>"Los datos del usuario han sido registrados con exito",
 					"Tipo"=>"success"
 				];
+				return header("Location:".SERVERURL."user-list/");
 
 				/* $envioCorreo = new Correo();
 				$respuesta = $envioCorreo->CorreoCreacionUsuario($Correo,$Usuario,$Contraseña); */
