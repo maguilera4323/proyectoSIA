@@ -109,8 +109,8 @@ if (session_status() == PHP_SESSION_NONE) {
 							<select class="form-control" name="id_rol">
 								<option value="" selected="" disabled="">Seleccione una opción</option>
 								<option value="1">Administrador</option>
-								<option value="2">Vendedor</option>
-								<option value="3">Inventario</option>
+								<option value="2">Inventario</option>
+								<option value="3">Vendedor</option>
 							</select>
 						</div>
 					</div>

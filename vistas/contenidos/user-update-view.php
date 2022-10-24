@@ -126,8 +126,8 @@
 						<label for="nombre_usuario" class="bmd-label-floating">Roles</label>
 							<select class="form-control" name="id_rol_actu">
 								<option value="1">Administrador</option>
-								<option value="2">Vendedor</option>
-								<option value="3">Inventario</option>
+								<option value="2">Inventario</option>
+								<option value="3">Vendedor</option>
 							</select>
 						</div>
 					</div>

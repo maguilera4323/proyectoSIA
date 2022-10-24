@@ -15,8 +15,8 @@
 			cancelButtonText: 'No, cancelar'
 		}).then((result) => {
 			if(result.value){
-				let url='<?php echo SERVERURL; ?>ajax/loginAjax.php';	
-				let token='<?php echo $lc->encryption($_SESSION['token_login']); ?>';
+				let url='<?php echo SERVERURL; ?>vistas/contenidos/salir/';	
+				/* let token='<?php echo $lc->encryption($_SESSION['token_login']); ?>';
 				let usuario='<?php echo $lc->encryption($_SESSION['usuario_login']); ?>';
 
 				let datos= new FormData();
@@ -30,7 +30,7 @@
 				.then(respuesta=>respuesta.json())
 				.then(respuesta=>{
 					return alertas_ajax(respuesta);
-				});
+				}); */
 			}
 		});
 	});

@@ -5,10 +5,12 @@
 
 if($peticionAjax){
 	require_once "../modelos/usuarioModelo.php";
+	require_once "../pruebabitacora.php";
 }else{
-	require_once "./modelos/usuarioModelo.php";//aqui se ejecuta dentro del index y no se utiliza Ajax
+	require_once "./modelos/usuarioModelo.php";
+	require_once "./pruebabitacora.php";//aqui se ejecuta dentro del index y no se utiliza Ajax
 }
-/* require_once "../pruebabitacora.php"; */
+
 
 class usuarioControlador extends usuarioModelo
 {
@@ -54,7 +56,7 @@ class usuarioControlador extends usuarioModelo
 				exit();
 			}
 
-			if(mainModel::verificar_datos("[A-ZÑ]{1,20}",$Nombre)){
+			if(mainModel::verificar_datos("[A-ZÑ ]{1,20}",$Nombre)){
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
@@ -190,14 +192,14 @@ class usuarioControlador extends usuarioModelo
 			}
 			echo json_encode($alerta);
 
-			/* $datos_bitacora = [
+			$datos_bitacora = [
 				"id_objeto" => 0,
 				"fecha" => date('Y-m-d h:i:s'),
 				"id_usuario" => $_SESSION['id_login'],
 				"accion" => "Creación de usuario",
 				"descripcion" => "Se creó un nuevo usuario en el sistema"
 			];
-			Bitacora::guardar_bitacora($datos_bitacora); */
+			Bitacora::guardar_bitacora($datos_bitacora); 
 	} /* Fin controlador */
 
 
@@ -303,14 +305,14 @@ class usuarioControlador extends usuarioModelo
 			}
 			echo json_encode($alerta);
 
-/* 			$datos_bitacora = [
+			$datos_bitacora = [
 				"id_objeto" => 0,
 				"fecha" => date('Y-m-d h:i:s'),
 				"id_usuario" => $_SESSION['id_login'],
-				"accion" => "Actualización de usuario",
-				"descripcion" => "Se actualizaron los datos de un usuario en el sistema"
+				"accion" => "Modificación de usuario",
+				"descripcion" => "Se actualizó un usuario en el sistema"
 			];
-			Bitacora::guardar_bitacora($datos_bitacora); */
+			Bitacora::guardar_bitacora($datos_bitacora); 
 	} /* Fin controlador */
 	
 
