@@ -179,7 +179,7 @@ class usuarioControlador extends usuarioModelo
 					"Texto"=>"Los datos del usuario han sido registrados con exito",
 					"Tipo"=>"success"
 				];
-				return header("Location:".SERVERURL."user-list/");
+				//return header("Location:".SERVERURL."user-list/");
 
 				/* $envioCorreo = new Correo();
 				$respuesta = $envioCorreo->CorreoCreacionUsuario($Correo,$Usuario,$Contraseña); */
@@ -317,19 +317,20 @@ class usuarioControlador extends usuarioModelo
 	} /* Fin controlador */
 	
 
-	public function datosUsuarioControlador($tipo,$id){
+	public function datosUsuarioControlador($tipo,$id)	{
 		$tipo=mainModel::limpiar_cadena($tipo);
 		$id=mainModel::limpiar_cadena($id);
 
 		return usuarioModelo::datos_usuario_modelo($tipo,$id);
-	}
+	 }
 
-	//funcion para eliminar o inactivar un usuario
-	public function eliminarUsuario(){
-		$id=mainModel::limpiar_cadena(($_POST['id_usuario_del']));
-		$Usuario=mainModel::limpiar_cadena(($_POST['usuario_del']));
-		$array=array();
-		$valor='';
+		//funcion para eliminar o inactivar un usuario
+		public function eliminarUsuario()
+		{
+			$id=mainModel::limpiar_cadena(($_POST['id_usuario_del']));
+			$Usuario=mainModel::limpiar_cadena(($_POST['usuario_del']));
+			$array=array();
+			$valor='';
 
 		//se verifica que el usuario a bloquear o inactivar no sea el usuario administrador
 		if($Usuario=="ADMIN"){
@@ -366,7 +367,8 @@ class usuarioControlador extends usuarioModelo
 		}
 
 		//si el usuario si ha ingresado al sistema se procede a inactivar para evitar errores de la bd
-		if($array['valor']==1){
+		if($array['valor']==1)
+		{
 			$eliminarUsuario=usuarioModelo::eliminar_usuario_modelo("inactivar",$id);
 				if($eliminarUsuario->rowCount()==1){
 				$alerta=[
@@ -384,6 +386,14 @@ class usuarioControlador extends usuarioModelo
 				];
 			}
 			echo json_encode($alerta);
+		$datos_bitacora = [
+			"id_objeto" => 0,
+			"fecha" => date('Y-m-d h:i:s'),
+			"id_usuario" => $_SESSION['id_login'],
+			"accion" => "Usuario inactivado",
+			"descripcion" => "Se inactivo un usuario en el sistema"
+		];
+		Bitacora::guardar_bitacora($datos_bitacora);
 			exit();
 
 			//si el usuario no ha ingresado al sistema por primera vez se elimina el registro
@@ -405,7 +415,16 @@ class usuarioControlador extends usuarioModelo
 				];
 			}
 			echo json_encode($alerta);
+		$datos_bitacora = [
+			"id_objeto" => 0,
+			"fecha" => date('Y-m-d h:i:s'),
+			"id_usuario" => $_SESSION['id_login'],
+			"accion" => "eliminacion de usuario",
+			"descripcion" => "Se elimino un usuario en el sistema"
+		];
+		Bitacora::guardar_bitacora($datos_bitacora);	
 			exit();
+			
 		}
 	}
 
