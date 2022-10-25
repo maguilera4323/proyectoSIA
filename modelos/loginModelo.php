@@ -217,10 +217,10 @@ class Usuario extends mainModel{
 	}
 
 
-	public function insertarRespuestasSeguridad($response,$user,$user_id,$preg_id) {
+	public function insertarRespuestasSeguridad($response,$user_id,$preg_id) {
 		$db = new mainModel();
-		$query = ("INSERT into TBL_ms_preguntas_usuario (id_pregunta,id_usuario,respuesta,creado_por,modificado_por,fecha_modificacion) 
-		VALUES('$preg_id','$user_id','$response','$user',null,null)");
+		$query = ("INSERT into TBL_ms_preguntas_usuario (id_pregunta,id_usuario,respuesta) 
+		VALUES('$preg_id','$user_id','$response')");
 		return $respuesta = $db->actualizarRegistros($query);
 	}
 	

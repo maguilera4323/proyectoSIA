@@ -134,35 +134,26 @@ class loginControlador extends mainModel{
 		//Función para guardar las respuestas de las preguntas de seguridad en el primer ingreso de un usuario
 		public function insertarRespuestasSeguridad($datos){
 			//valores para guardar las respuestas: respuesta, id de pregunta y id del usuario
-			$res_pregunta=mainModel::limpiar_cadena($datos);
-			$usuario=$_SESSION['usuario_login'];
-			$usuario_id=$_SESSION['id_login'];
-			$pregunta_id=$_SESSION['id_pregunta']+1;
+			$res_pregunta=mainModel::limpiar_cadena($datos['respuesta']);
+			$id_pregunta=mainModel::limpiar_cadena($datos['pregunta']);
+			$id_usuario=mainModel::limpiar_cadena($datos['usuario']);
 
-			//condicional para
-			if($pregunta_id<=3){
-				$preguntasSeguridad=new Usuario(); //se inicia la instancia del usuario
-				$pregunta=$preguntasSeguridad->obtenerPreguntas($pregunta_id);
-				foreach ($pregunta as $fila) { //se recorre el arreglo recibido
-					$array_pregunta['pregunta_seguridad'] = $fila['pregunta'];
-				}
-
-				$insertarRespuesta = new Usuario(); //se crea una instancia en el archivo modelo de Login
-				$respuesta = $insertarRespuesta->insertarRespuestasSeguridad($res_pregunta,$usuario,$usuario_id,$pregunta_id);
-				$_SESSION['id_pregunta']+=1;
-				$_SESSION['pregunta_seguridad']=$array_pregunta['pregunta_seguridad'];
-				return header("Location:".SERVERURL."primer-ingreso/");
-			}else{
+			$insertarRespuesta = new Usuario(); //se crea una instancia en el archivo modelo de Login
+			$respuesta = $insertarRespuesta->insertarRespuestasSeguridad($res_pregunta,$id_usuario,$id_pregunta);
+				/* $_SESSION['id_pregunta']+=1;
+				$_SESSION['pregunta_seguridad']=$array_pregunta['pregunta_seguridad']; */
+		/* 		return header("Location:".SERVERURL."primer-ingreso/"); */
+			/* }else{ */
 				//al pasar por todas las preguntas de seguridad se actualiza el estado de usuario a Activo
 				//y se redirige a la pagina de home
-				$insertarRespuesta = new Usuario();
+				/* $insertarRespuesta = new Usuario();
 				$respuesta = $insertarRespuesta->actualizarUsuario($usuario_id);
 				return header("Location:".SERVERURL."home/");
-				die(); 
+				die();  */
 			}
 			
 
-		} 
+		
 				
 
 		//función que se encarga de validar el usuario ingresado para la recuperacion de contraseña

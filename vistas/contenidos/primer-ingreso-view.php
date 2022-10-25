@@ -39,9 +39,9 @@
 			<div class="caja">
 			<select name="preguntas" id="preguntas">
 				    <option selected>Seleccione una pregunta</option>
-				    <option value="Cual es su deporte favorito?">¿Cual es su deporte favorito</option>
-					<option value="Nombre de su mascota">¿Nombre de su mascota?</option>
-					<option value="Lugar de nacimiento">¿Lugar de nacimiento?</option>
+				    <option value="1">¿Cual es su deporte favorito</option>
+					<option value="2">¿Nombre de su mascota?</option>
+					<option value="3">¿Lugar de nacimiento?</option>
                  </select>
 			</div>
 				<div class="form-group">
