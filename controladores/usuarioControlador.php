@@ -177,8 +177,10 @@ class usuarioControlador extends usuarioModelo
 					"Alerta"=>"limpiar",
 					"Titulo"=>"Usuario registrado",
 					"Texto"=>"Los datos del usuario han sido registrados con exito",
-					"Tipo"=>"success"
+					"Tipo"=>"success",
+					//"URL"=> header("Location:".SERVERURL."user-list/")
 				];
+				
 				//return header("Location:".SERVERURL."user-list/");
 
 				/* $envioCorreo = new Correo();
