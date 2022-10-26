@@ -2,39 +2,24 @@
 	
 	require_once "mainModel.php";
 
-	class usuarioModelo extends mainModel{
+	class proveedorModelo extends mainModel{
 
-		/*--------- Modelo agregar usuario ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
-		protected static function agregar_usuario_modelo($datos)
+		/*--------- Modelo agregar proveedor ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
+		protected static function agregar_proveedor_modelo($datos)
 		{
-			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_usuarios(usuario,nombre_usuario,estado_usuario,
-			contrasena,id_rol,primer_ingreso,fecha_vencimiento,correo_electronico,creado_por,fecha_creacion)
-			VALUES(?,?,?,?,?,?,?,?,?,?)");
+			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_Proveedores(nom_proveedor,rtn_proveedor,
+			tel_proveedor,correo_proveedor,dir_proveedor)
+			VALUES(?,?,?,?,?)");
 
-			$sql->bindParam(1,$datos['usu']);
-			$sql->bindParam(2,$datos['nombre']);
-			$sql->bindParam(3,$datos['estado']);
-			$sql->bindParam(4,$datos['contrase']);
-			$sql->bindParam(5,$datos['rol']);
-			$sql->bindParam(6,$datos['ingreso']);	
-			$sql->bindParam(7,$datos['vencimiento']);
-			$sql->bindParam(8,$datos['correo']);
-			$sql->bindParam(9,$datos['creador']);
-			$sql->bindParam(10,$datos['fecha_crea']);
+			$sql->bindParam(1,$datos['nombre']);
+			$sql->bindParam(2,$datos['rtn']);
+			$sql->bindParam(3,$datos['telefono']);
+			$sql->bindParam(4,$datos['correo']);
+			$sql->bindParam(5,$datos['direccion']);
 			$sql->execute();
 			return $sql;
 
-				/* VERIFICAR SU GUARDA DEL DATO EN BITACORA */
-				$datos_bitacora = 
-				[
-					"id_objeto" => 0,
-					"fecha" => date('Y-m-d h:i:s'),
-					"id_usuario" => null,
-					"accion" => "insercion de usuario",
-					"descripcion" => "Acceso de usuario"
-				];
-				Bitacora::guardar_bitacora($datos_bitacora);
-							
+											
 		}
 
 

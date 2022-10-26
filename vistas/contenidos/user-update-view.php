@@ -52,16 +52,16 @@
 					<div class="col-12 col-md-4">
 						<div class="form-group">
 							<label for="nom_usuario" class="bmd-label-floating">Usuario</label>
-							<input type="text" pattern="[A-Z]{5,15}" class="form-control" name="usuario_actu" id="nom_usuario" maxlength="15" 
-							value="<?php echo $campos['usuario']?>" required="" >
+							<input type="text" class="form-control" name="usuario_actu" id="nom_usuario" maxlength="15" 
+							style="text-transform:uppercase;" value="<?php echo $campos['usuario']?>" required >
 						</div>
 					</div>
 					
 					<div class="col-12 col-md-4">
 						<div class="form-group">
 							<label for="nombre_usuario" class="bmd-label-floating">Nombre</label>
-							<input type="text" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,20}" class="form-control" name="nombre_usuario_actu" 
-							id="nombre_usuario" maxlength="20" value="<?php echo $campos['nombre_usuario']?>">
+							<input type="text" class="form-control" name="nombre_usuario_actu" style="text-transform:uppercase;" 
+							id="nombre_usuario" maxlength="20" value="<?php echo $campos['nombre_usuario']?>" required>
 						</div>
 
 					</div>
@@ -69,11 +69,18 @@
 						<div class="form-group">
 							<label for="nombre_usuario" class="bmd-label-floating">Estado</label>
 							<select class="form-control" name="estado_actu" >
-								<option value="" selected="" disabled="">Seleccione una opción</option>
-								<option value="1">Activo</option>
-								<option value="2">Inactivo</option>
-								<option value="3">Bloqueado</option>
-								<option value="4">Nuevo</option>
+								<option value="1" <?php if($campos['estado_usuario']==1){
+								echo 'selected';}?> >Activo <?php if($campos['estado_usuario']==1){
+									echo '(Actual)';}?></option>
+
+								<option value="2" <?php if($campos['estado_usuario']==2){
+								echo 'selected';}?> >Inactivo</option>
+
+								<option value="3" <?php if($campos['estado_usuario']==3){
+								echo 'selected';}?> >Bloqueado</option>
+								
+								<option value="4" <?php if($campos['estado_usuario']==4){
+								echo 'selected=""';}?> >Nuevo</option>
 							</select>
 						</div>
 					</div>
@@ -95,20 +102,9 @@
 				</div>
 				<div class="col-12 col-md-4">
 					<div class="form-group">
-					<input type="hidden" pattern="" class="form-control" name="id_actualizacion" value="<?php echo $id_editar?>">
+					<input type="hidden" pattern="" class="form-control" name="id_actualizacion" value="<?php echo $id_editar ?>">
 					<input type="hidden" pattern="" class="form-control" name="usuario_modificacion" value="<?php echo $_SESSION['usuario_login']?>">					
-					<label for="contrasena" class="bmd-label-floating">Contraseña</label>
-						<input type="password" class="form-control" name="contrasena_actu" id="contrasena" pattern="[a-zA-Z0-9!#%&/()=?¡*+_$@.-]{8,100}" 
-						value="<?php echo $campos['contrasena']?>" maxlength="100">
 					</div>
-					<div class="col-12 col-md-6">
-						<div class="form-group">
-							<label for="primer_ingreso" class="bmd-label-floating">Ingreso</label>
-							<input type="text" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,#\- ]{1,20}" class="form-control" name="primer_ingreso_actu" id="primer_ingreso"
-							value="<?php echo $campos['primer_ingreso']?>" maxlength="20">
-						</div>
-					</div>	
-
 				<div class="col-12 col-md-6">
 					<div class="form-group">
 						<label for="fecha_vencimiento" class="label-floating">Vencimiento</label>
@@ -126,15 +122,12 @@
 				<div class="row">
 					<div class="col-12">
 					<div class="col-12">
-						<!-- p><span class="badge badge-info">Control total</span> Permisos para registrar, actualizar y eliminar</p>
-						<p><span class="badge badge-success">Edición</span> Permisos para registrar y actualizar</p> -->
-						<!-- <p><span class="badge badge-dark">Registrar</span> Solo permisos para registrar</p> -->						<div class="form-group">
+					<div class="form-group">
 						<label for="nombre_usuario" class="bmd-label-floating">Roles</label>
 							<select class="form-control" name="id_rol_actu">
-								<option value="" selected="" disabled="">Seleccione una opción</option>
 								<option value="1">Administrador</option>
-								<option value="2">Vendedor</option>
-								<option value="3">Inventario</option>
+								<option value="2">Inventario</option>
+								<option value="3">Vendedor</option>
 							</select>
 						</div>
 					</div>

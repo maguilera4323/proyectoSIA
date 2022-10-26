@@ -1,5 +1,4 @@
 <?php
-	//verifica si hay sesiones iniciadas
 	if (session_status() == PHP_SESSION_NONE) {
 		session_start();
 	}
@@ -10,24 +9,46 @@
 
 	//valdacion para ver si se recibieron datos de ingreso
     if (isset($_POST['acceder'])) {
-		$datos =  $_POST['agg_respuesta'];
-       $respuesta = $usuario->insertarRespuestasSeguridad($datos); ///se envian los datos a la funcion accesoUsuario de modelo Login
+		$datos = array(
+            'pregunta'=> $_POST['preguntas'],
+            'respuesta'=> $_POST['respuesta'],
+			'usuario'=> $_SESSION['id_login'],
+        );
+        $respuesta = $usuario->insertarRespuestasSeguridad($datos); //se envian los datos a la funcion accesoUsuario de modelo Login
     }
 	?>
 
 <div class="login-container">
 		<div class="login-content">
 		<center><img src="<?php echo SERVERURL; ?>images/CityCoffe.jpeg" id="imagen-cafe" alt="logo-empresa"></center>
-		<h4 class="text-center mb-0" id="h3-login">Bienvenido</h4>
-		<p class="text-center" id="p-login">Configure sus preguntas de seguridad</p>
-		<p class="text-center" id="p-login"><?php echo $_SESSION['pregunta_seguridad']?> </p>
-		<p class="text-center" id="p-login"><?php echo $_SESSION['id_pregunta']?> </p>
+		<h4 class="text-center mb-0" id="h3-login">Primer Ingreso de Usuario</h4>
+		<p class="text-center" id="p-login">Seleccione una pregunta e ingrese su correspondiente respuesta</p>
+		<?php
+			if(isset($_SESSION['fallo'])){
+				switch($_SESSION['fallo']){
+				case 'Respuesta incorrecta':
+					header("refresh:4;url=".SERVERURL."login/"); 
+					echo '<div div class="alert alert-danger text-center justify-content-center" 
+					role="alert">Respuesta incorrecta. El usuario ha sido bloqueado</div>';
+				break;
+				}
+			}
+		?>
+			<br>
 			<form action="" method="POST" autocomplete="off" id="loginForm">
+			<div class="caja">
+			<select name="preguntas" id="preguntas">
+				    <option selected>Seleccione una pregunta</option>
+				    <option value="1">¿Cual es su deporte favorito</option>
+					<option value="2">¿Nombre de su mascota?</option>
+					<option value="3">¿Lugar de nacimiento?</option>
+                 </select>
+			</div>
 				<div class="form-group">
-					<input type="text" class="form-control" id="usuario" name="agg_respuesta" placeholder="Respuesta" 
-					 required />
+				<i class="fab fa-adn icon-user"></i>
+					<input type="text" class="form-control" id="respuesta" name="respuesta" placeholder="Respuesta" maxlength="35" required="" >
 				</div>
-				<button type="submit" name="acceder" class="btn-login text-center">Enviar</button>
+				<button type="submit" name="acceder" class="btn-login text-center">Enviar Respuesta</button>
 			</form>
 		</div>
 	</div>

@@ -70,8 +70,10 @@
 							</a>
 						</td>
 						<td>
-							<form action="">
-								<button type="button" class="btn btn-warning">
+							<form class="FormularioAjax" action="<?php echo SERVERURL; ?>ajax/usuarioAjax.php" method="POST" data-form="delete" autocomplete="off">
+							<input type="hidden" pattern="" class="form-control" name="id_usuario_del" value="<?php echo $mostrar['id_usuario'] ?>">
+							<input type="hidden" pattern="" class="form-control" name="usuario_del" value="<?php echo $mostrar['usuario'] ?>">	
+							<button type="submit" class="btn btn-warning">
 										<i class="far fa-trash-alt"></i>
 								</button>
 							</form>

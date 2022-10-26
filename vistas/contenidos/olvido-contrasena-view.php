@@ -31,6 +31,11 @@
 							echo '<div div class="alert alert-danger text-center justify-content-center" role="alert">El usuario está inactivo, por lo que no se puede realizar
 							la recuperación de contraseña</div>';
 						break;
+						case 'Correo enviado':
+							header("refresh:2;url=".SERVERURL."verifica-codigo/");
+							echo '<div class="alert alert-success text-center">Se envió un código de seguridad a la 
+							dirección de correo del usuario ingresado.</div>';
+						break;
 					 	}
 				 	}
 			 	?>

@@ -17,8 +17,8 @@ class Correo extends mainModel{
     public function enviarCorreo($correo){
         //Create an instance; passing `true` enables exceptions
         $mail = new PHPMailer(true);
-        $bytes=random_bytes(5);
-        $token_rec=(bin2hex($bytes)); //variable de token para verificacion 
+/*         $bytes=random_bytes(5);
+        $token_rec=(bin2hex($bytes)); */ //variable de token para verificacion 
         $codigo=rand(1000,9999); //codigo que se usará para la verificación
 
         try {
@@ -33,24 +33,23 @@ class Correo extends mainModel{
             $mail->Port       = PUERTO_SMTP;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
             //Recipients
-            $mail->setFrom('maynoraguileraosorto@gmail.com', 'Recuperacion de Contraseña');
+            $mail->setFrom('citycoffeehn1@gmail.com', 'Recuperacion de Contraseña');
             $mail->addAddress($correo);     //Add a recipient
 
             //Content
             $mail->isHTML(true); 
             $mail -> charSet = 'UTF-8';                                 //Set email format to HTML
-            $mail->Subject = 'Restablecer Contrasena';
+            $mail->Subject = 'Restablecer Contrasena de Usuario - City Coffee';
             $mail->Body    = '<html>
             <head>
                 <title>Restablecer</title>
             </head>
         
             <body>
-                <h1>City Coffee</h1>
-                <div style="text-align: center; background-color: aquamarine;">
-                    <p>Restablecer Contraseña</p>
-                    <h3>'.$codigo.'</h3>
-                    <p><a href="<?php echo SERVERURL; ?>login/">Clic aquí para restablecer su contraseña</a></p>
+                <div style="text-align: center; background-color: #E5E5E5; font-size:16px;">
+                    Su código de seguridad es: <h3>'.$codigo.'</h3>
+                    <p>Este código tiene una vigencia de 24 horas. Si es utilizado después de ese tiempo ya no funcionará.</p>
+                    <p>Tambien puede ingresar su código haciendo <a href="http://localhost/proyectoSIA/verifica-codigo/">clic aqui</a></p>
                     <small>Si usted no envio este mensaje favor de omitir</small>
                 </div>
             </body>
@@ -59,7 +58,7 @@ class Correo extends mainModel{
           $mail->send();
           //instancia que llama a la función para guardar los datos de recuperacion
             $guardarDatos=new Usuario();
-            $datosRec=$guardarDatos->insertToken($correo,$token_rec,$codigo);
+            $datosRec=$guardarDatos->insertToken($correo,$codigo);
             $_SESSION['respuesta'] = 'Correo enviado';
             $_SESSION['token']=$token_rec;
             $_SESSION['codigo']=$codigo;
@@ -74,7 +73,7 @@ class Correo extends mainModel{
     //TBL_restablece_clave_email
     public function verificaCodigoToken($codigo){
         $codigo_verificacion=mainModel::limpiar_cadena($codigo);
-        $token_verificacion=$_SESSION['token'];
+       /*  $token_verificacion=$_SESSION['token']; */
         $correo_verificacion=$_SESSION['correo'];
         $array=array();
 
@@ -104,7 +103,7 @@ class Correo extends mainModel{
 
         //se instancia y llama a la funcion que hara un select para verificar si los datos que se envian coinciden con los registrados en la bd
         $enviarCodigoVerif = new Usuario(); 
-        $respuesta =  $enviarCodigoVerif->verificaCodigoToken($correo_verificacion,$token_verificacion,$codigo_verificacion);
+        $respuesta =  $enviarCodigoVerif->verificaCodigoToken($correo_verificacion, $codigo_verificacion);
         foreach ($respuesta as $fila) { //se recorre el arreglo recibido
             //datos guardados para ser usados posteriormenete en el sistema
             $array['codigo'] = $fila['codigo'];
@@ -156,15 +155,25 @@ class Correo extends mainModel{
             $mail->Port       = PUERTO_SMTP;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
             //Recipients
-            $mail->setFrom('maynoraguileraosorto@gmail.com', 'City Coffe');
+            $mail->setFrom('citycoffeehn1@gmail.com', 'City Coffe');
             $mail->addAddress($correo);     //Add a recipient
 
             //Content
             $mail->isHTML(true); 
             $mail -> charSet = 'UTF-8';                                 //Set email format to HTML
             $mail->Subject = 'Cambio de Contrasena';
-            $mail->Body    = 'Su contraseña ha sido cambiada exitosamente. <br/><br/>
-            Su nueva contraseña es ' .$contrasena;
+            $mail->Body    = '<html>
+            <head>
+                <title>Restablecer</title>
+            </head>
+        
+            <body>
+                <div style="text-align: center; background-color: #E5E5E5; font-size:16px;">
+                    <p>El proceso de cambio de contraseña fue realizado de manera exitosa.</p>
+                    <small>Si usted no ha realizado ningún proceso de cambio de contraseña comunicarse con el administrador del sistema.</small>
+                </div>
+            </body>
+        </html>';
 
             $mail->send();
         } catch (Exception $e) {
@@ -190,7 +199,7 @@ class Correo extends mainModel{
             $mail->Port       = PUERTO_SMTP;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
             //Recipients
-            $mail->setFrom('maynoraguileraosorto@gmail.com', 'City Coffe');
+            $mail->setFrom('citycoffeehn1@gmail.com', 'City Coffe');
             $mail->addAddress($correo);     //Add a recipient
 
             //Content

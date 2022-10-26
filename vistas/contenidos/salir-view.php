@@ -13,6 +13,7 @@ $datos_bitacora =
     "descripcion" => "Acceso de usuario"
 ];
 Bitacora::guardar_bitacora($datos_bitacora);
+session_unset();
 session_destroy();
-header("Location:".SERVERURL."login/");
+echo "<script>window.location.replace('http//localhost/proyectoSIA/login/');</script>";
 die();

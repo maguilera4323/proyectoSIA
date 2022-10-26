@@ -57,26 +57,17 @@ class loginControlador extends mainModel{
 							$_SESSION['respuesta'] = 'Usuario bloqueado';
 							return header("Location:".SERVERURL."login/");
 						break; 
-						/* case 'Nuevo':
-							$_SESSION['id_pregunta']=1; //se inicializa en 1 la variable para encontrar la pregunta con el id 1
-							$preguntasSeguridad=new Usuario();
-							//se llama a la funcion para obtener la primera pregunta de seguridad
-							$pregunta=$preguntasSeguridad->obtenerPreguntas($_SESSION['id_pregunta']);
-							foreach ($pregunta as $fila) { //se recorre el arreglo recibido
-								//datos guardados para ser usados posteriormenete en el sistema
-								$array_pregunta['pregunta_seguridad'] = $fila['pregunta'];
-							}
-
+						case 'Nuevo':
 							session_start();
 							//datos que se envian para el uso del sistema y para el primer ingreso
 							$_SESSION['id_login']=$array['id'];
 							$_SESSION['usuario_login']=$array['usuario'];
 							$_SESSION['nombre_usuario']=($array['nombre']);
 							$_SESSION['estado']=$array['estado'];
-							/* $_SESSION['id_pregunta']+=1; */  ////se aumenta en uno el contador para poder llamar a la siguiente pregunta de seguridad
-							/* $_SESSION['pregunta_seguridad']=$array_pregunta['pregunta_seguridad'];
+							$_SESSION['rol']=$array['rol'];
+							$_SESSION['token_login']=md5(uniqid(mt_rand(),true));
 							return header("Location:".SERVERURL."primer-ingreso/");
-						break; */
+						break;
 				}
 					die();
             }else{
@@ -141,37 +132,28 @@ class loginControlador extends mainModel{
 
 
 		//Función para guardar las respuestas de las preguntas de seguridad en el primer ingreso de un usuario
-		/* public function insertarRespuestasSeguridad($datos){
+		public function insertarRespuestasSeguridad($datos){
 			//valores para guardar las respuestas: respuesta, id de pregunta y id del usuario
-			$res_pregunta=mainModel::limpiar_cadena($datos);
-			$usuario=$_SESSION['usuario_login'];
-			$usuario_id=$_SESSION['id_login'];
-			$pregunta_id=$_SESSION['id_pregunta']+1;
+			$res_pregunta=mainModel::limpiar_cadena($datos['respuesta']);
+			$id_pregunta=mainModel::limpiar_cadena($datos['pregunta']);
+			$id_usuario=mainModel::limpiar_cadena($datos['usuario']);
 
-			//condicional para
-			if($pregunta_id<=3){
-				$preguntasSeguridad=new Usuario(); //se inicia la instancia del usuario
-				$pregunta=$preguntasSeguridad->obtenerPreguntas($pregunta_id);
-				foreach ($pregunta as $fila) { //se recorre el arreglo recibido
-					$array_pregunta['pregunta_seguridad'] = $fila['pregunta'];
-				}
-
-				$insertarRespuesta = new Usuario(); //se crea una instancia en el archivo modelo de Login
-				$respuesta = $insertarRespuesta->insertarRespuestasSeguridad($res_pregunta,$usuario,$usuario_id,$pregunta_id);
-				$_SESSION['id_pregunta']+=1;
-				$_SESSION['pregunta_seguridad']=$array_pregunta['pregunta_seguridad'];
-				return header("Location:".SERVERURL."primer-ingreso/");
-			}else{
+			$insertarRespuesta = new Usuario(); //se crea una instancia en el archivo modelo de Login
+			$respuesta = $insertarRespuesta->insertarRespuestasSeguridad($res_pregunta,$id_usuario,$id_pregunta);
+				/* $_SESSION['id_pregunta']+=1;
+				$_SESSION['pregunta_seguridad']=$array_pregunta['pregunta_seguridad']; */
+		/* 		return header("Location:".SERVERURL."primer-ingreso/"); */
+			/* }else{ */
 				//al pasar por todas las preguntas de seguridad se actualiza el estado de usuario a Activo
 				//y se redirige a la pagina de home
-				$insertarRespuesta = new Usuario();
+				/* $insertarRespuesta = new Usuario();
 				$respuesta = $insertarRespuesta->actualizarUsuario($usuario_id);
 				return header("Location:".SERVERURL."home/");
-				die(); 
+				die();  */
 			}
 			
 
-		} */
+		
 				
 
 		//función que se encarga de validar el usuario ingresado para la recuperacion de contraseña
@@ -186,9 +168,8 @@ class loginControlador extends mainModel{
 				//datos guardados para ser usados posteriormenete en el sistema
 				$array['usuario'] = $fila['usuario'];
 				$array['estado'] = $fila['estado_usuario'];
+				$array['correo'] = $fila['correo_electronico'];
 			}
-
-			echo $array['estado'];
 
 			//Se valida si el usuario no está inactivo para realizar la recuperacion de contraseña
 			if (isset($array['usuario'])>0 && $array['estado']!='Inactivo'){
@@ -196,9 +177,10 @@ class loginControlador extends mainModel{
 				if (isset($array['usuario'])>0 && $metodo_rec=='Por medio de email'){
 					session_start();
 						$_SESSION['usuario_rec']=$array['usuario'];
-						$_SESSION['respuesta'] = '';
-						echo $_SESSION['usuario_rec'];
-						return header("Location:".SERVERURL."rec-correo/");
+						$_SESSION['respuesta'] = 'Correo enviado';
+						$agg_correo = new Correo(); //se crea nueva instancia de usuario
+      					$respuesta = $agg_correo->enviarCorreo($array['correo']);
+						return header("Location:".SERVERURL."olvido-contrasena/");
 					die();
 				}elseif (isset($array['usuario'])>0 && $metodo_rec=='Por preguntas de seguridad'){
 					session_start();

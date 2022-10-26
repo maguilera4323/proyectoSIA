@@ -5,8 +5,8 @@ const DB="proyecto_cafeteria";/* NOMBRE DE BD */
 const USER="admin_bd";/* */
 const PASS="admin1234";/* */
 const HOST_SMTP='smtp.gmail.com';
-const USER_SMTP="maynoraguileraosorto@gmail.com";
-const CLAVE_SMTP="uqgreqxcohuazgbd";
+const USER_SMTP="citycoffeehn1@gmail.com";
+const CLAVE_SMTP="yimaeiygjhdcthct";
 const PUERTO_SMTP=465;
 
 

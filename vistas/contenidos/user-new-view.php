@@ -35,14 +35,16 @@ if (session_status() == PHP_SESSION_NONE) {
 					<div class="col-12 col-md-4">
 						<div class="form-group">
 							<label for="nom_usuario" class="bmd-label-floating">Usuario</label>
-							<input type="text" pattern="[A-Z]{5,15}" class="form-control" name="usuario_reg" id="nom_usuario" maxlength="15" required="" >
+							<input type="text" class="form-control" name="usuario_reg" id="nom_usuario" maxlength="15" 
+							style="text-transform:uppercase;" required="" >
 						</div>
 					</div>
 					
 					<div class="col-12 col-md-4">
 						<div class="form-group">
 							<label for="nombre_usuario" class="bmd-label-floating">Nombre</label>
-							<input type="text" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,20}" class="form-control" name="nombre_usuario_reg" id="nombre_usuario" maxlength="20" required="" >
+							<input type="text" class="form-control" name="nombre_usuario_reg" id="nombre_usuario" 
+							style="text-transform:uppercase;" maxlength="20" required="" >
 						</div>
 					</div>
 
@@ -78,15 +80,11 @@ if (session_status() == PHP_SESSION_NONE) {
 						<label for="contrasena" class="bmd-label-floating">Contraseña</label>
 						<input type="password" class="form-control" name="contrasena_reg" id="contrasena" pattern="[a-zA-Z0-9!#%&/()=?¡*+_$@.-]{8,100}" maxlength="100" required="" >
 					</div>
+					<div class="form-group">
+						<label for="contrasena" class="bmd-label-floating">Confirmar Contraseña</label>
+						<input type="password" class="form-control" name="conf_contrasena_reg" id="conf_contrasena" pattern="[a-zA-Z0-9!#%&/()=?¡*+_$@.-]{8,100}" maxlength="100" required="" >
+					</div>
 				</div>
-
-					<div class="col-12 col-md-6">
-						<div class="form-group">
-							<label for="primer_ingreso" class="bmd-label-floating">Ingreso</label>
-							<input type="text" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,#\- ]{1,20}" class="form-control" name="primer_ingreso_reg" id="primer_ingreso" maxlength="20">
-						</div>
-					</div>	
-
 				<div class="col-12 col-md-4">
 					<div class="form-group">
 						<label for="fecha_vencimiento" class="label-floating">Vencimiento</label>
@@ -111,8 +109,8 @@ if (session_status() == PHP_SESSION_NONE) {
 							<select class="form-control" name="id_rol">
 								<option value="" selected="" disabled="">Seleccione una opción</option>
 								<option value="1">Administrador</option>
-								<option value="2">Vendedor</option>
-								<option value="3">Inventario</option>
+								<option value="2">Inventario</option>
+								<option value="3">Vendedor</option>
 							</select>
 						</div>
 					</div>
@@ -123,6 +121,8 @@ if (session_status() == PHP_SESSION_NONE) {
 			<button type="reset" class="btn btn-raised btn-secondary btn-sm"><i class="fas fa-paint-roller"></i> &nbsp; LIMPIAR</button>
 			&nbsp; &nbsp;
 			<button type="submit" class="btn btn-raised btn-info btn-sm"><i class="far fa-save"></i> &nbsp; GUARDAR</button>
+		<!--<button type="submit" class="btn btn-raised btn-info btn-sm"><a onclick="location. href='<?php echo SERVERURL; ?>user-list/'"><i class="far fa-save"> GUARDAR</i></button>-->
+
 		</p>
 	</form>
 </div>
