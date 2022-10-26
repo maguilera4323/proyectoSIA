@@ -17,8 +17,6 @@ class Correo extends mainModel{
     public function enviarCorreo($correo){
         //Create an instance; passing `true` enables exceptions
         $mail = new PHPMailer(true);
-/*         $bytes=random_bytes(5);
-        $token_rec=(bin2hex($bytes)); */ //variable de token para verificacion 
         $codigo=rand(1000,9999); //codigo que se usará para la verificación
 
         try {
@@ -33,13 +31,12 @@ class Correo extends mainModel{
             $mail->Port       = PUERTO_SMTP;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
             //Recipients
-            $mail->setFrom('citycoffeehn1@gmail.com', 'Recuperacion de Contraseña');
+            $mail->setFrom('citycoffeehn1@gmail.com', 'City Coffee');
             $mail->addAddress($correo);     //Add a recipient
 
             //Content
-            $mail->isHTML(true); 
-            $mail -> charSet = 'UTF-8';                                 //Set email format to HTML
-            $mail->Subject = 'Restablecer Contrasena de Usuario - City Coffee';
+            $mail->isHTML(true);                              //Set email format to HTML
+            $mail->Subject = 'Restablecer Contraseña de Usuario';
             $mail->Body    = '<html>
             <head>
                 <title>Restablecer</title>
@@ -50,11 +47,12 @@ class Correo extends mainModel{
                     Su código de seguridad es: <h3>'.$codigo.'</h3>
                     <p>Este código tiene una vigencia de 24 horas. Si es utilizado después de ese tiempo ya no funcionará.</p>
                     <p>Tambien puede ingresar su código haciendo <a href="http://localhost/proyectoSIA/verifica-codigo/">clic aqui</a></p>
-                    <small>Si usted no envio este mensaje favor de omitir</small>
+                    <small>Si usted no ha realizado ningún proceso de cambio de contraseña ignorar este correo</small>
                 </div>
             </body>
         </html>';
-
+        $mail->CharSet = 'UTF-8';
+        $mail->Encoding = 'base64';
           $mail->send();
           //instancia que llama a la función para guardar los datos de recuperacion
             $guardarDatos=new Usuario();

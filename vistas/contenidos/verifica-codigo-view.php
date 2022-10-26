@@ -33,7 +33,8 @@
 			 		?>
 			<form action="" method="POST" autocomplete="off" id="loginForm">
 				<div class="form-group">
-					<input type="text" class="form-control" id="usuario" name="codigo" placeholder="Ingrese código" required />
+				<i class="fas fa-lock icon-user"></i>
+					<input type="text" class="form-control" id="usuario" name="codigo" placeholder="Ingrese código" style="text-align:center; font-size:20px;" required />
 				</div>
 				<button type="submit" id="btn-enviar" value="Por preguntas de seguridad" name="acceder" class="btn-login text-center">Enviar</button>
 			</form>

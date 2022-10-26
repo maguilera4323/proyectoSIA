@@ -98,7 +98,7 @@ class Usuario extends mainModel{
 	}
 
 
-	//Funciones de Vista de Login
+/* 	Funciones de Vista de Login */
 	//Funcion que realiza un select para encontrar un usuario con los datos ingresados
 	//los resultados de la consulta pasan al controlador por medio del retorno de $respuesta
 	public function accesoUsuario($user, $password) {
@@ -134,7 +134,10 @@ class Usuario extends mainModel{
 	}
 
 
-	//Funciones de Vista Opciones de Recuperación de Contraseña
+
+
+
+/* 	Funciones de Vista Opciones de Recuperación de Contraseña */
 	//Función que realiza un select para revisar si el usuario ingresado para recuperacion de contraseña existe en la bd
 	public function verificaUsuarioExistente($user) {
 		$db = new mainModel();
@@ -143,7 +146,9 @@ class Usuario extends mainModel{
 	}
 
 
-	//Funciones de Vista Preguntas de Seguridad
+
+
+	/* Funciones de Vista Preguntas de Seguridad */
 	//Función para revisar que la respuesta de una pregunta ingresada es la correcta
 	public function verificarPreguntaSeguridad($preg,$response,$user) {
 		$db = new mainModel();
@@ -155,7 +160,9 @@ class Usuario extends mainModel{
 	}
 
 
-	//Funciones de Vista Cambio de Contraseña
+
+
+	/* Funciones de Vista Cambio de Contraseña */
 	//Función que busca la contraseña actual del usuario para validar que la contraseña nueva no sea igual a esa
 	public function verificarContrasenaActual($user) {
 		$db = new mainModel();
@@ -209,10 +216,10 @@ class Usuario extends mainModel{
 
 
 
-	//Funciones de vista Primer Ingreso
-	public function obtenerPreguntas($preg_id) {
+	/* Funciones de vista Primer Ingreso */
+	public function revisarPreguntaRespondida($response,$user_id,$preg_id) {
 		$db = new mainModel();
-		$query = ("SELECT pregunta FROM TBL_preguntas WHERE BINARY id_pregunta='$preg_id' limit 1");
+		$query = ("SELECT *FROM TBL_ms_preguntas_usuario WHERE id_pregunta='$preg_id'and id_usuario='$user_id'and respuesta='$response'");
 		return $respuesta = $db->ejecutar_consulta_simple($query);
 	}
 
@@ -227,11 +234,14 @@ class Usuario extends mainModel{
 
 	public function actualizarUsuario($user_id) {
 		$db = new mainModel();
-		$query= ("UPDATE TBL_usuarios SET estado_usuario=1 WHERE id_usuario = '$user_id'");
+		$query= ("UPDATE TBL_usuarios SET estado_usuario=1, primer_ingreso=1 WHERE id_usuario = '$user_id'");
 		return $respuesta = $db->actualizarRegistros($query);
 	}
 
-	//Funciones para recuperacion de contraseña por email
+
+
+
+	/* Funciones para recuperacion de contraseña por email */
 	//Funcion que inserta los valores que se usurán para verificar si es posible recuperar por email
 	public function insertToken($email,$code){
 		$db = new mainModel();
@@ -246,8 +256,7 @@ class Usuario extends mainModel{
 		return $respuesta = $db->ejecutar_consulta_simple($query);
 	}
 
-	//función para el obtener el parametro de los dias que se deben sumar a la fecha actual
-	//para la fecha de vencimiento
+	//Funcion que obtiene el parametro de vigencia del codigo enviado por correo
 	public function vigenciaCodigo() {
 		$db = new mainModel();
 		$query = "SELECT valor FROM TBL_ms_parametros WHERE parametro = 'HORASVIGENCIA_CODIGO_CORREO' LIMIT 1";

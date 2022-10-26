@@ -137,19 +137,30 @@ class loginControlador extends mainModel{
 			$res_pregunta=mainModel::limpiar_cadena($datos['respuesta']);
 			$id_pregunta=mainModel::limpiar_cadena($datos['pregunta']);
 			$id_usuario=mainModel::limpiar_cadena($datos['usuario']);
+			$contador_preguntas=mainModel::limpiar_cadena($datos['contador']);
 
-			$insertarRespuesta = new Usuario(); //se crea una instancia en el archivo modelo de Login
-			$respuesta = $insertarRespuesta->insertarRespuestasSeguridad($res_pregunta,$id_usuario,$id_pregunta);
-				/* $_SESSION['id_pregunta']+=1;
-				$_SESSION['pregunta_seguridad']=$array_pregunta['pregunta_seguridad']; */
-		/* 		return header("Location:".SERVERURL."primer-ingreso/"); */
-			/* }else{ */
-				//al pasar por todas las preguntas de seguridad se actualiza el estado de usuario a Activo
-				//y se redirige a la pagina de home
-				/* $insertarRespuesta = new Usuario();
-				$respuesta = $insertarRespuesta->actualizarUsuario($usuario_id);
-				return header("Location:".SERVERURL."home/");
-				die();  */
+		/* 	$revisarRespuestaExistente=new Usuario();
+			$respuesta_existe = $revisarRespuestaExistente->revisarPreguntaRespondida($res_pregunta,$id_usuario,$id_pregunta);
+
+			if($respuesta_existe->rowCount()==1){
+				$_SESSION['respuesta']='Pregunta ya respondida';
+				$_SESSION['contador_preguntas']-=1;
+				return header("Location:".SERVERURL."primer-ingreso/");
+			} */
+
+				if($contador_preguntas<=2){
+					$insertarRespuesta = new Usuario(); //se crea una instancia en el archivo modelo de Login
+					$respuesta = $insertarRespuesta->insertarRespuestasSeguridad($res_pregunta,$id_usuario,$id_pregunta);
+					$_SESSION['contador_preguntas']+=1;
+					return header("Location:".SERVERURL."primer-ingreso/");
+				}else{
+					//al pasar por todas las preguntas de seguridad se actualiza el estado de usuario a Activo
+					//y se redirige a la pagina de home
+					$insertarRespuesta = new Usuario();
+					$respuesta = $insertarRespuesta->actualizarUsuario($id_usuario);
+					return header("Location:".SERVERURL."home/");
+					die();
+				}
 			}
 			
 
