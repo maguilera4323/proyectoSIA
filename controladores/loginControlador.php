@@ -139,6 +139,19 @@ class loginControlador extends mainModel{
 			$id_usuario=mainModel::limpiar_cadena($datos['usuario']);
 			$contador_preguntas=mainModel::limpiar_cadena($datos['contador']);
 
+			$parametroMinContrasena=new Usuario();
+				$valorParametroMin=$parametroMinContrasena->minContrasena();
+					foreach ($valorParametroMin as $fila) { //se recorre el arreglo recibido
+						//datos guardados para ser usados posteriormenete en el sistema
+						$_SESSION['min_contrasena'] = $fila['valor'];
+					}
+			
+			$parametroMaxContrasena=new Usuario();
+				$valorParametroMax=$parametroMaxContrasena->maxContrasena();
+					foreach ($valorParametroMax as $fila) { //se recorre el arreglo recibido
+						//datos guardados para ser usados posteriormenete en el sistema
+						$_SESSION['max_contrasena'] = $fila['valor'];
+					}
 		/* 	$revisarRespuestaExistente=new Usuario();
 			$respuesta_existe = $revisarRespuestaExistente->revisarPreguntaRespondida($res_pregunta,$id_usuario,$id_pregunta);
 
@@ -158,7 +171,8 @@ class loginControlador extends mainModel{
 					//y se redirige a la pagina de home
 					$insertarRespuesta = new Usuario();
 					$respuesta = $insertarRespuesta->actualizarUsuario($id_usuario);
-					return header("Location:".SERVERURL."home/");
+					$_SESSION['contador_preguntas']=1;
+					return header("Location:".SERVERURL."cambiocontrasena/");
 					die();
 				}
 			}
@@ -264,9 +278,14 @@ class loginControlador extends mainModel{
 		public function modificarContrasena($datos){
 			$contrasena_nueva=mainModel::limpiar_cadena($datos['contrasena_nueva']);
 			$conf_contrasena_nueva=mainModel::limpiar_cadena($datos['conf_contrasena_nueva']);
-			$usuario=$_SESSION['usuario_rec'];
 			$array=array();
+			if(isset($_SESSION['usuario_rec'])){
+				$usuario=$_SESSION['usuario_rec'];
+			}else{
+				$usuario=$_SESSION['usuario_login'];
+			}
 
+			
 			$parametroFechaVencimiento=new Usuario();
 			$valorVencimiento=$parametroFechaVencimiento->diasVencimiento();
 			foreach ($valorVencimiento as $fila) { //se recorre el arreglo recibido

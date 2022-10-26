@@ -157,9 +157,8 @@ class Correo extends mainModel{
             $mail->addAddress($correo);     //Add a recipient
 
             //Content
-            $mail->isHTML(true); 
-            $mail -> charSet = 'UTF-8';                                 //Set email format to HTML
-            $mail->Subject = 'Cambio de Contrasena';
+            $mail->isHTML(true);                                //Set email format to HTML
+            $mail->Subject = 'Cambio de Contraseña';
             $mail->Body    = '<html>
             <head>
                 <title>Restablecer</title>
@@ -168,11 +167,13 @@ class Correo extends mainModel{
             <body>
                 <div style="text-align: center; background-color: #E5E5E5; font-size:16px;">
                     <p>El proceso de cambio de contraseña fue realizado de manera exitosa.</p>
+                    <p>Su nueva contraseña es: <h2>'.$contrasena.'</h2></p>
                     <small>Si usted no ha realizado ningún proceso de cambio de contraseña comunicarse con el administrador del sistema.</small>
                 </div>
             </body>
         </html>';
-
+        $mail->CharSet = 'UTF-8';
+        $mail->Encoding = 'base64';
             $mail->send();
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
