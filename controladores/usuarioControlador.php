@@ -8,7 +8,7 @@ if($peticionAjax){
 	require_once "../pruebabitacora.php";
 }else{
 	require_once "./modelos/usuarioModelo.php";
-	require_once "./pruebabitacora.php";//aqui se ejecuta dentro del index y no se utiliza Ajax
+	require_once "./pruebabitacora.php";
 }
 
 
@@ -183,7 +183,7 @@ class usuarioControlador extends usuarioModelo
 				
 				//return header("Location:".SERVERURL."user-list/");
 
-				/* $envioCorreo = new Correo();
+			/* 	$envioCorreo = new Correo();
 				$respuesta = $envioCorreo->CorreoCreacionUsuario($Correo,$Usuario,$Contraseña); */
 			}else{
 				$alerta=[
@@ -365,6 +365,7 @@ class usuarioControlador extends usuarioModelo
 		$verificarPrimerIngreso=mainModel::ejecutar_consulta_simple("SELECT * FROM TBL_usuarios 
 		WHERE id_usuario='$id'");
 		foreach($verificarPrimerIngreso as $fila){
+			//se extrae el valor de primer_ingreso=1 si el usuario ingresó al sistema y 0 si no ha ingresado
 			$array['valor']=$fila['primer_ingreso'];
 		}
 
@@ -421,7 +422,7 @@ class usuarioControlador extends usuarioModelo
 			"id_objeto" => 0,
 			"fecha" => date('Y-m-d H:i:s'),
 			"id_usuario" => $_SESSION['id_login'],
-			"accion" => "eliminacion de usuario",
+			"accion" => "Eliminacion de usuario",
 			"descripcion" => "El usuario ".$_SESSION['usuario_login']." eliminó un usuario del sistema"
 		];
 		Bitacora::guardar_bitacora($datos_bitacora);	

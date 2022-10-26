@@ -81,7 +81,7 @@ function validarContrasena() {
     const message = document.getElementById('message_contrasena');
     input.willValidate = false;
     const maximo = 35;
-    const pattern = new RegExp('^[A-ZÑ!#$%&/()=?¡*+-_.@]+$','i');
+    const pattern = new RegExp('^[A-ZÑ0-9]+$','i');
 
     // Primera validacion, si input esta vacio entonces no es valido
     if(!input.value) {
