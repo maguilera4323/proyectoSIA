@@ -40,10 +40,10 @@ class loginControlador extends mainModel{
 							$_SESSION['token_login']=md5(uniqid(mt_rand(),true));
 							$datos_bitacora = [
 								"id_objeto" => 0,
-								"fecha" => date('Y-m-d h:i:s'),
+								"fecha" => date('Y-m-d H:i:s'),
 								"id_usuario" => $fila['id_usuario'],
-								"accion" => "inicio de sesion",
-								"descripcion" => "Acceso de usuario"
+								"accion" => "Inicio de sesion",
+								"descripcion" => "El usuario ".$_SESSION['usuario_login']." entró al sistema"
 							];
 							Bitacora::guardar_bitacora($datos_bitacora);
 

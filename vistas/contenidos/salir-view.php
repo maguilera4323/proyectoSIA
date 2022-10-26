@@ -7,10 +7,10 @@ if (session_status() == PHP_SESSION_NONE) {
 $datos_bitacora = 
 [
     "id_objeto" => 0,
-    "fecha" => date('Y-m-d h:i:s'),
+    "fecha" => date('Y-m-d H:i:s'),
     "id_usuario" => $_SESSION['id_login'],//cambiar aqui para que me pueda traer el USU conectado
-    "accion" => "Cerrado de sesion",
-    "descripcion" => "Acceso de usuario"
+    "accion" => "Cierre de sesión",
+    "descripcion" => "El usuario ".$_SESSION['usuario_login']." salió del sistema"
 ];
 Bitacora::guardar_bitacora($datos_bitacora);
 session_unset();

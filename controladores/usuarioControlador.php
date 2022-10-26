@@ -197,10 +197,10 @@ class usuarioControlador extends usuarioModelo
 
 			$datos_bitacora = [
 				"id_objeto" => 0,
-				"fecha" => date('Y-m-d h:i:s'),
+				"fecha" => date('Y-m-d H:i:s'),
 				"id_usuario" => $_SESSION['id_login'],
 				"accion" => "Creación de usuario",
-				"descripcion" => "Se creó un nuevo usuario en el sistema"
+				"descripcion" => "El usuario ".$_SESSION['usuario_login']." creó un nuevo usuario en el sistema"
 			];
 			Bitacora::guardar_bitacora($datos_bitacora); 
 	} /* Fin controlador */
@@ -310,10 +310,10 @@ class usuarioControlador extends usuarioModelo
 
 			$datos_bitacora = [
 				"id_objeto" => 0,
-				"fecha" => date('Y-m-d h:i:s'),
+				"fecha" => date('Y-m-d H:i:s'),
 				"id_usuario" => $_SESSION['id_login'],
 				"accion" => "Modificación de usuario",
-				"descripcion" => "Se actualizó un usuario en el sistema"
+				"descripcion" => "El usuario ".$_SESSION['usuario_login']." actualizó un usuario del sistema"
 			];
 			Bitacora::guardar_bitacora($datos_bitacora); 
 	} /* Fin controlador */
@@ -390,10 +390,10 @@ class usuarioControlador extends usuarioModelo
 			echo json_encode($alerta);
 		$datos_bitacora = [
 			"id_objeto" => 0,
-			"fecha" => date('Y-m-d h:i:s'),
+			"fecha" => date('Y-m-d H:i:s'),
 			"id_usuario" => $_SESSION['id_login'],
 			"accion" => "Usuario inactivado",
-			"descripcion" => "Se inactivo un usuario en el sistema"
+			"descripcion" => "El usuario ".$_SESSION['usuario_login']." inactivó un usuario del sistema"
 		];
 		Bitacora::guardar_bitacora($datos_bitacora);
 			exit();
@@ -419,10 +419,10 @@ class usuarioControlador extends usuarioModelo
 			echo json_encode($alerta);
 		$datos_bitacora = [
 			"id_objeto" => 0,
-			"fecha" => date('Y-m-d h:i:s'),
+			"fecha" => date('Y-m-d H:i:s'),
 			"id_usuario" => $_SESSION['id_login'],
 			"accion" => "eliminacion de usuario",
-			"descripcion" => "Se elimino un usuario en el sistema"
+			"descripcion" => "El usuario ".$_SESSION['usuario_login']." eliminó un usuario del sistema"
 		];
 		Bitacora::guardar_bitacora($datos_bitacora);	
 			exit();

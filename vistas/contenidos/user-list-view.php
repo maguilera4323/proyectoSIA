@@ -1,4 +1,15 @@
+<?php
+	require_once "./pruebabitacora.php";
 
+	$datos_bitacora = [
+		"id_objeto" => 0,
+		"fecha" => date('Y-m-d H:i:s'),
+		"id_usuario" => $_SESSION['id_login'],
+		"accion" => "Cambio de vista",
+		"descripcion" => "El usuario ".$_SESSION['usuario_login']." entró a la vista de Mantenimiento de Usuarios"
+	];
+	Bitacora::guardar_bitacora($datos_bitacora); 
+?>
 
 <div class="full-box page-header">
 	<h3 class="text-left">
