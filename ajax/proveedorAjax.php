@@ -2,21 +2,21 @@
 	$peticionAjax=true;
 	require_once "../config/APP.php";
 
-	if(isset($_POST['nombre_proveedor_nuevo']) || isset($_POST['usuario_actu']) || isset($_POST['id_usuario_del']))
+	if(isset($_POST['nombre_proveedor_nuevo']) || isset($_POST['nombre_proveedor_actu']) || isset($_POST['id_usuario_del']))
 	{
 		/*--------- Instancia al controlador ---------*/
 		require_once "../controladores/proveedorControlador.php";
 		$ins_proveedor = new proveedorControlador();
 
 
-		/*--------- Agregar un usuario ---------*/
+		/*--------- Agregar un proveedor ---------*/
 		if(isset($_POST['nombre_proveedor_nuevo'])){
 			echo $ins_proveedor->agregar_proveedor_controlador();
 			die();
 		}
 		
-		if(isset($_POST['usuario_actu']) ){
-			echo $ins_usuario->actualizar_usuario_controlador();
+		if(isset($_POST['nombre_proveedor_actu']) ){
+			echo $ins_proveedor->actualizar_proveedor_controlador();
 			die();
 		}
 		

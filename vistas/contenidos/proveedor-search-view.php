@@ -67,113 +67,53 @@
 			<thead>
 				<tr class="text-center roboto-medium">
 					<th>#</th>
-					<th>DNI</th>
 					<th>NOMBRE</th>
-					<th>APELLIDO</th>
-					<th>TELEFONO</th>
+					<th>RTN</th>
+					<th>TÉLEFONO</th>
+					<th>CORREO</th>
 					<th>DIRECCIÓN</th>
 					<th>ACTUALIZAR</th>
 					<th>ELIMINAR</th>
 				</tr>
 			</thead>
-			<tbody>
-				<tr class="text-center" >
-					<td>1</td>
-					<td>012342567</td>
-					<td>NOMBRE DEL CLIENTE</td>
-					<td>APELLIDO DEL CLIENTE</td>
-					<td>72349874</td>
-					<td>
-						<button type="button" class="btn btn-info" data-toggle="popover" data-trigger="hover" title="Nombre del cliente" data-content="Direccion completa del cliente">
-							<i class="fas fa-info-circle"></i>
-						</button>
-					</td>
-					<td>
-						<a href="client-update.html" class="btn btn-success">
-								<i class="fas fa-sync-alt"></i>	
-						</a>
-					</td>
-					<td>
-						<form action="">
-							<button type="button" class="btn btn-warning">
-									<i class="far fa-trash-alt"></i>
-							</button>
-						</form>
-					</td>
-				</tr>
-				<tr class="text-center" >
-					<td>2</td>
-					<td>012342567</td>
-					<td>NOMBRE DEL CLIENTE</td>
-					<td>APELLIDO DEL CLIENTE</td>
-					<td>72349874</td>
-					<td>
-						<button type="button" class="btn btn-info" data-toggle="popover" data-trigger="hover" title="Nombre del cliente" data-content="Direccion completa del cliente">
-							<i class="fas fa-info-circle"></i>
-						</button>
-					</td>
-					<td>
-						<a href="client-update.html" class="btn btn-success">
-								<i class="fas fa-sync-alt"></i>	
-						</a>
-					</td>
-					<td>
-						<form action="">
-							<button type="button" class="btn btn-warning">
-									<i class="far fa-trash-alt"></i>
-							</button>
-						</form>
-					</td>
-				</tr>
-				<tr class="text-center" >
-					<td>3</td>
-					<td>012342567</td>
-					<td>NOMBRE DEL CLIENTE</td>
-					<td>APELLIDO DEL CLIENTE</td>
-					<td>72349874</td>
-					<td>
-						<button type="button" class="btn btn-info" data-toggle="popover" data-trigger="hover" title="Nombre del cliente" data-content="Direccion completa del cliente">
-							<i class="fas fa-info-circle"></i>
-						</button>
-					</td>
-					<td>
-						<a href="client-update.html" class="btn btn-success">
-								<i class="fas fa-sync-alt"></i>	
-						</a>
-					</td>
-					<td>
-						<form action="">
-							<button type="button" class="btn btn-warning">
-									<i class="far fa-trash-alt"></i>
-							</button>
-						</form>
-					</td>
-				</tr>
-				<tr class="text-center" >
-					<td>4</td>
-					<td>012342567</td>
-					<td>NOMBRE DEL CLIENTE</td>
-					<td>APELLIDO DEL CLIENTE</td>
-					<td>72349874</td>
-					<td>
-						<button type="button" class="btn btn-info" data-toggle="popover" data-trigger="hover" title="Nombre del cliente" data-content="Direccion completa del cliente">
-							<i class="fas fa-info-circle"></i>
-						</button>
-					</td>
-					<td>
-						<a href="client-update.html" class="btn btn-success">
-								<i class="fas fa-sync-alt"></i>	
-						</a>
-					</td>
-					<td>
-						<form action="">
-							<button type="button" class="btn btn-warning">
-									<i class="far fa-trash-alt"></i>
-							</button>
-						</form>
-					</td>
-				</tr>
-			</tbody>
+
+			<?php
+			include ("./cone.php");
+			$sql="SELECT * FROM TBL_Proveedores";
+			$result=mysqli_query($conexion,$sql);
+			while($mostrar=mysqli_fetch_assoc($result)){			
+		?>	
+		<tbody>
+					<tr class="text-center" >
+						<td><?php echo $mostrar['id_Proveedores']?></td>
+						<td><?php echo $mostrar['nom_proveedor']?></td>
+						<td><?php echo $mostrar['rtn_proveedor']?></td>
+						<td><?php echo $mostrar['tel_proveedor']?></td>
+						<td><?php echo $mostrar['correo_proveedor']?></td>
+						<td><?php echo $mostrar['dir_proveedor']?></td>
+						<td>
+						<a href="<?php echo SERVERURL; ?>proveedor-update/<?php echo $mostrar['id_Proveedores']?>" class="btn btn-success">
+									<i class="fas fa-sync-alt"></i>	
+							</a>
+						</td>
+						<td>
+							
+							<form class="FormularioAjax" action="<?php echo SERVERURL; ?>ajax/usuarioAjax.php" method="POST" data-form="delete" autocomplete="off">
+							<input type="hidden" pattern="" class="form-control" name="id_proveedor_del" value="<?php echo $mostrar['id_Proveedores'] ?>">
+							<input type="hidden" pattern="" class="form-control" name="proveedor_del" value="<?php echo $mostrar['id_Proveedores'] ?>">	
+							<button type="submit" class="btn btn-warning">
+										<i class="far fa-trash-alt"></i>
+								</button>
+							</form>
+						</td>
+					</tr>
+				</tbody>
+				<?php
+			}
+			
+		?>
+		
+			
 		</table>
 	</div>
 	<nav aria-label="Page navigation example">
