@@ -184,6 +184,7 @@ class loginControlador extends mainModel{
 					$insertarRespuesta = new Usuario();
 					$respuesta = $insertarRespuesta->actualizarUsuario($id_usuario);
 					$_SESSION['contador_preguntas']=1;
+					$_SESSION['respuesta']='';
 					return header("Location:".SERVERURL."cambiocontrasena/");
 					die();
 				}
@@ -323,7 +324,8 @@ class loginControlador extends mainModel{
 				die();
 			}else{
 				$_SESSION['respuesta'] = 'Cambio de contraseña exitoso';
-					$respuesta = $cambioContrasena->cambioContrasena($usuario,$contrasena_nueva);
+					$hash_contrasena=mainModel::encryption($contrasena_nueva);
+					$respuesta = $cambioContrasena->cambioContrasena($usuario,$hash_contrasena);
 					$respuesta = $cambioContrasena->desbloquearUsuario($usuario);
 					$respuesta = $cambioContrasena->actualizarFechaVencimiento($usuario,$FechaVencimiento);
 					$envioCorreo = new Correo();
