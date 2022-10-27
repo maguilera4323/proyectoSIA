@@ -24,21 +24,18 @@
 
 
 
-		/*--------- Modelo actualizar usuario ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
-		protected static function actualizar_usuario_modelo($dato,$id)
+		/*--------- Modelo actualizar proveedor ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
+		protected static function actualizar_proveedor_modelo($dato,$id)
 		{
-			$sql=mainModel::conectar()->prepare("UPDATE TBL_usuarios SET usuario=?,nombre_usuario=?,estado_usuario=?,
-			id_rol=?, correo_electronico=?,modificado_por=?,fecha_modificacion=? 
-			WHERE id_usuario=?");
+			$sql=mainModel::conectar()->prepare("UPDATE TBL_Proveedores SET nom_proveedor=?,rtn_proveedor=?,tel_proveedor=?,
+			correo_proveedor=?, dir_proveedor=? WHERE id_Proveedores=?");
 
-			$sql->bindParam(1,$dato['usua']);
-			$sql->bindParam(2,$dato['nombrea']);	
-			$sql->bindParam(3,$dato['estadoa']);			
-			$sql->bindParam(4,$dato['rola']);			
-			$sql->bindParam(5,$dato['correoa']);
-			$sql->bindParam(6,$dato['modificador']);
-			$sql->bindParam(7,$dato['fecha_modif']);
-			$sql->bindParam(8,$id);
+			$sql->bindParam(1,$dato['nombre']);
+			$sql->bindParam(2,$dato['rtn']);	
+			$sql->bindParam(3,$dato['telefono']);			
+			$sql->bindParam(4,$dato['correo']);			
+			$sql->bindParam(5,$dato['direccion']);
+			$sql->bindParam(6,$id);
 			$sql->execute();
 			return $sql;
 
@@ -47,9 +44,9 @@
 				[
 					"id_objeto" => 0,
 					"fecha" => date('Y-m-d h:i:s'),
-					"id_usuario" => null,
-					"accion" => "Actualizacion de usuario",
-					"descripcion" => "Acceso de usuario"
+					"id_Proveedores" => null,
+					"accion" => "Actualizacion de proveedor",
+					"descripcion" => "Acceso de proveedor"
 				];
 				Bitacora::guardar_bitacora($datos_bitacora);
 			
