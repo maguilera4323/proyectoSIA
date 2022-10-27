@@ -95,7 +95,7 @@ class usuarioControlador extends usuarioModelo
 
 			/*== Comprobando CLAVE ==*/
 
-			 if(mainModel::verificar_datos("[a-zA-Z0-9$@.-]{7,100}",$Contraseña) ){
+			 if(mainModel::verificar_datos("[a-zA-Z0-9$@.-]{5,10}",$Contraseña) ){
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
@@ -203,6 +203,7 @@ class usuarioControlador extends usuarioModelo
 				"descripcion" => "El usuario ".$_SESSION['usuario_login']." creó un nuevo usuario en el sistema"
 			];
 			Bitacora::guardar_bitacora($datos_bitacora); 
+			/* echo "<script>window.location.replace('http//localhost/proyectoSIA/user-list/');</script>"; */
 	} /* Fin controlador */
 
 
@@ -316,6 +317,8 @@ class usuarioControlador extends usuarioModelo
 				"descripcion" => "El usuario ".$_SESSION['usuario_login']." actualizó un usuario del sistema"
 			];
 			Bitacora::guardar_bitacora($datos_bitacora); 
+			/* echo "<script>window.location.replace('http//localhost/proyectoSIA/user-list/');</script>"; */
+			die();
 	} /* Fin controlador */
 	
 

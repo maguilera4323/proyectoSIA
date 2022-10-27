@@ -117,6 +117,12 @@ class Usuario extends mainModel{
 		return $respuesta = $db->ejecutar_consulta_simple($query);
 	}
 
+	public function obtenerContrasenaHash($user) {
+		$db = new mainModel();
+		$query = "SELECT contrasena FROM TBL_usuarios WHERE usuario = '".$user. "' LIMIT 1";
+		return $respuesta = $db->ejecutar_consulta_simple($query);
+	}
+
 		//Funcion que realiza un update para cambiar el estado del usuario al realizar tres intentos fallidos
 	//los resultados de la consulta pasan al controlador por medio del retorno de $respuesta
 	public function bloquearUsuario($user) {
