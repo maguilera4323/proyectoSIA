@@ -13,9 +13,20 @@ class loginControlador extends mainModel{
 		$contrasena=mainModel::limpiar_cadena($datos['password']);
 		$ingresos_erroneos=mainModel::limpiar_cadena($datos['contador']);
 		$array=array();
+		$hash='';
 		$array_pregunta=array();
-		$verificarDatos = new Usuario(); //se crea una instancia en el archivo modelo de Login
-		$respuesta = $verificarDatos->accesoUsuario($usuario, $contrasena); //datos recibidos del archivo modelo de Login
+
+		//se obtiene el hash de la contraseña para validar el inicio de sesion
+		$recuperarHash=new Usuario();
+		$hash_BD = $recuperarHash->obtenerContrasenaHash($usuario);
+			foreach($hash_BD as $fila){
+				$hash=$fila['contrasena'];
+			}
+
+		//en caso de que el hash concuerde con el de la contraseña ingresada
+		if (password_verify($contrasena, $hash)) {
+			$verificarDatos = new Usuario(); //se crea una instancia en el archivo modelo de Login
+			$respuesta = $verificarDatos->accesoUsuario($usuario, $hash); //datos recibidos del archivo modelo de Login
 			foreach ($respuesta as $fila) { //se recorre el arreglo recibido
 				//datos guardados para ser usados posteriormenete en el sistema
 				$array['id'] = $fila['id_usuario'];
@@ -26,8 +37,6 @@ class loginControlador extends mainModel{
 			}
 
 			//validacion en caso de que el estado del usuario sea Activo
-			//y que tanto usuario como contraseña son correctos
-			 if (isset($array['nombre'])>0){
 				switch ($array['estado']){
 						case 'Activo':
 							session_start();
@@ -48,34 +57,35 @@ class loginControlador extends mainModel{
 							Bitacora::guardar_bitacora($datos_bitacora);
 
 							return header("Location:".SERVERURL."home/");
-						break;
-						case 'Inactivo':
-							$_SESSION['respuesta'] = 'Usuario inactivo';
-							return header("Location:".SERVERURL."login/");
-						break;
-						case 'Bloqueado':
-							$_SESSION['respuesta'] = 'Usuario bloqueado';
-							return header("Location:".SERVERURL."login/");
-						break; 
-						case 'Nuevo':
-							session_start();
-							//datos que se envian para el uso del sistema y para el primer ingreso
-							$_SESSION['id_login']=$array['id'];
-							$_SESSION['usuario_login']=$array['usuario'];
-							$_SESSION['nombre_usuario']=($array['nombre']);
-							$_SESSION['estado']=$array['estado'];
-							$_SESSION['rol']=$array['rol'];
-							$_SESSION['token_login']=md5(uniqid(mt_rand(),true));
-							return header("Location:".SERVERURL."primer-ingreso/");
-						break;
-				}
-					die();
-            }else{
+							break;
+							case 'Inactivo':
+								$_SESSION['respuesta'] = 'Usuario inactivo';
+								return header("Location:".SERVERURL."login/");
+							break;
+							case 'Bloqueado':
+								$_SESSION['respuesta'] = 'Usuario bloqueado';
+								return header("Location:".SERVERURL."login/");
+							break; 
+							case 'Nuevo':
+								session_start();
+								//datos que se envian para el uso del sistema y para el primer ingreso
+								$_SESSION['id_login']=$array['id'];
+								$_SESSION['usuario_login']=$array['usuario'];
+								$_SESSION['nombre_usuario']=($array['nombre']);
+								$_SESSION['estado']=$array['estado'];
+								$_SESSION['rol']=$array['rol'];
+								$_SESSION['token_login']=md5(uniqid(mt_rand(),true));
+								return header("Location:".SERVERURL."primer-ingreso/");
+							break;
+						die();
+					}
+			}else{
+				//en caso de que el hash no concuerde con el de la contraseña ingresada
 				//validacion cuando usuario o contraseña son incorrectos
 				$ingresos_erroneos=mainModel::limpiar_cadena($datos['contador']);
 				//se llama a la funcion para obtener el limite de intentos de login
 				//Datos de la tabla de parametros
- 				$parametroIntentosValidos=new Usuario();
+				$parametroIntentosValidos=new Usuario();
 				$valorParametro=$parametroIntentosValidos->intentosValidos();
 					foreach ($valorParametro as $fila) { //se recorre el arreglo recibido
 						//datos guardados para ser usados posteriormenete en el sistema
@@ -83,6 +93,7 @@ class loginControlador extends mainModel{
 					}
 
 				//validacion para revisar si el usuario ingresado existe en el sistema
+				$verificarDatos = new Usuario();
 				$query=$verificarDatos->verificarEstado($usuario);
 					foreach ($query as $fila) { //se recorre el arreglo recibido
 						//datos guardados para ser usados posteriormenete en el sistema
@@ -126,8 +137,9 @@ class loginControlador extends mainModel{
 							$_SESSION['respuesta'] = 'Datos incorrectos';
 							return header("Location:".SERVERURL."login/");
 							die();
-						}
-					}
+							}
+				}
+	
 		}
 
 
