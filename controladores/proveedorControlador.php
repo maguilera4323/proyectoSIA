@@ -58,9 +58,9 @@ class proveedorControlador extends proveedorModelo
 			$datos_bitacora = [
 				"id_objeto" => 0,
 				"fecha" => date('Y-m-d h:i:s'),
-				"id_usuario" => $_SESSION['id_login'],
-				"accion" => "Creación de usuario",
-				"descripcion" => "Se creó un nuevo usuario en el sistema"
+				"id_Proveedores" => $_SESSION['id_login'],
+				"accion" => "Creación de Proveedor",
+				"descripcion" => "Se creó un nuevo proveedor en el sistema"
 			];
 			Bitacora::guardar_bitacora($datos_bitacora); 
 	} /* Fin controlador */
