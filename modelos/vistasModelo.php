@@ -4,7 +4,7 @@
 
 		/*--------- Modelo obtener vistas ---------*/
 		protected static function obtener_vistas_modelo($vistas){
-			$listaBlanca=["bitacora","prueba","proveedor-list","proveedor-new","proveedor-search","client-update","company"
+			$listaBlanca=["bitacoras","prueba","proveedor-list","proveedor-new","proveedor-search","client-update","company"
 			,"home","item-list","item-new","item-search","item-update","reservation-list","reservation-new",
 			"reservation-pending","reservation-search","reservation-update","user-list",
 			"reservation-reservation","user-new","user-search","user-update","salir","compra-list","compra-new","compra-search","compra-detalle"];

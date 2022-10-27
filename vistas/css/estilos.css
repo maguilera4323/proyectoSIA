@@ -1,0 +1,37 @@
+body
+{
+	background: #428bca;
+}
+
+header 
+{
+	margin-top: 4%;
+	margin-right: 2%;
+	margin-left: 2%;
+	text-align: center;
+}
+
+section, div
+{
+	margin-right: 2%;
+	margin-left: 2%;
+}
+
+
+
+.pad-basic
+
+{
+padding:.5%; 
+	
+}
+
+.no-btm
+{
+	margin-bottom:0%;
+}
+
+.btn-der
+{
+	text-align: right;
+}
