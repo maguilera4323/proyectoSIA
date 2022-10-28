@@ -5,8 +5,10 @@
 
 if($peticionAjax){
 	require_once "../modelos/autoregistroModelo.php";
+	require_once "../modelos/loginModelo.php";
 }else{
-	require_once "./modelos/autoregistroModelo.php";//aqui se ejecuta dentro del index y no se utiliza Ajax
+	require_once "./modelos/autoregistroModelo.php";
+	require_once "./modelos/loginModelo.php";//aqui se ejecuta dentro del index y no se utiliza Ajax
 }
 
 class autoregistroControlador extends autoregistroModelo
@@ -18,10 +20,12 @@ class autoregistroControlador extends autoregistroModelo
 		$Nombre=mainModel::limpiar_cadena($_POST['nameusuario_autoreg']);
 		$Correo=mainModel::limpiar_cadena($_POST['correo_electronico_autoreg']);
 		$Contraseña=mainModel::limpiar_cadena($_POST['contrasena_autoreg']);
-		$Rol=5;
+		$Rol=4;
 		$fcha = date("Y-m-d");
 		$Vencimiento=date("Y-m-d",strtotime($fcha."+ 360 days"));
 		$Estado=1;
+		$creado=mainModel::limpiar_cadena($_POST['usuario_autoreg']);
+		$Creacion=date('y-m-d H:i:s');
 
         // comprobación de campos vacios
         if($Usuario=="" || $Nombre=="" || $Correo=="" || $Contraseña=="" ){
@@ -136,9 +140,13 @@ class autoregistroControlador extends autoregistroModelo
 				"vencimiento"=>$Vencimiento,
 				"correo"=>$Correo,
 				"rol"=>$Rol,
+				"creador"=>$creado,
+				"fecha_crea"=>$Creacion
 			];
 
 			$agregar_usuario=autoregistroModelo::autoregistro_modelo($datos_usuario_reg);
+			$cambioContrasena=new Usuario();
+			$respuesta = $cambioContrasena->cambioContrasena($Usuario,$clave);
 
 			if($agregar_usuario->rowCount()==1){
 				$alerta=[
@@ -147,8 +155,7 @@ class autoregistroControlador extends autoregistroModelo
 					"Texto"=>"Los datos del usuario han sido registrados con exito",
 					"Tipo"=>"success"
 				];
-				/* $envioCorreo = new Correo();
-				$respuesta = $envioCorreo->CorreoCreacionUsuario($Correo,$Usuario,$Contraseña); */
+			
 			}else{
 				$alerta=[
 					"Alerta"=>"simple",
@@ -158,6 +165,7 @@ class autoregistroControlador extends autoregistroModelo
 				];
 			}
 			echo json_encode($alerta);
+	
 			return header("Location:".SERVERURL."preguntasusuario/");
     }
 }    /* Fin controlador */

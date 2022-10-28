@@ -48,6 +48,11 @@
 							echo '<div class="alert alert-danger text-center">Usuario y/o contraseña inválidos</div>';
 							$_SESSION['contador_intentos']=0;
 						break;
+						case 'Usuario sin permisos':
+							echo '<div class="alert alert-dark text-center">El usuario no tiene los permisos para iniciar 
+							sesión. Comuniquese con el administrador del sistema</div>';
+							$_SESSION['contador_intentos']=0;
+						break;
 					 }
 				 }
 			 ?>

@@ -33,11 +33,11 @@ class autorespuestasControlador extends mainModel{
                     //datos guardados para ser usados posteriormenete en el sistema
                     $_SESSION['max_contrasena'] = $fila['valor'];
                 }
-// para obtener el id del usuario
+        // para obtener el id del usuario
          $obternerid=new Usuario();
-        $id = $obternerid->obtener_idusuario($usuario);
-        foreach($id as $fila){
-             $hash=$fila['id_usuario'];
+        $respuestaId = $obternerid->obtener_idusuario($usuario);
+        foreach($respuestaId as $fila){
+             $id_usuario=$fila['id_usuario'];
             }
 
     /* 	$revisarRespuestaExistente=new Usuario();
@@ -51,16 +51,16 @@ class autorespuestasControlador extends mainModel{
 
             if($contador_preguntas<=2){
                 $insertarRespuesta = new Usuario(); //se crea una instancia en el archivo modelo de Login
-                $respuesta = $insertarRespuesta->insertarRespuestasSeguridad($res_pregunta,$hash,$id_pregunta);
+                $respuesta = $insertarRespuesta->insertarRespuestasSeguridad($res_pregunta,$id_usuario,$id_pregunta);
                 $_SESSION['contador_preguntas']+=1;
             }else{
                 //al pasar por todas las preguntas de seguridad se actualiza el estado de usuario a Activo
                 //y se redirige a la pagina de home
                 $insertarRespuesta = new Usuario();
-                $respuesta = $insertarRespuesta->actualizarUsuario($hash);
+                $respuesta = $insertarRespuesta->actualizarUsuario($id_usuario);
                 $_SESSION['contador_preguntas']=1;
                 $_SESSION['respuesta']='';
-                return header("Location:".SERVERURL."cambiocontrasena/");
+                return header("Location:".SERVERURL."login/");
                 die();
             }
         }

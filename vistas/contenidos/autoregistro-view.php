@@ -9,29 +9,7 @@ if (session_status() == PHP_SESSION_NONE) {
 		<center><img src="<?php echo SERVERURL; ?>images/CityCoffe.jpeg" id="imagen-cafe" alt="logo-empresa"></center>
 		<h4 class="text-center mb-0" id="h3-login">Bienvenido</h4>
 		<p class="text-center" id="p-login">Ingrese sus Datos de Nuevo Registro</p>
-			<?php
-				 if(isset($_SESSION['respuesta'])){
-					switch($_SESSION['respuesta']){
-						case 'Contraseña incorrecta':
-							echo '<div div class="alert alert-danger text-center" role="alert">Usuario y/o contraseña inválidos</div>';
-							$_SESSION['contador_intentos']+=0.5;
-						break;
-						case 'Usuario inactivo':
-							echo '<div class="alert alert-warning text-center">El usuario está inactivo. Comuniquese con el 
-							administrador del sistema</div>';
-						break;
-						case 'Usuario bloqueado':
-							echo '<div class="alert alert-dark text-center">El usuario está bloqueado. Comuniquese con el 
-							administrador del sistema</div>';
-							$_SESSION['contador_intentos']=0;
-						break;
-						case 'Datos incorrectos':
-							echo '<div class="alert alert-danger text-center">Usuario y/o contraseña inválidos</div>';
-							$_SESSION['contador_intentos']=0;
-						break;
-					 }
-				 }
-			 ?>
+		
 			<form action="<?php echo SERVERURL; ?>ajax/autoregistroAjax.php" method="POST" autocomplete="off" id="loginForm">
 				<div class="form-group">
 					<i class="fas fa-user icon-user"> Usuario</i>

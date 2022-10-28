@@ -1,6 +1,10 @@
 <?php
 
-require_once "./modelos/mainModel.php";
+if($peticionAjax){
+	require_once "../modelos/mainModel.php";
+}else{
+	require_once "./modelos/mainModel.php";
+}
 
 //clase que realizará las consultas a la BD
 class Usuario extends mainModel{

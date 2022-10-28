@@ -37,7 +37,9 @@ class loginControlador extends mainModel{
 			}
 
 			 //validacion en caso de que el estado del usuario sea Activo
-				switch ($array['estado']){
+			 //y que el rol del usuario no sea default para poder iniciar sesion
+			 if($array['rol']!='default'){
+					switch ($array['estado']){
 						case 'Activo':
 							session_start();
 							//datos que se envian para uso del sistema
@@ -79,6 +81,12 @@ class loginControlador extends mainModel{
 							break;
 						die();
 					}
+				}else{
+					//cuandoelroldelusuarioseadefault
+					$_SESSION['respuesta'] = 'Usuario sin permisos';
+					return header("Location:".SERVERURL."login/");
+					die();
+				}
 			}else{
 				//en caso de que el hash no concuerde con el de la contraseña ingresada
 				//validacion cuando usuario o contraseña son incorrectos
@@ -111,6 +119,10 @@ class loginControlador extends mainModel{
 								break;
 								case 'Inactivo':
 									$_SESSION['respuesta'] = 'Usuario inactivo';
+									return header("Location:".SERVERURL."login/");
+								break;
+								case 'Nuevo':
+									$_SESSION['respuesta'] = 'Datos incorrectos';
 									return header("Location:".SERVERURL."login/");
 								break;
 								case 'Activo':

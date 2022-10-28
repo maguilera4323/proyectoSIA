@@ -51,8 +51,6 @@ if(isset($_GET['enviar'])){
 
 
 ?>
-           <br>
-
 
 			</form>
       <div class="container-fluid">
@@ -87,8 +85,8 @@ if(isset($_GET['enviar'])){
 				<?php
 
 include ("./cone.php");              
-$SQL="SELECT TBL_usuarios.id_usuario, TBL_usuarios.usuario, TBL_usuarios.nombre_usuario, TBL_usuarios.estado_usuario, TBL_usuarios.id_rol,
-TBL_usuarios.correo_electronico,TBL_usuarios.creado_por FROM TBL_usuarios $where";
+$SQL="SELECT id_usuario, usuario, nombre_usuario, estado_usuario, id_rol,correo_electronico,
+creado_por FROM TBL_usuarios $where";
 $dato = mysqli_query($conexion, $SQL);
 
 if($dato -> num_rows >0){
