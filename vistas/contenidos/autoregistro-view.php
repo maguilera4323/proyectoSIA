@@ -68,7 +68,7 @@ if (session_status() == PHP_SESSION_NONE) {
 				</div>
 				<div class="form-group">
 				</div>
-				<button type="submit" class="btn-login text-center"><a href="<?php echo SERVERURL; ?> preguntasusuario/" id=opcion_reg><i class="fas fa-arrow-circle-right icon-user"> Siguiente</i></button>
+				<button type="submit" class="btn-login text-center"><i class="fas fa-arrow-circle-right icon-user"> Siguiente</i></button>
 			</form>
 		</div>
 	</div>

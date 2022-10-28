@@ -1,37 +1,63 @@
+<?php
+	if (session_status() == PHP_SESSION_NONE) {
+		session_start();
+	}
+
+	//verifica si la variable del contador está creada
+	if (!isset($_SESSION['contador_preguntas'])){
+		$_SESSION['contador_preguntas'] = 1;
+   }
+
+	//llamado al controlador de login
+    require_once 'controladores/autorespuestasControlador.php';
+    $usuario = new autorespuestasControlador(); //se crea nueva instancia de usuario
+
+	//valdacion para ver si se recibieron datos de ingreso
+    if (isset($_POST['acceder'])) {
+		$datos = array(
+            'pregunta'=> $_POST['preguntas'],
+            'respuesta'=> $_POST['respuesta'],
+
+			'contador'=> $_POST['contador']
+        );
+        $respuesta = $usuario->insertarRespuestasSeguridad($datos); //se envian los datos a la funcion accesoUsuario de modelo Login
+    }
+	?>
+
 <div class="login-container">
-    <div class="login-content">
-        <center><img src="<?php echo SERVERURL; ?>images/CityCoffe.jpeg" id="imagen-cafe" alt="logo-empresa"></center>
-		<h4 class="text-center mb-0" id="h3-login">Bienvenido</h4>
-        <h5 class="text-center mb-0" id="h3-login">Preguntas de Seguridad</h5>
-		<p class="text-center" id="p-login">Conteste las preguntas para completar el registro</p>
-
-        <form action="" method="POST" autocomplete="off" id="loginForm">
-
-            <div class="form-group">
-                <i class="fas fa-user icon-user"> ¿Cuál es su Deporte Favorito?</i>
-					<input type="text" class="form-control" id="usuario" name="depfav" placeholder="Respuesta" 
-					 required />
-					<div id="message_usuario" style="position: absolute; left: 20px; top: 60px; background-color: #EFEFEF; 
-					color:black; font-weight: 500; z-index:5; padding:8px;  border: 2px solid #FF4C12;" hidden>
-      				Llene este campo</div>
-				<br>
-                <br>
-                <i class="fas fa-dog icon-user"> ¿Nombre de su Mascota?</i>
-					<input type="text" class="form-control" id="usuario" name="mascota" placeholder="Respuesta" 
-					 required />
-					<div id="message_usuario" style="position: absolute; left: 20px; top: 60px; background-color: #EFEFEF; 
-					color:black; font-weight: 500; z-index:5; padding:8px;  border: 2px solid #FF4C12;" hidden>
-      				Llene este campo</div>
-				<br>
-                <br>
-                <i class="fas fa-globe-americas icon-user"> Lugar de Nacimiento</i>
-					<input type="text" class="form-control" id="usuario" name="lugarnaci" placeholder="Respuesta" 
-					 required />
-					<div id="message_usuario" style="position: absolute; left: 20px; top: 60px; background-color: #EFEFEF; 
-					color:black; font-weight: 500; z-index:5; padding:8px;  border: 2px solid #FF4C12;" hidden>
-      				Llene este campo</div>
-            </div>
-			<button type="submit" name="siguiente" onclick="" class="btn-login text-center"><a href="<?php echo SERVERURL; ?> login/" id=opcion_reg><i class="fas fa-save icon-user"> Guardar</i></button>
-        </form>
-    </div>
-</div>
+		<div class="login-content">
+		<center><img src="<?php echo SERVERURL; ?>images/CityCoffe.jpeg" id="imagen-cafe" alt="logo-empresa"></center>
+		<h4 class="text-center mb-0" id="h3-login">Primer Ingreso de Usuario</h4>
+		<p class="text-center" id="p-login">Seleccione una pregunta e ingrese su correspondiente respuesta</p>
+		<?php
+			if(isset($_SESSION['respuesta'])){
+				switch($_SESSION['respuesta']){
+				case 'Pregunta ya respondida':
+					echo '<div class="alert alert-danger text-center justify-content-center" 
+					role="alert">La pregunta ya fue respondida. Seleccione otra pregunta de la lista</div>';
+				break;
+				}
+			}
+		?>
+			<br>
+			<form action="" method="POST" autocomplete="off" id="loginForm">
+			<div class="caja">
+			<select name="preguntas" id="preguntas">
+				    <option selected>Seleccione una pregunta</option>
+				    <option value="1">¿Cual es su deporte favorito</option>
+					<option value="2">¿Nombre de su mascota?</option>
+					<option value="3">¿Lugar de nacimiento?</option>
+					<option value="4">¿Comida favorita?</option>
+					<option value="5">¿Nombre de su primer hijo(a)?</option>
+					<option value="6">¿Canción favorita?</option>
+                 </select>
+			</div>
+				<div class="form-group">
+				<i class="fab fa-adn icon-user"></i>
+				<input type="hidden" class="form-control" name="contador" id="contador" value=<?php echo ($_SESSION["contador_preguntas"]) ?> >
+					<input type="text" class="form-control" id="respuesta" name="respuesta" placeholder="Respuesta" maxlength="35" required="" >
+				</div>
+				<button type="submit" name="acceder" class="btn-login text-center">Enviar Respuesta</button>
+			</form>
+		</div>
+	</div>

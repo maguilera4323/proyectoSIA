@@ -152,6 +152,12 @@ class Usuario extends mainModel{
 	}
 
 
+	// obtener el usuario id para las preguntas de autoregistro
+	public function obtener_idusuario($user) {
+		$db = new mainModel();
+		$query = "SELECT * FROM TBL_usuarios WHERE BINARY usuario = '".$user. "' LIMIT 1";
+		return $respuesta = $db->ejecutar_consulta_simple($query);
+	}
 
 
 	/* Funciones de Vista Preguntas de Seguridad */

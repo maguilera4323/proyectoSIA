@@ -125,6 +125,8 @@ class autoregistroControlador extends autoregistroModelo
 				$clave=mainModel::encryption($Contraseña);
 			}
 
+			$_SESSION['usuario']=$Usuario;
+
             /*== AGREGAR USUARIOS ==*/
 			$datos_usuario_reg=[
 				"usu"=>$Usuario,
@@ -156,5 +158,8 @@ class autoregistroControlador extends autoregistroModelo
 				];
 			}
 			echo json_encode($alerta);
+
+		
+			
     }
 }    /* Fin controlador */
