@@ -163,7 +163,6 @@ class loginControlador extends mainModel{
 			$res_pregunta=mainModel::limpiar_cadena($datos['respuesta']);
 			$id_pregunta=mainModel::limpiar_cadena($datos['pregunta']);
 			$id_usuario=mainModel::limpiar_cadena($datos['usuario']);
-			$contador_preguntas=mainModel::limpiar_cadena($datos['contador']);
 
 			$parametroMinContrasena=new Usuario();
 				$valorParametroMin=$parametroMinContrasena->minContrasena();
@@ -187,16 +186,16 @@ class loginControlador extends mainModel{
 				return header("Location:".SERVERURL."primer-ingreso/");
 			} */
 
-				if($contador_preguntas<=2){
 					$insertarRespuesta = new Usuario(); //se crea una instancia en el archivo modelo de Login
 					$respuesta = $insertarRespuesta->insertarRespuestasSeguridad($res_pregunta,$id_usuario,$id_pregunta);
 					$_SESSION['contador_preguntas']+=1;
-				}else{
+					
+				if($_SESSION['contador_preguntas']==3){
 					//al pasar por todas las preguntas de seguridad se actualiza el estado de usuario a Activo
 					//y se redirige a la pagina de home
 					$insertarRespuesta = new Usuario();
 					$respuesta = $insertarRespuesta->actualizarUsuario($id_usuario);
-					$_SESSION['contador_preguntas']=1;
+					$_SESSION['contador_preguntas']=0;
 					$_SESSION['respuesta']='';
 					return header("Location:".SERVERURL."cambiocontrasena/");
 					die();

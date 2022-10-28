@@ -6,11 +6,20 @@ if (session_status() == PHP_SESSION_NONE) {
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require_once './PHPMailer/src/Exception.php';
+if($peticionAjax){
+    require_once '../PHPMailer/src/Exception.php';
+    require_once '../PHPMailer/src/PHPMailer.php';
+    require_once '../PHPMailer/src/SMTP.php';
+    require_once "../modelos/mainModel.php";
+    require_once '../modelos/loginModelo.php';
+}else{
+	require_once './PHPMailer/src/Exception.php';
 require_once './PHPMailer/src/PHPMailer.php';
 require_once './PHPMailer/src/SMTP.php';
 require_once "./modelos/mainModel.php";
 require_once './modelos/loginModelo.php';
+}
+
 
 class Correo extends mainModel{
     //funcion para enviar correo con el codigo de seguridad para restablecer contraseña
@@ -205,11 +214,23 @@ class Correo extends mainModel{
             $mail->isHTML(true); 
             $mail -> charSet = 'UTF-8';                                 //Set email format to HTML
             $mail->Subject = 'Creacion de Usuario';
-            $mail->Body    = 'Su usuario ha sido creado exitosamente en el sistema. <br/><br/>
-            Las credenciales de ingreso son:<br/>
-            Usuario: ' .$usuario. '<br/>
-            Contraseña: ' .$contrasena;
-
+            $mail->Body    = '<html>
+            <head>
+                <title>Restablecer</title>
+            </head>
+        
+            <body>
+                <div style="text-align: center; background-color: #E5E5E5; font-size:16px;">
+                    <p>Su usuario ha sido creado exitosamente en el sistema.</p>
+                    Las credenciales de ingreso son:<br/>
+                    <p>Usuario: <b>'.$usuario.'</b></p>
+                    <p>Contraseña: <b>'.$contrasena.'</b></p>
+                    <small>Cualquier duda o pregunta comunicarse con el administrador del sistema.</small>
+                </div>
+            </body>
+        </html>';
+        $mail->CharSet = 'UTF-8';
+        $mail->Encoding = 'base64';
             $mail->send();
         } catch (Exception $e) {
             echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";

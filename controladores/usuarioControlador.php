@@ -6,9 +6,11 @@
 if($peticionAjax){
 	require_once "../modelos/usuarioModelo.php";
 	require_once "../pruebabitacora.php";
+	require_once "../controladores/emailControlador.php";
 }else{
 	require_once "./modelos/usuarioModelo.php";
 	require_once "./pruebabitacora.php";
+	require_once "./controladores/emailControlador.php";
 }
 
 
@@ -203,6 +205,8 @@ class usuarioControlador extends usuarioModelo
 				"descripcion" => "El usuario ".$_SESSION['usuario_login']." creó un nuevo usuario en el sistema"
 			];
 			Bitacora::guardar_bitacora($datos_bitacora); 
+				$envioCorreo = new Correo();
+				$respuesta = $envioCorreo->CorreoCreacionUsuario($Correo,$Usuario,$Contraseña); 
 			/* echo "<script>window.location.replace('http//localhost/proyectoSIA/user-list/');</script>"; */
 			
 	} /* Fin controlador */

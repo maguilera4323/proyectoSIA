@@ -41,6 +41,9 @@
 				    <option value="Cual es su deporte favorito?">¿Cual es su deporte favorito</option>
 					<option value="Nombre de su mascota">¿Nombre de su mascota?</option>
 					<option value="Lugar de nacimiento">¿Lugar de nacimiento?</option>
+					<option value="Comida favorita">¿Comida favorita?</option>
+					<option value="Nombre de su primer hijo(a)?">¿Nombre de su primer hijo(a)?</option>
+					<option value="Canción favorita?">¿Canción favorita?</option>
                  </select>
 			</div>
 				<div class="form-group">

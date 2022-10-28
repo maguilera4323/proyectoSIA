@@ -29,10 +29,7 @@
 		<h4 class="text-center mb-0" id="h3-login">Primer Ingreso de Usuario</h4>
 		<p class="text-center" id="p-login">Seleccione una pregunta e ingrese su correspondiente respuesta</p>
 		<?php
-		echo $_SESSION['usuario'];
-		echo $_SESSION['contador_preguntas'];
 			if(isset($_SESSION['respuesta'])){
-				
 				switch($_SESSION['respuesta']){
 				case 'Pregunta ya respondida':
 					echo '<div class="alert alert-danger text-center justify-content-center" 

@@ -49,19 +49,20 @@ class autorespuestasControlador extends mainModel{
             return header("Location:".SERVERURL."primer-ingreso/");
         } */
 
-            if($contador_preguntas<=2){
-                $insertarRespuesta = new Usuario(); //se crea una instancia en el archivo modelo de Login
-                $respuesta = $insertarRespuesta->insertarRespuestasSeguridad($res_pregunta,$id_usuario,$id_pregunta);
-                $_SESSION['contador_preguntas']+=1;
-            }else{
-                //al pasar por todas las preguntas de seguridad se actualiza el estado de usuario a Activo
-                //y se redirige a la pagina de home
-                $insertarRespuesta = new Usuario();
-                $respuesta = $insertarRespuesta->actualizarUsuario($id_usuario);
-                $_SESSION['contador_preguntas']=1;
-                $_SESSION['respuesta']='';
-                return header("Location:".SERVERURL."login/");
-                die();
-            }
+        $insertarRespuesta = new Usuario(); //se crea una instancia en el archivo modelo de Login
+        $respuesta = $insertarRespuesta->insertarRespuestasSeguridad($res_pregunta,$id_usuario,$id_pregunta);
+        $_SESSION['contador_preguntas']+=1;
+        
+        if($_SESSION['contador_preguntas']==3){
+            //al pasar por todas las preguntas de seguridad se actualiza el estado de usuario a Activo
+            //y se redirige a la pagina de home
+            $insertarRespuesta = new Usuario();
+            $respuesta = $insertarRespuesta->actualizarUsuario($id_usuario);
+            $_SESSION['contador_preguntas']=0;
+            $_SESSION['respuesta']='';
+            return header("Location:".SERVERURL."login/");
+            die();
         }
+
+    }
 }

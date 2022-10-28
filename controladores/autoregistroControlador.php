@@ -6,9 +6,11 @@
 if($peticionAjax){
 	require_once "../modelos/autoregistroModelo.php";
 	require_once "../modelos/loginModelo.php";
+	require_once "../controladores/emailControlador.php";
 }else{
 	require_once "./modelos/autoregistroModelo.php";
 	require_once "./modelos/loginModelo.php";//aqui se ejecuta dentro del index y no se utiliza Ajax
+	require_once "./controladores/emailControlador.php";
 }
 
 class autoregistroControlador extends autoregistroModelo
@@ -19,7 +21,9 @@ class autoregistroControlador extends autoregistroModelo
         $Usuario=mainModel::limpiar_cadena($_POST['usuario_autoreg']);
 		$Nombre=mainModel::limpiar_cadena($_POST['nameusuario_autoreg']);
 		$Correo=mainModel::limpiar_cadena($_POST['correo_electronico_autoreg']);
-		$Contraseña=mainModel::limpiar_cadena($_POST['contrasena_autoreg']);
+		if(isset($_POST['contrasena_autoreg'])){
+			$Contraseña=mainModel::limpiar_cadena($_POST['contrasena_autoreg']);
+		}
 		$Rol=4;
 		$fcha = date("Y-m-d");
 		$Vencimiento=date("Y-m-d",strtotime($fcha."+ 360 days"));
@@ -136,7 +140,7 @@ class autoregistroControlador extends autoregistroModelo
 				"usu"=>$Usuario,
 				"nombre"=>$Nombre,
 				"estado"=>$Estado,
-				"contrase"=>$clave,//$Contraseña,
+				"contrase"=>$clave,//$Contra
 				"vencimiento"=>$Vencimiento,
 				"correo"=>$Correo,
 				"rol"=>$Rol,
@@ -145,9 +149,7 @@ class autoregistroControlador extends autoregistroModelo
 			];
 
 			$agregar_usuario=autoregistroModelo::autoregistro_modelo($datos_usuario_reg);
-			$cambioContrasena=new Usuario();
-			$respuesta = $cambioContrasena->cambioContrasena($Usuario,$clave);
-
+			
 			if($agregar_usuario->rowCount()==1){
 				$alerta=[
 					"Alerta"=>"limpiar",
@@ -155,6 +157,9 @@ class autoregistroControlador extends autoregistroModelo
 					"Texto"=>"Los datos del usuario han sido registrados con exito",
 					"Tipo"=>"success"
 				];
+				echo json_encode($alerta);
+			$envioCorreo = new Correo();
+			$respuesta = $envioCorreo->CorreoCreacionUsuario($Correo,$Usuario,$Contraseña); 
 			
 			}else{
 				$alerta=[
@@ -163,8 +168,10 @@ class autoregistroControlador extends autoregistroModelo
 					"Texto"=>"No hemos podido registrar el usuario",
 					"Tipo"=>"error"
 				];
+				echo json_encode($alerta);
+				die();
 			}
-			echo json_encode($alerta);
+
 	
 			return header("Location:".SERVERURL."preguntasusuario/");
     }
