@@ -23,6 +23,8 @@
 
 <script src="<?php echo SERVERURL; ?>vistas/js/funciones.js" ></script>
 
+<script src="<?php echo SERVERURL; ?>vistas/js/buscador.js" ></script>
+
 
 	<!-- 
     //// eliminanos el punto de inicio y colocamos <?php echo SERVERURL;?>vistas  para poder reconocer los JS
