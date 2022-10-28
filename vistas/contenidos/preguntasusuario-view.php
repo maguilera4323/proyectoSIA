@@ -5,7 +5,7 @@
 
 	//verifica si la variable del contador está creada
 	if (!isset($_SESSION['contador_preguntas'])){
-		$_SESSION['contador_preguntas'] = 1;
+		$_SESSION['contador_preguntas'] = 0;
    }
 
 	//llamado al controlador de login
@@ -17,7 +17,6 @@
 		$datos = array(
             'pregunta'=> $_POST['preguntas'],
             'respuesta'=> $_POST['respuesta'],
-
 			'contador'=> $_POST['contador']
         );
         $respuesta = $usuario->insertarRespuestasSeguridad($datos); //se envian los datos a la funcion accesoUsuario de modelo Login
@@ -30,7 +29,10 @@
 		<h4 class="text-center mb-0" id="h3-login">Primer Ingreso de Usuario</h4>
 		<p class="text-center" id="p-login">Seleccione una pregunta e ingrese su correspondiente respuesta</p>
 		<?php
+		echo $_SESSION['usuario'];
+		echo $_SESSION['contador_preguntas'];
 			if(isset($_SESSION['respuesta'])){
+				
 				switch($_SESSION['respuesta']){
 				case 'Pregunta ya respondida':
 					echo '<div class="alert alert-danger text-center justify-content-center" 

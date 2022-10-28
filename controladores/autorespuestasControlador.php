@@ -15,7 +15,9 @@ class autorespuestasControlador extends mainModel{
         //valores para guardar las respuestas: respuesta, id de pregunta y id del usuario
         $res_pregunta=mainModel::limpiar_cadena($datos['respuesta']);
         $id_pregunta=mainModel::limpiar_cadena($datos['pregunta']);
-        $usuario=$_SESSION['usuario'];
+        if(isset($_SESSION['usuario'])){
+            $usuario=$_SESSION['usuario'];
+        }
         $contador_preguntas=mainModel::limpiar_cadena($datos['contador']);
 
         $parametroMinContrasena=new Usuario();
@@ -32,11 +34,11 @@ class autorespuestasControlador extends mainModel{
                     $_SESSION['max_contrasena'] = $fila['valor'];
                 }
 // para obtener el id del usuario
-        // $obternerid=new Usuario();
-        // $id = $obternerid->obtener_idusuario($usuario);
-            // foreach($id as $fila){
-                // $hash=$fila['id_usuario'];
-            // }
+         $obternerid=new Usuario();
+        $id = $obternerid->obtener_idusuario($usuario);
+        foreach($id as $fila){
+             $hash=$fila['id_usuario'];
+            }
 
     /* 	$revisarRespuestaExistente=new Usuario();
         $respuesta_existe = $revisarRespuestaExistente->revisarPreguntaRespondida($res_pregunta,$id_usuario,$id_pregunta);
@@ -49,17 +51,16 @@ class autorespuestasControlador extends mainModel{
 
             if($contador_preguntas<=2){
                 $insertarRespuesta = new Usuario(); //se crea una instancia en el archivo modelo de Login
-                $respuesta = $insertarRespuesta->insertarRespuestasSeguridad($res_pregunta,92,$id_pregunta);
+                $respuesta = $insertarRespuesta->insertarRespuestasSeguridad($res_pregunta,$hash,$id_pregunta);
                 $_SESSION['contador_preguntas']+=1;
-                return header("Location:".SERVERURL."primer-ingreso/");
             }else{
                 //al pasar por todas las preguntas de seguridad se actualiza el estado de usuario a Activo
                 //y se redirige a la pagina de home
                 $insertarRespuesta = new Usuario();
-                $respuesta = $insertarRespuesta->actualizarUsuario(92);
+                $respuesta = $insertarRespuesta->actualizarUsuario($hash);
                 $_SESSION['contador_preguntas']=1;
                 $_SESSION['respuesta']='';
-                return header("Location:".SERVERURL."login/");
+                return header("Location:".SERVERURL."cambiocontrasena/");
                 die();
             }
         }

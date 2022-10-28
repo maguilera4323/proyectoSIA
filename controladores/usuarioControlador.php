@@ -204,6 +204,7 @@ class usuarioControlador extends usuarioModelo
 			];
 			Bitacora::guardar_bitacora($datos_bitacora); 
 			/* echo "<script>window.location.replace('http//localhost/proyectoSIA/user-list/');</script>"; */
+			
 	} /* Fin controlador */
 
 
@@ -317,7 +318,6 @@ class usuarioControlador extends usuarioModelo
 				"descripcion" => "El usuario ".$_SESSION['usuario_login']." actualizó un usuario del sistema"
 			];
 			Bitacora::guardar_bitacora($datos_bitacora); 
-			/* echo "<script>window.location.replace('http//localhost/proyectoSIA/user-list/');</script>"; */
 			die();
 	} /* Fin controlador */
 	

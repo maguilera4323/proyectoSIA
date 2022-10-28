@@ -88,11 +88,11 @@ if (session_status() == PHP_SESSION_NONE) {
 				<div class="col-12 col-md-4">
 					<div class="form-group">
 						<label for="contrasena" class="bmd-label-floating">Contraseña</label>
-						<input type="text" class="form-control" name="contrasena_reg" id="contrasena" pattern="[a-zA-Z0-9!#%&/()=?¡*+_$@.-]{8,100}" maxlength="100" required="" >
+						<input type="password" class="form-control" name="contrasena_reg" id="contrasena" pattern="[a-zA-Z0-9!#%&/()=?¡*+_$@.-]{8,100}" maxlength="100" required="" >
 					</div>
 					<div class="form-group">
 						<label for="contrasena" class="bmd-label-floating">Confirmar Contraseña</label>
-						<input type="text" class="form-control" name="conf_contrasena_reg" id="conf_contrasena" pattern="[a-zA-Z0-9!#%&/()=?¡*+_$@.-]{8,100}" maxlength="100" required="" >
+						<input type="password" class="form-control" name="conf_contrasena_reg" id="conf_contrasena" pattern="[a-zA-Z0-9!#%&/()=?¡*+_$@.-]{8,100}" maxlength="100" required="" >
 					</div>
 				</div>
 				<div class="col-12 col-md-4">

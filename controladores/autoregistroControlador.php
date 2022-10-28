@@ -21,7 +21,7 @@ class autoregistroControlador extends autoregistroModelo
 		$Rol=5;
 		$fcha = date("Y-m-d");
 		$Vencimiento=date("Y-m-d",strtotime($fcha."+ 360 days"));
-		$Estado=4;
+		$Estado=1;
 
         // comprobación de campos vacios
         if($Usuario=="" || $Nombre=="" || $Correo=="" || $Contraseña=="" ){
@@ -158,8 +158,6 @@ class autoregistroControlador extends autoregistroModelo
 				];
 			}
 			echo json_encode($alerta);
-
-		
-			
+			return header("Location:".SERVERURL."preguntasusuario/");
     }
 }    /* Fin controlador */

@@ -36,7 +36,7 @@ class loginControlador extends mainModel{
 				$array['rol'] = $fila['rol'];
 			}
 
-			//validacion en caso de que el estado del usuario sea Activo
+			 //validacion en caso de que el estado del usuario sea Activo
 				switch ($array['estado']){
 						case 'Activo':
 							session_start();
@@ -121,7 +121,7 @@ class loginControlador extends mainModel{
 										die();
 									//se usa el valor de ingresos erroneos recibido del contador
 									//y el valor del parametro ADMIN_INTENTOS_INVALIDOS
-									}else if(($ingresos_erroneos>=($array_param['valor']))){
+									}else if(($ingresos_erroneos>($array_param['valor']))){
 										$respuesta = $verificarDatos->bloquearUsuario($usuario);
 										$_SESSION['respuesta'] = 'Usuario bloqueado';
 										return header("Location:".SERVERURL."login/");
@@ -139,8 +139,10 @@ class loginControlador extends mainModel{
 							die();
 							}
 				}
-	
 		}
+	
+		
+
 
 
 		//Función para guardar las respuestas de las preguntas de seguridad en el primer ingreso de un usuario
@@ -177,7 +179,6 @@ class loginControlador extends mainModel{
 					$insertarRespuesta = new Usuario(); //se crea una instancia en el archivo modelo de Login
 					$respuesta = $insertarRespuesta->insertarRespuestasSeguridad($res_pregunta,$id_usuario,$id_pregunta);
 					$_SESSION['contador_preguntas']+=1;
-					return header("Location:".SERVERURL."primer-ingreso/");
 				}else{
 					//al pasar por todas las preguntas de seguridad se actualiza el estado de usuario a Activo
 					//y se redirige a la pagina de home
@@ -294,8 +295,10 @@ class loginControlador extends mainModel{
 			$array=array();
 			if(isset($_SESSION['usuario_rec'])){
 				$usuario=$_SESSION['usuario_rec'];
-			}else{
+			}else if(isset($_SESSION['usuario_login'])){
 				$usuario=$_SESSION['usuario_login'];
+			}else{
+				$usuario=$_SESSION['usuario'];
 			}
 
 			
