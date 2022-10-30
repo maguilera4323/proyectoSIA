@@ -30,9 +30,9 @@ if (session_status() == PHP_SESSION_NONE) {
 		<li>
 			<a href="<?php echo SERVERURL; ?>user-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE USUARIOS</a>
 		</li>
-		<li>
+<!-- 		<li>
 			<a href="<?php echo SERVERURL; ?>user-search/"><i class="fas fa-search fa-fw"></i> &nbsp; BUSCAR USUARIO</a>
-		</li>
+		</li> -->
 	</ul>	
 </div>
 

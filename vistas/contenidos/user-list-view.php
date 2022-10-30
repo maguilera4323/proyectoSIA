@@ -61,7 +61,7 @@ if(isset($_GET['enviar'])){
   <br>
 
  
-      <table class="table table-striped table-dark table_id ">
+      <table class="table table-striped table-dark table_id " id="tblDatos">
 
                    
                          <thead>    
@@ -134,7 +134,7 @@ if($dato -> num_rows >0){
 
 	</body>
   </table>
-
+  <div id="paginador" class=""></div>	
 
 <div class="container-fluid">
 
