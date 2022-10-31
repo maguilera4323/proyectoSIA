@@ -82,8 +82,10 @@ if(isset($_GET['enviar'])){
 				<?php
 
 include ("./cone.php");              
-$SQL="SELECT id_usuario, usuario, nombre_usuario, estado_usuario, id_rol,correo_electronico,
-creado_por FROM TBL_usuarios $where";
+$SQL="SELECT u.id_usuario, u.usuario, u.nombre_usuario, u.estado_usuario, r.rol,u.correo_electronico,
+u.creado_por FROM TBL_usuarios u
+inner JOIN TBL_ms_roles r ON r.id_rol = u.id_rol
+$where";
 $dato = mysqli_query($conexion, $SQL);
 
 if($dato -> num_rows >0){
@@ -95,7 +97,7 @@ if($dato -> num_rows >0){
 <td><?php echo $fila['usuario']; ?></td>
 <td><?php echo $fila['nombre_usuario']; ?></td>
 <td><?php echo $fila['estado_usuario']; ?></td>
-<td><?php echo $fila['id_rol']; ?></td>
+<td><?php echo $fila['rol']; ?></td>
 <td><?php echo $fila['correo_electronico']; ?></td>
 <td><?php echo $fila['creado_por']?></td>
 <td>

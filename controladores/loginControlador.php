@@ -325,8 +325,10 @@ class loginControlador extends mainModel{
 				$array['contrasena']=$fila['contrasena'];
 				$array['correo']=$fila['correo_electronico'];
 			}
+
 			
-			if(($contrasena_nueva==$array['contrasena'])){
+			$hash_contrasena=mainModel::encryption($contrasena_nueva);
+			if(($hash_contrasena===$array['contrasena'])){
 				$_SESSION['respuesta'] = 'Contraseña nueva igual a la actual';
 					return header("Location:".SERVERURL."cambiocontrasena/");
 				die();
@@ -338,7 +340,7 @@ class loginControlador extends mainModel{
 				die();
 			}else{
 				$_SESSION['respuesta'] = 'Cambio de contraseña exitoso';
-					$hash_contrasena=mainModel::encryption($contrasena_nueva);
+					/* $hash_contrasena=mainModel::encryption($contrasena_nueva); */
 					$respuesta = $cambioContrasena->cambioContrasena($usuario,$hash_contrasena);
 					$respuesta = $cambioContrasena->desbloquearUsuario($usuario);
 					$respuesta = $cambioContrasena->actualizarFechaVencimiento($usuario,$FechaVencimiento);
