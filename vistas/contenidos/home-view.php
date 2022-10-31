@@ -25,7 +25,27 @@
 		<div class="tile-tittle">PROVEEDORES</div>
 		<div class="tile-icon">
 			<i class="fas fa-users fa-fw"></i>
-			<p>5 Registrados</p>
+	<!-- AQUI INICIA EL CONTADOR PARA LOS USUARIOS EN EL HOME -->
+	<p>	
+		<?php
+			include ("./cone.php");
+
+			$sql=" SELECT COUNT(*) as total_proveedores FROM `TBL_Proveedores` ";
+			$result=mysqli_query($conexion,$sql);
+			while($mostrar=mysqli_fetch_assoc ($result)){
+		?>
+				<tbody>
+					<tr class="text-center" >
+						<td><?php echo $mostrar['total_proveedores']?></td>
+
+					</tr>
+				</tbody>
+		<?php
+			}
+		?>
+		Proveedores Registrados
+		</p>
+<!-- AQUI FINALIZA EL CONTADOR PARA LOS USUARIOS EN EL HOME -->
 		</div>
 	</a>
 	
@@ -33,7 +53,7 @@
 		<div class="tile-tittle">COMPRAS</div>
 		<div class="tile-icon">
 			<i class="fas fa-shopping-cart"></i>
-			<p>4 Registrados</p>
+			<p>4 cambiar</p>
 		</div>
 	</a>
 
@@ -41,7 +61,7 @@
 		<div class="tile-tittle">INVENTARIO</div>
 		<div class="tile-icon">
 			<i class="fas fa-pallet fa-fw"></i>
-			<p>9 Registrados</p>
+			<p>9 Cambiar</p>
 		</div>
 	</a>
 
@@ -49,7 +69,7 @@
 		<div class="tile-tittle">Reservaciones</div>
 		<div class="tile-icon">
 			<i class="far fa-calendar-alt fa-fw"></i>
-			<p>30 Registradas</p>
+			<p>30 Cambiar</p>
 		</div>
 	</a>
 
@@ -57,7 +77,7 @@
 		<div class="tile-tittle">PRODUCTO</div>
 		<div class="tile-icon">
 			<i class="fas fa-hand-holding-usd fa-fw"></i>
-			<p>200 Registrados</p>
+			<p>200  Cambiar</p>
 		</div>
 	</a>
 
@@ -65,7 +85,7 @@
 		<div class="tile-tittle">Finalizados</div>
 		<div class="tile-icon">
 			<i class="fas fa-clipboard-list fa-fw"></i>
-			<p>700 Registrados</p>
+			<p>700 Cambiar</p>
 		</div>
 	</a>
 
@@ -73,7 +93,27 @@
 		<div class="tile-tittle">Usuarios</div>
 		<div class="tile-icon">
 			<i class="fas fa-user-secret fa-fw"></i>
-			<p>50 Registrados</p>
+<!-- AQUI INICIA EL CONTADOR PARA LOS USUARIOS EN EL HOME -->
+			<p>	
+		<?php
+			include ("./cone.php");
+
+			$sql=" SELECT COUNT(*) as total_usuarios FROM `TBL_usuarios` ";
+			$result=mysqli_query($conexion,$sql);
+			while($mostrar=mysqli_fetch_assoc ($result)){
+		?>
+				<tbody>
+					<tr class="text-center" >
+						<td><?php echo $mostrar['total_usuarios']?></td>
+
+					</tr>
+				</tbody>
+		<?php
+			}
+		?>
+		Usuarios Registrados
+		</p>
+<!-- AQUI FINALIZA EL CONTADOR PARA LOS USUARIOS EN EL HOME -->
 		</div>
 	</a>
 
@@ -81,7 +121,7 @@
 		<div class="tile-tittle">FACTURACION</div>
 		<div class="tile-icon">
 			<i class="fas fa-store-alt fa-fw"></i>
-			<p>1 Registrada</p>
+			<p>1 Cambiar</p>
 		</div>
 	</a>
 </div>

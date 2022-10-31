@@ -56,9 +56,9 @@
 			$sql->bindParam(8,$id);
 			$sql->execute();
 			return $sql;
-
+ 
 				/* VERIFICAR SU GUARDA DEL DATO EN BITACORA */
-				$datos_bitacora = 
+/* 				$datos_bitacora = 
 				[
 					"id_objeto" => 0,
 					"fecha" => date('Y-m-d h:i:s'),
@@ -66,9 +66,9 @@
 					"accion" => "Actualizacion de usuario",
 					"descripcion" => "Acceso de usuario"
 				];
-				Bitacora::guardar_bitacora($datos_bitacora);
+				Bitacora::guardar_bitacora($datos_bitacora);*/
 			
-		}
+		} 
 		
 		protected static function datos_usuario_modelo($tipo,$id){
 			if($tipo=='unico'){
