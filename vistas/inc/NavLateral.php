@@ -26,9 +26,7 @@
 						<li>
 							<a href="<?php echo SERVERURL; ?>proveedor-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Proveedores</a>
 						</li>
-						<li>
-							<a href="<?php echo SERVERURL; ?>proveedor-search/"><i class="fas fa-search fa-fw"></i> &nbsp; Buscar Proveedores</a>
-						</li>
+						
 					</ul>
 				</li>
 

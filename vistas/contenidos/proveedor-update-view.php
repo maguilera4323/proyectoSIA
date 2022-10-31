@@ -20,6 +20,23 @@
 </div>
 
 <div class="container-fluid">
+
+<p><?php 
+				require_once "./controladores/proveedorControlador.php";
+				$ins_proveedor=new proveedorControlador();
+					$host= $_SERVER["HTTP_HOST"];
+					$url= $_SERVER["REQUEST_URI"];
+					$url_completa="http://" . $host . $url; //variable con la url del sitio completa
+					$id_editar = explode('/',$url_completa)[5]; 
+
+					//instancia para obtener los datos ya guardados en la tabla de usuarios
+					//para realizar los cambios de un registro
+					$datos_proveedor=$ins_proveedor->datosproveedorControlador("unico",$id_editar);
+
+					if($datos_proveedor->rowCount()==1){
+						$campos=$datos_proveedor->fetch();
+					}
+				?></p>
 	<form action="<?php echo SERVERURL; ?>ajax/proveedorAjax.php" class="form-neon FormularioAjax" method="POST" data-form="save" autocomplete="off">
 		<fieldset>
 			<legend><i class="fas fa-user"></i> &nbsp; Información básica</legend>
@@ -28,31 +45,32 @@
 					<div class="col-12 col-md-6">
 						<div class="form-group">
 							<label for="cliente_dni" class="bmd-label-floating">Nombre</label>
-							<input type="text" class="form-control" name="nombre_proveedor_nuevo" id="cliente_dni" maxlength="27">
+							<input type="text" class="form-control" name="nombre_proveedor_actu" id="cliente_dni" maxlength="27" value="<?php echo $campos['nom_proveedor']?>">
+							<input type="hidden" pattern="" class="form-control" name="id_actualizacion" value="<?php echo $id_editar ?>">
 						</div>
 					</div>
 					<div class="col-12 col-md-6">
 						<div class="form-group">
 							<label for="cliente_nombre" class="bmd-label-floating">RTN</label>
-							<input type="text" class="form-control" name="rtn_proveedor_nuevo" id="cliente_nombre" maxlength="40">
+							<input type="text" class="form-control" name="rtn_proveedor_actu" id="cliente_nombre" maxlength="40" value="<?php echo $campos['rtn_proveedor']?>">
 						</div>
 					</div>
 					<div class="col-12 col-md-4">
 						<div class="form-group">
 							<label for="cliente_apellido" class="bmd-label-floating">Telefono</label>
-							<input type="text" class="form-control" name="telefono_proveedor_nuevo" id="cliente_apellido" maxlength="40">
+							<input type="text" class="form-control" name="telefono_proveedor_actu" id="cliente_apellido" maxlength="40" value="<?php echo $campos['tel_proveedor']?>">
 						</div>
 					</div>
 					<div class="col-12 col-md-4">
 						<div class="form-group">
 							<label for="cliente_telefono" class="bmd-label-floating">Correo</label>
-							<input type="text" class="form-control" name="correo_proveedor_nuevo" id="cliente_telefono" maxlength="20">
+							<input type="text" class="form-control" name="correo_proveedor_actu" id="cliente_telefono" maxlength="20" value="<?php echo $campos['correo_proveedor']?>">
 						</div>
 					</div>
 					<div class="col-12 col-md-4">
 						<div class="form-group">
 							<label for="cliente_direccion" class="bmd-label-floating">Dirección</label>
-							<input type="text" class="form-control" name="direccion_proveedor_nuevo" id="cliente_direccion" maxlength="150">
+							<input type="text" class="form-control" name="direccion_proveedor_actu" id="cliente_direccion" maxlength="150" value="<?php echo $campos['dir_proveedor']?>">
 						</div>
 					</div>
 				</div>

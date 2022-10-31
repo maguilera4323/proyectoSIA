@@ -52,29 +52,25 @@
 			
 		}
 
-		protected static function datos_usuario_modelo($tipo,$id){
+		protected static function datos_proveedor_modelo($tipo,$id){
 			if($tipo=='unico'){
-				$sql=mainModel::conectar()->prepare("SELECT * FROM TBL_usuarios where id_usuario=?");
+				$sql=mainModel::conectar()->prepare("SELECT * FROM TBL_Proveedores where id_Proveedores=?");
 				$sql->bindParam(1,$id);
 			}
 			$sql->execute();
 			return $sql;
 		}
 
-		 protected static function eliminar_usuario_modelo($accion,$id){
-			if($accion=='inactivar'){
-				$sql=mainModel::conectar()->prepare("UPDATE TBL_usuarios set estado_usuario=2 where id_usuario=?");
-				$sql->bindParam(1,$id);
-				$sql->execute();
-				return $sql;
-			}else if ($accion=='eliminar'){
-				$sql=mainModel::conectar()->prepare("DELETE FROM TBL_usuarios where id_usuario=?");
+		 protected static function eliminar_proveedor_modelo($accion,$id){
+			
+			if ($accion=='borrar'){
+				$sql=mainModel::conectar()->prepare("DELETE FROM TBL_Proveedores where id_Proveedores=?");
 				$sql->bindParam(1,$id);
 				$sql->execute();
 				return $sql;
 			}
 			
 		
+		
 		}
-
 	}
