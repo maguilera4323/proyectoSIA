@@ -21,7 +21,7 @@
 <div class="container-fluid">
 	<ul class="full-box list-unstyled page-nav-tabs">
 		<li>
-			<a href="<?php echo SERVERURL; ?>user-new/"><i class="fas fa-plus fa-fw"></i> &nbsp; NUEVO INSUMO</a>
+			<a href="<?php echo SERVERURL; ?>insumos-new/"><i class="fas fa-plus fa-fw"></i> &nbsp; NUEVO INSUMO</a>
 		</li>
 		<li>
 			<a class="active" href="<?php echo SERVERURL; ?>user-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; INVENTARIO DISPONIBLE</a>
@@ -97,14 +97,13 @@ if($dato -> num_rows >0){
 <td><?php echo $fila['cant_min']; ?></td>
 <td><?php echo $fila['unidad_medida']; ?></td>
 <td>
-	<a href="<?php echo SERVERURL; ?>user-update/<?php echo $fila['id_insumos']?>" class="btn btn-success">
+	<a href="<?php echo SERVERURL; ?>insumos-update/<?php echo $fila['id_insumos']?>" class="btn btn-success">
 		<i class="fas fa-sync-alt"></i>	
 	</a>
 </td>
 <td>
-	<form class="FormularioAjax" action="<?php echo SERVERURL; ?>ajax/usuarioAjax.php" method="POST" data-form="delete" autocomplete="off">
-	<input type="hidden" pattern="" class="form-control" name="id_usuario_del" value="<?php echo $fila['id_insumos'] ?>">
-	<input type="hidden" pattern="" class="form-control" name="usuario_del" value="<?php echo $fila['nom_insumo'] ?>">	
+	<form class="FormularioAjax" action="<?php echo SERVERURL; ?>ajax/insumoAjax.php" method="POST" data-form="delete" autocomplete="off">
+	<input type="hidden" pattern="" class="form-control" name="id_insumo_del" value="<?php echo $fila['id_insumos'] ?>">	
 	<button type="submit" class="btn btn-warning">
 		<i class="far fa-trash-alt"></i>
 	</button>
