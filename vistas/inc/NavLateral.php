@@ -11,12 +11,12 @@
 			</figcaption>
 		</figure>
 		<div class="full-box nav-lateral-bar"></div>
+
 		<nav class="full-box nav-lateral-menu">
 			<ul>
 				<li>
 					<a href="<?php echo SERVERURL; ?>home/"><i class="fab fa-dashcube fa-fw"></i> &nbsp; Inicio</a>
 				</li>
-
 				<li>
 					<a href="#" class="nav-btn-submenu"><i class="fas fa-users fa-fw"></i> &nbsp; Proveedores <i class="fas fa-chevron-down"></i></a>
 					<ul>
@@ -39,27 +39,8 @@
 						<li>
 							<a href="<?php echo SERVERURL; ?>compra-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Compras</a>
 						</li>
-						<li>
-							<a href="<?php echo SERVERURL; ?>compra-search/"><i class="fas fa-search fa-fw"></i> &nbsp; Buscar Compras</a>
-						</li>
 					</ul>
 				</li>
-
-				<li>
-					<a href="#" class="nav-btn-submenu"><i class="fas fa-user-friends"></i> &nbsp; Clientes <i class="fas fa-chevron-down"></i></a>
-					<ul>
-						<li>
-							<a href="<?php echo SERVERURL; ?>item-new/"><i class="fas fa-plus fa-fw"></i> &nbsp; Agregar Cliente</a>
-						</li>
-						<li>
-							<a href="<?php echo SERVERURL; ?>item-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Cliente</a>
-						</li>
-						<li>
-							<a href="<?php echo SERVERURL; ?>item-search/"><i class="fas fa-search fa-fw"></i> &nbsp; Buscar Clinetes</a>
-						</li>
-					</ul>
-				</li>
-
 				<li>
 					<a href="#" class="nav-btn-submenu"><i class="fas fa-pallet fa-fw"></i> &nbsp; Insumos <i class="fas fa-chevron-down"></i></a>
 					<ul>
@@ -96,19 +77,10 @@
 				<li>
 					<a href="#" class="nav-btn-submenu"><i class="fas  fa-user-secret fa-fw"></i> &nbsp; Mantenimiento <i class="fas fa-chevron-down"></i></a>
 					<ul>
-						<!-- <li>
-							<a href="<?php echo SERVERURL; ?>user-new/"><i class="fas fa-plus fa-fw"></i> &nbsp; Nuevo usuario</a>
-						</li> -->
 						<li>
-
-
 							<a href="<?php echo SERVERURL; ?>user-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Usuarios</a>
 						</li>
 
-						
-						<!-- <li>
-							<a href="<?php echo SERVERURL; ?>user-search/"><i class="fas fa-search fa-fw"></i> &nbsp; Buscar usuario</a>
-						</li> -->
 					</ul>
 				</li>
 

@@ -6,14 +6,14 @@
 		"fecha" => date('Y-m-d H:i:s'),
 		"id_usuario" => $_SESSION['id_login'],
 		"accion" => "Cambio de vista",
-		"descripcion" => "El usuario ".$_SESSION['usuario_login']." entró a la vista de Insumos"
+		"descripcion" => "El usuario ".$_SESSION['usuario_login']." entró a la vista de Inventario"
 	];
 	Bitacora::guardar_bitacora($datos_bitacora); 
 ?>
 
 <div class="full-box page-header">
 	<h3 class="text-left">
-		<i class="fas fa-clipboard-list fa-fw"></i> &nbsp; INSUMOS
+		<i class="fas fa-warehouse"></i> &nbsp; INVENTARIO
 	</h3>
 
 </div>
@@ -21,10 +21,7 @@
 <div class="container-fluid">
 	<ul class="full-box list-unstyled page-nav-tabs">
 		<li>
-			<a href="<?php echo SERVERURL; ?>insumos-new/"><i class="fas fa-plus fa-fw"></i> &nbsp; NUEVO INSUMO</a>
-		</li>
-		<li>
-			<a href="<?php echo SERVERURL; ?>inventario-list/"><i class="fas fa-warehouse"></i> &nbsp; INVENTARIO DISPONIBLE</a>
+			<a href="<?php echo SERVERURL; ?>insumos-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE INSUMOS</a>
 		</li>
 		<li>
 			<a class="active" href="<?php echo SERVERURL; ?>user-list/"><i class="fas fa-warehouse"></i> &nbsp; MOVIMIENTOS DE INVENTARIO</a>
@@ -38,16 +35,12 @@ $where="";
 
 if(isset($_GET['enviar'])){
   $busqueda = $_GET['busqueda'];
-
-
 	if (isset($_GET['busqueda']))
 	{
-		$where="WHERE TBL_insumos.nom_insumo LIKE'%".$busqueda."%'";
+		$where="WHERE TBL_inventario.id_insumo LIKE'%".$busqueda."%'";
 	}
   
 }
-
-
 ?>
 
 			</form>
@@ -62,22 +55,19 @@ if(isset($_GET['enviar'])){
       <table class="table table-striped table-dark table_id " id="tblDatos">
                          <thead>    
                          <tr>
-                        <th>ID</th>
-                        <th>NOMBRE</th>
-                        <th>CATEGORIA</th>
-                        <th>CANTIDAD MAXIMA</th>
-                        <th>CANTIDAD MINIMA</th>
+                        <th>ID INVENTARIO</th>
+						<th>ID INSUMO</th>
+                        <th>NOMBRE INSUMO</th>
+                        <th>EXISTENCIAS</th>
                         <th>UNIDAD DE MEDIDA</th>
-						<th>ACTUALIZAR</th>
-						<th>ELIMINAR</th>
                         </tr>
                         </thead>
                         <tbody>
 				<?php
 
 include ("./cone.php");              
-$SQL="SELECT i.id_insumos, i.nom_insumo, c.nom_categoria, i.cant_max, i.cant_min,i.unidad_medida FROM TBL_insumos i
-inner JOIN TBL_categoria_produ c ON c.id_categoria = i.id_categoria
+$SQL="SELECT iv.id_inventario, iv.id_insumo, i.nom_insumo, iv.cant_existencia,i.unidad_medida FROM TBL_inventario iv
+inner JOIN TBL_insumos i ON i.id_insumos = iv.id_insumo
 $where";
 $dato = mysqli_query($conexion, $SQL);
 
@@ -86,25 +76,11 @@ if($dato -> num_rows >0){
     
 ?>
 <tr>
-<td><?php echo $fila['id_insumos']; ?></td>
+<td><?php echo $fila['id_inventario']; ?></td>
+<td><?php echo $fila['id_insumo']; ?></td>
 <td><?php echo $fila['nom_insumo']; ?></td>
-<td><?php echo $fila['nom_categoria']; ?></td>
-<td><?php echo $fila['cant_max']; ?></td>
-<td><?php echo $fila['cant_min']; ?></td>
+<td><?php echo $fila['cant_existencia']; ?></td>
 <td><?php echo $fila['unidad_medida']; ?></td>
-<td>
-	<a href="<?php echo SERVERURL; ?>insumos-update/<?php echo $fila['id_insumos']?>" class="btn btn-success">
-		<i class="fas fa-sync-alt"></i>	
-	</a>
-</td>
-<td>
-	<form class="FormularioAjax" action="<?php echo SERVERURL; ?>ajax/insumoAjax.php" method="POST" data-form="delete" autocomplete="off">
-	<input type="hidden" pattern="" class="form-control" name="id_insumo_del" value="<?php echo $fila['id_insumos'] ?>">	
-	<button type="submit" class="btn btn-warning">
-		<i class="far fa-trash-alt"></i>
-	</button>
-	</form>
-</td>
 </tr>
 
 
