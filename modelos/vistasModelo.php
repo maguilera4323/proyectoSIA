@@ -15,7 +15,7 @@
 					$contenido="404";
 				}
 			}elseif($vistas=="login" || $vistas=="index" || $vistas=="olvido-contrasena" || $vistas=="rec-correo" || $vistas=="rec-preguntas" || $vistas=="cambiocontrasena"
-			 || $vistas=="primer-ingreso" || $vistas=="verifica-codigo" || $vistas=="autoregistro" || $vistas=="preguntasusuario"){
+			 || $vistas=="primer-ingreso" || $vistas=="verifica-codigo" || $vistas=="autoregistro" || $vistas=="preguntasusuario" || $vistas=="info" || $vistas=="respaldo"){
 				switch($vistas){
 					case 'login':
 						$contenido="login";
@@ -47,10 +47,17 @@
 					case 'preguntasusuario':
 						$contenido="preguntasusuario";
 					break;
+					case 'info':
+						$contenido="info";
+					break;
+					case 'respaldo':
+						$contenido="respaldo";
+					break;
 				}
 
 			}elseif($vistas=="login" || $vistas=="index" || $vistas=="prueba" || $vistas=="rec-correo" || $vistas=="rec-preguntas" || $vistas=="cambiocontrasena" 
-			|| $vistas=="primer-ingreso" || $vistas=="verifica-codigo" || $vistas=="autoregistro" || $vistas=="preguntasusuario"){
+			|| $vistas=="primer-ingreso" || $vistas=="verifica-codigo" || $vistas=="autoregistro" || $vistas=="preguntasusuario" 
+			|| $vistas=="info" || $vistas=="respaldo"){
 				$contenido="login";
 
 			}else{
