@@ -14,6 +14,11 @@
 
 		<nav class="full-box nav-lateral-menu">
 			<ul>
+			<!-- Condicionales para mostrar vistas en navlateral -->
+			<!-- Para usuario Administrador -->
+			<?php 
+			if($_SESSION['rol']=='Admin Sistema'){
+				?>
 				<li>
 					<a href="<?php echo SERVERURL; ?>home/"><i class="fab fa-dashcube fa-fw"></i> &nbsp; Inicio</a>
 				</li>
@@ -45,10 +50,13 @@
 					<a href="#" class="nav-btn-submenu"><i class="fas fa-pallet fa-fw"></i> &nbsp; Insumos <i class="fas fa-chevron-down"></i></a>
 					<ul>
 						<li>
-							<a href="<?php echo SERVERURL; ?>insumos-new/"><i class="fas fa-plus fa-fw"></i> &nbsp; Agregar Inventario</a>
+							<a href="<?php echo SERVERURL; ?>insumos-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Insumos</a>
 						</li>
 						<li>
-							<a href="<?php echo SERVERURL; ?>insumos-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Inventarios</a>
+							<a href="<?php echo SERVERURL; ?>inventario-list/"><i class="fas fa-warehouse"></i> &nbsp; Inventario Disponible</a>
+						</li>
+						<li>
+							<a href="<?php echo SERVERURL; ?>insumos-list/"><i class="fas fa-warehouse"></i> &nbsp; Movimientos de Inventario</a>
 						</li>
 					</ul>
 				</li>
@@ -91,6 +99,94 @@
 				<li>
 					<a href="<?php echo SERVERURL; ?>bitacora/"><i class="fas fa-book-reader"></i> &nbsp; Bitacora</a>
 				</li>
+				<?php
+				}?>
+				<!--fin Condicional -->
+
+			<!-- Para usuario Administrador de Inventario -->
+			<?php 
+			if($_SESSION['rol']=='Admin Inv.'){
+				?>
+				<li>
+					<a href="<?php echo SERVERURL; ?>home/"><i class="fab fa-dashcube fa-fw"></i> &nbsp; Inicio</a>
+				</li>
+				<li>
+					<a href="#" class="nav-btn-submenu"><i class="fas fa-users fa-fw"></i> &nbsp; Proveedores <i class="fas fa-chevron-down"></i></a>
+					<ul>
+						<li>
+							<a href="<?php echo SERVERURL; ?>proveedor-new/"><i class="fas fa-plus fa-fw"></i> &nbsp; Agregar Proveedor</a>
+						</li>
+						<li>
+							<a href="<?php echo SERVERURL; ?>proveedor-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Proveedores</a>
+						</li>
+						
+					</ul>
+				</li>
+
+				<li>
+					<a href="#" class="nav-btn-submenu"><i class="fas fa-shopping-cart"></i></i> &nbsp; Compras <i class="fas fa-chevron-down"></i></a>
+					<ul>
+						<li>
+							<a href="<?php echo SERVERURL; ?>compra-new/"><i class="fas fa-plus fa-fw"></i> &nbsp; Agregar Compras</a>
+						</li>
+						<li>
+							<a href="<?php echo SERVERURL; ?>compra-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Compras</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="#" class="nav-btn-submenu"><i class="fas fa-pallet fa-fw"></i> &nbsp; Insumos <i class="fas fa-chevron-down"></i></a>
+					<ul>
+						<li>
+							<a href="<?php echo SERVERURL; ?>insumos-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Insumos</a>
+						</li>
+						<li>
+							<a href="<?php echo SERVERURL; ?>inventario-list/"><i class="fas fa-warehouse"></i> &nbsp; Inventario Disponible</a>
+						</li>
+						<li>
+							<a href="<?php echo SERVERURL; ?>insumos-list/"><i class="fas fa-warehouse"></i> &nbsp; Movimientos de Inventario</a>
+						</li>
+					</ul>
+				</li>
+				<?php
+				}?>
+				<!--fin Condicional -->
+
+				<!-- Para usuario Vendedor -->
+			<?php 
+			if($_SESSION['rol']=='Vendedor'){
+				?>
+				<li>
+					<a href="<?php echo SERVERURL; ?>home/"><i class="fab fa-dashcube fa-fw"></i> &nbsp; Inicio</a>
+				</li>
+
+				<li>
+					<a href="#" class="nav-btn-submenu"><i class="fas fa-file-invoice-dollar fa-fw"></i> &nbsp; Producto <i class="fas fa-chevron-down"></i></a>
+					<ul>
+						<li>
+							<a href="<?php echo SERVERURL; ?>reservation-new/"><i class="fas fa-plus fa-fw"></i> &nbsp; Nuevo Producto</a>
+						</li>
+						<li>
+							<a href="<?php echo SERVERURL; ?>reservation-reservation/"><i class="far fa-calendar-alt fa-fw"></i> &nbsp; Reservaciones</a>
+						</li>
+						<li>
+							<a href="<?php echo SERVERURL; ?>reservation-pending/"><i class="fas fa-hand-holding-usd fa-fw"></i> &nbsp; Productos</a>
+						</li>
+						<li>
+							<a href="<?php echo SERVERURL; ?>reservation-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Finalizados</a>
+						</li>
+						<li>
+							<a href="<?php echo SERVERURL; ?>reservation-search/"><i class="fas fa-search-dollar fa-fw"></i> &nbsp; Buscar por fecha</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="<?php echo SERVERURL; ?>company/"><i class="fas fa-store-alt fa-fw"></i> &nbsp; Facturacion</a>
+				</li>
+
+				<?php
+				}?>
+				<!--fin Condicional -->
 			</ul>
 		</nav>
 	</div>

@@ -16,112 +16,186 @@
 	<h3 class="text-left">
 		<i class="fab fa-dashcube fa-fw"></i> &nbsp; Inicio
 	</h3>
-
 </div>
 
-<!-- Content -->
-<div class="full-box tile-container">
-	<a href="<?php echo SERVERURL; ?>proveedor-list/" class="tile">
-		<div class="tile-tittle">PROVEEDORES</div>
-		<div class="tile-icon">
-			<i class="fas fa-users fa-fw"></i>
+<?php 
+	if($_SESSION['rol']=='Admin Sistema'){
+?>
+	<!-- Content -->
+	<div class="full-box tile-container">
+		<a href="<?php echo SERVERURL; ?>proveedor-list/" class="tile">
+			<div class="tile-tittle">PROVEEDORES</div>
+			<div class="tile-icon">
+				<i class="fas fa-users fa-fw"></i>
+		<!-- AQUI INICIA EL CONTADOR PARA LOS USUARIOS EN EL HOME -->
+		<p>	
+			<?php
+				include ("./cone.php");
+
+				$sql=" SELECT COUNT(*) as total_proveedores FROM `TBL_Proveedores` ";
+				$result=mysqli_query($conexion,$sql);
+				while($mostrar=mysqli_fetch_assoc ($result)){
+			?>
+					<tbody>
+						<tr class="text-center" >
+							<td><?php echo $mostrar['total_proveedores']?></td>
+
+						</tr>
+					</tbody>
+			<?php
+				}
+			?>
+			Proveedores Registrados
+			</p>
+	<!-- AQUI FINALIZA EL CONTADOR PARA LOS USUARIOS EN EL HOME -->
+			</div>
+		</a>
+		
+		<a href="<?php echo SERVERURL; ?>compra-list/" class="tile">
+			<div class="tile-tittle">COMPRAS</div>
+			<div class="tile-icon">
+				<i class="fas fa-shopping-cart"></i>
+				<p>4 cambiar</p>
+			</div>
+		</a>
+
+		<a href="<?php echo SERVERURL; ?>item-list/" class="tile">
+			<div class="tile-tittle">INSUMOS</div>
+			<div class="tile-icon">
+				<i class="fas fa-pallet fa-fw"></i>
+				<p>9 Cambiar</p>
+			</div>
+		</a>
+
+		<a href="<?php echo SERVERURL; ?>reservation-pending/" class="tile">
+			<div class="tile-tittle">PRODUCTO</div>
+			<div class="tile-icon">
+				<i class="fas fa-hand-holding-usd fa-fw"></i>
+				<p>200  Cambiar</p>
+			</div>
+		</a>
+
+		<a href="<?php echo SERVERURL; ?>user-list/" class="tile">
+			<div class="tile-tittle">Usuarios</div>
+			<div class="tile-icon">
+				<i class="fas fa-user-secret fa-fw"></i>
 	<!-- AQUI INICIA EL CONTADOR PARA LOS USUARIOS EN EL HOME -->
-	<p>	
-		<?php
-			include ("./cone.php");
+				<p>	
+			<?php
+				include ("./cone.php");
 
-			$sql=" SELECT COUNT(*) as total_proveedores FROM `TBL_Proveedores` ";
-			$result=mysqli_query($conexion,$sql);
-			while($mostrar=mysqli_fetch_assoc ($result)){
-		?>
-				<tbody>
-					<tr class="text-center" >
-						<td><?php echo $mostrar['total_proveedores']?></td>
+				$sql=" SELECT COUNT(*) as total_usuarios FROM `TBL_usuarios` ";
+				$result=mysqli_query($conexion,$sql);
+				while($mostrar=mysqli_fetch_assoc ($result)){
+			?>
+					<tbody>
+						<tr class="text-center" >
+							<td><?php echo $mostrar['total_usuarios']?></td>
 
-					</tr>
-				</tbody>
-		<?php
-			}
-		?>
-		Proveedores Registrados
-		</p>
-<!-- AQUI FINALIZA EL CONTADOR PARA LOS USUARIOS EN EL HOME -->
-		</div>
-	</a>
-	
-	<a href="<?php echo SERVERURL; ?>compra-list/" class="tile">
-		<div class="tile-tittle">COMPRAS</div>
-		<div class="tile-icon">
-			<i class="fas fa-shopping-cart"></i>
-			<p>4 cambiar</p>
-		</div>
-	</a>
+						</tr>
+					</tbody>
+			<?php
+				}
+			?>
+			Usuarios Registrados
+			</p>
+	<!-- AQUI FINALIZA EL CONTADOR PARA LOS USUARIOS EN EL HOME -->
+			</div>
+		</a>
 
-	<a href="<?php echo SERVERURL; ?>item-list/" class="tile">
-		<div class="tile-tittle">INVENTARIO</div>
-		<div class="tile-icon">
-			<i class="fas fa-pallet fa-fw"></i>
-			<p>9 Cambiar</p>
-		</div>
-	</a>
+		<a href="<?php echo SERVERURL; ?>company/" class="tile">
+			<div class="tile-tittle">FACTURACION</div>
+			<div class="tile-icon">
+				<i class="fas fa-store-alt fa-fw"></i>
+				<p>1 Cambiar</p>
+			</div>
+		</a>
+	</div>
+<?php
+}?>
 
-	<a href="<?php echo SERVERURL; ?>reservation-reservation/" class="tile">
-		<div class="tile-tittle">Reservaciones</div>
-		<div class="tile-icon">
-			<i class="far fa-calendar-alt fa-fw"></i>
-			<p>30 Cambiar</p>
-		</div>
-	</a>
+<?php 
+	if($_SESSION['rol']=='Admin Inv.'){
+?>
+	<!-- Content -->
+	<div class="full-box tile-container">
+		<a href="<?php echo SERVERURL; ?>proveedor-list/" class="tile">
+			<div class="tile-tittle">PROVEEDORES</div>
+			<div class="tile-icon">
+				<i class="fas fa-users fa-fw"></i>
+		<!-- AQUI INICIA EL CONTADOR PARA LOS USUARIOS EN EL HOME -->
+		<p>	
+			<?php
+				include ("./cone.php");
 
-	<a href="<?php echo SERVERURL; ?>reservation-pending/" class="tile">
-		<div class="tile-tittle">PRODUCTO</div>
-		<div class="tile-icon">
-			<i class="fas fa-hand-holding-usd fa-fw"></i>
-			<p>200  Cambiar</p>
-		</div>
-	</a>
+				$sql=" SELECT COUNT(*) as total_proveedores FROM `TBL_Proveedores` ";
+				$result=mysqli_query($conexion,$sql);
+				while($mostrar=mysqli_fetch_assoc ($result)){
+			?>
+					<tbody>
+						<tr class="text-center" >
+							<td><?php echo $mostrar['total_proveedores']?></td>
 
-	<a href="<?php echo SERVERURL; ?>reservation-list/" class="tile">
-		<div class="tile-tittle">Finalizados</div>
-		<div class="tile-icon">
-			<i class="fas fa-clipboard-list fa-fw"></i>
-			<p>700 Cambiar</p>
-		</div>
-	</a>
+						</tr>
+					</tbody>
+			<?php
+				}
+			?>
+			Proveedores Registrados
+			</p>
+	<!-- AQUI FINALIZA EL CONTADOR PARA LOS USUARIOS EN EL HOME -->
+			</div>
+		</a>
+		
+		<a href="<?php echo SERVERURL; ?>compra-list/" class="tile">
+			<div class="tile-tittle">COMPRAS</div>
+			<div class="tile-icon">
+				<i class="fas fa-shopping-cart"></i>
+				<p>4 cambiar</p>
+			</div>
+		</a>
 
-	<a href="<?php echo SERVERURL; ?>user-list/" class="tile">
-		<div class="tile-tittle">Usuarios</div>
-		<div class="tile-icon">
-			<i class="fas fa-user-secret fa-fw"></i>
-<!-- AQUI INICIA EL CONTADOR PARA LOS USUARIOS EN EL HOME -->
-			<p>	
-		<?php
-			include ("./cone.php");
+		<a href="<?php echo SERVERURL; ?>item-list/" class="tile">
+			<div class="tile-tittle">INSUMOS</div>
+			<div class="tile-icon">
+				<i class="fas fa-pallet fa-fw"></i>
+				<p>9 Cambiar</p>
+			</div>
+		</a>
 
-			$sql=" SELECT COUNT(*) as total_usuarios FROM `TBL_usuarios` ";
-			$result=mysqli_query($conexion,$sql);
-			while($mostrar=mysqli_fetch_assoc ($result)){
-		?>
-				<tbody>
-					<tr class="text-center" >
-						<td><?php echo $mostrar['total_usuarios']?></td>
+		<a href="<?php echo SERVERURL; ?>reservation-pending/" class="tile">
+			<div class="tile-tittle">PRODUCTO</div>
+			<div class="tile-icon">
+				<i class="fas fa-hand-holding-usd fa-fw"></i>
+				<p>200  Cambiar</p>
+			</div>
+		</a>
+	</div>
+<?php
+}?>
 
-					</tr>
-				</tbody>
-		<?php
-			}
-		?>
-		Usuarios Registrados
-		</p>
-<!-- AQUI FINALIZA EL CONTADOR PARA LOS USUARIOS EN EL HOME -->
-		</div>
-	</a>
+<?php 
+	if($_SESSION['rol']=='Vendedor'){
+?>
+	<!-- Content -->
+	<div class="full-box tile-container">
 
-	<a href="<?php echo SERVERURL; ?>company/" class="tile">
-		<div class="tile-tittle">FACTURACION</div>
-		<div class="tile-icon">
-			<i class="fas fa-store-alt fa-fw"></i>
-			<p>1 Cambiar</p>
-		</div>
-	</a>
-</div>
+		<a href="<?php echo SERVERURL; ?>reservation-pending/" class="tile">
+			<div class="tile-tittle">PRODUCTO</div>
+			<div class="tile-icon">
+				<i class="fas fa-hand-holding-usd fa-fw"></i>
+				<p>200  Cambiar</p>
+			</div>
+		</a>
+
+		<a href="<?php echo SERVERURL; ?>company/" class="tile">
+			<div class="tile-tittle">FACTURACION</div>
+			<div class="tile-icon">
+				<i class="fas fa-store-alt fa-fw"></i>
+				<p>1 Cambiar</p>
+			</div>
+		</a>
+	</div>
+<?php
+}?>
+
