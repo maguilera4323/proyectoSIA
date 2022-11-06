@@ -56,7 +56,7 @@
 							<a href="<?php echo SERVERURL; ?>inventario-list/"><i class="fas fa-warehouse"></i> &nbsp; Inventario Disponible</a>
 						</li>
 						<li>
-							<a href="<?php echo SERVERURL; ?>insumos-list/"><i class="fas fa-warehouse"></i> &nbsp; Movimientos de Inventario</a>
+							<a href="<?php echo SERVERURL; ?>insumos-list/"><i class="fas fa-dolly-flatbed"></i> &nbsp; Movimientos de Inventario</a>
 						</li>
 					</ul>
 				</li>
@@ -86,9 +86,14 @@
 					<a href="#" class="nav-btn-submenu"><i class="fas  fa-user-secret fa-fw"></i> &nbsp; Mantenimiento <i class="fas fa-chevron-down"></i></a>
 					<ul>
 						<li>
-							<a href="<?php echo SERVERURL; ?>user-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Usuarios</a>
+							<a href="<?php echo SERVERURL; ?>user-list/"><i class="fas fa-users-cog"></i> &nbsp; Usuarios</a>
 						</li>
-
+						<li>
+							<a href="<?php echo SERVERURL; ?>objetos-list/"><i class="fas fa-list-alt"></i> &nbsp; Objetos</a>
+						</li>
+						<li>
+							<a href="<?php echo SERVERURL; ?>rol-list/"><i class="fas fa-user-tie"></i> &nbsp; Roles</a>
+						</li>
 					</ul>
 				</li>
 
@@ -144,7 +149,7 @@
 							<a href="<?php echo SERVERURL; ?>inventario-list/"><i class="fas fa-warehouse"></i> &nbsp; Inventario Disponible</a>
 						</li>
 						<li>
-							<a href="<?php echo SERVERURL; ?>insumos-list/"><i class="fas fa-warehouse"></i> &nbsp; Movimientos de Inventario</a>
+							<a href="<?php echo SERVERURL; ?>insumos-list/"><i class="fas fa-dolly-flatbed"></i> &nbsp; Movimientos de Inventario</a>
 						</li>
 					</ul>
 				</li>

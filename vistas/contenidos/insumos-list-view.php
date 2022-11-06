@@ -13,7 +13,7 @@
 
 <div class="full-box page-header">
 	<h3 class="text-left">
-		<i class="fas fa-clipboard-list fa-fw"></i> &nbsp; INSUMOS
+		<i class="fas fa-pallet fa-fw"></i> &nbsp; INSUMOS
 	</h3>
 
 </div>
@@ -27,7 +27,7 @@
 			<a href="<?php echo SERVERURL; ?>inventario-list/"><i class="fas fa-warehouse"></i> &nbsp; INVENTARIO DISPONIBLE</a>
 		</li>
 		<li>
-			<a class="active" href="<?php echo SERVERURL; ?>user-list/"><i class="fas fa-warehouse"></i> &nbsp; MOVIMIENTOS DE INVENTARIO</a>
+			<a class="active" href="<?php echo SERVERURL; ?>user-list/"><i class="fas fa-dolly-flatbed"></i> &nbsp; MOVIMIENTOS DE INVENTARIO</a>
 		</li>
 	</ul>	
 </div>

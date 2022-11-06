@@ -13,7 +13,7 @@
 
 <div class="full-box page-header">
 	<h3 class="text-left">
-		<i class="fas fa-clipboard-list fa-fw"></i> &nbsp; USUARIOS
+		<i class="fas fa-users-cog"></i> &nbsp; USUARIOS
 	</h3>
 
 </div>
@@ -61,7 +61,7 @@ if(isset($_GET['enviar'])){
   <br>
 
  
-      <table class="table table-striped table-dark table_id " id="tblDatos">
+      <table class="table table-striped table-dark table_id text-center" id="tblDatos">
 
                    
                          <thead>    

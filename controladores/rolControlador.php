@@ -4,41 +4,39 @@
 } 
 
 if($peticionAjax){
-	require_once "../modelos/insumoModelo.php";
+	require_once "../modelos/rolModelo.php";
 	require_once "../pruebabitacora.php";
 }else{
-	require_once "./modelos/insumoModelo.php";
+	require_once "./modelos/rolModelo.php";
 	require_once "./pruebabitacora.php";//aqui se ejecuta dentro del index y no se utiliza Ajax
 }
 
 
-class insumoControlador extends insumoModelo
+class rolControlador extends rolModelo
 {
 
 	/*--------- Controlador agregar proveedor ---------*/
-	public function agregarInsumo()
+	public function agregarRol()
 	{
-		$nombre=mainModel::limpiar_cadena(strtoupper($_POST['nombre_insumo_nuevo']));
-		$categoria=mainModel::limpiar_cadena($_POST['categoria_insumo_nuevo']);
-		$cantmaxima=mainModel::limpiar_cadena($_POST['cantidadmax_insumo_nuevo']);
-		$cantminima=mainModel::limpiar_cadena($_POST['cantidadmin_insumo_nuevo']);
-		$unidad_medida=mainModel::limpiar_cadena($_POST['unidad_insumo_nuevo']);
-		
-			$datos_insumo_reg=[
-				"nombre"=>$nombre,
-				"cat"=>$categoria,
-				"cantmax"=>$cantmaxima,
-				"cantmin"=>$cantminima,
-				"unidad"=>$unidad_medida
+		$nom_rol=mainModel::limpiar_cadena(strtoupper($_POST['nombre_rol_nuevo']));
+		$descripcion=mainModel::limpiar_cadena($_POST['desc_rol_nuevo']);
+		$creado=$_SESSION['usuario_login'];
+		$fec_creacion=date('y-m-d H:i:s');
+
+			$datos_rol_reg=[
+				"nombre"=>$nom_rol,
+				"desc"=>$descripcion,
+				"creado"=>$creado,
+				"fecha_crea"=>$fec_creacion
 			];
 
-			$agregar_insumo=insumoModelo::agregar_insumo_modelo($datos_insumo_reg);
+			$agregar_rol=rolModelo::agregar_rol_modelo($datos_rol_reg);
 
-			if($agregar_insumo->rowCount()==1){
+			if($agregar_rol->rowCount()==1){
 				$alerta=[
-					"Alerta"=>"limpiar",
-					"Titulo"=>"Insumo Registrado",
-					"Texto"=>"Los datos del insumo han sido registrados con exito",
+					"Alerta"=>"recargar",
+					"Titulo"=>"Rol Registrado",
+					"Texto"=>"Los datos del rol han sido registrados con exito",
 					"Tipo"=>"success"
 				];
 
@@ -47,7 +45,7 @@ class insumoControlador extends insumoModelo
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"No hemos podido registrar el insumo",
+					"Texto"=>"No hemos podido registrar el rol",
 					"Tipo"=>"error"
 				];
 			}
@@ -57,22 +55,21 @@ class insumoControlador extends insumoModelo
 				"id_objeto" => 0,
 				"fecha" => date('Y-m-d H:i:s'),
 				"id_usuario" => $_SESSION['id_login'],
-				"accion" => "Creación de Insumo",
-				"descripcion" => "El usuario ".$_SESSION['usuario_login']." creó un nuevo insumo en el sistema"
+				"accion" => "Creación de Rol",
+				"descripcion" => "El usuario ".$_SESSION['usuario_login']." creó un nuevo rol en el sistema"
 			];
 			Bitacora::guardar_bitacora($datos_bitacora); 
 	} /* Fin controlador */
 
 
 	/*--------- Controlador actualizar usuario ---------*/
-	public function actualizarInsumo()
+	public function actualizarRol()
 	{	
-		$nombre=mainModel::limpiar_cadena(strtoupper($_POST['nombre_insumo_act']));
-		$categoria=mainModel::limpiar_cadena($_POST['categoria_insumo_act']);
-		$cantmaxima=mainModel::limpiar_cadena($_POST['cantidadmax_insumo_act']);
-		$cantminima=mainModel::limpiar_cadena($_POST['cantidadmin_insumo_act']);
-		$unidad_medida=mainModel::limpiar_cadena($_POST['unidad_insumo_act']);
-        $id_actualizar=mainModel::limpiar_cadena($_POST['id_actualizacion']);
+		$nom_rol=mainModel::limpiar_cadena(strtoupper($_POST['nombre_rol_act']));
+		$descripcion=mainModel::limpiar_cadena($_POST['desc_rol_act']);
+		$modificado=$_SESSION['usuario_login'];
+		$fec_modificacion=date('y-m-d H:i:s');
+		$id_actualizar=mainModel::limpiar_cadena($_POST['id_actualizacion']);
 		
 		/* if($Nombre=="" || $Rtn=="" || $Telefono=="" || $Correo=="" || $Direccion==""){
 			$alerta=[
@@ -141,24 +138,21 @@ class insumoControlador extends insumoModelo
 				echo json_encode($alerta);
 				exit();
 			} */
-		
-	
-           $datos_insumo_act=[
-				"nombre"=>$nombre,
-				"cat"=>$categoria,
-				"cantmax"=>$cantmaxima,
-				"cantmin"=>$cantminima,
-				"unidad"=>$unidad_medida
+			$datos_rol_act=[
+				"nombre"=>$nom_rol,
+				"desc"=>$descripcion,
+				"modif"=>$modificado,
+				"fecha_modif"=>$fec_modificacion
 			];
 
-			$actualizar_insumo=insumoModelo::actualizar_insumo_modelo($datos_insumo_act,$id_actualizar);
+			$actualizar_rol=rolModelo::actualizar_rol_modelo($datos_rol_act,$id_actualizar);
 
-			if($actualizar_insumo->rowCount()==1)
+			if($actualizar_rol->rowCount()==1)
 			{
 				$alerta=[
-					"Alerta"=>"limpiar",
-					"Titulo"=>"Insumo Actualizado",
-					"Texto"=>"Insumo actualizado exitosamente",
+					"Alerta"=>"recargar",
+					"Titulo"=>"Rol Actualizado",
+					"Texto"=>"Rol actualizado exitosamente",
 					"Tipo"=>"success"
 				];
 			}else
@@ -166,7 +160,7 @@ class insumoControlador extends insumoModelo
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"No hemos podido actualizar el insumo",
+					"Texto"=>"No hemos podido actualizar el rol",
 					"Tipo"=>"error"
 				];
 			}
@@ -176,37 +170,33 @@ class insumoControlador extends insumoModelo
 				"id_objeto" => 0,
 				"fecha" => date('Y-m-d H:i:s'),
 				"id_usuario" => $_SESSION['id_login'],
-				"accion" => "Modificación de insumo",
-				"descripcion" => "El usuario ".$_SESSION['usuario_login']." actualizó un insumo en el sistema"
+				"accion" => "Modificación de rol",
+				"descripcion" => "El usuario ".$_SESSION['usuario_login']." actualizó un rol del sistema"
 			];
 			Bitacora::guardar_bitacora($datos_bitacora); 
 	} /* Fin controlador */
 	
 
-	public function datosInsumoControlador($tipo,$id){
-		$tipo=mainModel::limpiar_cadena($tipo);
+	public function datosRolControlador($id){
 		$id=mainModel::limpiar_cadena($id);
-
-		return insumoModelo::datos_insumo_modelo($tipo,$id);
+		return rolModelo::datos_rol_modelo($id);
 	}
 
 	
 
 		//funcion para eliminar un proveedor
-		public function eliminarInsumo()
+		public function eliminarRol()
 		{
-			$id=mainModel::limpiar_cadena(($_POST['id_insumo_del']));
-			$array=array();
-			$valor='';
+			$id=mainModel::limpiar_cadena(($_POST['id_rol_del']));
 
 		//verifica que el insumo si exista en el sistema
-		$check_insumo=mainModel::ejecutar_consulta_simple("SELECT id_insumos FROM TBL_insumos
-		WHERE id_insumos='$id'");
-		if($check_insumo->rowCount()<=0){
+		$check_rol=mainModel::ejecutar_consulta_simple("SELECT id_rol FROM TBL_ms_roles
+		WHERE id_rol='$id'");
+		if($check_rol->rowCount()<=0){
 			$alerta=[
 				"Alerta"=>"simple",
 				"Titulo"=>"Ha ocurrido un error",
-				"Texto"=>"El insumo seleccionado no existe",
+				"Texto"=>"El rol seleccionado no existe",
 				"Tipo"=>"error"
 			];
 			echo json_encode($alerta);
@@ -214,12 +204,12 @@ class insumoControlador extends insumoModelo
 		}
 
 		
-		$eliminarinsumo=insumoModelo::eliminar_insumo_modelo($id);
-			if($eliminarinsumo->rowCount()==1){
+		$eliminarrol=rolModelo::eliminar_rol_modelo($id);
+			if($eliminarrol->rowCount()==1){
 				$alerta=[
 					"Alerta"=>"recargar",
-					"Titulo"=>"Insumo Borrado",
-					"Texto"=>"El insumo fue borrado del sistema",
+					"Titulo"=>"Rol Borrado",
+					"Texto"=>"El rol fue borrado del sistema",
 					"Tipo"=>"success"
 				];
                 echo json_encode($alerta);
@@ -228,8 +218,8 @@ class insumoControlador extends insumoModelo
                     "id_objeto" => 0,
                     "fecha" => date('Y-m-d H:i:s'),
                     "id_usuario" => $_SESSION['id_login'],
-                    "accion" => "Insumo eliminado",
-                    "descripcion" => "El usuario ".$_SESSION['usuario_login']." eliminó un insumo del sistema"
+                    "accion" => "Rol eliminado",
+                    "descripcion" => "El usuario ".$_SESSION['usuario_login']." eliminó un rol del sistema"
                 ];
                 Bitacora::guardar_bitacora($datos_bitacora);
                 exit();
@@ -237,7 +227,7 @@ class insumoControlador extends insumoModelo
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ha ocurrido un error",
-					"Texto"=>"El insumo no pudo ser borrado",
+					"Texto"=>"El rol no pudo ser borrado",
 					"Tipo"=>"error"
 				];
 			}

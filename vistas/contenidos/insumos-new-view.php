@@ -8,7 +8,7 @@
 <div class="container-fluid">
 	<ul class="full-box list-unstyled page-nav-tabs">
 		<li>
-			<a href="<?php echo SERVERURL; ?>proveedor-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE INSUMOS</a>
+			<a href="<?php echo SERVERURL; ?>insumos-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE INSUMOS</a>
 		</li>
 	</ul>	
 </div>
@@ -55,8 +55,8 @@
 								<option value="" selected="" disabled="">Seleccione una opción</option>
 								<option value="1">LB</option>
 								<option value="2">UN</option>
-								<option value="2">L</option>
-								<option value="2">GAL</option>
+								<option value="3">L</option>
+								<option value="4">GAL</option>
 							</select>
 						</div>
 					</div>

@@ -71,8 +71,8 @@
 							<select class="form-control" name="unidad_insumo_act" required>
 								<option value="1">LB</option>
 								<option value="2">UN</option>
-								<option value="2">L</option>
-								<option value="2">GAL</option>
+								<option value="3">L</option>
+								<option value="4">GAL</option>
 							</select>
 						</div>
 						<div class="col-12 col-md-4">

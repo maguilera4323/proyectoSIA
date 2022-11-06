@@ -9,7 +9,6 @@
 		$ins_usuario = new usuarioControlador();
 
 
-		/*--------- Agregar un usuario ---------*/
 		if(isset($_POST['usuario_reg'])){
 			echo $ins_usuario->agregar_usuario_controlador();
 			die();

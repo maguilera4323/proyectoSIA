@@ -60,7 +60,7 @@ class proveedorControlador extends proveedorModelo
 				"fecha" => date('Y-m-d h:i:s'),
 				"id_Proveedores" => $_SESSION['id_login'],
 				"accion" => "Creación de Proveedor",
-				"descripcion" => "Se creó un nuevo proveedor en el sistema"
+				"descripcion" => "El usuario ".$_SESSION['usuario_login']." creó un nuevo proveedor en el sistema"
 			];
 			Bitacora::guardar_bitacora($datos_bitacora); 
 	} /* Fin controlador */
@@ -182,7 +182,7 @@ class proveedorControlador extends proveedorModelo
 				"fecha" => date('Y-m-d h:i:s'),
 				"id_Proveedores" => $_SESSION['id_login'],
 				"accion" => "Modificación de proveedor",
-				"descripcion" => "Se actualizó un proveedor en el sistema"
+				"descripcion" => "El usuario ".$_SESSION['usuario_login']." actualizó un proveedor en el sistema"
 			];
 			Bitacora::guardar_bitacora($datos_bitacora); 
 	} /* Fin controlador */
@@ -244,7 +244,7 @@ class proveedorControlador extends proveedorModelo
 			"fecha" => date('Y-m-d H:i:s'),
 			"id_usuario" => $_SESSION['id_login'],
 			"accion" => "Usuario inactivado",
-			"descripcion" => "El usuario ".$_SESSION['usuario_login']." inactivó un usuario del sistema"
+			"descripcion" => "El usuario ".$_SESSION['usuario_login']." eliminó un usuario del sistema"
 		];
 		Bitacora::guardar_bitacora($datos_bitacora);
 			exit();

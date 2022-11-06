@@ -63,7 +63,23 @@
 			<div class="tile-tittle">INSUMOS</div>
 			<div class="tile-icon">
 				<i class="fas fa-pallet fa-fw"></i>
-				<p>9 Cambiar</p>
+				<p>
+			<?php
+				include ("./cone.php");
+
+				$sql=" SELECT COUNT(*) as total_insumos FROM `TBL_insumos` ";
+				$result=mysqli_query($conexion,$sql);
+				while($mostrar=mysqli_fetch_assoc ($result)){
+			?>
+					<tbody>
+						<tr class="text-center" >
+							<td><?php echo $mostrar['total_insumos']?></td>
+
+						</tr>
+					</tbody>
+			<?php
+				}
+			?> Insumos registrados</p>
 			</div>
 		</a>
 
@@ -159,7 +175,23 @@
 			<div class="tile-tittle">INSUMOS</div>
 			<div class="tile-icon">
 				<i class="fas fa-pallet fa-fw"></i>
-				<p>9 Cambiar</p>
+				<p>
+			<?php
+				include ("./cone.php");
+
+				$sql=" SELECT COUNT(*) as total_insumos FROM `TBL_insumos` ";
+				$result=mysqli_query($conexion,$sql);
+				while($mostrar=mysqli_fetch_assoc ($result)){
+			?>
+					<tbody>
+						<tr class="text-center" >
+							<td><?php echo $mostrar['total_insumos']?></td>
+
+						</tr>
+					</tbody>
+			<?php
+				}
+			?> Insumos registrados</p>
 			</div>
 		</a>
 
