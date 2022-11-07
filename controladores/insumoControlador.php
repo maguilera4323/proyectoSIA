@@ -23,6 +23,50 @@ class insumoControlador extends insumoModelo
 		$cantmaxima=mainModel::limpiar_cadena($_POST['cantidadmax_insumo_nuevo']);
 		$cantminima=mainModel::limpiar_cadena($_POST['cantidadmin_insumo_nuevo']);
 		$unidad_medida=mainModel::limpiar_cadena($_POST['unidad_insumo_nuevo']);
+
+		if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ ]{1,30}",$nombre)){
+			$alerta=[
+				"Alerta"=>"simple",
+				"Titulo"=>"Ocurrió un error inesperado",
+				"Texto"=>"El nombre no coincide con el formato solicitado",
+				"Tipo"=>"error"
+			];
+			echo json_encode($alerta);
+			exit();
+		}
+
+		if(mainModel::verificar_datos("[0-9]{1,10}",$cantmaxima)){
+			$alerta=[
+				"Alerta"=>"simple",
+				"Titulo"=>"Ocurrió un error inesperado",
+				"Texto"=>"Ingrese una cantidad máxima válida",
+				"Tipo"=>"error"
+			];
+			echo json_encode($alerta);
+			exit();
+		}
+
+		if(mainModel::verificar_datos("[0-9]{1,10}",$cantminima)){
+			$alerta=[
+				"Alerta"=>"simple",
+				"Titulo"=>"Ocurrió un error inesperado",
+				"Texto"=>"Ingrese una cantidad mínima válida",
+				"Tipo"=>"error"
+			];
+			echo json_encode($alerta);
+			exit();
+		}
+
+		if($cantminima>=$cantmaxima){
+			$alerta=[
+				"Alerta"=>"simple",
+				"Titulo"=>"Ocurrió un error inesperado",
+				"Texto"=>"La cantidad mínima debe ser menor que la cantidad máxima",
+				"Tipo"=>"error"
+			];
+			echo json_encode($alerta);
+			exit();
+		}
 		
 			$datos_insumo_reg=[
 				"nombre"=>$nombre,
@@ -73,76 +117,51 @@ class insumoControlador extends insumoModelo
 		$cantminima=mainModel::limpiar_cadena($_POST['cantidadmin_insumo_act']);
 		$unidad_medida=mainModel::limpiar_cadena($_POST['unidad_insumo_act']);
         $id_actualizar=mainModel::limpiar_cadena($_POST['id_actualizacion']);
-		
-		/* if($Nombre=="" || $Rtn=="" || $Telefono=="" || $Correo=="" || $Direccion==""){
+
+		if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ ]{1,30}",$nombre)){
 			$alerta=[
 				"Alerta"=>"simple",
 				"Titulo"=>"Ocurrió un error inesperado",
-				"Texto"=>"No se han llenado todos los campos que son obligatorios",
+				"Texto"=>"El nombre no coincide con el formato solicitado",
 				"Tipo"=>"error"
 			];
 			echo json_encode($alerta);
 			exit();
-		} */
+		}
 
+		if(mainModel::verificar_datos("[0-9]{1,10}",$cantmaxima)){
+			$alerta=[
+				"Alerta"=>"simple",
+				"Titulo"=>"Ocurrió un error inesperado",
+				"Texto"=>"Ingrese una cantidad máxima válida",
+				"Tipo"=>"error"
+			];
+			echo json_encode($alerta);
+			exit();
+		}
 
-			/* 
-			if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ ]{1,30}",$Nombre)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El NOMBRE no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
+		if(mainModel::verificar_datos("[0-9]{1,10}",$cantminima)){
+			$alerta=[
+				"Alerta"=>"simple",
+				"Titulo"=>"Ocurrió un error inesperado",
+				"Texto"=>"Ingrese una cantidad mínima válida",
+				"Tipo"=>"error"
+			];
+			echo json_encode($alerta);
+			exit();
+		}
 
-			if(mainModel::verificar_datos("[0-9]{1,14}",$Rtn)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El RTN no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-			
-			if(mainModel::verificar_datos("[0-9]{1,20}",$Telefono)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El TELEFONO no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
+		if($cantminima>=$cantmaxima){
+			$alerta=[
+				"Alerta"=>"simple",
+				"Titulo"=>"Ocurrió un error inesperado",
+				"Texto"=>"La cantidad mínima debe ser menor que la cantidad máxima",
+				"Tipo"=>"error"
+			];
+			echo json_encode($alerta);
+			exit();
+		}
 
-			if(mainModel::verificar_datos("[a-z@_0-9.]{1,30}",$Correo)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El CORREO no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-
-			if(mainModel::verificar_datos("[A-Za-zÑñ0-9 .,]{1,100}",$Direccion)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"La DIRECCION no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			} */
-		
-	
            $datos_insumo_act=[
 				"nombre"=>$nombre,
 				"cat"=>$categoria,
