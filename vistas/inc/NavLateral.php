@@ -104,6 +104,9 @@
 				<li>
 					<a href="<?php echo SERVERURL; ?>bitacora/"><i class="fas fa-book-reader"></i> &nbsp; Bitacora</a>
 				</li>
+				<li>
+					<a href="<?php echo SERVERURL; ?>respaldo/"><i class="fab fa-hackerrank"></i></i> &nbsp; Respaldo</a>
+				</li>
 				<?php
 				}?>
 				<!--fin Condicional -->
