@@ -59,7 +59,7 @@ if(isset($_GET['enviar'])){
       </form>
   </div>
  
-      <table class="table table-striped table-dark table_id " id="tblDatos">
+      <table class="table table-striped table-dark table_id text-center" id="tblDatos">
                          <thead>    
                          <tr>
                         <th>ID</th>

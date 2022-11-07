@@ -1,9 +1,9 @@
 <?php
 
-const SERVER="20.25.134.34";/* servidor de base de datos */
+const SERVER="20.163.218.52";/* servidor de base de datos */
 const DB="proyecto_cafeteria";/* NOMBRE DE BD */
 const USER="admin_bd";/* */
-const PASS="admin1234";/* */
+const PASS="clave1234";/* */
 const HOST_SMTP='smtp.gmail.com';
 const USER_SMTP="citycoffeehn1@gmail.com";
 const CLAVE_SMTP="yimaeiygjhdcthct";
