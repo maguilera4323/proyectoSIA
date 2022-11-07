@@ -1,8 +1,8 @@
 <?php
 
-$host = "20.25.134.34";
+$host = "20.163.218.52";
 $username = "admin_bd";
-$password = "admin1234";
+$password = "clave1234";
 $database_name = "proyecto_cafeteria";
 //conectado a la BD
 $conn = mysqli_connect($host, $username, $password, $database_name);
