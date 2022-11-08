@@ -6,14 +6,14 @@
 		"fecha" => date('Y-m-d H:i:s'),
 		"id_usuario" => $_SESSION['id_login'],
 		"accion" => "Cambio de vista",
-		"descripcion" => "El usuario ".$_SESSION['usuario_login']." entró a la vista de Mantenimiento de Objetos"
+		"descripcion" => "El usuario ".$_SESSION['usuario_login']." entró a la vista de Permisos"
 	];
 	Bitacora::guardar_bitacora($datos_bitacora); 
 ?>
 
 <div class="full-box page-header">
 	<h3 class="text-left">
-		<i class="fas fa-list-alt"></i> &nbsp; OBJETOS
+		<i class="fas fa-list-alt"></i> &nbsp; PERMISOS
 	</h3>
 
 </div>
@@ -21,7 +21,7 @@
 <div class="container-fluid">
 	<ul class="full-box list-unstyled page-nav-tabs">
 		<li>
-			<div class="btn btn-dark btn-lg" data-toggle="modal" data-target="#ModalCrear"><i class="fas fa-plus fa-fw"></i> &nbsp; AGREGAR OBJETO</div>
+			<div class="btn btn-dark btn-lg" data-toggle="modal" data-target="#ModalCrear"><i class="fas fa-plus fa-fw"></i> &nbsp; AGREGAR PERMISO</div>
 		</li>
 		</ul>	
 </div>
@@ -36,7 +36,7 @@
 
 		if (isset($_GET['busqueda']))
 		{
-			$where="WHERE TBL_objetos.objeto LIKE'%".$busqueda."%'";
+			$where="WHERE TBL_permisos.id_rol LIKE'%".$busqueda."%'";
 		}
 	}
 ?>
@@ -52,10 +52,12 @@
       <table class="table table-striped table-dark table_id text-center" id="tblDatos">
         <thead>    
         <tr>
-            <th>ID</th>
+            <th>ROL</th>
             <th>OBJETO</th>
-            <th>DESCRIPCION</th>
-            <th>TIPO DE OBJETO</th>
+            <th>PERMISO INSERCION</th>
+			<th>PERMISO ACTUALIZACION</th>
+			<th>PERMISO ELIMINACION</th>
+			<th>PERMISO CONSULTA</th>
             <th>ACTUALIZAR</th>
 			<th>ELIMINAR</th>
             </tr>
@@ -64,7 +66,10 @@
 
 		<?php
 			include ("./cone.php");              
-			$SQL="SELECT * FROM TBL_objetos 
+			$SQL="SELECT r.rol, o.objeto, p.permiso_insercion,p.permiso_actualizacion,
+			p.permiso_eliminacion, p.permiso_consulta FROM TBL_permisos p
+					inner JOIN TBL_ms_roles r ON r.id_rol = p.id_rol
+					inner JOIN TBL_objetos o ON o.id_objeto = p.id_objeto;
 			$where";
 			$dato = mysqli_query($conexion, $SQL);
 
@@ -73,12 +78,14 @@
 				
 			?>
 		<tr>
-			<td><?php echo $fila['id_objeto']; ?></td>
+			<td><?php echo $fila['rol']; ?></td>
 			<td><?php echo $fila['objeto']; ?></td>
-			<td><?php echo $fila['descripcion']; ?></td>
-			<td><?php echo $fila['tipo_objeto']; ?></td>
+			<td><?php echo $fila['permiso_insercion']; ?></td>
+			<td><?php echo $fila['permiso_actualizacion']; ?></td>
+			<td><?php echo $fila['permiso_eliminacion']; ?></td>
+			<td><?php echo $fila['permiso_consulta']; ?></td>
 			<td>
-				<div class="btn btn-success" data-toggle="modal" data-target="#ModalActualizar<?php echo $fila['id_objeto'];?>">
+				<div class="btn btn-success" data-toggle="modal" data-target="#ModalActualizar">
 					<i class="fas fa-sync-alt"> </i>
 				</div>
 						<!-- Modal actualizar-->
@@ -128,7 +135,7 @@
 			</td>
 			<td>
 				<form class="FormularioAjax" action="<?php echo SERVERURL; ?>ajax/objetoAjax.php" method="POST" data-form="delete" autocomplete="off">
-				<input type="hidden" pattern="" class="form-control" name="id_objeto_del" value="<?php echo $fila['id_objeto'] ?>">
+				<input type="hidden" pattern="" class="form-control" name="id_objeto_del" value="">
 				<button type="submit" class="btn btn-warning">
 					<i class="far fa-trash-alt"></i>
 				</button>
@@ -160,38 +167,49 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Nuevo Objeto</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Otorgar Permisos</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body text-center">
-			<form action="<?php echo SERVERURL; ?>ajax/objetoAjax.php" class="FormularioAjax" method="POST" data-form="save" autocomplete="off">
+      <div class="modal-body ">
+			<form action="<?php echo SERVERURL; ?>ajax/permisoAjax.php" class="FormularioAjax" method="POST" data-form="save" autocomplete="off">
 			<div class="form-group">
-				<label>Nombre del Objeto</label>
-				<input type="text" class="form-control" name="objeto_nuevo" id="cliente_dni" maxlength="27" required>
+				<label>Rol</label>
+				<select class="form-control" name="rol_nuevo" required>
+								<option value="" selected="" disabled="">Seleccione una opción</option>
+								<option value="1">Admin Sistema</option>
+				</select>
 			</div>
 			<div class="form-group">
-				<label>Descripción</label>
-				<textarea class="form-control" rows="3" name="desc_objeto_nuevo" id="cliente_dni" maxlength="100" required></textarea>
+				<label>Objeto</label>
+				<select class="form-control" name="objeto_nuevo" required>
+					<option value="" selected="" disabled="">Seleccione una opción</option>
+					<option value="1">Home</option>
+				</select>
 			</div>
 			<div class="form-group">
 				<div class="form-group">
-				<label for="cliente_apellido" class="bmd-label-floating">Tipo de Objeto</label>
-							<select class="form-control" name="tipo_objeto_nuevo" required>
-								<option value="" selected="" disabled="">Seleccione una opción</option>
-								<option value="1">Home</option>
-								<option value="2">Proveedores</option>
-								<option value="3">Insumos</option>
-								<option value="4">Productos</option>
-								<option value="5">Compras</option>
-								<option value="6">Facturación</option>
-								<option value="7">Mantenimiento</option>
-							</select>
-				</div>
+				<label>Permisos</label>
+				<div class="form-check">
+					<input class="form-check-input" type="checkbox" name="insertar_permiso" value="1" id="defaultCheck1">
+					<label class="form-check-label" for="defaultCheck1">Insertar</label>
+					</div>
+					<div class="form-check">
+					<input class="form-check-input" type="checkbox" name="actualizar_permiso" value="1" id="defaultCheck1">
+					<label class="form-check-label" for="defaultCheck1">Actualizar</label>
+					</div>
+					<div class="form-check">
+					<input class="form-check-input" type="checkbox" name="eliminar_permiso" value="1" id="defaultCheck1">
+					<label class="form-check-label" for="defaultCheck1">Eliminar</label>
+					</div>
+					<div class="form-check">
+					<input class="form-check-input" type="checkbox" name="consultar_permiso" value="1" id="defaultCheck1">
+					<label class="form-check-label" for="defaultCheck1">Consultar</label>
+					</div>
 			</div>
-			<button type="submit" class="btn btn-primary">Guardar</button>
-			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+			<button type="submit" class="btn btn-primary text-center">Guardar</button>
+			<button type="button" class="btn btn-secondary text-center" data-dismiss="modal">Cerrar</button>
 			</form>
       </div>
     </div>

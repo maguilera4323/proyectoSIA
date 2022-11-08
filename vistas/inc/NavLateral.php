@@ -94,6 +94,10 @@
 						<li>
 							<a href="<?php echo SERVERURL; ?>rol-list/"><i class="fas fa-user-tie"></i> &nbsp; Roles</a>
 						</li>
+						<li>
+							<a href="<?php echo SERVERURL; ?>permisos-list/"><i class="fas fa-user-tie"></i> &nbsp; Permisos</a>
+						</li>
+						permisos-list
 					</ul>
 				</li>
 
