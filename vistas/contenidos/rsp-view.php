@@ -61,7 +61,7 @@ if(!empty($sqlScript))
 {
     // Guarde el script SQL en un archivo de copia de seguridad
     $backup_file_name = $database_name . '_backup_' . time() . '.sql';
-    $fileHandler = fopen($backup_file_name, 'w+');
+    $fileHandler = fopen($backup_file_name, 'x+');
     $number_of_lines = fwrite($fileHandler, $sqlScript);
     fclose($fileHandler); 
 
