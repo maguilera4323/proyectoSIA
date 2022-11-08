@@ -8,207 +8,51 @@ cambiar en el laber de correo en REGISTRO DE USUARIOS  el auto complerta
 
 buscar como capturar la fecha actual para el form de fecha cheacion de registro ususarios
 
-esto es para la tabla detalle de compra
-<th>Nombre Insumo</th>
-<th>Cantidad</th>
-<th>Precio Unitario HNL</th>
-<th>Fecha Caducidad</th>
-<th>Fecha Compra</th>
-<th>Proveedor</th>
-<th>Estado Compra</th>
-<th>Total Compra</th>
+<?php
+	
+	$db_host = '20.25.134.34'; 
+	$db_name = 'proyecto_cafeteria'; 
+	$db_user = 'admin_bd'; 
+	$db_pass = 'admin1234'; 
+	
+	$fecha = date("Ymd-His"); //Obtenemos la fecha y hora para identificar el respaldo
 
-$datos_bitacora = 
-					[
-						"id_objeto" => 0,
-						"fecha" => date('Y-m-d h:i:s'),
-						"id_usuario" => $_SESSION['usuario_login'],
-						"accion" => "AGREGO UN USUARIO",
-						"descripcion" => "Usuario"
-					];
-					Bitacora::guardar_bitacora($datos_bitacora);
+	// Construimos el nombre de archivo SQL Ejemplo: nombredelaBD_20220101-081120.sql
+	$salida_sql = $db_name.'_'.$fecha.'.sql'; 
+	
+	//Comando para genera respaldo de MySQL, enviamos las variales de conexion y el destino
+	$dump = "mysqldump --h$db_host -u$db_user -p$db_pass --opt $db_name > $salida_sql";// verificar por que no me agarra los datos de la base de dato. ERROR mysqldum
+	system($dump, $output); //Ejecutamos el comando para respaldo
+	
+	$zip = new ZipArchive(); //Objeto de Libreria ZipArchive en php, crea el archivo ZIP
+	
+	//Construimos el nombre del archivo ZIP Ejemplo: nombredelaBD_20220101-081120.zip
+	$salida_zip = $db_name.'_'.$fecha.'.zip';
+	
+	if($zip->open($salida_zip,ZIPARCHIVE::CREATE)===true) { //Creamos y abrimos el archivo ZIP
+		$zip->addFile($salida_sql); //Agregamos el archivo SQL a ZIP
+		$zip->close(); //Cerramos el ZIP
+		unlink($salida_sql); //Eliminamos el archivo temporal SQL (se crea en la carpeta de la APP)
+		header ("Location: $salida_zip"); // Redireccionamos para descargar el Arcivo ZIP
+		} else {
+		echo 'Error'; //Enviamos el mensaje de error
+	}
+?>
 
+<!-- POSDATA BORRAR DE VITAS MODELO LOS INDICADORES 
 
-<!-- TABLA DE USUARIOS SIN BUSCADOR -->
-
-<!-- <div class="table-responsive">
-
-	<form action="buscar_usuario.php" method="get" class="" >
-		<input type="text" name="busqueda" id="busqueda" placeholder="Usuario a Buscar">
-		<input type="submit" value="buscar" class="btn_search">
-	</form>
-
-	<table class="table table-dark table-sm">
-		<thead>
-			<tr class="text-center roboto-medium">
-				<th>#</th>
-				<th>USUARIO</th>
-				<th>NOMBRE</th>
-				<th>ESTADO</th>
-				<th>ROL</th>
-				<th>CORREO</th>
-				<th>CREADO POR</th>
-				<th>ACTUALIZAR</th>
-				<th>ELIMINAR</th>
-			</tr>
-		</thead>
-		<?php
-			include ("./cone.php");
-			$sql="SELECT u.id_usuario, u.usuario, u.nombre_usuario, u.estado_usuario, u.correo_electronico,
-			u.creado_por, r.rol FROM TBL_usuarios u
-			inner JOIN TBL_ms_roles r ON u.id_rol = r.id_rol";
-			$result=mysqli_query($conexion,$sql);
-			while($mostrar=mysqli_fetch_assoc($result)){			
-		?>
-				<tbody>
-					<tr class="text-center" >
-						<td><?php echo $mostrar['id_usuario']?></td>
-						<td><?php echo $mostrar['usuario']?></td>
-						<td><?php echo $mostrar['nombre_usuario']?></td>
-						<td><?php echo $mostrar['estado_usuario']?></td>
-						<td><?php echo $mostrar['rol']?></td>
-						<td><?php echo $mostrar['correo_electronico']?></td>
-						<td><?php echo $mostrar['creado_por']?></td>
-						<td>
-						<a href="<?php echo SERVERURL; ?>user-update/<?php echo $mostrar['id_usuario']?>" class="btn btn-success">
-									<i class="fas fa-sync-alt"></i>	
-							</a>
-						</td>
-						<td>
-							<form class="FormularioAjax" action="<?php echo SERVERURL; ?>ajax/usuarioAjax.php" method="POST" data-form="delete" autocomplete="off">
-							<input type="hidden" pattern="" class="form-control" name="id_usuario_del" value="<?php echo $mostrar['id_usuario'] ?>">
-							<input type="hidden" pattern="" class="form-control" name="usuario_del" value="<?php echo $mostrar['usuario'] ?>">	
-							<button type="submit" class="btn btn-warning">
-										<i class="far fa-trash-alt"></i>
-								</button>
-							</form>
-						</td>
-					</tr>
-				</tbody>
-		<?php
-			}
-			
-		?>
-		
-	</table> -->
+|| $vistas=="info"
+y el indicador 
 
 
-	BUSCAR
+|| $vistas=="respaldo"
+SINO VAMOS A UTILIZAR ESTE ARCHIVO
+
+TAMBIEN DEL ARCHIVO PLANTILLA
 
 
-<!-- 	<div class="full-box page-header">
-	<h3 class="text-left">
-		<i class="fas fa-search fa-fw"></i> &nbsp; BUSCAR USUARIO
-	</h3>
-
-</div>
-
-<div class="container-fluid">
-	<ul class="full-box list-unstyled page-nav-tabs">
-		<li>
-			<a href="<?php echo SERVERURL; ?>user-new/"><i class="fas fa-plus fa-fw"></i> &nbsp; NUEVO USUARIO</a>
-		</li>
-		<li>
-			<a href="<?php echo SERVERURL; ?>user-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE USUARIOS</a>
-		</li>
-		<li>
-			<a class="active" href="<?php echo SERVERURL; ?>user-search/"><i class="fas fa-search fa-fw"></i> &nbsp; BUSCAR USUARIO</a>
-		</li>
-	</ul>	
-</div>
-
-<div class="container-fluid">
-	<form class="form-neon" action="">
-		<div class="container-fluid">
-			<div class="row justify-content-md-center">
-				<div class="col-12 col-md-6">
-					<div class="form-group">
-						<label for="inputSearch" class="bmd-label-floating">¿Qué usuario estas buscando?</label>
-						<input type="text" class="form-control" name="busqueda-" id="inputSearch" maxlength="30">
-					</div>
-				</div>
-				<div class="col-12">
-					<p class="text-center" style="margin-top: 40px;">
-						<button type="submit" class="btn btn-raised btn-info"><i class="fas fa-search"></i> &nbsp; BUSCAR</button>
-					</p>
-				</div>
-			</div>
-		</div>
-	</form>
-</div>
+TAMBIEN EL ARCHIVO info-view.php de la carpeta contenidos
 
 
-<div class="container-fluid">
-	<form action="">
-		<input type="hidden" name="eliminar-busqueda" value="eliminar">
-		<div class="container-fluid">
-			<div class="row justify-content-md-center">
-				<div class="col-12 col-md-6">
-					<p class="text-center" style="font-size: 20px;">
-						Resultados de la busqueda <strong>“Buscar”</strong>
-					</p>
-				</div>
-				<div class="col-12">
-					<p class="text-center" style="margin-top: 20px;">
-						<button type="submit" class="btn btn-raised btn-danger"><i class="far fa-trash-alt"></i> &nbsp; ELIMINAR BÚSQUEDA</button>
-					</p>
-				</div>
-			</div>
-		</div>
-	</form>
-</div>
-//////////////           APARTIR DE AQUI COMIENZA LA CONSULTA A LA BASE DE DATOS
-<div class="container-fluid">
-	<table class="table table-dark table-sm">
-		<thead>
-			<tr class="text-center roboto-medium">
-				<th>#</th>
-				<th>USUARIO</th>
-				<th>NOMBRE</th>
-				<th>ESTADO</th>
-				<th>ROL</th>
-				<th>CORREO</th>
-				<th>CREADO POR</th>
-				<th>ACTUALIZAR</th>
-				<th>ELIMINAR</th>
-			</tr>
-		</thead>
-		<?php
-			include ("./cone.php");
-			$sql="SELECT * FROM TBL_usuarios";
-			$result=mysqli_query($conexion,$sql);
-			while($mostrar=mysqli_fetch_array($result)){			
-		?>
-				<tbody>
-					<tr class="text-center" >
-						<td><?php echo $mostrar['id_usuario']?></td>
-						<td><?php echo $mostrar['usuario']?></td>
-						<td><?php echo $mostrar['nombre_usuario']?></td>
-						<td><?php echo $mostrar['estado_usuario']?></td>
-						<td><?php echo $mostrar['id_rol']?></td>
-						<td><?php echo $mostrar['correo_electronico']?></td>
-						<td><?php echo $mostrar['creado_por']?></td>
-						
-						<td>
-							<a href="user-update.html" class="btn btn-success">
-									<i class="fas fa-sync-alt"></i>	
-							</a>
-						</td>
-						<td>
-							<form action="">
-								<button type="button" class="btn btn-warning">
-										<i class="far fa-trash-alt"></i>
-								</button>
-							</form>
-						</td>
-					</tr>
-				</tbody>
-		<?php
-			}
-		?>
-	</table>
 
-</div>
-
-
-//* https://www.youtube.com/watch?v=aPG0FAc9GSU  *// -->
+-->

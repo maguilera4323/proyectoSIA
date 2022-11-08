@@ -4,9 +4,15 @@
 
 		/*--------- Modelo obtener vistas ---------*/
 		protected static function obtener_vistas_modelo($vistas){
+<<<<<<< HEAD
 			$listaBlanca=["bitacora","prueba","proveedor-list","proveedor-new","proveedor-update","client-update","company"
 			,"home","insumos-list","insumos-new","insumos-update","objetos-list","objetos-new","objetos-update","inventario-list","Producto-list","Producto-new",
 			"reservation-pending","Producto-search","Producto-update","user-list","rol-list","rol-new","rol-update",
+=======
+			$listaBlanca=["respaldo","rsp","bitacora","prueba","proveedor-list","proveedor-new","proveedor-update","client-update","company"
+			,"home","insumos-list","insumos-new","insumos-update","objetos-list","objetos-new","objetos-update","inventario-list","reservation-list","reservation-new",
+			"reservation-pending","reservation-search","reservation-update","user-list","rol-list","permisos-list",
+>>>>>>> d31a140e80d5a6f9f0f20410cfd00ca640eed614
 			"reservation-reservation","user-new","user-search","user-update","salir","compra-list","compra-new","compra-search","compra-detalle"];
 			if(in_array($vistas, $listaBlanca)){
 				if(is_file("./vistas/contenidos/".$vistas."-view.php")){
@@ -15,7 +21,7 @@
 					$contenido="404";
 				}
 			}elseif($vistas=="login" || $vistas=="index" || $vistas=="olvido-contrasena" || $vistas=="rec-correo" || $vistas=="rec-preguntas" || $vistas=="cambiocontrasena"
-			 || $vistas=="primer-ingreso" || $vistas=="verifica-codigo" || $vistas=="autoregistro" || $vistas=="preguntasusuario" || $vistas=="info" || $vistas=="respaldo"){
+			 || $vistas=="primer-ingreso" || $vistas=="verifica-codigo" || $vistas=="autoregistro" || $vistas=="preguntasusuario"){
 				switch($vistas){
 					case 'login':
 						$contenido="login";
@@ -47,17 +53,11 @@
 					case 'preguntasusuario':
 						$contenido="preguntasusuario";
 					break;
-					case 'info':
-						$contenido="info";
-					break;
-					case 'respaldo':
-						$contenido="respaldo";
-					break;
+					
 				}
 
 			}elseif($vistas=="login" || $vistas=="index" || $vistas=="prueba" || $vistas=="rec-correo" || $vistas=="rec-preguntas" || $vistas=="cambiocontrasena" 
-			|| $vistas=="primer-ingreso" || $vistas=="verifica-codigo" || $vistas=="autoregistro" || $vistas=="preguntasusuario" 
-			|| $vistas=="info" || $vistas=="respaldo"){
+			|| $vistas=="primer-ingreso" || $vistas=="verifica-codigo" || $vistas=="autoregistro" || $vistas=="preguntasusuario"){
 				$contenido="login";
 
 			}else{

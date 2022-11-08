@@ -62,11 +62,11 @@ if (session_status() == PHP_SESSION_NONE) {
 						<div class="form-group">
 							<label for="nombre_usuario" class="bmd-label-floating">Estado</label>
 							<select class="form-control" name="estado" disabled>
-								<option value="" disabled="">Seleccione una opción</option>
-								<option value="1">Activo</option>
+								<option value="" disabled>Seleccione una opción</option>
+							 	<option value="1">Activo</option>
 								<option value="2">Inactivo</option>
 								<option value="3">Bloqueado</option>
-								<option value="4" selected="">Nuevo</option>
+								<option value="4" selected="">Nuevo</option> 
 							</select>
 						</div>
 					</div>

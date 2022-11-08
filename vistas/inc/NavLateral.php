@@ -94,6 +94,10 @@
 						<li>
 							<a href="<?php echo SERVERURL; ?>rol-list/"><i class="fas fa-user-tie"></i> &nbsp; Roles</a>
 						</li>
+						<li>
+							<a href="<?php echo SERVERURL; ?>permisos-list/"><i class="fas fa-user-tie"></i> &nbsp; Permisos</a>
+						</li>
+						permisos-list
 					</ul>
 				</li>
 
@@ -103,6 +107,9 @@
 
 				<li>
 					<a href="<?php echo SERVERURL; ?>bitacora/"><i class="fas fa-book-reader"></i> &nbsp; Bitacora</a>
+				</li>
+				<li>
+					<a href="<?php echo SERVERURL; ?>respaldo/"><i class="fab fa-hackerrank"></i></i> &nbsp; Respaldo</a>
 				</li>
 				<?php
 				}?>
