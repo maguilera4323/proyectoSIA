@@ -81,6 +81,9 @@ if($dato -> num_rows >0){
 <td><?php echo $fila['tel_proveedor']; ?></td>
 <td><?php echo $fila['correo_proveedor']; ?></td>
 <td><?php echo $fila['dir_proveedor']; ?></td>
+<td> <img src="productos_img/<?php echo $fila['foto_produ']; ?>" style="width:150px; height:150px";></td> 
+
+
 <td>
 	<a href="<?php echo SERVERURL; ?>proveedor-update/<?php echo $fila['id_Proveedores']?>" class="btn btn-success">
 		<i class="fas fa-sync-alt"></i>	

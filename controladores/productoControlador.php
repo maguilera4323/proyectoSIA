@@ -22,7 +22,11 @@ class productoControlador extends productoModelo
 		$Id_Tipo_producto=mainModel::limpiar_cadena(strtoupper($_POST['id_tipo_producto_nuevo']));
 		$Descripcion=mainModel::limpiar_cadena($_POST['descripcion_producto_nuevo']);
 		$Precio=mainModel::limpiar_cadena($_POST['precio_producto_nuevo']);
-		$Foto=mainModel::limpiar_cadena($_POST['foto_producto_nuevo']);
+ 
+		$archivo=($_FILES['imagen']);//ADQUIERE LA IMAGEN
+		$extencion=pathinfo($archivo['name'],PATHINFO_EXTENSION);//CAPTURA LA EXTENCION DEL ARCHIVO
+		$Foto=$Nom_producto.".".$extencion;  //este sera el nombre de la imagen y esta es la variable que se usa para cargar en la BD
+		move_uploaded_file($archivo["tmp_name"], "./productos_img/$Foto");
 		
 					
 			/*== AGREGAR PRODUCTO ==*/
@@ -89,7 +93,7 @@ class productoControlador extends productoModelo
 
 
 			/*== Verificando integridad de los datos ==*/
-			if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ ]{1,30}",$Non_producto)){
+			if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ ]{1,30}",$Nom_producto)){
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",

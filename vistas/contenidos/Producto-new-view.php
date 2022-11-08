@@ -20,7 +20,7 @@
 </div>
 
 <div class="container-fluid">
-	<form action="<?php echo SERVERURL; ?>ajax/productoAjax.php" class="form-neon FormularioAjax" method="POST" data-form="save" autocomplete="off">
+	<form action="<?php echo SERVERURL; ?>ajax/productoAjax.php" class="form-neon FormularioAjax" method="POST" enctype="multipart/for-data" data-form="save" autocomplete="off">
 		<fieldset>
 			<legend><i class="fas fa-user"></i> &nbsp; Información básica</legend>
 			<div class="container-fluid">
@@ -53,6 +53,13 @@
 						<div class="form-group">
 							<label for="cliente_direccion" class="bmd-label-floating">Dirección</label>
 							<input type="text" class="form-control" name="direccion_proveedor_nuevo" id="cliente_direccion" maxlength="150">
+						</div>
+					</div>
+
+					<div class="col-12 col-md-4">
+						<div class="form-group">
+							<label for="archivo" class="bmd-label-floating">Agregar Imagen</label>
+							<input type="file" class="form-control" name="imagen" id="imagen" accept="image/*">
 						</div>
 					</div>
 				</div>
