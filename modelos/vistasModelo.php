@@ -7,7 +7,7 @@
 
 			$listaBlanca=["respaldo","bitacora","prueba","proveedor-list","proveedor-new","proveedor-update","client-update","company"
 			,"home","insumos-list","insumos-new","insumos-update","objetos-list","objetos-new","objetos-update","inventario-list","producto-list","producto-new",
-			"reservation-pending","reservation-search","producto-update","user-list","rol-list","permisos-list","reservation-reservation","user-new","user-search","user-update","salir","compra-list","compra-new","compra-search","compra-detalle"];
+			"reservation-pending","reservation-search","producto-update","user-list","rol-list","permisos-list","reservation-reservation","user-new","user-search","user-update","salir","compra-list","compra-new","compra-search","compra-detalle", "parametros-list"];
 			if(in_array($vistas, $listaBlanca)){
 				if(is_file("./vistas/contenidos/".$vistas."-view.php")){
 					$contenido="./vistas/contenidos/".$vistas."-view.php";

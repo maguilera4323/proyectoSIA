@@ -97,6 +97,9 @@
 						<li>
 							<a href="<?php echo SERVERURL; ?>permisos-list/"><i class="fas fa-user-tie"></i> &nbsp; Permisos</a>
 						</li>
+						<li>
+							<a href="<?php echo SERVERURL; ?>parametros-list/"><i class="fas fa-user-tie"></i> &nbsp; Parametros</a>
+						</li>
 						permisos-list
 					</ul>
 				</li>
