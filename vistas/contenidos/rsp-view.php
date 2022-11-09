@@ -66,7 +66,7 @@ if(!empty($sqlScript))
     fclose($fileHandler); 
 
     // Descarga el archivo de copia de seguridad de SQL en el navegador
-/*     header('Content-Description: File Transfer');
+    header('Content-Description: File Transfer');
     header('Content-Type: application/octet-stream');
     header('Content-Disposition: attachment; filename=' . basename($backup_file_name));
     header('Content-Transfer-Encoding: binary');
@@ -77,5 +77,5 @@ if(!empty($sqlScript))
     ob_clean();
     flush();
     readfile($backup_file_name);
-    exec('rm ' . $backup_file_name);  */
+    exec('rm ' . $backup_file_name); 
 }

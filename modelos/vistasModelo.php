@@ -5,7 +5,7 @@
 		/*--------- Modelo obtener vistas ---------*/
 		protected static function obtener_vistas_modelo($vistas){
 
-			$listaBlanca=["respaldo","rsp","bitacora","prueba","proveedor-list","proveedor-new","proveedor-update","client-update","company"
+			$listaBlanca=["respaldo","bitacora","prueba","proveedor-list","proveedor-new","proveedor-update","client-update","company"
 			,"home","insumos-list","insumos-new","insumos-update","objetos-list","objetos-new","objetos-update","inventario-list","producto-list","producto-new",
 			"reservation-pending","reservation-search","producto-update","user-list","rol-list","permisos-list","reservation-reservation","user-new","user-search","user-update","salir","compra-list","compra-new","compra-search","compra-detalle"];
 			if(in_array($vistas, $listaBlanca)){
@@ -15,7 +15,7 @@
 					$contenido="404";
 				}
 			}elseif($vistas=="login" || $vistas=="index" || $vistas=="olvido-contrasena" || $vistas=="rec-correo" || $vistas=="rec-preguntas" || $vistas=="cambiocontrasena"
-			 || $vistas=="primer-ingreso" || $vistas=="verifica-codigo" || $vistas=="autoregistro" || $vistas=="preguntasusuario"){
+			 || $vistas=="primer-ingreso" || $vistas=="verifica-codigo" || $vistas=="autoregistro" || $vistas=="preguntasusuario" || $vistas=="rsp"){
 				switch($vistas){
 					case 'login':
 						$contenido="login";
@@ -47,15 +47,20 @@
 					case 'preguntasusuario':
 						$contenido="preguntasusuario";
 					break;
+					case 'rsp':
+						$contenido="rsp";
+					break;
+					
 					
 				}
 
 			}elseif($vistas=="login" || $vistas=="index" || $vistas=="prueba" || $vistas=="rec-correo" || $vistas=="rec-preguntas" || $vistas=="cambiocontrasena" 
-			|| $vistas=="primer-ingreso" || $vistas=="verifica-codigo" || $vistas=="autoregistro" || $vistas=="preguntasusuario"){
+			|| $vistas=="primer-ingreso" || $vistas=="verifica-codigo" || $vistas=="autoregistro" || $vistas=="preguntasusuario" || $vistas=="rsp"){
 				$contenido="login";
 
 			}else{
 				$contenido="404";
+				$contenido="rsp";
 			}
 			return $contenido;
 		}
