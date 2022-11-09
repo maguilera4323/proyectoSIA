@@ -66,8 +66,8 @@
 
 		<?php
 			include ("./cone.php");              
-			$SQL="SELECT r.rol, o.objeto, p.permiso_insercion,p.permiso_actualizacion,
-			p.permiso_eliminacion, p.permiso_consulta FROM TBL_permisos p
+			$SQL="SELECT r.id_rol,r.rol, o.objeto, p.permiso_insercion,p.permiso_actualizacion,
+			p.permiso_eliminacion, p.permiso_consulta,o.id_objeto FROM TBL_permisos p
 					inner JOIN TBL_ms_roles r ON r.id_rol = p.id_rol
 					inner JOIN TBL_objetos o ON o.id_objeto = p.id_objeto;
 			$where";
@@ -80,53 +80,108 @@
 		<tr>
 			<td><?php echo $fila['rol']; ?></td>
 			<td><?php echo $fila['objeto']; ?></td>
-			<td><?php echo $fila['permiso_insercion']; ?></td>
-			<td><?php echo $fila['permiso_actualizacion']; ?></td>
+			<?php
+				if($fila['permiso_insercion']==1){
+			?>
+			<td><i class="fas fa-check"></i></td>
+			<?php
+				}else{
+			?>
+			<td><i class="fas fa-ban" style="color: red;"></i></td>
+			<?php
+				}
+			?>
+			<?php
+				if($fila['permiso_insercion']==1){
+			?>
+			<td><i class="fas fa-check"></i></td>
+			<?php
+				}else{
+			?>
+			<td><i class="fas fa-ban" style="color: red;"></i></td>
+			<?php
+				}
+			?>
+			<?php
+				if($fila['permiso_actualizacion']==1){
+			?>
+			<td><i class="fas fa-check"></i></td>
+			<?php
+				}else{
+			?>
+			<td><i class="fas fa-ban" style="color: red;"></i></td>
+			<?php
+				}
+			?>
+			<?php
+				if($fila['permiso_consulta']==1){
+			?>
+			<td><i class="fas fa-check"></i></td>
+			<?php
+				}else{
+			?>
+			<td><i class="fas fa-ban" style="color: red;"></i></td>
+			<?php
+				}
+			?>
+		<!-- 	<td><?php echo $fila['permiso_actualizacion']; ?></td>
 			<td><?php echo $fila['permiso_eliminacion']; ?></td>
-			<td><?php echo $fila['permiso_consulta']; ?></td>
+			<td><?php echo $fila['permiso_consulta']; ?></td> -->
 			<td>
-				<div class="btn btn-success" data-toggle="modal" data-target="#ModalActualizar">
+				<div class="btn btn-success" data-toggle="modal" data-target="#ModalActualizar<?php echo $fila['id_rol'];?><?php echo $fila['id_objeto'];?>">
 					<i class="fas fa-sync-alt"> </i>
 				</div>
 						<!-- Modal actualizar-->
-						<div class="modal fade" id="ModalActualizar<?php echo $fila['id_objeto'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal fade" id="ModalActualizar<?php echo $fila['id_rol'];?><?php echo $fila['id_objeto'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							<div class="modal-dialog" role="document">
 								<div class="modal-content">
 								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLabel">Actualizar Objeto</h5>
+									<h5 class="modal-title" id="exampleModalLabel">Actualizar Permiso</h5>
 									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 									</button>
 								</div>
 								<div class="modal-body">
-									<form action="<?php echo SERVERURL; ?>ajax/objetoAjax.php" class="FormularioAjax" method="POST" data-form="save" autocomplete="off">
+								<div class="modal-body ">
+									<form action="<?php echo SERVERURL; ?>ajax/permisoAjax.php" class="FormularioAjax" method="POST" data-form="save" autocomplete="off">
+									<div class="form-group">
+										<input type="hidden" class="form-control" name="id_objeto" value="<?php echo $fila['id_objeto']?>">
+										<input type="hidden" class="form-control" name="id_rol" value="<?php echo $fila['id_rol']?>">
+									</div>
+									<div class="form-group">
+										<label>Rol</label>
+										<select class="form-control" name="rol_act" required>
+											<option value="1">Admin Sistema</option>
+										</select>
+									</div>
+									<div class="form-group">
+										<label>Objeto</label>
+										<select class="form-control" name="objeto_act" required>
+											<option value="1">Home</option>
+										</select>
+									</div>
+									<div class="form-group">
 										<div class="form-group">
-										<label class="bmd-label-floating">Nombre del Objeto</label>
-											<input type="text" class="form-control" name="objeto_act" id="cliente_dni" maxlength="27" 
-											value="<?php echo $fila['objeto']?>" required>
-										</div>
-										<div class="form-group">
-										<label class="bmd-label-floating">Descripción</label>
-											<input type="text" class="form-control" name="desc_objeto_act" id="cliente_dni" maxlength="100" 
-											value="<?php echo $fila['descripcion']?>" required>
-											<input type="hidden" class="form-control" name="id_actualizacion" value="<?php echo $fila['id_objeto']?>">
-										</div>
-										<div class="form-group">
-											<div class="form-group">
-											<label class="bmd-label-floating">Tipo de Objeto</label>
-											<select class="form-control" name="tipo_objeto_act">
-												<option value="1">Home</option>
-												<option value="2">Proveedores</option>
-												<option value="3">Insumos</option>
-												<option value="4">Productos</option>
-												<option value="5">Compras</option>
-												<option value="6">Facturación</option>
-												<option value="7">Mantenimiento</option>
-											</select>
+										<label>Permisos</label>
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" name="insertar_permiso_act" value="1" id="defaultCheck1">
+											<label class="form-check-label" for="defaultCheck1" value="<?php echo $fila['permiso_insercion']?>">Insertar</label>
 											</div>
-										</div>
-										<button type="submit" class="btn btn-primary">Guardar</button>
-										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+											<div class="form-check">
+											<input class="form-check-input" type="checkbox" name="actualizar_permiso_act" value="1" id="defaultCheck1">
+											<label class="form-check-label" for="defaultCheck1">Actualizar</label>
+											</div>
+											<div class="form-check">
+											<input class="form-check-input" type="checkbox" name="eliminar_permiso_act" value="1" id="defaultCheck1">
+											<label class="form-check-label" for="defaultCheck1">Eliminar</label>
+											</div>
+											<div class="form-check">
+											<input class="form-check-input" type="checkbox" name="consultar_permiso_act" value="1" id="defaultCheck1">
+											<label class="form-check-label" for="defaultCheck1">Consultar</label>
+											</div>
+											</div>
+											<button type="submit" class="btn btn-primary text-center">Guardar</button>
+											<button type="button" class="btn btn-secondary text-center" data-dismiss="modal">Cerrar</button>
 										</form>
 									</div>
 								</div>
@@ -134,8 +189,9 @@
 					</div>
 			</td>
 			<td>
-				<form class="FormularioAjax" action="<?php echo SERVERURL; ?>ajax/objetoAjax.php" method="POST" data-form="delete" autocomplete="off">
-				<input type="hidden" pattern="" class="form-control" name="id_objeto_del" value="">
+				<form class="FormularioAjax" action="<?php echo SERVERURL; ?>ajax/permisoAjax.php" method="POST" data-form="delete" autocomplete="off">
+				<input type="hidden" pattern="" class="form-control" name="id_objeto_del" value="<?php echo $fila['id_objeto'] ?>">
+				<input type="hidden" pattern="" class="form-control" name="id_rol_del" value="<?php echo $fila['id_rol'] ?>">
 				<button type="submit" class="btn btn-warning">
 					<i class="far fa-trash-alt"></i>
 				</button>
@@ -177,8 +233,8 @@
 			<div class="form-group">
 				<label>Rol</label>
 				<select class="form-control" name="rol_nuevo" required>
-								<option value="" selected="" disabled="">Seleccione una opción</option>
-								<option value="1">Admin Sistema</option>
+					<option value="" selected="" disabled="">Seleccione una opción</option>
+					<option value="1">Admin Sistema</option>
 				</select>
 			</div>
 			<div class="form-group">

@@ -87,14 +87,34 @@ class permisoControlador extends permisoModelo
 
 
 	/*--------- Controlador actualizar usuario ---------*/
-	public function actualizarObjeto()
+	public function actualizarPermiso()
 	{	
+		$nom_rol=mainModel::limpiar_cadena(strtoupper($_POST['rol_act']));
 		$nom_objeto=mainModel::limpiar_cadena(strtoupper($_POST['objeto_act']));
-		$descripcion=mainModel::limpiar_cadena($_POST['desc_objeto_act']);
-		$tipo=mainModel::limpiar_cadena($_POST['tipo_objeto_act']);
+		if(!isset($_POST['insertar_permiso_act'])){
+			$insertar_permiso=0;
+		}else{
+			$insertar_permiso=mainModel::limpiar_cadena($_POST['insertar_permiso_act']);
+		}
+		if(!isset($_POST['actualizar_permiso_act'])){
+			$actualizar_permiso=0;
+		}else{
+			$actualizar_permiso=mainModel::limpiar_cadena($_POST['actualizar_permiso_act']);
+		}
+		if(!isset($_POST['eliminar_permiso_act'])){
+			$eliminar_permiso=0;
+		}else{
+			$eliminar_permiso=mainModel::limpiar_cadena($_POST['eliminar_permiso_act']);
+		}
+		if(!isset($_POST['consultar_permiso_act'])){
+			$consultar_permiso=0;
+		}else{
+			$consultar_permiso=mainModel::limpiar_cadena($_POST['consultar_permiso_act']);
+		}
 		$modificado=$_SESSION['usuario_login'];
 		$fec_modificacion=date('y-m-d H:i:s');
-		$id_actualizar=mainModel::limpiar_cadena($_POST['id_actualizacion']);
+		$id_rol_actualizar=mainModel::limpiar_cadena($_POST['id_objeto']);
+		$id_objeto_actualizar=mainModel::limpiar_cadena($_POST['id_rol']);
 		
 		/* if($Nombre=="" || $Rtn=="" || $Telefono=="" || $Correo=="" || $Direccion==""){
 			$alerta=[
@@ -164,22 +184,23 @@ class permisoControlador extends permisoModelo
 				exit();
 			} */
 		
-			$datos_objeto_act=[
-				"nombre"=>$nom_objeto,
-				"desc"=>$descripcion,
-				"tipo"=>$tipo,
+			$datos_permiso_act=[
+				"ins"=>$insertar_permiso,
+				"act"=>$actualizar_permiso,
+				"eli"=>$eliminar_permiso,
+				"cons"=>$consultar_permiso,
 				"modif"=>$modificado,
 				"fecha_modif"=>$fec_modificacion
 			];
 
-			$actualizar_objeto=objetoModelo::actualizar_objeto_modelo($datos_objeto_act,$id_actualizar);
+			$actualizar_permiso=permisoModelo::actualizar_permiso_modelo($datos_permiso_act,$id_rol_actualizar,$id_objeto_actualizar);
 
-			if($actualizar_objeto->rowCount()==1)
+			if($actualizar_permiso->rowCount()==1)
 			{
 				$alerta=[
 					"Alerta"=>"recargar",
-					"Titulo"=>"Objeto Actualizado",
-					"Texto"=>"Objeto actualizado exitosamente",
+					"Titulo"=>"Permiso Actualizado",
+					"Texto"=>"Permiso actualizado exitosamente",
 					"Tipo"=>"success"
 				];
 			}else
@@ -187,7 +208,7 @@ class permisoControlador extends permisoModelo
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"No hemos podido actualizar el objeto",
+					"Texto"=>"No hemos podido actualizar el Permiso",
 					"Tipo"=>"error"
 				];
 			}
@@ -212,15 +233,15 @@ class permisoControlador extends permisoModelo
 	
 
 		//funcion para eliminar un proveedor
-		public function eliminarObjeto()
-		{
-			$id=mainModel::limpiar_cadena(($_POST['id_objeto_del']));
+		public function eliminarPermiso(){
+			$idrol=mainModel::limpiar_cadena(($_POST['id_rol_del']));
+			$idobj=mainModel::limpiar_cadena(($_POST['id_objeto_del']));
 			$array=array();
 			$valor='';
 
 		//verifica que el insumo si exista en el sistema
 		$check_objeto=mainModel::ejecutar_consulta_simple("SELECT id_objeto FROM TBL_objetos
-		WHERE id_objeto='$id'");
+		WHERE id_objeto='$idobj'");
 		if($check_objeto->rowCount()<=0){
 			$alerta=[
 				"Alerta"=>"simple",
@@ -232,13 +253,26 @@ class permisoControlador extends permisoModelo
 			exit();
 		}
 
+		$check_rol=mainModel::ejecutar_consulta_simple("SELECT id_rol FROM TBL_ms_roles
+		WHERE id_rol='$idrol'");
+		if($check_rol->rowCount()<=0){
+			$alerta=[
+				"Alerta"=>"simple",
+				"Titulo"=>"Ha ocurrido un error",
+				"Texto"=>"El rol seleccionado no existe",
+				"Tipo"=>"error"
+			];
+			echo json_encode($alerta);
+			exit();
+		}
+
 		
-		$eliminarobjeto=objetoModelo::eliminar_objeto_modelo($id);
-			if($eliminarobjeto->rowCount()==1){
+		$eliminarpermiso=permisoModelo::eliminar_permiso_modelo($idrol,$idobj);
+			if($eliminarpermiso->rowCount()==1){
 				$alerta=[
 					"Alerta"=>"recargar",
-					"Titulo"=>"Objeto Borrado",
-					"Texto"=>"El objeto fue borrado del sistema",
+					"Titulo"=>"Permiso Borrado",
+					"Texto"=>"El permiso fue borrado del sistema",
 					"Tipo"=>"success"
 				];
                 echo json_encode($alerta);
@@ -247,8 +281,8 @@ class permisoControlador extends permisoModelo
                     "id_objeto" => 0,
                     "fecha" => date('Y-m-d H:i:s'),
                     "id_usuario" => $_SESSION['id_login'],
-                    "accion" => "Objeto eliminado",
-                    "descripcion" => "El usuario ".$_SESSION['usuario_login']." eliminó un objeto del sistema"
+                    "accion" => "Permiso eliminado",
+                    "descripcion" => "El usuario ".$_SESSION['usuario_login']." eliminó un permiso del sistema"
                 ];
                 Bitacora::guardar_bitacora($datos_bitacora);
                 exit();
@@ -256,7 +290,7 @@ class permisoControlador extends permisoModelo
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ha ocurrido un error",
-					"Texto"=>"El objeto no pudo ser borrado",
+					"Texto"=>"El permiso no pudo ser borrado",
 					"Tipo"=>"error"
 				];
 			}

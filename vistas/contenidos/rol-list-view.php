@@ -54,7 +54,6 @@
             <th>ID</th>
             <th>ROL</th>
             <th>DESCRIPCION</th>
-            <th>CREADO POR</th>
             <th>ACTUALIZAR</th>
 			<th>ELIMINAR</th>
             </tr>
@@ -75,7 +74,6 @@
 			<td><?php echo $fila['id_rol']; ?></td>
 			<td><?php echo $fila['rol']; ?></td>
 			<td><?php echo $fila['descripcion']; ?></td>
-			<td><?php echo $fila['creado_por']; ?></td>
 			<td>
 				<div class="btn btn-success" data-toggle="modal" data-target="#ModalActualizar<?php echo $fila['id_rol'];?>">
 					<i class="fas fa-sync-alt"> </i>

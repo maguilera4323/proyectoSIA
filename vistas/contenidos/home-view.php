@@ -19,7 +19,7 @@
 </div>
 
 <?php 
-	if($_SESSION['rol']=='Admin Sistema'){
+	if($_SESSION['rol']=='ADMIN SISTEMA'){
 ?>
 	<!-- Content -->
 	<div class="full-box tile-container">
@@ -131,7 +131,7 @@
 }?>
 
 <?php 
-	if($_SESSION['rol']=='Admin Inv.'){
+	if($_SESSION['rol']=='ADMIN INVENTARIO'){
 ?>
 	<!-- Content -->
 	<div class="full-box tile-container">

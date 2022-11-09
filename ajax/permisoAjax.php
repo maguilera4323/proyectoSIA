@@ -2,7 +2,7 @@
 	$peticionAjax=true;
 	require_once "../config/APP.php";
 
-	if(isset($_POST['objeto_nuevo']) || isset($_POST['objeto_act']) || isset($_POST['id_objeto_del']))
+	if(isset($_POST['objeto_nuevo']) || isset($_POST['rol_act']) || isset($_POST['id_objeto_del']))
 	{
 		/*--------- Instancia al controlador ---------*/
 		require_once "../controladores/permisoControlador.php";
@@ -15,13 +15,13 @@
 			die();
 		}
 		
-		if(isset($_POST['objeto_act']) ){
-			echo $ins_objeto->actualizarObjeto();
+		if(isset($_POST['rol_act']) ){
+			echo $ins_permiso->actualizarPermiso();
 			die();
 		}
 		
 		if(isset($_POST['id_objeto_del']) ){
-			echo $ins_objeto->eliminarObjeto();
+			echo $ins_permiso->eliminarPermiso();
 			die();
 		}
 	}

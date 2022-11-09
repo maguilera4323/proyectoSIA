@@ -17,7 +17,7 @@
 			<!-- Condicionales para mostrar vistas en navlateral -->
 			<!-- Para usuario Administrador -->
 			<?php 
-			if($_SESSION['rol']=='Admin Sistema'){
+			if($_SESSION['rol']=='ADMIN SISTEMA'){
 				?>
 				<li>
 					<a href="<?php echo SERVERURL; ?>home/"><i class="fab fa-dashcube fa-fw"></i> &nbsp; Inicio</a>
@@ -117,7 +117,7 @@
 
 			<!-- Para usuario Administrador de Inventario -->
 			<?php 
-			if($_SESSION['rol']=='Admin Inv.'){
+			if($_SESSION['rol']=='ADMIN INVENTARIO'){
 				?>
 				<li>
 					<a href="<?php echo SERVERURL; ?>home/"><i class="fab fa-dashcube fa-fw"></i> &nbsp; Inicio</a>
