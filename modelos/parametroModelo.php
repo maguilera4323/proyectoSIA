@@ -21,7 +21,7 @@
 		}
 
 
-		/*--------- Modelo actualizar proveedor ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
+		/*--------- Modelo actualizar parametro ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
 		protected static function actualizar_parametro_modelo($datos,$id)
 		{
 			$sql=mainModel::conectar()->prepare("UPDATE TBL_ms_parametros SET parametro=?,valor=?, id_usuario=?,
@@ -36,7 +36,7 @@
 			return $sql;
 		}
 
-		
+		/*--------- Modelo eliminar parametro ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
 		 protected static function eliminar_parametro_modelo($id){
 				$sql=mainModel::conectar()->prepare("DELETE FROM TBL_ms_parametros where id_parametro=?");
 				$sql->bindParam(1,$id);

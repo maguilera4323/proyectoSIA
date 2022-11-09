@@ -100,6 +100,9 @@
 						<li>
 							<a href="<?php echo SERVERURL; ?>parametros-list/"><i class="fas fa-user-tie"></i> &nbsp; Parametros</a>
 						</li>
+						<li>
+							<a href="<?php echo SERVERURL; ?>preguntas-list/"><i class="fas fa-user-tie"></i> &nbsp; Preguntas</a>
+						</li>
 						permisos-list
 					</ul>
 				</li>

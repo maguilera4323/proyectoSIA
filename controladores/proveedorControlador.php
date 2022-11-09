@@ -66,7 +66,7 @@ class proveedorControlador extends proveedorModelo
 	} /* Fin controlador */
 
 
-	/*--------- Controlador actualizar usuario ---------*/
+	/*--------- Controlador actualizar proveedor ---------*/
 	public function actualizar_proveedor_controlador()
 	{	
 		$id_actualizar=mainModel::limpiar_cadena($_POST['id_actualizacion']);
@@ -207,7 +207,7 @@ class proveedorControlador extends proveedorModelo
 
 		
 
-		//verifica que el usuario si exista en el sistema
+		//verifica que el proveedor si exista en el sistema
 		$check_proveedor=mainModel::ejecutar_consulta_simple("SELECT id_Proveedores FROM TBL_Proveedores
 		WHERE id_Proveedores='$id'");
 		if($check_proveedor->rowCount()<=0){
@@ -243,8 +243,8 @@ class proveedorControlador extends proveedorModelo
 			"id_objeto" => 0,
 			"fecha" => date('Y-m-d H:i:s'),
 			"id_usuario" => $_SESSION['id_login'],
-			"accion" => "Usuario inactivado",
-			"descripcion" => "El usuario ".$_SESSION['usuario_login']." eliminó un usuario del sistema"
+			"accion" => "Proveedor eliminado",
+			"descripcion" => "El usuario ".$_SESSION['usuario_login']." eliminó un proveedor del sistema"
 		];
 		Bitacora::guardar_bitacora($datos_bitacora);
 			exit();

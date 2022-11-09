@@ -4,40 +4,37 @@
 } 
 
 if($peticionAjax){
-	require_once "../modelos/parametroModelo.php";
+	require_once "../modelos/preguntasModelo.php";
 	require_once "../pruebabitacora.php";
 }else{
-	require_once "./modelos/parametroModelo.php";
+	require_once "./modelos/preguntasModelo.php";
 	require_once "./pruebabitacora.php";//aqui se ejecuta dentro del index y no se utiliza Ajax
 }
 
 
-class parametroControlador extends parametroModelo
+class preguntasControlador extends preguntasModelo
 {
 
-	/*--------- Controlador agregar parametro ---------*/
-	public function agregarParametro()
+	/*--------- Controlador agregar pregunta ---------*/
+	public function agregarPregunta()
 	{
-		$nom_parametro=mainModel::limpiar_cadena(strtoupper($_POST['nombre_parametro_nuevo']));
-		$valor=mainModel::limpiar_cadena($_POST['valor_parametro_nuevo']);
+		$nom_pregunta=mainModel::limpiar_cadena(strtoupper($_POST['nombre_pregunta_nuevo']));
 		$creado=$_SESSION['usuario_login'];
 		$fec_creacion=date('y-m-d H:i:s');
 
-			$datos_parametro_reg=[
-				"nombre"=>$nom_parametro,
-				"valor"=>$valor,
-				"id_usuario" => $_SESSION['id_login'],
+			$datos_pregunta_reg=[
+				"nombre"=>$nom_pregunta,
 				"creado"=>$creado,
 				"fecha_crea"=>$fec_creacion
 			];
 
-			$agregar_parametro=parametroModelo::agregar_parametro_modelo($datos_parametro_reg);
+			$agregar_pregunta=preguntasModelo::agregar_pregunta_modelo($datos_pregunta_reg);
 
-			if($agregar_parametro->rowCount()==1){
+			if($agregar_pregunta->rowCount()==1){
 				$alerta=[
 					"Alerta"=>"recargar",
-					"Titulo"=>"Parametro Registrado",
-					"Texto"=>"Los datos del parametro han sido registrados con exito",
+					"Titulo"=>"Pregunta Registrada",
+					"Texto"=>"Los datos de la pregunta han sido registrados con exito",
 					"Tipo"=>"success"
 				];
 
@@ -46,7 +43,7 @@ class parametroControlador extends parametroModelo
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"No hemos podido registrar el parametro",
+					"Texto"=>"No hemos podido registrar la pregunta",
 					"Tipo"=>"error"
 				];
 			}
@@ -56,18 +53,17 @@ class parametroControlador extends parametroModelo
 				"id_objeto" => 0,
 				"fecha" => date('Y-m-d H:i:s'),
 				"id_usuario" => $_SESSION['id_login'],
-				"accion" => "Creación de Parametro",
-				"descripcion" => "El usuario ".$_SESSION['usuario_login']." creó un nuevo parametro en el sistema"
+				"accion" => "Creación de Pregunta",
+				"descripcion" => "El usuario ".$_SESSION['usuario_login']." creó una nueva pregunta en el sistema"
 			];
 			Bitacora::guardar_bitacora($datos_bitacora); 
 	} /* Fin controlador */
 
 
-	/*--------- Controlador actualizar parametro ---------*/
-	public function actualizarParametro()
+	/*--------- Controlador actualizar pregunta ---------*/
+	public function actualizarPregunta()
 	{	
-		$nom_parametro=mainModel::limpiar_cadena(strtoupper($_POST['nombre_parametro_act']));
-		$valor=mainModel::limpiar_cadena($_POST['valor_parametro_act']);
+		$nom_pregunta=mainModel::limpiar_cadena(strtoupper($_POST['nombre_pregunta_act']));
 		$modificado=$_SESSION['usuario_login'];
 		$fec_modificacion=date('y-m-d H:i:s');
 		$id_actualizar=mainModel::limpiar_cadena($_POST['id_actualizacion']);
@@ -139,22 +135,20 @@ class parametroControlador extends parametroModelo
 				echo json_encode($alerta);
 				exit();
 			} */
-			$datos_parametro_act=[
-				"nombre"=>$nom_parametro,
-				"valor"=>$valor,
-				"id_usuario" => $_SESSION['id_login'],
+			$datos_pregunta_act=[
+				"nombre"=>$nom_pregunta,
 				"modif"=>$modificado,
 				"fecha_modif"=>$fec_modificacion
 			];
 
-			$actualizar_parametro=parametroModelo::actualizar_parametro_modelo($datos_parametro_act,$id_actualizar);
+			$actualizar_pregunta=preguntasModelo::actualizar_pregunta_modelo($datos_pregunta_act,$id_actualizar);
 
-			if($actualizar_parametro->rowCount()==1)
+			if($actualizar_pregunta->rowCount()==1)
 			{
 				$alerta=[
 					"Alerta"=>"recargar",
-					"Titulo"=>"Parametro Actualizado",
-					"Texto"=>"Parametro actualizado exitosamente",
+					"Titulo"=>"Pregunta Actualizada",
+					"Texto"=>"Pregunta actualizada exitosamente",
 					"Tipo"=>"success"
 				];
 			}else
@@ -162,7 +156,7 @@ class parametroControlador extends parametroModelo
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"No hemos podido actualizar el parametro",
+					"Texto"=>"No hemos podido actualizar la pregunta",
 					"Tipo"=>"error"
 				];
 			}
@@ -172,27 +166,28 @@ class parametroControlador extends parametroModelo
 				"id_objeto" => 0,
 				"fecha" => date('Y-m-d H:i:s'),
 				"id_usuario" => $_SESSION['id_login'],
-				"accion" => "Modificación de Parametro",
-				"descripcion" => "El usuario ".$_SESSION['usuario_login']." actualizó un parametro del sistema"
+				"accion" => "Modificación de Pregunta",
+				"descripcion" => "El usuario ".$_SESSION['usuario_login']." actualizó una pregunta del sistema"
 			];
 			Bitacora::guardar_bitacora($datos_bitacora); 
 	} /* Fin controlador */
 	
 
 	
-		//funcion para eliminar un parametro
-		public function eliminarParametro()
-		{
-			$id=mainModel::limpiar_cadena(($_POST['id_parametro_del']));
+		//funcion para eliminar una pregunta
 
-		//verifica que el parametro si exista en el sistema
-		$check_parametro=mainModel::ejecutar_consulta_simple("SELECT id_parametro FROM TBL_ms_parametros
-		WHERE id_parametro='$id'");
-		if($check_parametro->rowCount()<=0){
+		public function eliminarPregunta()
+		{
+			$id=mainModel::limpiar_cadena(($_POST['id_pregunta_del']));
+
+		//verifica que la pregunta si exista en el sistema
+		$check_pregunta=mainModel::ejecutar_consulta_simple("SELECT id_pregunta FROM TBL_preguntas
+		WHERE id_pregunta='$id'");
+		if($check_pregunta->rowCount()<=0){
 			$alerta=[
 				"Alerta"=>"simple",
 				"Titulo"=>"Ha ocurrido un error",
-				"Texto"=>"El parametro seleccionado no existe",
+				"Texto"=>"La pregunta seleccionada no existe",
 				"Tipo"=>"error"
 			];
 			echo json_encode($alerta);
@@ -200,12 +195,12 @@ class parametroControlador extends parametroModelo
 		}
 
 		
-		$eliminarparametro=parametroModelo::eliminar_parametro_modelo($id);
-			if($eliminarparametro->rowCount()==1){
+		$eliminarpregunta=preguntasModelo::eliminar_pregunta_modelo($id);
+			if($eliminarpregunta->rowCount()==1){
 				$alerta=[
 					"Alerta"=>"recargar",
-					"Titulo"=>"Parametro Borrado",
-					"Texto"=>"El parametro fue borrado del sistema",
+					"Titulo"=>"Pregunta Borrada",
+					"Texto"=>"La pregunta fue borrada del sistema",
 					"Tipo"=>"success"
 				];
                 echo json_encode($alerta);
@@ -214,8 +209,8 @@ class parametroControlador extends parametroModelo
                     "id_objeto" => 0,
                     "fecha" => date('Y-m-d H:i:s'),
                     "id_usuario" => $_SESSION['id_login'],
-                    "accion" => "Parametro eliminado",
-                    "descripcion" => "El usuario ".$_SESSION['usuario_login']." eliminó un parametro del sistema"
+                    "accion" => "Pregunta eliminada",
+                    "descripcion" => "El usuario ".$_SESSION['usuario_login']." eliminó una pregunta del sistema"
                 ];
                 Bitacora::guardar_bitacora($datos_bitacora);
                 exit();
@@ -223,7 +218,7 @@ class parametroControlador extends parametroModelo
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ha ocurrido un error",
-					"Texto"=>"El Parametro no pudo ser borrado",
+					"Texto"=>"La pregunta no pudo ser borrada",
 					"Tipo"=>"error"
 				];
 			}
