@@ -92,7 +92,7 @@
 				}
 			?>
 			<?php
-				if($fila['permiso_insercion']==1){
+				if($fila['permiso_actualizacion']==1){
 			?>
 			<td><i class="fas fa-check"></i></td>
 			<?php
@@ -103,7 +103,7 @@
 				}
 			?>
 			<?php
-				if($fila['permiso_actualizacion']==1){
+				if($fila['permiso_eliminacion']==1){
 			?>
 			<td><i class="fas fa-check"></i></td>
 			<?php
