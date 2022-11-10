@@ -13,7 +13,7 @@
 
 <div class="full-box page-header">
 	<h3 class="text-left">
-		<i class="fas fa-user-tie"></i> &nbsp; PREGUNTAS
+		<i class="fas fa-question-circle"></i> &nbsp; PREGUNTAS
 </div>
 
 <div class="container-fluid">
@@ -50,7 +50,6 @@
       <table class="table table-striped table-dark table_id text-center" id="tblDatos">
         <thead>    
         <tr>
-            <th>ID</th>
             <th>PREGUNTA</th>
             <th>ACTUALIZAR</th>
 			<th>ELIMINAR</th>
@@ -69,7 +68,6 @@
 				
 			?>
 		<tr>
-			<td><?php echo $fila['id_pregunta']; ?></td>
 			<td><?php echo $fila['pregunta']; ?></td>
 			<td>
 				<div class="btn btn-success" data-toggle="modal" data-target="#ModalActualizar<?php echo $fila['id_pregunta'];?>">

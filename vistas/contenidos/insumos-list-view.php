@@ -62,7 +62,6 @@ if(isset($_GET['enviar'])){
       <table class="table table-striped table-dark table_id text-center" id="tblDatos">
                          <thead>    
                          <tr>
-                        <th>ID</th>
                         <th>NOMBRE</th>
                         <th>CATEGORIA</th>
                         <th>CANTIDAD MAXIMA</th>
@@ -86,7 +85,6 @@ if($dato -> num_rows >0){
     
 ?>
 <tr>
-<td><?php echo $fila['id_insumos']; ?></td>
 <td><?php echo $fila['nom_insumo']; ?></td>
 <td><?php echo $fila['nom_categoria']; ?></td>
 <td><?php echo $fila['cant_max']; ?></td>

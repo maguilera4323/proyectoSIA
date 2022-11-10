@@ -52,7 +52,6 @@
       <table class="table table-striped table-dark table_id text-center" id="tblDatos">
         <thead>    
         <tr>
-            <th>ID</th>
             <th>OBJETO</th>
             <th>DESCRIPCION</th>
             <th>TIPO DE OBJETO</th>
@@ -73,7 +72,6 @@
 				
 			?>
 		<tr>
-			<td><?php echo $fila['id_objeto']; ?></td>
 			<td><?php echo $fila['objeto']; ?></td>
 			<td><?php echo $fila['descripcion']; ?></td>
 			<td><?php echo $fila['tipo_objeto']; ?></td>

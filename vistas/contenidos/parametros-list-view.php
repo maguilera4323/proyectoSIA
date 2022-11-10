@@ -13,7 +13,7 @@
 
 <div class="full-box page-header">
 	<h3 class="text-left">
-		<i class="fas fa-user-tie"></i> &nbsp; PARAMETROS
+		<i class="fas fa-tools"></i> &nbsp; PARAMETROS
 	</h3>
 </div>
 
@@ -51,7 +51,6 @@
       <table class="table table-striped table-dark table_id text-center" id="tblDatos">
         <thead>    
         <tr>
-            <th>ID</th>
             <th>PARAMETRO</th>
             <th>VALOR</th>
             <th>ACTUALIZAR</th>
@@ -71,7 +70,6 @@
 				
 			?>
 		<tr>
-			<td><?php echo $fila['id_parametro']; ?></td>
 			<td><?php echo $fila['parametro']; ?></td>
 			<td><?php echo $fila['valor']; ?></td>
 			<td>

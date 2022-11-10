@@ -52,11 +52,9 @@ if(isset($_GET['enviar'])){
       </form>
   </div>
  
-      <table class="table table-striped table-dark table_id " id="tblDatos">
+      <table class="table table-striped table-dark table_id text-center" id="tblDatos">
                          <thead>    
                          <tr>
-                        <th>ID INVENTARIO</th>
-						<th>ID INSUMO</th>
                         <th>NOMBRE INSUMO</th>
                         <th>EXISTENCIAS</th>
                         <th>UNIDAD DE MEDIDA</th>
@@ -76,8 +74,6 @@ if($dato -> num_rows >0){
     
 ?>
 <tr>
-<td><?php echo $fila['id_inventario']; ?></td>
-<td><?php echo $fila['id_insumo']; ?></td>
 <td><?php echo $fila['nom_insumo']; ?></td>
 <td><?php echo $fila['cant_existencia']; ?></td>
 <td><?php echo $fila['unidad_medida']; ?></td>

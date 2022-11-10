@@ -39,7 +39,7 @@ if(isset($_GET['enviar'])){
 
 	if (isset($_GET['busqueda']))
 	{
-		$where="WHERE TBL_Proveedores.nom_proveedor LIKE'%".$busqueda."%' OR correo_proveedor LIKE'%".$busqueda."%'";
+		$where="WHERE TBL_Proveedores.nom_proveedor LIKE'%".$busqueda."%'";
 	}
   
 }
@@ -59,12 +59,9 @@ if(isset($_GET['enviar'])){
   <br>
 
  
-      <table class="table table-striped table-dark table_id " id="tblDatos">
-
-                   
+      <table class="table table-striped table-dark table_id text-center" id="tblDatos">
                          <thead>    
                          <tr>
-                        <th>ID</th>
                         <th>NOMBRE</th>
                         <th>RTN</th>
                         <th>TELEFONO</th>

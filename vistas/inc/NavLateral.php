@@ -95,13 +95,13 @@
 							<a href="<?php echo SERVERURL; ?>rol-list/"><i class="fas fa-user-tie"></i> &nbsp; Roles</a>
 						</li>
 						<li>
-							<a href="<?php echo SERVERURL; ?>permisos-list/"><i class="fas fa-user-tie"></i> &nbsp; Permisos</a>
+							<a href="<?php echo SERVERURL; ?>permisos-list/"><i class="fas fa-id-card-alt"></i> &nbsp; Permisos</a>
 						</li>
 						<li>
-							<a href="<?php echo SERVERURL; ?>parametros-list/"><i class="fas fa-user-tie"></i> &nbsp; Parametros</a>
+							<a href="<?php echo SERVERURL; ?>parametros-list/"><i class="fas fa-tools"></i></i> &nbsp; Parametros</a>
 						</li>
 						<li>
-							<a href="<?php echo SERVERURL; ?>preguntas-list/"><i class="fas fa-user-tie"></i> &nbsp; Preguntas</a>
+							<a href="<?php echo SERVERURL; ?>preguntas-list/"><i class="fas fa-question-circle"></i> &nbsp; Preguntas</a>
 						</li>
 						permisos-list
 					</ul>

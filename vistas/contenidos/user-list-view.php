@@ -62,11 +62,8 @@ if(isset($_GET['enviar'])){
 
  
       <table class="table table-striped table-dark table_id text-center" id="tblDatos">
-
-                   
                          <thead>    
                          <tr>
-                        <th>ID</th>
                         <th>USUARIO</th>
                         <th>NOMBRE</th>
                         <th>ESTADO</th>
@@ -93,7 +90,6 @@ if($dato -> num_rows >0){
     
 ?>
 <tr>
-<td><?php echo $fila['id_usuario']; ?></td>
 <td><?php echo $fila['usuario']; ?></td>
 <td><?php echo $fila['nombre_usuario']; ?></td>
 <td><?php echo $fila['estado_usuario']; ?></td>

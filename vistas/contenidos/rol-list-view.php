@@ -51,7 +51,6 @@
       <table class="table table-striped table-dark table_id text-center" id="tblDatos">
         <thead>    
         <tr>
-            <th>ID</th>
             <th>ROL</th>
             <th>DESCRIPCION</th>
             <th>ACTUALIZAR</th>
@@ -71,7 +70,6 @@
 				
 			?>
 		<tr>
-			<td><?php echo $fila['id_rol']; ?></td>
 			<td><?php echo $fila['rol']; ?></td>
 			<td><?php echo $fila['descripcion']; ?></td>
 			<td>

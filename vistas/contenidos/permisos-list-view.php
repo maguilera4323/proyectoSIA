@@ -13,7 +13,7 @@
 
 <div class="full-box page-header">
 	<h3 class="text-left">
-		<i class="fas fa-list-alt"></i> &nbsp; PERMISOS
+		<i class="fas fa-id-card-alt"></i> &nbsp; PERMISOS
 	</h3>
 
 </div>
