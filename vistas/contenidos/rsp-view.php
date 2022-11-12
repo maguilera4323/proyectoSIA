@@ -4,6 +4,11 @@ $host = "20.163.218.52";
 $username = "admin_bd";
 $password = "clave1234";
 $database_name = "proyecto_cafeteria";
+$day=date("d");
+$mont=date("m");
+$year=date("Y");
+$hora=date("H-i-s");
+$fecha=$day.'_'.$mont.'_'.$year.'_-_'.$hora;
 //conectado a la BD
 $conn = mysqli_connect($host, $username, $password, $database_name);
 $conn->set_charset("utf8");
@@ -60,7 +65,7 @@ foreach ($tables as $table) {
 if(!empty($sqlScript))
 {
     // Guarde el script SQL en un archivo de copia de seguridad
-    $backup_file_name = $database_name . '_backup_' . time() . '.sql';
+    $backup_file_name = $database_name . '_backup_' . $fecha . '.sql';
     $fileHandler = fopen($backup_file_name, 'x+');
     $number_of_lines = fwrite($fileHandler, $sqlScript);
     fclose($fileHandler); 

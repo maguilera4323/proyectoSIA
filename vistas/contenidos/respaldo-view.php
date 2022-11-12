@@ -12,8 +12,19 @@
 </center>
 
 <p>=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=</p>
-<!-- 
 <center>
+<form action="<?php echo SERVERURL; ?>restaurar/" method="POST">
+		<h2 for="archivo" class="bmd-label-floating">Agregar Backup</h2>
+		<input type="file" class="form-control" name="restorePoint" id="rest" accept="">
+		<button type="submit" >Restaurar</button>
+	</form> 
+</center>
+
+
+
+
+
+<!-- <center>
 <style>
    </style> 
 </head>
@@ -22,7 +33,7 @@
    <div>
      <p>Haga clic en el botón para descargar el archivo de copia de seguridad de la base de datos</p>
      
-	 <a href="<?php echo SERVERURL; ?>rsp/">
+	 <a href="<?php echo SERVERURL; ?>restaurar/">
 	<div class="tile-icon">
 	<i class="fab fa-hackerrank"></i>                
 	</div>
@@ -30,5 +41,5 @@
 	
    </div>
 </body>
-</center>
-<p>=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=</p> -->
+</center> -->
+<p>=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=/=</p>
