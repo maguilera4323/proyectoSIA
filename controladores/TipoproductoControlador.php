@@ -211,7 +211,7 @@ class TipoproductoControlador extends TipoproductoModelo
 		$datos_bitacora = [
 			"id_objeto" => 0,
 			"fecha" => date('Y-m-d H:i:s'),
-			"id_usuario" => $_SESSION['id_login'],
+			"id_tipo_producto" => $_SESSION['id_login'],
 			"accion" => "Usuario inactivado",
 			"descripcion" => "El usuario ".$_SESSION['usuario_login']." inactivó un usuario del sistema"
 		];

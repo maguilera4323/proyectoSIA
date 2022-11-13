@@ -62,7 +62,7 @@ class productoControlador extends productoModelo
 			$datos_bitacora = [
 				"id_objeto" => 0,
 				"fecha" => date('Y-m-d h:i:s'),
-				"id_Producto" => $_SESSION['id_login'],
+				"id_producto" => $_SESSION['id_login'],
 				"accion" => "Agregar Producto",
 				"descripcion" => "Se agrego un nuevo producto en el sistema"
 			];
@@ -104,7 +104,7 @@ class productoControlador extends productoModelo
 				exit();
 			}
 
-			if(mainModel::verificar_datos("[0-9]{1,14}",$Id_Tipo_producto)){
+			/*if(mainModel::verificar_datos("[0-9]{1,14}",$Id_Tipo_producto)){
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
@@ -113,61 +113,49 @@ class productoControlador extends productoModelo
 				];
 				echo json_encode($alerta);
 				exit();
-			}
+			}*/
 			
-			if(mainModel::verificar_datos("[0-9]{1,20}",$Telefono)){
+			if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ ]{1,30}",$Descripcion)){
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El TELEFONO no coincide con el formato solicitado",
+					"Texto"=>"La Descripcion no coincide con el formato solicitado",
 					"Tipo"=>"error"
 				];
 				echo json_encode($alerta);
 				exit();
 			}
 
-			if(mainModel::verificar_datos("[a-z@_0-9.]{1,30}",$Correo)){
+			if(mainModel::verificar_datos("[0-9]{1,8}",$Precio)){
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El CORREO no coincide con el formato solicitado",
+					"Texto"=>"El Precio no coincide con el formato solicitado",
 					"Tipo"=>"error"
 				];
 				echo json_encode($alerta);
 				exit();
 			}
 
-			if(mainModel::verificar_datos("[A-Za-zÑñ0-9 .,]{1,100}",$Direccion)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"La DIRECCION no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-		
-	
-			/*== ACTUALIZAR PROVEEDOR ==*/
-		$datos_proveedor_actu=
+
+			/*== ACTUALIZAR PRODUCTO ==*/
+		$datos_producto_actu=
 			[
-				"nombre"=>$Nombre,
-				"rtn"=>$Rtn,
-				"telefono"=>$Telefono,
-				"correo"=>$Correo,
-				"direccion"=>$Direccion,
-						
+				"nombre"=>$Nom_producto,
+				"id_tipo_producto"=>$Id_Tipo_producto,
+				"descripcion"=>$Descripcion,
+				"precio"=>$Precio,
+				"foto"=>$Foto			
 			];
 
-			$actualizar_proveedor=proveedorModelo::actualizar_proveedor_modelo($datos_proveedor_actu,$id_actualizar);
+			$actualizar_producto=productoModelo::actualizar_producto_modelo($datos_producto_actu,$id_actualizar);
 
-			if($actualizar_proveedor->rowCount()==1)
+			if($actualizar_producto->rowCount()==1)
 			{
 				$alerta=[
 					"Alerta"=>"limpiar",
-					"Titulo"=>"Proveedor Actualizado",
-					"Texto"=>"Proveedor actualizado exitosamente",
+					"Titulo"=>"Producto Actualizado",
+					"Texto"=>"Producto actualizado exitosamente",
 					"Tipo"=>"success"
 				];
 			}else
@@ -175,7 +163,7 @@ class productoControlador extends productoModelo
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"No hemos podido actualizar el proveedor",
+					"Texto"=>"No hemos podido actualizar el producto",
 					"Tipo"=>"error"
 				];
 			}
@@ -184,19 +172,19 @@ class productoControlador extends productoModelo
 			$datos_bitacora = [
 				"id_objeto" => 0,
 				"fecha" => date('Y-m-d h:i:s'),
-				"id_Proveedores" => $_SESSION['id_login'],
-				"accion" => "Modificación de proveedor",
-				"descripcion" => "Se actualizó un proveedor en el sistema"
+				"id_Producto" => $_SESSION['id_login'],
+				"accion" => "Modificación de producto",
+				"descripcion" => "Se actualizó un producto en el sistema"
 			];
 			Bitacora::guardar_bitacora($datos_bitacora); 
 	} /* Fin controlador */
 	
 
-	public function datosproveedorControlador($tipo,$id){
+	public function datosproductoControlador($tipo,$id){
 		$tipo=mainModel::limpiar_cadena($tipo);
 		$id=mainModel::limpiar_cadena($id);
 
-		return proveedorModelo::datos_proveedor_modelo($tipo,$id);
+		return productoModelo::datos_producto_modelo($tipo,$id);
 	}
 
 	
@@ -212,13 +200,13 @@ class productoControlador extends productoModelo
 		
 
 		//verifica que el usuario si exista en el sistema
-		$check_proveedor=mainModel::ejecutar_consulta_simple("SELECT id_Proveedores FROM TBL_Proveedores
-		WHERE id_Proveedores='$id'");
-		if($check_proveedor->rowCount()<=0){
+		$check_producto=mainModel::ejecutar_consulta_simple("SELECT id_producto FROM TBL_producto
+		WHERE id_Producto='$id'");
+		if($check_producto->rowCount()<=0){
 			$alerta=[
 				"Alerta"=>"simple",
 				"Titulo"=>"Ha ocurrido un error",
-				"Texto"=>"El Proveedor seleccionado no existe",
+				"Texto"=>"El Producto seleccionado no existe",
 				"Tipo"=>"error"
 			];
 			echo json_encode($alerta);
@@ -226,19 +214,19 @@ class productoControlador extends productoModelo
 		}
 
 		
-		$eliminarproveedor=proveedorModelo::eliminar_proveedor_modelo("borrar",$id);
-			if($eliminarproveedor->rowCount()==1){
+		$eliminarproducto=productoModelo::eliminar_producto_modelo("borrar",$id);
+			if($eliminarproducto->rowCount()==1){
 				$alerta=[
 					"Alerta"=>"recargar",
-					"Titulo"=>"Usuario Borrado",
-					"Texto"=>"El Proveedor fue borrado",
+					"Titulo"=>"Producto Borrado",
+					"Texto"=>"El Producto fue borrado",
 					"Tipo"=>"success"
 				];
 			}else{
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ha ocurrido un error",
-					"Texto"=>"El proveedor no pudo ser borrado",
+					"Texto"=>"El producto no pudo ser borrado",
 					"Tipo"=>"error"
 				];
 			}
@@ -247,8 +235,8 @@ class productoControlador extends productoModelo
 			"id_objeto" => 0,
 			"fecha" => date('Y-m-d H:i:s'),
 			"id_usuario" => $_SESSION['id_login'],
-			"accion" => "Usuario inactivado",
-			"descripcion" => "El usuario ".$_SESSION['usuario_login']." inactivó un usuario del sistema"
+			"accion" => "Producto Eliminado",
+			"descripcion" => "El usuario ".$_SESSION['usuario_login']." Elimino un producto del sistema"
 		];
 		Bitacora::guardar_bitacora($datos_bitacora);
 			exit();
