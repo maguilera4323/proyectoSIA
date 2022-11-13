@@ -7,8 +7,8 @@
 		/*--------- Modelo agregar producto ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
 		protected static function agregar_producto_modelo($datos)
 		{
-			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_Proveedores(nom_producto,rtn_proveedor,
-			tel_proveedor,correo_proveedor,dir_proveedor)
+			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_producto(nom_producto,id_tipo_produ,
+			des_produ,precio_produ,foto_produ)
 			VALUES(?,?,?,?,?)");
 
 			$sql->bindParam(1,$datos['nombre']);
@@ -27,8 +27,8 @@
 		/*--------- Modelo actualizar producto ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
 		protected static function actualizar_producto_modelo($dato,$id)
 		{
-			$sql=mainModel::conectar()->prepare("UPDATE TBL_Proveedores SET nom_producto=?,rtn_proveedor=?,tel_proveedor=?,
-			correo_proveedor=?, dir_proveedor=? WHERE id_Proveedores=?");
+			$sql=mainModel::conectar()->prepare("UPDATE TBL_producto SET nom_producto=?,id_tipo_produ=?,des_produ=?,
+			precio_produ=?, foto_produ=? WHERE id_producto=?");
 
 			$sql->bindParam(1,$dato['nombre']);
 			$sql->bindParam(2,$dato['id_tipo_producto']);	
@@ -44,7 +44,7 @@
 				[
 					"id_objeto" => 0,
 					"fecha" => date('Y-m-d h:i:s'),
-					"id_Producto" => null,
+					"id_producto" => null,
 					"accion" => "Actualizacion de producto",
 					"descripcion" => "Registro de producto"
 				];
@@ -54,7 +54,7 @@
 
 		protected static function datos_producto_modelo($tipo,$id){
 			if($tipo=='unico'){
-				$sql=mainModel::conectar()->prepare("SELECT * FROM TBL_Proveedores where id_Producto=?");
+				$sql=mainModel::conectar()->prepare("SELECT * FROM TBL_producto where id_producto=?");
 				$sql->bindParam(1,$id);
 			}
 			$sql->execute();
@@ -64,7 +64,7 @@
 		 protected static function eliminar_producto_modelo($accion,$id){
 			
 			if ($accion=='borrar'){
-				$sql=mainModel::conectar()->prepare("DELETE FROM TBL_Proveedores where id_Producto=?");
+				$sql=mainModel::conectar()->prepare("DELETE FROM TBL_producto where id_producto=?");
 				$sql->bindParam(1,$id);
 				$sql->execute();
 				return $sql;
