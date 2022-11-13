@@ -1,6 +1,6 @@
 <div class="full-box page-header">
     <h3 class="text-left">
-        <i class="fas fa-building fa-fw"></i> &nbsp; INFORMACÓN DE LA EMPRESA
+        <i class="fas fa-building fa-fw"></i> &nbsp; Facturación
     </h3>
 
 </div>
