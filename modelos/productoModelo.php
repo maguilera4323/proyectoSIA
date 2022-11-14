@@ -38,19 +38,8 @@
 			$sql->bindParam(6,$id);
 			$sql->execute();
 			return $sql;
-
-				/* VERIFICAR SU GUARDA DEL DATO EN BITACORA */
-				$datos_bitacora = 
-				[
-					"id_objeto" => 0,
-					"fecha" => date('Y-m-d h:i:s'),
-					"id_producto" => null,
-					"accion" => "Actualizacion de producto",
-					"descripcion" => "Registro de producto"
-				];
-				Bitacora::guardar_bitacora($datos_bitacora);
-			
 		}
+
 
 		protected static function datos_producto_modelo($tipo,$id){
 			if($tipo=='unico'){
@@ -61,8 +50,8 @@
 			return $sql;
 		}
 
+
 		 protected static function eliminar_producto_modelo($accion,$id){
-			
 			if ($accion=='borrar'){
 				$sql=mainModel::conectar()->prepare("DELETE FROM TBL_producto where id_producto=?");
 				$sql->bindParam(1,$id);
