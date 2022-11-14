@@ -93,12 +93,12 @@
 									<form action="<?php echo SERVERURL; ?>ajax/objetoAjax.php" class="FormularioAjax" method="POST" data-form="save" autocomplete="off">
 										<div class="form-group">
 										<label class="bmd-label-floating">Nombre del Objeto</label>
-											<input type="text" class="form-control" name="objeto_act" id="cliente_dni" maxlength="27" 
-											value="<?php echo $fila['objeto']?>" required>
+											<input type="text" class="form-control" name="objeto_act" id="cliente_dni" 
+											value="<?php echo $fila['objeto']?>" style="text-transform:uppercase;" required>
 										</div>
 										<div class="form-group">
 										<label class="bmd-label-floating">Descripción</label>
-											<input type="text" class="form-control" name="desc_objeto_act" id="cliente_dni" maxlength="100" 
+											<input type="text" class="form-control" name="desc_objeto_act" id="cliente_dni"  
 											value="<?php echo $fila['descripcion']?>" required>
 											<input type="hidden" class="form-control" name="id_actualizacion" value="<?php echo $fila['id_objeto']?>">
 										</div>
@@ -168,11 +168,11 @@
 			<form action="<?php echo SERVERURL; ?>ajax/objetoAjax.php" class="FormularioAjax" method="POST" data-form="save" autocomplete="off">
 			<div class="form-group">
 				<label>Nombre del Objeto</label>
-				<input type="text" class="form-control" name="objeto_nuevo" id="cliente_dni" maxlength="27" required>
+				<input type="text" class="form-control" name="objeto_nuevo" id="cliente_dni" style="text-transform:uppercase;" required>
 			</div>
 			<div class="form-group">
 				<label>Descripción</label>
-				<textarea class="form-control" rows="3" name="desc_objeto_nuevo" id="cliente_dni" maxlength="100" required></textarea>
+				<textarea class="form-control" rows="3" name="desc_objeto_nuevo" id="cliente_dni" required></textarea>
 			</div>
 			<div class="form-group">
 				<div class="form-group">

@@ -18,9 +18,22 @@ class preguntasControlador extends preguntasModelo
 	/*--------- Controlador agregar pregunta ---------*/
 	public function agregarPregunta()
 	{
-		$nom_pregunta=mainModel::limpiar_cadena(strtoupper($_POST['nombre_pregunta_nuevo']));
+		$nom_pregunta=mainModel::limpiar_cadena($_POST['nombre_pregunta_nuevo']);
 		$creado=$_SESSION['usuario_login'];
 		$fec_creacion=date('y-m-d H:i:s');
+
+		//verificar datos ingresados
+		$check_pregunta=mainModel::ejecutar_consulta_simple("SELECT pregunta FROM TBL_preguntas WHERE pregunta='$nom_pregunta'");
+			if($check_pregunta->rowCount()>0){
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error inesperado",
+					"Texto"=>"La pregunta ingresado ya se encuentra registrada en el sistema",
+					"Tipo"=>"error"
+				];
+				echo json_encode($alerta);
+				exit();
+			}
 
 			$datos_pregunta_reg=[
 				"nombre"=>$nom_pregunta,
@@ -63,78 +76,24 @@ class preguntasControlador extends preguntasModelo
 	/*--------- Controlador actualizar pregunta ---------*/
 	public function actualizarPregunta()
 	{	
-		$nom_pregunta=mainModel::limpiar_cadena(strtoupper($_POST['nombre_pregunta_act']));
+		$nom_pregunta=mainModel::limpiar_cadena($_POST['nombre_pregunta_act']);
 		$modificado=$_SESSION['usuario_login'];
 		$fec_modificacion=date('y-m-d H:i:s');
 		$id_actualizar=mainModel::limpiar_cadena($_POST['id_actualizacion']);
 		
-		/* if($Nombre=="" || $Rtn=="" || $Telefono=="" || $Correo=="" || $Direccion==""){
-			$alerta=[
-				"Alerta"=>"simple",
-				"Titulo"=>"Ocurrió un error inesperado",
-				"Texto"=>"No se han llenado todos los campos que son obligatorios",
-				"Tipo"=>"error"
-			];
-			echo json_encode($alerta);
-			exit();
-		} */
-
-
-			/* 
-			if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ ]{1,30}",$Nombre)){
+		//verificar datos ingresados
+		$check_pregunta=mainModel::ejecutar_consulta_simple("SELECT pregunta FROM TBL_preguntas WHERE pregunta='$nom_pregunta'");
+			if($check_pregunta->rowCount()>0){
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El NOMBRE no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-
-			if(mainModel::verificar_datos("[0-9]{1,14}",$Rtn)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El RTN no coincide con el formato solicitado",
+					"Texto"=>"La pregunta ingresado ya se encuentra registrada en el sistema",
 					"Tipo"=>"error"
 				];
 				echo json_encode($alerta);
 				exit();
 			}
 			
-			if(mainModel::verificar_datos("[0-9]{1,20}",$Telefono)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El TELEFONO no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-
-			if(mainModel::verificar_datos("[a-z@_0-9.]{1,30}",$Correo)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El CORREO no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-
-			if(mainModel::verificar_datos("[A-Za-zÑñ0-9 .,]{1,100}",$Direccion)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"La DIRECCION no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			} */
 			$datos_pregunta_act=[
 				"nombre"=>$nom_pregunta,
 				"modif"=>$modificado,

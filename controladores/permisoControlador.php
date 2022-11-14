@@ -15,7 +15,6 @@ if($peticionAjax){
 class permisoControlador extends permisoModelo
 {
 
-	/*--------- Controlador agregar proveedor ---------*/
 	public function agregarPermiso()
 	{
 		$nom_rol=mainModel::limpiar_cadena(strtoupper($_POST['rol_nuevo']));
@@ -59,7 +58,7 @@ class permisoControlador extends permisoModelo
 			if($agregar_permiso->rowCount()==1){
 				$alerta=[
 					"Alerta"=>"recargar",
-					"Titulo"=>"permiso Registrado",
+					"Titulo"=>"Permiso Registrado",
 					"Texto"=>"Los datos del permiso han sido registrados con exito",
 					"Tipo"=>"success"
 				];
@@ -79,16 +78,14 @@ class permisoControlador extends permisoModelo
 				"id_objeto" => 0,
 				"fecha" => date('Y-m-d H:i:s'),
 				"id_usuario" => $_SESSION['id_login'],
-				"accion" => "Creación de Objeto",
-				"descripcion" => "El usuario ".$_SESSION['usuario_login']." creó un nuevo objeto en el sistema"
+				"accion" => "Creación de Permiso",
+				"descripcion" => "El usuario ".$_SESSION['usuario_login']." creó un nuevo permiso en el sistema"
 			];
 			Bitacora::guardar_bitacora($datos_bitacora); 
-	} /* Fin controlador */
+	} 
 
 
-	/*--------- Controlador actualizar usuario ---------*/
-	public function actualizarPermiso()
-	{	
+	public function actualizarPermiso(){	
 		$nom_rol=mainModel::limpiar_cadena(strtoupper($_POST['rol_act']));
 		$nom_objeto=mainModel::limpiar_cadena(strtoupper($_POST['objeto_act']));
 		if(!isset($_POST['insertar_permiso_act'])){
@@ -115,75 +112,7 @@ class permisoControlador extends permisoModelo
 		$fec_modificacion=date('y-m-d H:i:s');
 		$id_rol_actualizar=mainModel::limpiar_cadena($_POST['id_objeto']);
 		$id_objeto_actualizar=mainModel::limpiar_cadena($_POST['id_rol']);
-		
-		/* if($Nombre=="" || $Rtn=="" || $Telefono=="" || $Correo=="" || $Direccion==""){
-			$alerta=[
-				"Alerta"=>"simple",
-				"Titulo"=>"Ocurrió un error inesperado",
-				"Texto"=>"No se han llenado todos los campos que son obligatorios",
-				"Tipo"=>"error"
-			];
-			echo json_encode($alerta);
-			exit();
-		} */
 
-
-			/* 
-			if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ ]{1,30}",$Nombre)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El NOMBRE no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-
-			if(mainModel::verificar_datos("[0-9]{1,14}",$Rtn)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El RTN no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-			
-			if(mainModel::verificar_datos("[0-9]{1,20}",$Telefono)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El TELEFONO no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-
-			if(mainModel::verificar_datos("[a-z@_0-9.]{1,30}",$Correo)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El CORREO no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-
-			if(mainModel::verificar_datos("[A-Za-zÑñ0-9 .,]{1,100}",$Direccion)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"La DIRECCION no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			} */
-		
 			$datos_permiso_act=[
 				"ins"=>$insertar_permiso,
 				"act"=>$actualizar_permiso,
@@ -208,7 +137,7 @@ class permisoControlador extends permisoModelo
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"No hemos podido actualizar el Permiso",
+					"Texto"=>"No hemos podido actualizar el permiso",
 					"Tipo"=>"error"
 				];
 			}
@@ -218,28 +147,20 @@ class permisoControlador extends permisoModelo
 				"id_objeto" => 0,
 				"fecha" => date('Y-m-d H:i:s'),
 				"id_usuario" => $_SESSION['id_login'],
-				"accion" => "Modificación de objeto",
-				"descripcion" => "El usuario ".$_SESSION['usuario_login']." actualizó un objeto del sistema"
+				"accion" => "Modificación de Permiso",
+				"descripcion" => "El usuario ".$_SESSION['usuario_login']." actualizó un permiso del sistema"
 			];
 			Bitacora::guardar_bitacora($datos_bitacora); 
-	} /* Fin controlador */
-	
-
-	public function datosObjetoControlador($id){
-		$id=mainModel::limpiar_cadena($id);
-		return objetoModelo::datos_objeto_modelo($id);
 	}
-
 	
 
-		//funcion para eliminar un proveedor
 		public function eliminarPermiso(){
 			$idrol=mainModel::limpiar_cadena(($_POST['id_rol_del']));
 			$idobj=mainModel::limpiar_cadena(($_POST['id_objeto_del']));
 			$array=array();
 			$valor='';
 
-		//verifica que el insumo si exista en el sistema
+		//verifica que exista el objeto y el rol del permiso en el sistema
 		$check_objeto=mainModel::ejecutar_consulta_simple("SELECT id_objeto FROM TBL_objetos
 		WHERE id_objeto='$idobj'");
 		if($check_objeto->rowCount()<=0){
@@ -271,8 +192,8 @@ class permisoControlador extends permisoModelo
 			if($eliminarpermiso->rowCount()==1){
 				$alerta=[
 					"Alerta"=>"recargar",
-					"Titulo"=>"Permiso Borrado",
-					"Texto"=>"El permiso fue borrado del sistema",
+					"Titulo"=>"Permiso Eliminado",
+					"Texto"=>"El permiso fue eliminado del sistema",
 					"Tipo"=>"success"
 				];
                 echo json_encode($alerta);
