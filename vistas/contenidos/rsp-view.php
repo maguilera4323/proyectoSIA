@@ -7,8 +7,10 @@ $database_name = "proyecto_cafeteria";
 $day=date("d");
 $mont=date("m");
 $year=date("Y");
-$hora=date("H-i-s");
+$hora=date("H.i.s");
 $fecha=$day.'_'.$mont.'_'.$year.'_-_'.$hora;
+
+/* const BACKUP_PATH =  "../backup/";*/ 
 //conectado a la BD
 $conn = mysqli_connect($host, $username, $password, $database_name);
 $conn->set_charset("utf8");

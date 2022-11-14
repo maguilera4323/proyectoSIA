@@ -16,6 +16,7 @@
 <form action="<?php echo SERVERURL; ?>restaurar/" method="POST">
 		<h2 for="archivo" class="bmd-label-floating">Agregar Backup</h2>
 		<input type="file" class="form-control" name="restorePoint" id="rest" accept="">
+		<br>
 		<button type="submit" >Restaurar</button>
 	</form> 
 </center>
