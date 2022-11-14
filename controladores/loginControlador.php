@@ -27,8 +27,7 @@ class loginControlador extends mainModel{
 		if (password_verify($contrasena, $hash)) {
 			$verificarDatos = new Usuario(); //se crea una instancia en el archivo modelo de Login
 			$respuesta = $verificarDatos->accesoUsuario($usuario, $hash); //datos recibidos del archivo modelo de Login
-			foreach ($respuesta as $fila) { //se recorre el arreglo recibido
-				//datos guardados para ser usados posteriormenete en el sistema
+			foreach ($respuesta as $fila) {
 				$array['id'] = $fila['id_usuario'];
 				$array['nombre'] = $fila['nombre_usuario'];
 				$array['usuario'] = $fila['usuario'];
@@ -82,35 +81,33 @@ class loginControlador extends mainModel{
 						die();
 					}
 				}else{
-					//cuandoelroldelusuarioseadefault
+					//cuando el rol del usuario sea default
 					$_SESSION['respuesta'] = 'Usuario sin permisos';
 					return header("Location:".SERVERURL."login/");
 					die();
 				}
 			}else{
 				//en caso de que el hash no concuerde con el de la contraseña ingresada
-				//validacion cuando usuario o contraseña son incorrectos
+				//o el usuario sea incorrecto
 				$ingresos_erroneos=mainModel::limpiar_cadena($datos['contador']);
+
 				//se llama a la funcion para obtener el limite de intentos de login
-				//Datos de la tabla de parametros
 				$parametroIntentosValidos=new Usuario();
 				$valorParametro=$parametroIntentosValidos->intentosValidos();
-					foreach ($valorParametro as $fila) { //se recorre el arreglo recibido
-						//datos guardados para ser usados posteriormenete en el sistema
+					foreach ($valorParametro as $fila) {
 						$array_param['valor'] = $fila['valor'];
 					}
 
 				//validacion para revisar si el usuario ingresado existe en el sistema
 				$verificarDatos = new Usuario();
 				$query=$verificarDatos->verificarEstado($usuario);
-					foreach ($query as $fila) { //se recorre el arreglo recibido
-						//datos guardados para ser usados posteriormenete en el sistema
+					foreach ($query as $fila) { 
 						$array['usuario'] = $fila['usuario'];
 						$array['estado'] = $fila['estado_usuario'];
 					}
 					
 					//Switch que valida si el usuario encontrado está activo
-					//si no está activo o está bloqueado no se sigue la verificación para bloquearlo
+					//si está inactivo, está bloqueado o es un usuario nuevo no se sigue la verificación para bloquearlo
 					if (isset($array['usuario'])>0){
 							switch ($array['estado']){
 								case 'Bloqueado':
@@ -131,6 +128,7 @@ class loginControlador extends mainModel{
 										$_SESSION['respuesta'] = 'Datos incorrectos';
 										return header("Location:".SERVERURL."login/");
 										die();
+
 									//se usa el valor de ingresos erroneos recibido del contador
 									//y el valor del parametro ADMIN_INTENTOS_INVALIDOS
 									}else if(($ingresos_erroneos>($array_param['valor']))){
@@ -145,7 +143,7 @@ class loginControlador extends mainModel{
 									}
 								}  
 						}else{
-							//si no existe el usuario y la contraseña se mostrará el mensaje de Datos incorrectos
+							//si no existe el usuario y la contraseña en la base de datos
 							$_SESSION['respuesta'] = 'Datos incorrectos';
 							return header("Location:".SERVERURL."login/");
 							die();
@@ -164,19 +162,19 @@ class loginControlador extends mainModel{
 			$id_pregunta=mainModel::limpiar_cadena($datos['pregunta']);
 			$id_usuario=mainModel::limpiar_cadena($datos['usuario']);
 
+			//se obtienen los valores de los parametros de contraseña ya que serán utilizados despúes
 			$parametroMinContrasena=new Usuario();
 				$valorParametroMin=$parametroMinContrasena->minContrasena();
-					foreach ($valorParametroMin as $fila) { //se recorre el arreglo recibido
-						//datos guardados para ser usados posteriormenete en el sistema
+					foreach ($valorParametroMin as $fila) {
 						$_SESSION['min_contrasena'] = $fila['valor'];
 					}
 			
 			$parametroMaxContrasena=new Usuario();
 				$valorParametroMax=$parametroMaxContrasena->maxContrasena();
-					foreach ($valorParametroMax as $fila) { //se recorre el arreglo recibido
-						//datos guardados para ser usados posteriormenete en el sistema
+					foreach ($valorParametroMax as $fila) {
 						$_SESSION['max_contrasena'] = $fila['valor'];
 					}
+
 		/* 	$revisarRespuestaExistente=new Usuario();
 			$respuesta_existe = $revisarRespuestaExistente->revisarPreguntaRespondida($res_pregunta,$id_usuario,$id_pregunta);
 
@@ -186,9 +184,9 @@ class loginControlador extends mainModel{
 				return header("Location:".SERVERURL."primer-ingreso/");
 			} */
 
-					$insertarRespuesta = new Usuario(); //se crea una instancia en el archivo modelo de Login
-					$respuesta = $insertarRespuesta->insertarRespuestasSeguridad($res_pregunta,$id_usuario,$id_pregunta);
-					$_SESSION['contador_preguntas']+=1;
+			$insertarRespuesta = new Usuario(); //se crea una instancia en el archivo modelo de Login
+			$respuesta = $insertarRespuesta->insertarRespuestasSeguridad($res_pregunta,$id_usuario,$id_pregunta);
+		    $_SESSION['contador_preguntas']+=1;
 					
 				if($_SESSION['contador_preguntas']==3){
 					//al pasar por todas las preguntas de seguridad se actualiza el estado de usuario a Activo
@@ -214,8 +212,7 @@ class loginControlador extends mainModel{
 
 			$verificarUsuario = new Usuario(); //se crea una instancia en el archivo modelo de Login
 			$respuesta = $verificarUsuario->verificaUsuarioExistente($usuario);
-			foreach ($respuesta as $fila) { //se recorre el arreglo recibido
-				//datos guardados para ser usados posteriormenete en el sistema
+			foreach ($respuesta as $fila) { 
 				$array['usuario'] = $fila['usuario'];
 				$array['estado'] = $fila['estado_usuario'];
 				$array['correo'] = $fila['correo_electronico'];
@@ -228,7 +225,7 @@ class loginControlador extends mainModel{
 					session_start();
 						$_SESSION['usuario_rec']=$array['usuario'];
 						$_SESSION['respuesta'] = 'Correo enviado';
-						$agg_correo = new Correo(); //se crea nueva instancia de usuario
+						$agg_correo = new Correo(); //se crea nueva instancia de correo
       					$respuesta = $agg_correo->enviarCorreo($array['correo']);
 						return header("Location:".SERVERURL."olvido-contrasena/");
 					die();
@@ -251,6 +248,7 @@ class loginControlador extends mainModel{
 			}
 		}
 
+
 		//funcion para validar la respuesta ingresada de la pregunta de seguridad
 		public function verificaPreguntaSeguridad($datos){
 			$pregunta=mainModel::limpiar_cadena($datos['pregunta']);
@@ -262,24 +260,21 @@ class loginControlador extends mainModel{
 			//parametros referentes a la cantidad minima y maxima de caracteres de la contraseña
 			$parametroMinContrasena=new Usuario();
 				$valorParametroMin=$parametroMinContrasena->minContrasena();
-					foreach ($valorParametroMin as $fila) { //se recorre el arreglo recibido
-						//datos guardados para ser usados posteriormenete en el sistema
+					foreach ($valorParametroMin as $fila) { 
 						$_SESSION['min_contrasena'] = $fila['valor'];
 					}
 			
 			$parametroMaxContrasena=new Usuario();
 				$valorParametroMax=$parametroMaxContrasena->maxContrasena();
-					foreach ($valorParametroMax as $fila) { //se recorre el arreglo recibido
-						//datos guardados para ser usados posteriormenete en el sistema
+					foreach ($valorParametroMax as $fila) {
 						$_SESSION['max_contrasena'] = $fila['valor'];
 					}
 
 			//funcion que se encarga de hacer un query y revisar si la respuesta existe y corresponde al usuario
 			//de no ser asi se ejecuta otro query que bloquea el usuario
-			$verificarRespuesta = new Usuario(); //se crea una instancia en el archivo modelo de Login
+			$verificarRespuesta = new Usuario(); 
 			$respuesta = $verificarRespuesta->verificarPreguntaSeguridad($pregunta,$respuesta,$usuario);
-			foreach ($respuesta as $fila) { //se recorre el arreglo recibido
-				//datos guardados para ser usados posteriormenete en el sistema
+			foreach ($respuesta as $fila) {
 				$array['registro_encontrado']=$fila['respuesta'];
 			}
 
@@ -299,34 +294,36 @@ class loginControlador extends mainModel{
 		}
 
 
-		
+		//Función para realizar el cambio de contraseña en el sistema
 		public function modificarContrasena($datos){
 			$contrasena_nueva=mainModel::limpiar_cadena($datos['contrasena_nueva']);
 			$conf_contrasena_nueva=mainModel::limpiar_cadena($datos['conf_contrasena_nueva']);
 			$array=array();
+
+			//verificacion para revisar si el cambio de contraseña es por recuperación de contraseña o por primer ingreso al sistema
 			if(isset($_SESSION['usuario_rec'])){
 				$usuario=$_SESSION['usuario_rec'];
 			}else if(isset($_SESSION['usuario_login'])){
 				$usuario=$_SESSION['usuario_login'];
-			}else{
-				$usuario=$_SESSION['usuario'];
 			}
 
-			
+			//se obtiene el valor del parametro de la fecha de vencimiento para los usuarios
 			$parametroFechaVencimiento=new Usuario();
 			$valorVencimiento=$parametroFechaVencimiento->diasVencimiento();
-			foreach ($valorVencimiento as $fila) { //se recorre el arreglo recibido
+			foreach ($valorVencimiento as $fila) { 
 				$FechaVencimiento=$fila['valor'];
 			}	
 
-			$cambioContrasena = new Usuario(); //se crea una instancia en el archivo modelo de Login
+
+			//se hace un select para obtener la contraseña y el correo del usuario de recuperacion o que ingresa por primera vez
+			$cambioContrasena = new Usuario(); 
 			$respuesta = $cambioContrasena->verificarContrasenaActual($usuario);
 			foreach($respuesta as $fila){
 				$array['contrasena']=$fila['contrasena'];
 				$array['correo']=$fila['correo_electronico'];
 			}
 
-			
+			//verificacion para revisar que la nueva contraseña sea distinta a la que ya está registrada
 			$hash_contrasena=mainModel::encryption($contrasena_nueva);
 			if(($hash_contrasena===$array['contrasena'])){
 				$_SESSION['respuesta'] = 'Contraseña nueva igual a la actual';
@@ -334,6 +331,8 @@ class loginControlador extends mainModel{
 				die();
 			}
 			
+			//verificacion para revisar que la contraseña y la confirmacion de la contraseña sean iguales
+			//de ser así se procede al cambio de contraseña y se envia un correo de confirmación con el usuario y contraseña
 			if($contrasena_nueva!=$conf_contrasena_nueva){
 				$_SESSION['respuesta'] = 'Contraseñas no coinciden';
 					return header("Location:".SERVERURL."cambiocontrasena/");
@@ -352,6 +351,7 @@ class loginControlador extends mainModel{
 					 
 		}
 
+			//funcion encargada de redirigir al login siempre que se detecte que no hay una sesion activa 
 				public function forzarCierreSesionControlador(){
 					session_unset();
 					session_destroy();
@@ -362,30 +362,6 @@ class loginControlador extends mainModel{
 					}
 				}
 
-
-			public function cerrarSesion(){
-				session_start();
-				$token=mainModel::decryption($_POST['token']);
-				$usuario=mainModel::decryption($_POST['usuario']);
-
-				if($token==$_SESSION['token_login'] && $usuario==$_SESSION['usuario_login']){
-					session_unset();
-					session_destroy();
-					$alerta=[
-						"Alerta"=>"redireccionar",
-						"URL"=>SERVERURL."login/"
-					];
-				}else{
-					$alerta=[
-						"Alerta"=>"simple",
-						"Titulo"=>"Ocurrió un error inesperado",
-						"Texto"=>"No se pudo cerrar la sesión",
-						"Tipo"=>"error"
-					];
-				}
-				echo json_encode($alerta);
-			}
-			
 }
 
 

@@ -155,7 +155,7 @@
 			</div>
 			<div class="form-group">
 				<label>Valor</label>
-				<textarea class="form-control" rows="3" name="valor_parametro_nuevo" id="cliente_dni" maxlength="100" required></textarea>
+				<input type="text" class="form-control" name="valor_parametro_nuevo" id="cliente_dni" maxlength="100" required>
 			</div>
 			<button type="submit" class="btn btn-primary">Guardar</button>
 			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

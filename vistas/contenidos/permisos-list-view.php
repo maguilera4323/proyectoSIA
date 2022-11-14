@@ -124,9 +124,6 @@
 			<?php
 				}
 			?>
-		<!-- 	<td><?php echo $fila['permiso_actualizacion']; ?></td>
-			<td><?php echo $fila['permiso_eliminacion']; ?></td>
-			<td><?php echo $fila['permiso_consulta']; ?></td> -->
 			<td>
 				<div class="btn btn-success" data-toggle="modal" data-target="#ModalActualizar<?php echo $fila['id_rol'];?><?php echo $fila['id_objeto'];?>">
 					<i class="fas fa-sync-alt"> </i>
@@ -151,13 +148,31 @@
 									<div class="form-group">
 										<label>Rol</label>
 										<select class="form-control" name="rol_act" required>
-											<option value="1">Admin Sistema</option>
+											<?php
+												$SQL="SELECT * FROM TBL_ms_roles";
+												$dato = mysqli_query($conexion, $SQL);
+									
+												if($dato -> num_rows >0){
+													while($fila=mysqli_fetch_array($dato)){
+														echo '<option value="'.$fila['id_rol'].'">'.$fila['rol'].'</option>';
+														}
+													}
+											?>
 										</select>
 									</div>
 									<div class="form-group">
 										<label>Objeto</label>
 										<select class="form-control" name="objeto_act" required>
-											<option value="1">Home</option>
+										<?php
+										$SQL="SELECT * FROM TBL_objetos";
+										$dato = mysqli_query($conexion, $SQL);
+							
+										if($dato -> num_rows >0){
+											while($fila=mysqli_fetch_array($dato)){
+												echo '<option value="'.$fila['id_objeto'].'">'.$fila['objeto'].'</option>';
+												}
+											}
+										?>
 										</select>
 									</div>
 									<div class="form-group">
@@ -234,14 +249,32 @@
 				<label>Rol</label>
 				<select class="form-control" name="rol_nuevo" required>
 					<option value="" selected="" disabled="">Seleccione una opción</option>
-					<option value="1">Admin Sistema</option>
+					<?php
+					$SQL="SELECT * FROM TBL_ms_roles";
+						$dato = mysqli_query($conexion, $SQL);
+			
+						if($dato -> num_rows >0){
+							while($fila=mysqli_fetch_array($dato)){
+								echo '<option value="'.$fila['id_rol'].'">'.$fila['rol'].'</option>';
+								}
+							}
+					?>
 				</select>
 			</div>
 			<div class="form-group">
 				<label>Objeto</label>
 				<select class="form-control" name="objeto_nuevo" required>
 					<option value="" selected="" disabled="">Seleccione una opción</option>
-					<option value="1">Home</option>
+					<?php
+					$SQL="SELECT * FROM TBL_objetos";
+						$dato = mysqli_query($conexion, $SQL);
+			
+						if($dato -> num_rows >0){
+							while($fila=mysqli_fetch_array($dato)){
+								echo '<option value="'.$fila['id_objeto'].'">'.$fila['objeto'].'</option>';
+								}
+							}
+						?>
 				</select>
 			</div>
 			<div class="form-group">

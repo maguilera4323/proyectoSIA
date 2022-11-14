@@ -112,7 +112,8 @@
 												<option value="4">Productos</option>
 												<option value="5">Compras</option>
 												<option value="6">Facturación</option>
-												<option value="7">Mantenimiento</option>
+												<option value="7">Mantenimiento</option> 
+												
 											</select>
 											</div>
 										</div>
@@ -176,16 +177,17 @@
 			<div class="form-group">
 				<div class="form-group">
 				<label for="cliente_apellido" class="bmd-label-floating">Tipo de Objeto</label>
-							<select class="form-control" name="tipo_objeto_nuevo" required>
-								<option value="" selected="" disabled="">Seleccione una opción</option>
-								<option value="1">Home</option>
-								<option value="2">Proveedores</option>
-								<option value="3">Insumos</option>
-								<option value="4">Productos</option>
-								<option value="5">Compras</option>
-								<option value="6">Facturación</option>
-								<option value="7">Mantenimiento</option>
-							</select>
+					<select class="form-control" name="tipo_objeto_nuevo" required>
+						<option value="0" >Seleccione una opción</option>
+						<option value="1">Home</option>
+						<option value="2">Proveedores</option>
+						<option value="3">Insumos</option>
+						<option value="4">Productos</option>
+						<option value="5">Compras</option>
+						<option value="6">Facturación</option>
+						<option value="7">Mantenimiento</option>
+						<option value="8">Administración</option>
+						</select>
 				</div>
 			</div>
 			<button type="submit" class="btn btn-primary">Guardar</button>

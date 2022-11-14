@@ -2,7 +2,7 @@
 	require_once "./pruebabitacora.php";
 
 	$datos_bitacora = [
-		"id_objeto" => 0,
+		"id_objeto" => 1,
 		"fecha" => date('Y-m-d H:i:s'),
 		"id_usuario" => $_SESSION['id_login'],
 		"accion" => "Cambio de vista",

@@ -22,8 +22,6 @@
 											
 		}
 
-
-
 		/*--------- Modelo actualizar proveedor ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
 		protected static function actualizar_proveedor_modelo($dato,$id)
 		{
@@ -38,19 +36,9 @@
 			$sql->bindParam(6,$id);
 			$sql->execute();
 			return $sql;
-
-				/* VERIFICAR SU GUARDA DEL DATO EN BITACORA */
-				$datos_bitacora = 
-				[
-					"id_objeto" => 0,
-					"fecha" => date('Y-m-d h:i:s'),
-					"id_Proveedores" => null,
-					"accion" => "Actualizacion de proveedor",
-					"descripcion" => "Acceso de proveedor"
-				];
-				Bitacora::guardar_bitacora($datos_bitacora);
-			
 		}
+
+
 
 		protected static function datos_proveedor_modelo($tipo,$id){
 			if($tipo=='unico'){
@@ -61,16 +49,16 @@
 			return $sql;
 		}
 
+
+
 		 protected static function eliminar_proveedor_modelo($accion,$id){
-			
 			if ($accion=='borrar'){
 				$sql=mainModel::conectar()->prepare("DELETE FROM TBL_Proveedores where id_Proveedores=?");
 				$sql->bindParam(1,$id);
 				$sql->execute();
 				return $sql;
 			}
-			
-		
-		
 		}
+
+		
 	}
