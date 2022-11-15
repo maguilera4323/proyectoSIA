@@ -39,7 +39,7 @@ CREATE TABLE `TBL_bitacora` (
   PRIMARY KEY (`id_bitacora`),
   KEY `FK_TBL_bitacora_TBL_usuarios` (`id_usuario`),
   CONSTRAINT `FK_TBL_bitacora_TBL_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `TBL_usuarios` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=921 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=1329 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO TBL_bitacora VALUES("501","0","2022-11-06 20:22:11","1","Inicio de sesion","El usuario ADMIN entró al sistema");
 INSERT INTO TBL_bitacora VALUES("502","0","2022-11-06 20:22:11","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
@@ -461,6 +461,414 @@ INSERT INTO TBL_bitacora VALUES("917","0","2022-11-09 21:54:58","1","Cambio de v
 INSERT INTO TBL_bitacora VALUES("918","0","2022-11-09 21:56:28","1","Cambio de vista","El usuario ADMIN entró a la vista de Inventario Disponible");
 INSERT INTO TBL_bitacora VALUES("919","0","2022-11-09 21:56:55","1","Cambio de vista","El usuario ADMIN entró a la vista de Inventario Disponible");
 INSERT INTO TBL_bitacora VALUES("920","0","2022-11-09 21:57:54","1","Cambio de vista","El usuario ADMIN entró a la vista de Insumos");
+INSERT INTO TBL_bitacora VALUES("921","0","2022-11-09 21:58:28","1","Cambio de vista","El usuario ADMIN entró a la vista de Insumos");
+INSERT INTO TBL_bitacora VALUES("922","0","2022-11-09 21:58:47","1","Cambio de vista","El usuario ADMIN entró a la vista de Proveedores");
+INSERT INTO TBL_bitacora VALUES("923","0","2022-11-09 21:59:45","1","Cambio de vista","El usuario ADMIN entró a la vista de Proveedores");
+INSERT INTO TBL_bitacora VALUES("924","0","2022-11-09 21:59:54","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Usuarios");
+INSERT INTO TBL_bitacora VALUES("925","0","2022-11-09 22:01:09","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Usuarios");
+INSERT INTO TBL_bitacora VALUES("926","0","2022-11-09 22:01:30","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("927","0","2022-11-09 22:02:08","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("928","0","2022-11-09 22:02:19","1","Cambio de vista","El usuario ADMIN entró a la vista de Roles");
+INSERT INTO TBL_bitacora VALUES("929","0","2022-11-09 22:02:47","1","Cambio de vista","El usuario ADMIN entró a la vista de Roles");
+INSERT INTO TBL_bitacora VALUES("930","0","2022-11-09 22:03:02","1","Cambio de vista","El usuario ADMIN entró a la vista de Permisos");
+INSERT INTO TBL_bitacora VALUES("931","0","2022-11-09 22:03:13","1","Modificación de objeto","El usuario ADMIN actualizó un objeto del sistema");
+INSERT INTO TBL_bitacora VALUES("932","0","2022-11-09 22:03:14","1","Cambio de vista","El usuario ADMIN entró a la vista de Permisos");
+INSERT INTO TBL_bitacora VALUES("933","0","2022-11-09 22:03:28","1","Modificación de objeto","El usuario ADMIN actualizó un objeto del sistema");
+INSERT INTO TBL_bitacora VALUES("934","0","2022-11-09 22:03:29","1","Cambio de vista","El usuario ADMIN entró a la vista de Permisos");
+INSERT INTO TBL_bitacora VALUES("935","0","2022-11-09 22:03:45","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("936","0","2022-11-09 22:04:18","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("937","0","2022-11-09 22:04:41","1","Cambio de vista","El usuario ADMIN entró a la vista de Preguntas");
+INSERT INTO TBL_bitacora VALUES("938","0","2022-11-09 22:05:13","1","Cambio de vista","El usuario ADMIN entró a la vista de Preguntas");
+INSERT INTO TBL_bitacora VALUES("939","0","2022-11-09 22:09:45","1","Cambio de vista","El usuario ADMIN entró a la vista de Roles");
+INSERT INTO TBL_bitacora VALUES("940","0","2022-11-09 22:24:31","1","Cambio de vista","El usuario ADMIN entró a la vista de Roles");
+INSERT INTO TBL_bitacora VALUES("941","0","2022-11-09 22:24:43","1","Cambio de vista","El usuario ADMIN entró a la vista de Permisos");
+INSERT INTO TBL_bitacora VALUES("942","0","2022-11-09 22:25:22","1","Cambio de vista","El usuario ADMIN entró a la vista de Permisos");
+INSERT INTO TBL_bitacora VALUES("943","0","2022-11-09 22:34:05","1","Cambio de vista","El usuario ADMIN entró a la vista de Permisos");
+INSERT INTO TBL_bitacora VALUES("944","0","2022-11-09 22:34:23","1","Cambio de vista","El usuario ADMIN entró a la vista de Permisos");
+INSERT INTO TBL_bitacora VALUES("945","0","2022-11-09 22:34:39","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("946","0","2022-11-09 22:35:17","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("947","0","2022-11-09 22:35:25","1","Cambio de vista","El usuario ADMIN entró a la vista de Permisos");
+INSERT INTO TBL_bitacora VALUES("948","0","2022-11-09 22:36:39","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("949","0","2022-11-09 22:38:48","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("950","0","2022-11-09 22:38:55","1","Cambio de vista","El usuario ADMIN entró a la vista de Preguntas");
+INSERT INTO TBL_bitacora VALUES("951","0","2022-11-09 22:39:29","1","Cambio de vista","El usuario ADMIN entró a la vista de Permisos");
+INSERT INTO TBL_bitacora VALUES("952","0","2022-11-09 22:41:56","1","Cambio de vista","El usuario ADMIN entró a la vista de Preguntas");
+INSERT INTO TBL_bitacora VALUES("953","0","2022-11-09 22:42:05","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Usuarios");
+INSERT INTO TBL_bitacora VALUES("954","0","2022-11-09 22:42:09","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("955","0","2022-11-09 22:42:18","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Usuarios");
+INSERT INTO TBL_bitacora VALUES("956","0","2022-11-09 22:42:26","1","Cierre de sesión","El usuario ADMIN salió del sistema");
+INSERT INTO TBL_bitacora VALUES("957","0","2022-11-09 22:43:18","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("958","0","2022-11-09 22:43:19","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("959","0","2022-11-09 22:43:33","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Usuarios");
+INSERT INTO TBL_bitacora VALUES("960","0","2022-11-09 22:43:52","1","Modificación de usuario","El usuario ADMIN actualizó un usuario del sistema");
+INSERT INTO TBL_bitacora VALUES("961","0","2022-11-09 22:43:56","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Usuarios");
+INSERT INTO TBL_bitacora VALUES("962","0","2022-11-09 22:49:26","1","Cierre de sesión","El usuario ADMIN salió del sistema");
+INSERT INTO TBL_bitacora VALUES("963","0","2022-11-09 23:01:42","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("964","0","2022-11-09 23:01:43","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("965","0","2022-11-09 23:02:06","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("966","0","2022-11-09 23:02:18","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("967","0","2022-11-09 23:02:23","1","Cambio de vista","El usuario ADMIN entró a la vista de Proveedores");
+INSERT INTO TBL_bitacora VALUES("968","0","2022-11-09 23:02:28","1","Cambio de vista","El usuario ADMIN entró a la vista de Insumos");
+INSERT INTO TBL_bitacora VALUES("969","0","2022-11-09 23:03:17","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("970","0","2022-11-09 23:03:27","1","Cambio de vista","El usuario ADMIN entró a la vista de Roles");
+INSERT INTO TBL_bitacora VALUES("971","0","2022-11-09 23:03:41","1","Cambio de vista","El usuario ADMIN entró a la vista de Permisos");
+INSERT INTO TBL_bitacora VALUES("972","0","2022-11-09 23:04:46","1","Cierre de sesión","El usuario ADMIN salió del sistema");
+INSERT INTO TBL_bitacora VALUES("973","0","2022-11-09 23:05:41","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("974","0","2022-11-09 23:05:41","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("975","0","2022-11-09 23:05:56","1","Cambio de vista","El usuario ADMIN entró a la vista de Proveedores");
+INSERT INTO TBL_bitacora VALUES("976","0","2022-11-09 23:06:17","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Usuarios");
+INSERT INTO TBL_bitacora VALUES("977","0","2022-11-09 23:07:28","1","Cierre de sesión","El usuario ADMIN salió del sistema");
+INSERT INTO TBL_bitacora VALUES("978","0","2022-11-09 23:12:53","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("979","0","2022-11-09 23:12:54","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("980","0","2022-11-09 23:13:02","1","Cambio de vista","El usuario ADMIN entró a la vista de Preguntas");
+INSERT INTO TBL_bitacora VALUES("981","0","2022-11-09 23:13:12","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("982","0","2022-11-11 15:09:51","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("983","0","2022-11-11 15:09:51","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("984","0","2022-11-11 15:10:18","1","Cambio de vista","El usuario ADMIN entró a la vista de Preguntas");
+INSERT INTO TBL_bitacora VALUES("985","0","2022-11-11 15:10:20","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("986","0","2022-11-11 15:10:46","1","Cambio de vista","El usuario ADMIN entró a la vista de Permisos");
+INSERT INTO TBL_bitacora VALUES("987","0","2022-11-11 15:10:49","1","Cambio de vista","El usuario ADMIN entró a la vista de Roles");
+INSERT INTO TBL_bitacora VALUES("988","0","2022-11-11 15:10:52","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("989","0","2022-11-11 15:11:13","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Usuarios");
+INSERT INTO TBL_bitacora VALUES("990","0","2022-11-11 15:16:07","1","Cierre de sesión","El usuario ADMIN salió del sistema");
+INSERT INTO TBL_bitacora VALUES("991","0","2022-11-11 16:11:45","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("992","0","2022-11-11 16:11:45","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("993","0","2022-11-11 16:11:53","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Usuarios");
+INSERT INTO TBL_bitacora VALUES("994","0","2022-11-11 16:12:12","1","Cambio de vista","El usuario ADMIN entró a la vista de Insumos");
+INSERT INTO TBL_bitacora VALUES("995","0","2022-11-11 16:18:42","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("996","0","2022-11-11 16:18:42","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("997","0","2022-11-11 16:29:10","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("998","0","2022-11-11 16:31:31","1","Cambio de vista","El usuario ADMIN entró a la vista de Proveedores");
+INSERT INTO TBL_bitacora VALUES("999","0","2022-11-11 16:31:46","1","Cambio de vista","El usuario ADMIN entró a la vista de Insumos");
+INSERT INTO TBL_bitacora VALUES("1000","0","2022-11-11 16:31:53","1","Cambio de vista","El usuario ADMIN entró a la vista de Inventario Disponible");
+INSERT INTO TBL_bitacora VALUES("1001","0","2022-11-11 16:33:19","1","Cambio de vista","El usuario ADMIN entró a la vista de Preguntas");
+INSERT INTO TBL_bitacora VALUES("1002","0","2022-11-11 16:36:30","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1003","0","2022-11-11 16:37:27","1","Cambio de vista","El usuario ADMIN entró a la vista de Insumos");
+INSERT INTO TBL_bitacora VALUES("1004","0","2022-11-11 16:37:30","1","Cambio de vista","El usuario ADMIN entró a la vista de Inventario Disponible");
+INSERT INTO TBL_bitacora VALUES("1005","0","2022-11-11 16:40:26","1","Cambio de vista","El usuario ADMIN entró a la vista de Insumos");
+INSERT INTO TBL_bitacora VALUES("1006","0","2022-11-11 16:45:33","1","Cambio de vista","El usuario ADMIN entró a la vista de Permisos");
+INSERT INTO TBL_bitacora VALUES("1007","0","2022-11-11 16:45:46","1","Cierre de sesión","El usuario ADMIN salió del sistema");
+INSERT INTO TBL_bitacora VALUES("1008","0","2022-11-11 16:46:04","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("1009","0","2022-11-11 16:46:05","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1010","0","2022-11-11 20:31:57","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("1011","0","2022-11-11 20:31:57","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1012","0","2022-11-11 20:32:51","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1013","0","2022-11-11 20:32:56","1","Cierre de sesión","El usuario ADMIN salió del sistema");
+INSERT INTO TBL_bitacora VALUES("1014","0","2022-11-11 20:33:04","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("1015","0","2022-11-11 20:33:04","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1016","0","2022-11-11 20:33:41","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("1017","0","2022-11-11 20:34:29","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("1018","0","2022-11-11 20:34:57","1","Objeto eliminado","El usuario ADMIN eliminó un objeto del sistema");
+INSERT INTO TBL_bitacora VALUES("1019","0","2022-11-11 20:35:02","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("1020","0","2022-11-11 20:48:43","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("1021","0","2022-11-11 20:52:10","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("1022","0","2022-11-11 20:52:26","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("1023","0","2022-11-11 20:52:38","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("1024","0","2022-11-11 20:52:44","1","Cierre de sesión","El usuario ADMIN salió del sistema");
+INSERT INTO TBL_bitacora VALUES("1025","0","2022-11-11 20:52:51","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("1026","0","2022-11-11 20:52:51","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1027","0","2022-11-11 20:52:59","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("1028","0","2022-11-11 20:53:20","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("1029","0","2022-11-11 20:54:34","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("1030","0","2022-11-11 21:01:25","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("1031","0","2022-11-11 21:03:29","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("1032","0","2022-11-11 21:04:09","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("1033","0","2022-11-11 21:04:34","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("1034","0","2022-11-11 21:04:47","1","Cierre de sesión","El usuario ADMIN salió del sistema");
+INSERT INTO TBL_bitacora VALUES("1035","0","2022-11-11 21:04:56","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("1036","0","2022-11-11 21:04:56","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1037","0","2022-11-11 21:05:03","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("1038","0","2022-11-11 21:05:31","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1039","0","2022-11-11 21:05:39","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("1040","0","2022-11-11 21:06:53","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("1041","0","2022-11-11 21:07:33","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("1042","0","2022-11-11 21:11:12","1","Cambio de vista","El usuario ADMIN entró a la vista de Permisos");
+INSERT INTO TBL_bitacora VALUES("1043","0","2022-11-11 21:12:10","1","Cambio de vista","El usuario ADMIN entró a la vista de Permisos");
+INSERT INTO TBL_bitacora VALUES("1044","0","2022-11-11 21:12:53","1","Cambio de vista","El usuario ADMIN entró a la vista de Permisos");
+INSERT INTO TBL_bitacora VALUES("1045","0","2022-11-11 21:20:49","1","Cambio de vista","El usuario ADMIN entró a la vista de Permisos");
+INSERT INTO TBL_bitacora VALUES("1046","0","2022-11-11 21:20:55","1","Cambio de vista","El usuario ADMIN entró a la vista de Roles");
+INSERT INTO TBL_bitacora VALUES("1047","0","2022-11-11 21:20:56","1","Cambio de vista","El usuario ADMIN entró al modal de Creación de Roles");
+INSERT INTO TBL_bitacora VALUES("1048","0","2022-11-11 21:22:07","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("1049","0","2022-11-11 21:22:58","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("1050","0","2022-11-11 21:22:58","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1051","0","2022-11-11 21:23:25","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("1052","0","2022-11-11 21:23:48","1","Creación de Objeto","El usuario ADMIN creó un nuevo objeto en el sistema");
+INSERT INTO TBL_bitacora VALUES("1053","0","2022-11-11 21:23:49","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("1054","0","2022-11-11 21:23:59","1","Cambio de vista","El usuario ADMIN entró a la vista de Proveedores");
+INSERT INTO TBL_bitacora VALUES("1055","0","2022-11-11 21:26:02","1","Cambio de vista","El usuario ADMIN entró a la vista de Proveedores");
+INSERT INTO TBL_bitacora VALUES("1056","0","2022-11-11 21:28:31","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("1057","0","2022-11-11 21:29:22","1","Creación de Objeto","El usuario ADMIN creó un nuevo objeto en el sistema");
+INSERT INTO TBL_bitacora VALUES("1058","0","2022-11-11 21:29:24","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("1059","0","2022-11-11 21:30:38","1","Creación de Objeto","El usuario ADMIN creó un nuevo objeto en el sistema");
+INSERT INTO TBL_bitacora VALUES("1060","0","2022-11-11 21:30:39","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("1061","0","2022-11-11 21:31:07","1","Modificación de objeto","El usuario ADMIN actualizó un objeto del sistema");
+INSERT INTO TBL_bitacora VALUES("1062","0","2022-11-11 21:31:09","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("1063","0","2022-11-11 21:31:19","1","Cambio de vista","El usuario ADMIN entró a la vista de Permisos");
+INSERT INTO TBL_bitacora VALUES("1064","0","2022-11-11 21:31:50","1","Creación de Objeto","El usuario ADMIN creó un nuevo objeto en el sistema");
+INSERT INTO TBL_bitacora VALUES("1065","0","2022-11-11 21:31:51","1","Cambio de vista","El usuario ADMIN entró a la vista de Permisos");
+INSERT INTO TBL_bitacora VALUES("1066","0","2022-11-11 21:32:07","1","Creación de Objeto","El usuario ADMIN creó un nuevo objeto en el sistema");
+INSERT INTO TBL_bitacora VALUES("1067","0","2022-11-11 21:32:08","1","Cambio de vista","El usuario ADMIN entró a la vista de Permisos");
+INSERT INTO TBL_bitacora VALUES("1068","0","2022-11-11 21:32:24","1","Creación de Objeto","El usuario ADMIN creó un nuevo objeto en el sistema");
+INSERT INTO TBL_bitacora VALUES("1069","0","2022-11-11 21:32:26","1","Cambio de vista","El usuario ADMIN entró a la vista de Permisos");
+INSERT INTO TBL_bitacora VALUES("1070","0","2022-11-11 21:32:42","1","Creación de Objeto","El usuario ADMIN creó un nuevo objeto en el sistema");
+INSERT INTO TBL_bitacora VALUES("1071","0","2022-11-11 21:32:43","1","Cambio de vista","El usuario ADMIN entró a la vista de Permisos");
+INSERT INTO TBL_bitacora VALUES("1072","0","2022-11-11 21:32:56","1","Creación de Objeto","El usuario ADMIN creó un nuevo objeto en el sistema");
+INSERT INTO TBL_bitacora VALUES("1073","0","2022-11-11 21:32:57","1","Cambio de vista","El usuario ADMIN entró a la vista de Permisos");
+INSERT INTO TBL_bitacora VALUES("1074","0","2022-11-11 21:34:04","1","Creación de Objeto","El usuario ADMIN creó un nuevo objeto en el sistema");
+INSERT INTO TBL_bitacora VALUES("1075","0","2022-11-11 21:34:05","1","Cambio de vista","El usuario ADMIN entró a la vista de Permisos");
+INSERT INTO TBL_bitacora VALUES("1076","0","2022-11-11 23:18:20","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1077","0","2022-11-12 10:18:02","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("1078","0","2022-11-12 10:18:02","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1079","0","2022-11-12 10:35:32","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1080","0","2022-11-12 10:35:35","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1081","0","2022-11-12 10:36:44","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1082","0","2022-11-12 10:37:28","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1083","0","2022-11-12 10:38:35","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1084","0","2022-11-12 10:40:43","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("1085","0","2022-11-12 10:40:46","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1086","0","2022-11-12 10:40:51","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1087","0","2022-11-12 10:42:13","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1088","0","2022-11-12 10:47:14","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1089","0","2022-11-12 11:04:22","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1090","0","2022-11-12 16:40:03","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("1091","0","2022-11-12 16:40:04","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1092","0","2022-11-12 16:40:16","1","Cambio de vista","El usuario ADMIN entró a la vista de Permisos");
+INSERT INTO TBL_bitacora VALUES("1093","0","2022-11-12 16:44:22","1","Cambio de vista","El usuario ADMIN entró a la vista de Permisos");
+INSERT INTO TBL_bitacora VALUES("1094","0","2022-11-12 16:45:07","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1095","0","2022-11-12 16:45:41","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1096","0","2022-11-12 16:45:45","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1097","0","2022-11-12 16:46:04","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1098","0","2022-11-12 16:46:16","1","Modificación de usuario","El usuario ADMIN actualizó un usuario del sistema");
+INSERT INTO TBL_bitacora VALUES("1099","0","2022-11-12 16:46:20","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1100","0","2022-11-12 16:57:47","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1101","0","2022-11-12 17:09:34","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("1102","0","2022-11-12 17:10:00","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("1103","0","2022-11-12 17:10:28","1","Creación de Objeto","El usuario ADMIN creó un nuevo objeto en el sistema");
+INSERT INTO TBL_bitacora VALUES("1104","0","2022-11-12 17:10:29","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("1105","1","2022-11-12 17:11:12","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1106","1","2022-11-12 17:30:14","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1107","1","2022-11-12 17:31:13","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1108","0","2022-11-12 17:31:22","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1109","0","2022-11-12 17:33:33","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("1110","0","2022-11-12 17:40:32","1","Cierre de sesión","El usuario ADMIN salió del sistema");
+INSERT INTO TBL_bitacora VALUES("1111","0","2022-11-12 17:41:46","6","Inicio de sesion","El usuario MARIOS entró al sistema");
+INSERT INTO TBL_bitacora VALUES("1112","1","2022-11-12 17:41:46","6","Cambio de vista","El usuario MARIOS entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1113","1","2022-11-12 17:42:09","6","Cambio de vista","El usuario MARIOS entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1114","0","2022-11-12 17:42:14","6","Cierre de sesión","El usuario MARIOS salió del sistema");
+INSERT INTO TBL_bitacora VALUES("1115","0","2022-11-12 17:42:42","6","Inicio de sesion","El usuario MARIOS entró al sistema");
+INSERT INTO TBL_bitacora VALUES("1116","1","2022-11-12 17:42:42","6","Cambio de vista","El usuario MARIOS entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1117","0","2022-11-12 21:27:03","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("1118","0","2022-11-12 21:27:03","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1119","0","2022-11-12 21:27:39","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1120","0","2022-11-12 21:28:50","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1121","0","2022-11-12 21:30:07","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1122","0","2022-11-12 21:30:42","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1123","0","2022-11-12 21:31:23","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1124","0","2022-11-12 21:33:55","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1125","0","2022-11-12 21:44:35","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1126","0","2022-11-12 21:44:46","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1127","0","2022-11-12 21:44:51","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1128","0","2022-11-12 21:45:02","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1129","0","2022-11-12 21:45:13","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1130","0","2022-11-12 21:45:23","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1131","0","2022-11-12 21:49:22","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1132","0","2022-11-12 21:49:38","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1133","0","2022-11-12 21:49:58","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1134","0","2022-11-12 21:50:59","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1135","0","2022-11-12 21:51:13","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1136","0","2022-11-12 21:51:41","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1137","0","2022-11-12 21:52:04","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1138","0","2022-11-12 21:52:23","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1139","0","2022-11-12 21:53:35","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1140","0","2022-11-12 21:54:30","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1141","0","2022-11-12 22:05:01","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1142","0","2022-11-12 22:16:48","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1143","0","2022-11-12 22:16:54","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1144","0","2022-11-12 22:17:24","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1145","0","2022-11-12 22:17:25","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1146","0","2022-11-12 22:19:03","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1147","0","2022-11-12 22:19:27","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1148","0","2022-11-12 23:27:30","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("1149","0","2022-11-12 23:27:31","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1150","0","2022-11-12 23:27:50","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1151","0","2022-11-12 23:27:56","1","Cambio de vista","El usuario ADMIN entró a la vista de Proveedores");
+INSERT INTO TBL_bitacora VALUES("1152","0","2022-11-12 23:28:03","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1153","0","2022-11-12 23:40:25","1","Cambio de vista","El usuario ADMIN entró a la vista de Proveedores");
+INSERT INTO TBL_bitacora VALUES("1154","0","2022-11-12 23:49:30","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1155","0","2022-11-12 23:49:45","1","Cambio de vista","El usuario ADMIN entró a la vista de Proveedores");
+INSERT INTO TBL_bitacora VALUES("1156","0","2022-11-12 23:50:06","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1157","0","2022-11-13 00:08:46","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1158","0","2022-11-13 00:24:30","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1159","0","2022-11-13 00:32:16","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1160","0","2022-11-13 11:04:17","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("1161","0","2022-11-13 11:04:18","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1162","0","2022-11-13 11:04:31","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1163","0","2022-11-13 11:04:38","1","Cambio de vista","El usuario ADMIN entró a la vista de Proveedores");
+INSERT INTO TBL_bitacora VALUES("1164","0","2022-11-13 11:05:26","1","Cambio de vista","El usuario ADMIN entró a la vista de Proveedores");
+INSERT INTO TBL_bitacora VALUES("1165","0","2022-11-13 13:16:06","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("1166","0","2022-11-13 13:16:07","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1167","0","2022-11-13 13:52:15","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("1168","0","2022-11-13 13:52:15","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1169","0","2022-11-13 13:56:49","1","Cambio de vista","El usuario ADMIN entró a la vista de Proveedores");
+INSERT INTO TBL_bitacora VALUES("1170","0","2022-11-13 14:23:25","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("1171","0","2022-11-13 14:23:25","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1172","0","2022-11-13 14:24:51","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1173","0","2022-11-13 14:29:58","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1174","0","2022-11-13 14:37:49","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1175","0","2022-11-13 14:39:03","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("1176","0","2022-11-13 14:39:03","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1177","0","2022-11-13 16:04:54","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1178","0","2022-11-13 17:20:53","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("1179","0","2022-11-13 17:20:54","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1180","0","2022-11-13 17:27:18","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1181","0","2022-11-13 17:27:23","1","Cambio de vista","El usuario ADMIN entró a la vista de Creación de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1182","0","2022-11-13 17:27:37","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1183","0","2022-11-13 18:19:44","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("1184","1","2022-11-13 18:19:45","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1185","0","2022-11-13 18:23:15","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1186","1","2022-11-13 18:28:51","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1187","0","2022-11-13 21:18:11","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("1188","0","2022-11-13 21:18:11","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1189","0","2022-11-13 21:20:08","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1190","0","2022-11-13 21:41:13","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1191","0","2022-11-13 22:16:34","1","Cierre de sesión","El usuario ADMIN salió del sistema");
+INSERT INTO TBL_bitacora VALUES("1192","0","2022-11-13 22:16:39","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("1193","0","2022-11-13 22:16:39","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1194","0","2022-11-13 23:58:51","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1195","0","2022-11-13 23:59:09","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1196","0","2022-11-14 08:50:18","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("1197","1","2022-11-14 08:50:19","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1198","0","2022-11-14 08:54:14","","Agregar Producto","Se agrego un nuevo producto en el sistema");
+INSERT INTO TBL_bitacora VALUES("1199","0","2022-11-14 08:57:49","","Agregar Producto","Se agrego un nuevo producto en el sistema");
+INSERT INTO TBL_bitacora VALUES("1200","0","2022-11-14 08:58:01","","Agregar Producto","Se agrego un nuevo producto en el sistema");
+INSERT INTO TBL_bitacora VALUES("1201","0","2022-11-14 08:58:06","","Agregar Producto","Se agrego un nuevo producto en el sistema");
+INSERT INTO TBL_bitacora VALUES("1202","0","2022-11-14 09:16:22","1","Producto Eliminado","El usuario ADMIN Elimino un producto del sistema");
+INSERT INTO TBL_bitacora VALUES("1203","0","2022-11-14 09:18:23","1","Producto Eliminado","El usuario ADMIN Elimino un producto del sistema");
+INSERT INTO TBL_bitacora VALUES("1204","0","2022-11-14 09:18:39","1","Producto Eliminado","El usuario ADMIN Elimino un producto del sistema");
+INSERT INTO TBL_bitacora VALUES("1205","0","2022-11-14 09:18:48","1","Producto Eliminado","El usuario ADMIN Elimino un producto del sistema");
+INSERT INTO TBL_bitacora VALUES("1206","0","2022-11-14 15:24:46","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("1207","1","2022-11-14 15:24:46","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1208","0","2022-11-14 03:26:56","","Agregar Tipo de Producto","Se agrego un nuevo Tipo de producto en el sistema");
+INSERT INTO TBL_bitacora VALUES("1209","0","2022-11-14 03:29:48","","Agregar Tipo de Producto","Se agrego un nuevo Tipo de producto en el sistema");
+INSERT INTO TBL_bitacora VALUES("1210","0","2022-11-14 15:37:19","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("1211","1","2022-11-14 15:37:20","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1212","0","2022-11-14 15:37:47","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1213","0","2022-11-14 15:44:51","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1214","0","2022-11-14 15:47:51","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1215","0","2022-11-14 15:48:27","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1216","0","2022-11-14 15:48:44","1","Creación de Parametro","El usuario ADMIN creó un nuevo parametro en el sistema");
+INSERT INTO TBL_bitacora VALUES("1217","0","2022-11-14 15:48:46","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1218","0","2022-11-14 15:49:50","1","Modificación de Parametro","El usuario ADMIN actualizó un parametro del sistema");
+INSERT INTO TBL_bitacora VALUES("1219","0","2022-11-14 15:49:52","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1220","0","2022-11-14 15:51:37","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1221","0","2022-11-14 15:51:46","1","Parametro eliminado","El usuario ADMIN eliminó un parametro del sistema");
+INSERT INTO TBL_bitacora VALUES("1222","0","2022-11-14 15:51:47","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1223","0","2022-11-14 15:51:54","1","Cierre de sesión","El usuario ADMIN salió del sistema");
+INSERT INTO TBL_bitacora VALUES("1224","0","2022-11-14 15:53:00","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("1225","1","2022-11-14 15:53:00","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1226","0","2022-11-14 15:53:09","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1227","0","2022-11-14 15:54:19","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1228","0","2022-11-14 15:54:51","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1229","0","2022-11-14 15:56:37","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1230","0","2022-11-14 15:56:48","1","Creación de Parametro","El usuario ADMIN creó un nuevo parametro en el sistema");
+INSERT INTO TBL_bitacora VALUES("1231","0","2022-11-14 15:56:50","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1232","0","2022-11-14 15:57:23","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1233","0","2022-11-14 15:58:20","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1234","0","2022-11-14 15:58:49","1","Creación de Parametro","El usuario ADMIN creó un nuevo parametro en el sistema");
+INSERT INTO TBL_bitacora VALUES("1235","0","2022-11-14 15:58:51","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1236","0","2022-11-14 15:59:36","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1237","0","2022-11-14 15:59:48","1","Creación de Parametro","El usuario ADMIN creó un nuevo parametro en el sistema");
+INSERT INTO TBL_bitacora VALUES("1238","0","2022-11-14 15:59:50","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1239","0","2022-11-14 15:59:59","1","Creación de Parametro","El usuario ADMIN creó un nuevo parametro en el sistema");
+INSERT INTO TBL_bitacora VALUES("1240","0","2022-11-14 16:00:01","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1241","0","2022-11-14 16:00:09","1","Parametro eliminado","El usuario ADMIN eliminó un parametro del sistema");
+INSERT INTO TBL_bitacora VALUES("1242","0","2022-11-14 16:00:11","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1243","0","2022-11-14 16:00:17","1","Parametro eliminado","El usuario ADMIN eliminó un parametro del sistema");
+INSERT INTO TBL_bitacora VALUES("1244","0","2022-11-14 16:00:19","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1245","0","2022-11-14 16:00:25","1","Parametro eliminado","El usuario ADMIN eliminó un parametro del sistema");
+INSERT INTO TBL_bitacora VALUES("1246","0","2022-11-14 16:00:26","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1247","0","2022-11-14 16:00:33","1","Parametro eliminado","El usuario ADMIN eliminó un parametro del sistema");
+INSERT INTO TBL_bitacora VALUES("1248","0","2022-11-14 16:00:35","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1249","0","2022-11-14 16:01:40","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1250","0","2022-11-14 16:01:50","1","Creación de Parametro","El usuario ADMIN creó un nuevo parametro en el sistema");
+INSERT INTO TBL_bitacora VALUES("1251","0","2022-11-14 16:01:51","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1252","0","2022-11-14 16:02:19","1","Creación de Parametro","El usuario ADMIN creó un nuevo parametro en el sistema");
+INSERT INTO TBL_bitacora VALUES("1253","0","2022-11-14 16:02:20","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1254","0","2022-11-14 16:02:39","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1255","0","2022-11-14 16:02:49","1","Creación de Parametro","El usuario ADMIN creó un nuevo parametro en el sistema");
+INSERT INTO TBL_bitacora VALUES("1256","0","2022-11-14 16:02:50","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1257","0","2022-11-14 16:03:45","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1258","0","2022-11-14 16:27:39","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("1259","0","2022-11-14 16:32:32","1","Creación de Objeto","El usuario ADMIN creó un nuevo objeto en el sistema");
+INSERT INTO TBL_bitacora VALUES("1260","0","2022-11-14 16:32:33","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("1261","0","2022-11-14 16:34:51","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("1262","0","2022-11-14 16:35:25","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("1263","0","2022-11-14 16:36:06","1","Creación de Objeto","El usuario ADMIN creó un nuevo objeto en el sistema");
+INSERT INTO TBL_bitacora VALUES("1264","0","2022-11-14 16:36:07","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Objetos");
+INSERT INTO TBL_bitacora VALUES("1265","0","2022-11-14 16:38:28","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1266","0","2022-11-14 16:38:42","1","Creación de Parámetro","El usuario ADMIN creó un nuevo parámetro en el sistema");
+INSERT INTO TBL_bitacora VALUES("1267","0","2022-11-14 16:38:46","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1268","0","2022-11-14 16:39:32","1","Parámetro eliminado","El usuario ADMIN eliminó un parámetro del sistema");
+INSERT INTO TBL_bitacora VALUES("1269","0","2022-11-14 16:39:34","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1270","0","2022-11-14 16:39:40","1","Parámetro eliminado","El usuario ADMIN eliminó un parámetro del sistema");
+INSERT INTO TBL_bitacora VALUES("1271","0","2022-11-14 16:39:41","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1272","0","2022-11-14 16:39:47","1","Parámetro eliminado","El usuario ADMIN eliminó un parámetro del sistema");
+INSERT INTO TBL_bitacora VALUES("1273","0","2022-11-14 16:39:49","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1274","0","2022-11-14 16:39:55","1","Parámetro eliminado","El usuario ADMIN eliminó un parámetro del sistema");
+INSERT INTO TBL_bitacora VALUES("1275","0","2022-11-14 16:39:57","1","Cambio de vista","El usuario ADMIN entró a la vista de Parametros");
+INSERT INTO TBL_bitacora VALUES("1276","0","2022-11-14 16:42:32","1","Cambio de vista","El usuario ADMIN entró a la vista de Roles");
+INSERT INTO TBL_bitacora VALUES("1277","0","2022-11-14 16:45:05","1","Cambio de vista","El usuario ADMIN entró a la vista de Roles");
+INSERT INTO TBL_bitacora VALUES("1278","0","2022-11-14 16:45:51","1","Cambio de vista","El usuario ADMIN entró a la vista de Roles");
+INSERT INTO TBL_bitacora VALUES("1279","0","2022-11-14 16:48:09","1","Cambio de vista","El usuario ADMIN entró a la vista de Roles");
+INSERT INTO TBL_bitacora VALUES("1280","0","2022-11-14 16:53:54","1","Cambio de vista","El usuario ADMIN entró a la vista de Preguntas");
+INSERT INTO TBL_bitacora VALUES("1281","0","2022-11-14 16:54:45","1","Creación de Pregunta","El usuario ADMIN creó una nueva pregunta en el sistema");
+INSERT INTO TBL_bitacora VALUES("1282","0","2022-11-14 16:54:47","1","Cambio de vista","El usuario ADMIN entró a la vista de Preguntas");
+INSERT INTO TBL_bitacora VALUES("1283","0","2022-11-14 16:55:53","1","Cambio de vista","El usuario ADMIN entró a la vista de Preguntas");
+INSERT INTO TBL_bitacora VALUES("1284","0","2022-11-14 16:56:12","1","Modificación de Pregunta","El usuario ADMIN actualizó una pregunta del sistema");
+INSERT INTO TBL_bitacora VALUES("1285","0","2022-11-14 16:56:14","1","Cambio de vista","El usuario ADMIN entró a la vista de Preguntas");
+INSERT INTO TBL_bitacora VALUES("1286","0","2022-11-14 16:58:16","1","Cambio de vista","El usuario ADMIN entró a la vista de Preguntas");
+INSERT INTO TBL_bitacora VALUES("1287","0","2022-11-14 16:59:11","1","Creación de Pregunta","El usuario ADMIN creó una nueva pregunta en el sistema");
+INSERT INTO TBL_bitacora VALUES("1288","0","2022-11-14 16:59:13","1","Cambio de vista","El usuario ADMIN entró a la vista de Preguntas");
+INSERT INTO TBL_bitacora VALUES("1289","0","2022-11-14 16:59:46","1","Pregunta eliminada","El usuario ADMIN eliminó una pregunta del sistema");
+INSERT INTO TBL_bitacora VALUES("1290","0","2022-11-14 16:59:47","1","Cambio de vista","El usuario ADMIN entró a la vista de Preguntas");
+INSERT INTO TBL_bitacora VALUES("1291","1","2022-11-14 17:04:44","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1292","0","2022-11-14 17:04:53","1","Cambio de vista","El usuario ADMIN entró a la vista de Roles");
+INSERT INTO TBL_bitacora VALUES("1293","0","2022-11-14 19:48:28","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("1294","1","2022-11-14 19:48:29","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1295","0","2022-11-14 19:59:36","1","Producto Eliminado","El usuario ADMIN Elimino un producto del sistema");
+INSERT INTO TBL_bitacora VALUES("1296","0","2022-11-14 21:32:33","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("1297","0","2022-11-14 21:32:34","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1298","0","2022-11-14 21:33:54","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1299","0","2022-11-14 21:43:44","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1300","0","2022-11-14 21:47:26","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("1301","1","2022-11-14 21:47:27","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1302","0","2022-11-14 09:48:41","1","Agregar Producto","Se agrego un nuevo producto en el sistema");
+INSERT INTO TBL_bitacora VALUES("1303","0","2022-11-14 09:48:56","1","Agregar Producto","Se agrego un nuevo producto en el sistema");
+INSERT INTO TBL_bitacora VALUES("1304","0","2022-11-14 21:51:48","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1305","1","2022-11-14 22:10:13","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1306","1","2022-11-14 22:10:17","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1307","0","2022-11-14 22:10:20","1","Cierre de sesión","El usuario ADMIN salió del sistema");
+INSERT INTO TBL_bitacora VALUES("1308","0","2022-11-14 22:12:04","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("1309","1","2022-11-14 22:12:05","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1310","0","2022-11-14 22:12:12","1","Cierre de sesión","El usuario ADMIN salió del sistema");
+INSERT INTO TBL_bitacora VALUES("1311","0","2022-11-14 22:12:41","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1312","0","2022-11-14 22:18:36","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("1313","1","2022-11-14 22:18:36","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1314","0","2022-11-14 22:18:39","1","Cierre de sesión","El usuario ADMIN salió del sistema");
+INSERT INTO TBL_bitacora VALUES("1315","0","2022-11-14 22:21:08","1","Inicio de sesion","El usuario ADMIN entró al sistema");
+INSERT INTO TBL_bitacora VALUES("1316","1","2022-11-14 22:21:08","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1317","0","2022-11-14 22:25:09","1","Cierre de sesión","El usuario ADMIN salió del sistema");
+INSERT INTO TBL_bitacora VALUES("1318","0","2022-11-14 23:33:23","1","Cambio de vista","El usuario ADMIN entró a la vista de Proveedores");
+INSERT INTO TBL_bitacora VALUES("1319","1","2022-11-14 23:35:19","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1320","1","2022-11-14 23:35:22","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1321","1","2022-11-14 23:44:02","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1322","1","2022-11-14 23:46:06","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1323","0","2022-11-14 23:46:26","1","Cambio de vista","El usuario ADMIN entró a la vista de Proveedores");
+INSERT INTO TBL_bitacora VALUES("1324","1","2022-11-14 23:46:36","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1325","0","2022-11-14 23:46:40","1","Cambio de vista","El usuario ADMIN entró a la vista de Mantenimiento de Usuarios");
+INSERT INTO TBL_bitacora VALUES("1326","1","2022-11-14 23:46:45","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1327","1","2022-11-14 23:52:27","1","Cambio de vista","El usuario ADMIN entró a la vista del Home");
+INSERT INTO TBL_bitacora VALUES("1328","0","2022-11-14 23:56:51","1","Cambio de vista","El usuario ADMIN entró a la vista de Proveedores");
 
 
 
@@ -486,7 +894,6 @@ CREATE TABLE `TBL_compras` (
   KEY `FK_compra_proveedor_idx` (`id_proveedor`),
   KEY `FK_compra_usu_idx` (`id_usuario`),
   KEY `FK_estado_compra_idx` (`id_estado_compra`),
-  CONSTRAINT `FK_TBL_compras_TBL_estado_compras` FOREIGN KEY (`id_estado_compra`) REFERENCES `TBL_estado_compras` (`id_estado_compra`),
   CONSTRAINT `FK_TBL_compras_TBL_Proveedores` FOREIGN KEY (`id_proveedor`) REFERENCES `TBL_Proveedores` (`id_Proveedores`),
   CONSTRAINT `FK_TBL_compras_TBL_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `TBL_usuarios` (`id_usuario`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -495,7 +902,7 @@ CREATE TABLE `TBL_compras` (
 
 
 CREATE TABLE `TBL_descuentos` (
-  `id_descuentos` int NOT NULL,
+  `id_descuentos` int NOT NULL AUTO_INCREMENT,
   `nom_descuento` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `porcentaje_descuento` decimal(3,2) DEFAULT NULL,
   PRIMARY KEY (`id_descuentos`)
@@ -522,7 +929,7 @@ CREATE TABLE `TBL_detalle_compra` (
 
 
 CREATE TABLE `TBL_estado_compras` (
-  `id_estado_compra` int NOT NULL,
+  `id_estado_compra` int NOT NULL AUTO_INCREMENT,
   `nom_estado_compra` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   PRIMARY KEY (`id_estado_compra`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -531,7 +938,7 @@ CREATE TABLE `TBL_estado_compras` (
 
 
 CREATE TABLE `TBL_estado_pedido` (
-  `id_estado_pedido` int NOT NULL,
+  `id_estado_pedido` int NOT NULL AUTO_INCREMENT,
   `estado_pedido` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'aqui se colocara si el pedido ya fue facturado o si fue anulado',
   PRIMARY KEY (`id_estado_pedido`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -540,7 +947,7 @@ CREATE TABLE `TBL_estado_pedido` (
 
 
 CREATE TABLE `TBL_estado_promociones` (
-  `id_estado_promociones` int NOT NULL,
+  `id_estado_promociones` int NOT NULL AUTO_INCREMENT,
   `nom_estado_promociones` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   PRIMARY KEY (`id_estado_promociones`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -549,7 +956,7 @@ CREATE TABLE `TBL_estado_promociones` (
 
 
 CREATE TABLE `TBL_forma_pago` (
-  `id_forma_pago` int NOT NULL,
+  `id_forma_pago` int NOT NULL AUTO_INCREMENT,
   `forma_pago` enum('efectivo','tarjeta','cheque') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `descripcion` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   PRIMARY KEY (`id_forma_pago`)
@@ -637,7 +1044,7 @@ CREATE TABLE `TBL_ms_parametros` (
   PRIMARY KEY (`id_parametro`),
   KEY `FK_TBL_ms_parametros_TBL_usuarios` (`id_usuario`),
   CONSTRAINT `FK_TBL_ms_parametros_TBL_usuarios` FOREIGN KEY (`id_usuario`) REFERENCES `TBL_usuarios` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 INSERT INTO TBL_ms_parametros VALUES("1","ADMIN_INTENTOS_INVALIDOS","2","1","ADMIN","2022-10-10 17:58:32","ADMIN","2022-10-10 17:58:32");
 INSERT INTO TBL_ms_parametros VALUES("2","MIN_CONTRASENA","5","1","ADMIN","2022-10-10 18:00:33","ADMIN","2022-10-10 18:00:33");
@@ -695,27 +1102,27 @@ CREATE TABLE `TBL_objetos` (
   `modificado_por` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
   PRIMARY KEY (`id_objeto`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO TBL_objetos VALUES("1","HOME","Vista principal del sistema","Home","ADMIN","2022-11-07 18:50:51","ADMIN","2022-11-08 18:50:15");
+INSERT INTO TBL_objetos VALUES("1","HOME","Vista principal del sistema","Home","ADMIN","2022-11-12 17:10:27","","");
+INSERT INTO TBL_objetos VALUES("2","HOLA","FSDFSDFSDFSDF","Proveedores","ADMIN","2022-11-14 16:32:32","","");
+INSERT INTO TBL_objetos VALUES("3","HOMES","asdasdasdada","Proveedores","ADMIN","2022-11-14 16:36:05","","");
 
 
 
 CREATE TABLE `TBL_pedido_descuentos` (
-  `id_descuentos` int NOT NULL,
+  `id_descuentos` int NOT NULL AUTO_INCREMENT,
   `id_pedidos` int NOT NULL,
   `total_descontado` decimal(6,2) DEFAULT NULL,
   KEY `FK_descu_idx` (`id_descuentos`),
-  KEY `KF_pedido_pedi_desc_idx` (`id_pedidos`),
-  CONSTRAINT `FK_descu` FOREIGN KEY (`id_descuentos`) REFERENCES `TBL_descuentos` (`id_descuentos`),
-  CONSTRAINT `KF_pedido_pedi_desc` FOREIGN KEY (`id_pedidos`) REFERENCES `TBL_pedidos` (`id_pedido`)
+  KEY `KF_pedido_pedi_desc_idx` (`id_pedidos`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
 
 
 CREATE TABLE `TBL_pedidos` (
-  `id_pedido` int NOT NULL,
+  `id_pedido` int NOT NULL AUTO_INCREMENT,
   `id_cliente` int DEFAULT NULL,
   `num_factura` int DEFAULT NULL,
   `fech_pedido` date DEFAULT NULL,
@@ -732,8 +1139,6 @@ CREATE TABLE `TBL_pedidos` (
   KEY `FK_cliente_pedido_idx` (`id_cliente`),
   KEY `FK_estado_pedido_idx` (`id_estado_pedido`),
   KEY `FK_pago_pedido_idx` (`id_forma_pago`),
-  CONSTRAINT `FK_estado_pedido` FOREIGN KEY (`id_estado_pedido`) REFERENCES `TBL_estado_pedido` (`id_estado_pedido`),
-  CONSTRAINT `FK_pago_pedido` FOREIGN KEY (`id_forma_pago`) REFERENCES `TBL_forma_pago` (`id_forma_pago`),
   CONSTRAINT `FK_TBL_pedidos_TBL_Clientes` FOREIGN KEY (`id_cliente`) REFERENCES `TBL_Clientes` (`id_clientes`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -747,9 +1152,7 @@ CREATE TABLE `TBL_pedidos_promociones` (
   `precio_venta` decimal(5,2) DEFAULT NULL,
   PRIMARY KEY (`id_pedido_promocion`),
   KEY `FK_promo_idx` (`id_promocion`),
-  KEY `FK_pedido_idx` (`id_pedido`),
-  CONSTRAINT `FK_pedido` FOREIGN KEY (`id_pedido`) REFERENCES `TBL_pedidos` (`id_pedido`),
-  CONSTRAINT `FK_promo` FOREIGN KEY (`id_promocion`) REFERENCES `TBL_promociones` (`id_promociones`)
+  KEY `FK_pedido_idx` (`id_pedido`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
@@ -770,7 +1173,13 @@ CREATE TABLE `TBL_permisos` (
   KEY `id_objeto` (`id_objeto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO TBL_permisos VALUES("1","1","1","0","0","0","ADMIN","2022-11-08 22:08:13","","");
+INSERT INTO TBL_permisos VALUES("1","1","1","1","1","1","ADMIN","2022-11-08 22:08:13","ADMIN","2022-11-09 22:03:27");
+INSERT INTO TBL_permisos VALUES("1","2","0","0","0","1","ADMIN","2022-11-11 21:31:49","","");
+INSERT INTO TBL_permisos VALUES("2","2","0","0","0","1","ADMIN","2022-11-11 21:32:06","","");
+INSERT INTO TBL_permisos VALUES("3","2","0","0","0","1","ADMIN","2022-11-11 21:32:24","","");
+INSERT INTO TBL_permisos VALUES("1","3","1","1","1","1","ADMIN","2022-11-11 21:32:41","","");
+INSERT INTO TBL_permisos VALUES("2","3","1","1","1","1","ADMIN","2022-11-11 21:32:56","","");
+INSERT INTO TBL_permisos VALUES("3","3","0","0","0","0","ADMIN","2022-11-11 21:34:03","","");
 
 
 
@@ -782,41 +1191,43 @@ CREATE TABLE `TBL_preguntas` (
   `modificado_por` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
   PRIMARY KEY (`id_pregunta`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 INSERT INTO TBL_preguntas VALUES("1","Cual es su deporte favorito?","ADMIN","2022-09-21 00:00:00","ADMIN","2022-09-21 00:00:00");
 INSERT INTO TBL_preguntas VALUES("2","Nombre de su mascota","ADMIN","2022-09-23 00:00:00","ADMIN","2022-09-23 00:00:00");
 INSERT INTO TBL_preguntas VALUES("3","Lugar de nacimiento","ADMIN","2022-09-23 00:00:00","ADMIN","2022-09-23 00:00:00");
 INSERT INTO TBL_preguntas VALUES("4","Comida favorita","ADMIN","2022-09-23 00:00:00","ADMIN","2022-09-23 00:00:00");
 INSERT INTO TBL_preguntas VALUES("5","Nombre de su primer hijo(a)?","ADMIN","2022-09-21 00:00:00","ADMIN","2022-09-21 00:00:00");
+INSERT INTO TBL_preguntas VALUES("10","Serie favorita?","ADMIN","2022-11-14 16:54:45","ADMIN","2022-11-14 16:56:12");
 
 
 
 CREATE TABLE `TBL_producto` (
-  `id_producto` int NOT NULL,
+  `id_producto` int NOT NULL AUTO_INCREMENT,
   `nom_producto` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `id_tipo_produ` int DEFAULT NULL,
   `des_produ` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `precio_produ` decimal(5,2) DEFAULT NULL,
   `foto_produ` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'CAMBIAR A FORMATO DE FOTO',
   PRIMARY KEY (`id_producto`),
-  KEY `FK_idproducto_tippro_idx` (`id_tipo_produ`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `FK_idproducto_tippro_idx` (`id_tipo_produ`),
+  CONSTRAINT `FK_TBL_producto_TBL_tipo_producto` FOREIGN KEY (`id_tipo_produ`) REFERENCES `TBL_tipo_producto` (`id_tipo_produ`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO TBL_producto VALUES("13","cafe","1","no tiene","25.00","no");
+INSERT INTO TBL_producto VALUES("20","SASAD","1","DADASDASDAD","120.00","SASAD.jpg");
+INSERT INTO TBL_producto VALUES("21","SASAD","1","DADASDASDAD","120.00","SASAD.jpg");
 
 
 
 CREATE TABLE `TBL_promociones` (
-  `id_promociones` int NOT NULL,
+  `id_promociones` int NOT NULL AUTO_INCREMENT,
   `nom_promocion` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `fech_ini_promo` date DEFAULT NULL,
   `fech_fin_promo` date DEFAULT NULL,
   `id_estado_promocio` int DEFAULT NULL,
   `precio_promocion` decimal(6,2) DEFAULT NULL,
   PRIMARY KEY (`id_promociones`),
-  KEY `FK_promocion_estado_idx` (`id_estado_promocio`),
-  CONSTRAINT `FK_promocion_estado` FOREIGN KEY (`id_estado_promocio`) REFERENCES `TBL_estado_promociones` (`id_estado_promociones`)
+  KEY `FK_promocion_estado_idx` (`id_estado_promocio`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
@@ -830,9 +1241,7 @@ CREATE TABLE `TBL_promociones_productos` (
   `precio_venta` decimal(5,2) NOT NULL,
   PRIMARY KEY (`id_promociones_productos`),
   KEY `id_promociones` (`id_promociones`),
-  KEY `id_producto` (`id_producto`),
-  CONSTRAINT `TBL_promociones_productos_ibfk_1` FOREIGN KEY (`id_promociones`) REFERENCES `TBL_promociones` (`id_promociones`),
-  CONSTRAINT `TBL_promociones_productos_ibfk_2` FOREIGN KEY (`id_producto`) REFERENCES `TBL_producto` (`id_producto`)
+  KEY `id_producto` (`id_producto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
@@ -846,8 +1255,8 @@ CREATE TABLE `TBL_recetario` (
   PRIMARY KEY (`id_recetario`),
   KEY `FK_produ_recetario_idx` (`id_producto`),
   KEY `FK_insumo_recetario_idx` (`id_insumo`),
-  CONSTRAINT `FK_produ_recetario` FOREIGN KEY (`id_producto`) REFERENCES `TBL_producto` (`id_producto`),
-  CONSTRAINT `FK_TBL_recetario_TBL_insumos` FOREIGN KEY (`id_insumo`) REFERENCES `TBL_insumos` (`id_insumos`)
+  CONSTRAINT `FK_TBL_recetario_TBL_insumos` FOREIGN KEY (`id_insumo`) REFERENCES `TBL_insumos` (`id_insumos`),
+  CONSTRAINT `FK_TBL_recetario_TBL_producto` FOREIGN KEY (`id_producto`) REFERENCES `TBL_producto` (`id_producto`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
@@ -881,13 +1290,16 @@ CREATE TABLE `TBL_talonario_cai` (
 
 
 CREATE TABLE `TBL_tipo_producto` (
-  `id_tipo_produ` int NOT NULL COMMENT 'Entidad encargada de la clasificación de los productos, así como de la presentación o tamaño de estos',
+  `id_tipo_produ` int NOT NULL AUTO_INCREMENT COMMENT 'Entidad encargada de la clasificación de los productos, así como de la presentación o tamaño de estos',
   `tipo_producto` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'este se refiere a los productoq ue vende la empresa. ejemplo cafe o granita',
   `tamaño_producto` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `clasificacion_producto` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT 'verificar si se puede colocar como enum\npara elegir la categoria',
   PRIMARY KEY (`id_tipo_produ`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+INSERT INTO TBL_tipo_producto VALUES("1","bebida","12 ONZ","a");
+INSERT INTO TBL_tipo_producto VALUES("2","","","");
+INSERT INTO TBL_tipo_producto VALUES("3","ASD","FSDFSDFS","sfsdfsf");
 
 
 
@@ -898,7 +1310,7 @@ CREATE TABLE `TBL_usuarios` (
   `estado_usuario` enum('Activo','Inactivo','Bloqueado','Nuevo') CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `contrasena` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `id_rol` int NOT NULL,
-  `fecha_ultima_conexion` date DEFAULT NULL,
+  `fecha_ultima_conexion` datetime DEFAULT NULL,
   `preguntas_contestadas` int DEFAULT NULL,
   `primer_ingreso` int DEFAULT NULL,
   `fecha_vencimiento` date DEFAULT NULL,
@@ -908,8 +1320,9 @@ CREATE TABLE `TBL_usuarios` (
   `modificado_por` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `fecha_modificacion` datetime DEFAULT NULL,
   PRIMARY KEY (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-INSERT INTO TBL_usuarios VALUES("1","ADMIN","ADMINISTRADOR","Activo","$2y$12$d9ZLQGv4lBE4Lcv2atFD2ODwdR7jwqQh3uXhTJ0jFeRWVucd6YXrG","1","2023-10-23","1","1","2023-10-23","admincitycoffee@gmail.com","ADMIN","2022-10-28 13:44:33","ADMIN","2022-10-28 13:44:33");
-INSERT INTO TBL_usuarios VALUES("6","MARIOS","MARIO SILVA","Activo","$2y$12$Yme7ii0kPxhbMLYmVdINouQv8G3uvhFc3IXfyeuZHvnocGIvrhgMe","2","","","1","2023-11-03","sfsdfsdfsdfsf@gmail.com","ADMIN","2022-11-08 19:38:27","MARIOS","2022-11-08 19:40:38");
+INSERT INTO TBL_usuarios VALUES("1","ADMIN","ADMINISTRADOR","Activo","$2y$12$d9ZLQGv4lBE4Lcv2atFD2ODwdR7jwqQh3uXhTJ0jFeRWVucd6YXrG","1","2023-10-23 00:00:00","1","1","2023-10-23","admincitycoffee@gmail.com","ADMIN","2022-10-28 13:44:33","ADMIN","2022-10-28 13:44:33");
+INSERT INTO TBL_usuarios VALUES("6","MARIOS","MARIO SILVA","Activo","$2y$12$eGEOPtCxe2A0Uf7rSRNoiu2il.85SaT0y4eJheaCQxChMELNAnAbK","2","","","1","2023-11-07","karimhernandez233@gmail.com","ADMIN","2022-11-08 19:38:27","MARIOS","2022-11-12 17:41:09");
+INSERT INTO TBL_usuarios VALUES("7","nuevo","prueba","Activo","$2y$12$eGEOPtCxe2A0Uf7rSRNoiu2il.85SaT0y4eJheaCQxChMELNAnAbK","2","","","1","2023-11-07","roman@gmial.com","ADMIN","2022-11-08 19:38:37","ADMIN","2022-11-12 17:41:09");
 
