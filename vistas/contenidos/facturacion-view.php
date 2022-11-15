@@ -1,6 +1,8 @@
 <div class="full-box page-header">
     <h3 class="text-left">
-        <i class="fas fa-building fa-fw"></i> &nbsp; Facturación
+       <i class="fas fa-plus fa-fw"></i>Nueva Venta</h1>
+       <h4> Datos del Cliente</h4>
+        <a href="#" class="btn_new btn_new_cliente"><i class="fas fa-plus"></i>Nuevo Cliente</a>
     </h3>
 
 </div>

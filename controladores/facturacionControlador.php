@@ -4,15 +4,15 @@
 } 
 
 if($peticionAjax){
-	require_once "../modelos/companyModelo.php";
+	require_once "../modelos/facturacionModelo.php";
 	require_once "../pruebabitacora.php";
 }else{
-	require_once "./modelos/companyModelo.php";
+	require_once "./modelos/facturacionModelo.php";
 	require_once "./pruebabitacora.php";//aqui se ejecuta dentro del index y no se utiliza Ajax
 }
 
 
-class companyControlador extends companyModelo
+class facturacionControlador extends facturacionModelo
 {
 
 }
