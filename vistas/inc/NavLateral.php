@@ -102,7 +102,7 @@
 				</li>
 
 				<li>
-					<a href="<?php echo SERVERURL; ?>company/"><i class="fas fa-store-alt fa-fw"></i> &nbsp; Facturacion</a>
+					<a href="<?php echo SERVERURL; ?>facturacion/"><i class="fas fa-store-alt fa-fw"></i> &nbsp; Facturacion</a>
 				</li>
 
 				<li>
