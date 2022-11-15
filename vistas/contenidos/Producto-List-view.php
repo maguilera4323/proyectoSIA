@@ -13,6 +13,9 @@
 		<li>
 			<a class="active" href="<?php echo SERVERURL; ?>producto-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE PRODUCTOS</a>
 		</li>
+		<li>
+			<a href="<?php echo SERVERURL; ?>Tipo-Producto-new/"><i class="fas fa-search fa-fw"></i> &nbsp; AGREGAR TIPO DE PRODUCTO</a>
+		</li>
 		</ul>	
 </div>
 
@@ -84,7 +87,7 @@ if($dato -> num_rows >0){
 
 
 <td>
-	<a href="<?php echo SERVERURL; ?>producto-update/<?php echo $fila['id_producto']?>" class="btn btn-success">
+	<a href="<?php echo SERVERURL; ?>Producto-update/<?php echo $fila['id_producto']?>" class="btn btn-success">
 		<i class="fas fa-sync-alt"></i>	
 	</a>
 </td>

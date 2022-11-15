@@ -23,6 +23,30 @@ class rolControlador extends rolModelo
 		$creado=$_SESSION['usuario_login'];
 		$fec_creacion=date('y-m-d H:i:s');
 
+		//verificar datos ingresados
+		if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ ]{1,50}",$nom_rol)){
+			$alerta=[
+				"Alerta"=>"simple",
+				"Titulo"=>"Ocurrió un error inesperado",
+				"Texto"=>"El nombre del rol no coincide con el formato solicitado",
+				"Tipo"=>"error"
+			];
+			echo json_encode($alerta);
+			exit();
+		}
+
+		$check_rol=mainModel::ejecutar_consulta_simple("SELECT rol FROM TBL_ms_roles WHERE rol='$nom_rol'");
+			if($check_rol->rowCount()>0){
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error inesperado",
+					"Texto"=>"El rol ingresado ya se encuentra registrado en el sistema",
+					"Tipo"=>"error"
+				];
+				echo json_encode($alerta);
+				exit();
+			}
+
 			$datos_rol_reg=[
 				"nombre"=>$nom_rol,
 				"desc"=>$descripcion,
@@ -71,73 +95,30 @@ class rolControlador extends rolModelo
 		$fec_modificacion=date('y-m-d H:i:s');
 		$id_actualizar=mainModel::limpiar_cadena($_POST['id_actualizacion']);
 		
-		/* if($Nombre=="" || $Rtn=="" || $Telefono=="" || $Correo=="" || $Direccion==""){
+		//verificar datos ingresados
+		if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ ]{1,50}",$nom_rol)){
 			$alerta=[
 				"Alerta"=>"simple",
 				"Titulo"=>"Ocurrió un error inesperado",
-				"Texto"=>"No se han llenado todos los campos que son obligatorios",
+				"Texto"=>"El nombre del rol no coincide con el formato solicitado",
 				"Tipo"=>"error"
 			];
 			echo json_encode($alerta);
 			exit();
-		} */
+		}
 
-
-			/* 
-			if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ ]{1,30}",$Nombre)){
+		$check_rol=mainModel::ejecutar_consulta_simple("SELECT rol FROM TBL_ms_roles WHERE rol='$nom_rol'");
+			if($check_rol->rowCount()>0){
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El NOMBRE no coincide con el formato solicitado",
+					"Texto"=>"El rol ingresado ya se encuentra registrado en el sistema",
 					"Tipo"=>"error"
 				];
 				echo json_encode($alerta);
 				exit();
 			}
 
-			if(mainModel::verificar_datos("[0-9]{1,14}",$Rtn)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El RTN no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-			
-			if(mainModel::verificar_datos("[0-9]{1,20}",$Telefono)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El TELEFONO no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-
-			if(mainModel::verificar_datos("[a-z@_0-9.]{1,30}",$Correo)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El CORREO no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-
-			if(mainModel::verificar_datos("[A-Za-zÑñ0-9 .,]{1,100}",$Direccion)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"La DIRECCION no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			} */
 			$datos_rol_act=[
 				"nombre"=>$nom_rol,
 				"desc"=>$descripcion,

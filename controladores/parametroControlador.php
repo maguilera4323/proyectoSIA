@@ -23,6 +23,41 @@ class parametroControlador extends parametroModelo
 		$creado=$_SESSION['usuario_login'];
 		$fec_creacion=date('y-m-d H:i:s');
 
+		//verificar datos ingresados
+		if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ_]{1,40}",$nom_parametro)){
+			$alerta=[
+				"Alerta"=>"simple",
+				"Titulo"=>"Ocurrió un error inesperado",
+				"Texto"=>"El nombre del parámetro no coincide con el formato solicitado",
+				"Tipo"=>"error"
+			];
+			echo json_encode($alerta);
+			exit();
+		}
+
+		if(mainModel::verificar_datos("[A-Za-zÑñ0-9]{1,40}",$valor)){
+			$alerta=[
+				"Alerta"=>"simple",
+				"Titulo"=>"Ocurrió un error inesperado",
+				"Texto"=>"El valor del parámetro no coincide con el formato solicitado",
+				"Tipo"=>"error"
+			];
+			echo json_encode($alerta);
+			exit();
+		}
+
+		$check_parametro=mainModel::ejecutar_consulta_simple("SELECT parametro FROM TBL_ms_parametros WHERE parametro='$nom_parametro'");
+			if($check_parametro->rowCount()>0){
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error inesperado",
+					"Texto"=>"El parámetro ingresado ya se encuentra registrado en el sistema",
+					"Tipo"=>"error"
+				];
+				echo json_encode($alerta);
+				exit();
+			}
+
 			$datos_parametro_reg=[
 				"nombre"=>$nom_parametro,
 				"valor"=>$valor,
@@ -36,8 +71,8 @@ class parametroControlador extends parametroModelo
 			if($agregar_parametro->rowCount()==1){
 				$alerta=[
 					"Alerta"=>"recargar",
-					"Titulo"=>"Parametro Registrado",
-					"Texto"=>"Los datos del parametro han sido registrados con exito",
+					"Titulo"=>"Parámetro Registrado",
+					"Texto"=>"Los datos del parámetro han sido registrados con exito",
 					"Tipo"=>"success"
 				];
 
@@ -46,7 +81,7 @@ class parametroControlador extends parametroModelo
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"No hemos podido registrar el parametro",
+					"Texto"=>"No hemos podido registrar el parámetro",
 					"Tipo"=>"error"
 				];
 			}
@@ -56,8 +91,8 @@ class parametroControlador extends parametroModelo
 				"id_objeto" => 0,
 				"fecha" => date('Y-m-d H:i:s'),
 				"id_usuario" => $_SESSION['id_login'],
-				"accion" => "Creación de Parametro",
-				"descripcion" => "El usuario ".$_SESSION['usuario_login']." creó un nuevo parametro en el sistema"
+				"accion" => "Creación de Parámetro",
+				"descripcion" => "El usuario ".$_SESSION['usuario_login']." creó un nuevo parámetro en el sistema"
 			];
 			Bitacora::guardar_bitacora($datos_bitacora); 
 	} /* Fin controlador */
@@ -72,73 +107,41 @@ class parametroControlador extends parametroModelo
 		$fec_modificacion=date('y-m-d H:i:s');
 		$id_actualizar=mainModel::limpiar_cadena($_POST['id_actualizacion']);
 		
-		/* if($Nombre=="" || $Rtn=="" || $Telefono=="" || $Correo=="" || $Direccion==""){
+		//verificar datos ingresados
+		if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ_]{1,40}",$nom_parametro)){
 			$alerta=[
 				"Alerta"=>"simple",
 				"Titulo"=>"Ocurrió un error inesperado",
-				"Texto"=>"No se han llenado todos los campos que son obligatorios",
+				"Texto"=>"El nombre del parámetro no coincide con el formato solicitado",
 				"Tipo"=>"error"
 			];
 			echo json_encode($alerta);
 			exit();
-		} */
+		}
 
+		if(mainModel::verificar_datos("[A-Za-zÑñ0-9]{1,40}",$valor)){
+			$alerta=[
+				"Alerta"=>"simple",
+				"Titulo"=>"Ocurrió un error inesperado",
+				"Texto"=>"El valor del parámetro no coincide con el formato solicitado",
+				"Tipo"=>"error"
+			];
+			echo json_encode($alerta);
+			exit();
+		}
 
-			/* 
-			if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ ]{1,30}",$Nombre)){
+		$check_parametro=mainModel::ejecutar_consulta_simple("SELECT parametro FROM TBL_ms_parametros WHERE parametro='$nom_parametro'");
+			if($check_parametro->rowCount()>0){
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El NOMBRE no coincide con el formato solicitado",
+					"Texto"=>"El parámetro ingresado ya se encuentra registrado en el sistema",
 					"Tipo"=>"error"
 				];
 				echo json_encode($alerta);
 				exit();
 			}
 
-			if(mainModel::verificar_datos("[0-9]{1,14}",$Rtn)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El RTN no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-			
-			if(mainModel::verificar_datos("[0-9]{1,20}",$Telefono)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El TELEFONO no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-
-			if(mainModel::verificar_datos("[a-z@_0-9.]{1,30}",$Correo)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El CORREO no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-
-			if(mainModel::verificar_datos("[A-Za-zÑñ0-9 .,]{1,100}",$Direccion)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"La DIRECCION no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			} */
 			$datos_parametro_act=[
 				"nombre"=>$nom_parametro,
 				"valor"=>$valor,
@@ -153,8 +156,8 @@ class parametroControlador extends parametroModelo
 			{
 				$alerta=[
 					"Alerta"=>"recargar",
-					"Titulo"=>"Parametro Actualizado",
-					"Texto"=>"Parametro actualizado exitosamente",
+					"Titulo"=>"Parámetro Actualizado",
+					"Texto"=>"Parámetro actualizado exitosamente",
 					"Tipo"=>"success"
 				];
 			}else
@@ -162,7 +165,7 @@ class parametroControlador extends parametroModelo
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"No hemos podido actualizar el parametro",
+					"Texto"=>"No hemos podido actualizar el parámetro",
 					"Tipo"=>"error"
 				];
 			}
@@ -172,8 +175,8 @@ class parametroControlador extends parametroModelo
 				"id_objeto" => 0,
 				"fecha" => date('Y-m-d H:i:s'),
 				"id_usuario" => $_SESSION['id_login'],
-				"accion" => "Modificación de Parametro",
-				"descripcion" => "El usuario ".$_SESSION['usuario_login']." actualizó un parametro del sistema"
+				"accion" => "Modificación de Parámetro",
+				"descripcion" => "El usuario ".$_SESSION['usuario_login']." actualizó un parámetro del sistema"
 			];
 			Bitacora::guardar_bitacora($datos_bitacora); 
 	} /* Fin controlador */
@@ -204,8 +207,8 @@ class parametroControlador extends parametroModelo
 			if($eliminarparametro->rowCount()==1){
 				$alerta=[
 					"Alerta"=>"recargar",
-					"Titulo"=>"Parametro Borrado",
-					"Texto"=>"El parametro fue borrado del sistema",
+					"Titulo"=>"Parametro Eliminado",
+					"Texto"=>"El parametro fue eliminado del sistema",
 					"Tipo"=>"success"
 				];
                 echo json_encode($alerta);
@@ -214,8 +217,8 @@ class parametroControlador extends parametroModelo
                     "id_objeto" => 0,
                     "fecha" => date('Y-m-d H:i:s'),
                     "id_usuario" => $_SESSION['id_login'],
-                    "accion" => "Parametro eliminado",
-                    "descripcion" => "El usuario ".$_SESSION['usuario_login']." eliminó un parametro del sistema"
+                    "accion" => "Parámetro eliminado",
+                    "descripcion" => "El usuario ".$_SESSION['usuario_login']." eliminó un parámetro del sistema"
                 ];
                 Bitacora::guardar_bitacora($datos_bitacora);
                 exit();

@@ -85,7 +85,6 @@ if($dato -> num_rows >0){
     
 ?>
 <tr>
-<td><?php echo $fila['id_Proveedores']; ?></td>
 <td><?php echo $fila['nom_proveedor']; ?></td>
 <td><?php echo $fila['rtn_proveedor']; ?></td>
 <td><?php echo $fila['tel_proveedor']; ?></td>

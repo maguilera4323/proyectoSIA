@@ -62,7 +62,7 @@ class productoControlador extends productoModelo
 			$datos_bitacora = [
 				"id_objeto" => 0,
 				"fecha" => date('Y-m-d h:i:s'),
-				"id_producto" => $_SESSION['id_login'],
+				"id_usuario" => $_SESSION['id_login'],
 				"accion" => "Agregar Producto",
 				"descripcion" => "Se agrego un nuevo producto en el sistema"
 			];
@@ -172,7 +172,7 @@ class productoControlador extends productoModelo
 			$datos_bitacora = [
 				"id_objeto" => 0,
 				"fecha" => date('Y-m-d h:i:s'),
-				"id_Producto" => $_SESSION['id_login'],
+				"id_usuario" => $_SESSION['id_login'],
 				"accion" => "Modificación de producto",
 				"descripcion" => "Se actualizó un producto en el sistema"
 			];

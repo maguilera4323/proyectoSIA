@@ -58,7 +58,7 @@ class proveedorControlador extends proveedorModelo
 			$datos_bitacora = [
 				"id_objeto" => 0,
 				"fecha" => date('Y-m-d h:i:s'),
-				"id_Proveedores" => $_SESSION['id_login'],
+				"id_usuario" => $_SESSION['id_login'],
 				"accion" => "Creación de Proveedor",
 				"descripcion" => "El usuario ".$_SESSION['usuario_login']." creó un nuevo proveedor en el sistema"
 			];
@@ -180,7 +180,7 @@ class proveedorControlador extends proveedorModelo
 			$datos_bitacora = [
 				"id_objeto" => 0,
 				"fecha" => date('Y-m-d h:i:s'),
-				"id_Proveedores" => $_SESSION['id_login'],
+				"id_usuario" => $_SESSION['id_login'],
 				"accion" => "Modificación de proveedor",
 				"descripcion" => "El usuario ".$_SESSION['usuario_login']." actualizó un proveedor en el sistema"
 			];

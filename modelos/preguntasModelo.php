@@ -4,12 +4,9 @@
 
 	class preguntasModelo extends mainModel{
 
-		/*--------- Modelo agregar pregunta------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
-		protected static function agregar_pregunta_modelo($datos)
-		{
+		protected static function agregar_pregunta_modelo($datos){
 			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_preguntas(pregunta,creado_por,fecha_creacion)
 			VALUES(?,?,?)");
-
 			$sql->bindParam(1,$datos['nombre']);
 			$sql->bindParam(2,$datos['creado']);
 			$sql->bindParam(3,$datos['fecha_crea']);
@@ -17,10 +14,7 @@
 			return $sql;								
 		}
 
-
-		/*--------- Modelo actualizar pregunta ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
-		protected static function actualizar_pregunta_modelo($datos,$id)
-		{
+		protected static function actualizar_pregunta_modelo($datos,$id){
 			$sql=mainModel::conectar()->prepare("UPDATE TBL_preguntas SET pregunta=?,
 			modificado_por=?, fecha_modificacion=? WHERE id_pregunta=?");
 			$sql->bindParam(1,$datos['nombre']);
@@ -31,7 +25,6 @@
 			return $sql;
 		}
 
-		/*--------- Modelo eliminar pregunta ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
 		 protected static function eliminar_pregunta_modelo($id){
 				$sql=mainModel::conectar()->prepare("DELETE FROM TBL_preguntas where id_pregunta=?");
 				$sql->bindParam(1,$id);

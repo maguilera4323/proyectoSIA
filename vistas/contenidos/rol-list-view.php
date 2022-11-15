@@ -90,12 +90,12 @@
 									<form action="<?php echo SERVERURL; ?>ajax/rolAjax.php" class="FormularioAjax" method="POST" data-form="save" autocomplete="off">
 										<div class="form-group">
 											<label>Nombre del rol</label>
-											<input type="text" class="form-control" name="nombre_rol_act" id="cliente_dni" maxlength="27" 
+											<input type="text" class="form-control" name="nombre_rol_act" id="cliente_dni" style="text-transform:uppercase;"
 											value="<?php echo $fila['rol']?>" required>
 										</div>
 										<div class="form-group">
 											<label>Descripción</label>
-											<input type="text" class="form-control" name="desc_rol_act" id="cliente_dni" maxlength="100" 
+											<input type="text" class="form-control" name="desc_rol_act" id="cliente_dni"  
 											value="<?php echo $fila['descripcion']?>" required>
 											<input type="hidden" class="form-control" name="id_actualizacion" value="<?php echo $fila['id_rol']?>">
 										</div>
@@ -151,11 +151,11 @@
 			<form action="<?php echo SERVERURL; ?>ajax/rolAjax.php" class="FormularioAjax" method="POST" data-form="save" autocomplete="off">
 			<div class="form-group">
 				<label>Nombre del rol</label>
-				<input type="text" class="form-control" name="nombre_rol_nuevo" id="cliente_dni" maxlength="27" required>
+				<input type="text" class="form-control" name="nombre_rol_nuevo" id="cliente_dni"style="text-transform:uppercase;" required>
 			</div>
 			<div class="form-group">
 				<label>Descripción</label>
-				<textarea class="form-control" rows="3" name="desc_rol_nuevo" id="cliente_dni" maxlength="100" required></textarea>
+				<textarea class="form-control" rows="3" name="desc_rol_nuevo" id="cliente_dni"  required></textarea>
 			</div>
 			<button type="submit" class="btn btn-primary">Guardar</button>
 			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

@@ -33,19 +33,6 @@ class usuarioControlador extends usuarioModelo
 		$Creacion=date('y-m-d H:i:s');
 		$privilegio=mainModel::limpiar_cadena($_POST['id_rol']);
 
-		/*== comprobar campos vacios ==*/
-		if($Usuario=="" || $Nombre=="" || $Correo=="" || $Contraseña==""){
-			$alerta=[
-				"Alerta"=>"simple",
-				"Titulo"=>"Ocurrió un error inesperado",
-				"Texto"=>"No se han llenado todos los campos que son obligatorios",
-				"Tipo"=>"error"
-			];
-			echo json_encode($alerta);
-			exit();
-		}
-
-
 			/*== Verificando integridad de los datos ==*/
 			if(mainModel::verificar_datos("[A-Z]{1,15}",$Usuario)){
 				$alerta=[

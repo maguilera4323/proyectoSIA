@@ -20,7 +20,7 @@ class Usuario extends mainModel{
 	public $code;
     private $db;
 
-
+	//Se realiza un get y set de las variables para otorgar más seguridad a los datos obtenidos
 	function getUsuario() {
 		return $this->user;
 	}
@@ -102,7 +102,7 @@ class Usuario extends mainModel{
 	}
 
 
-/* 	Funciones de Vista de Login */
+/* 	Funciones de Vista de Inicio de Sesión */
 	//Funcion que realiza un select para encontrar un usuario con los datos ingresados
 	//los resultados de la consulta pasan al controlador por medio del retorno de $respuesta
 	public function accesoUsuario($user, $password) {
@@ -113,22 +113,23 @@ class Usuario extends mainModel{
 		return $respuesta = $db->ejecutar_consulta_simple($query);
 	}
 
-	//Funcion que realiza un select para encontrar un usuario con los datos ingresados
-	//los resultados de la consulta pasan al controlador por medio del retorno de $respuesta
+	//Funcion que realiza un select para verificar el estado de un usuario ingresado
+	//para ver si el estado es Activo y puede ser bloqueado por ingresos erroneos de la contraseña
 	public function verificarEstado($user) {
 		$db = new mainModel();
 		$query = "SELECT usuario, estado_usuario FROM TBL_usuarios WHERE usuario = '".$user. "' LIMIT 1";
 		return $respuesta = $db->ejecutar_consulta_simple($query);
 	}
 
+	//Función que obtiene el valor hash de la contraseña de un usuario
+	//para comparar con el hash de la contraseña que se ingresó para iniciar sesion
 	public function obtenerContrasenaHash($user) {
 		$db = new mainModel();
 		$query = "SELECT contrasena FROM TBL_usuarios WHERE usuario = '".$user. "' LIMIT 1";
 		return $respuesta = $db->ejecutar_consulta_simple($query);
 	}
 
-		//Funcion que realiza un update para cambiar el estado del usuario al realizar tres intentos fallidos
-	//los resultados de la consulta pasan al controlador por medio del retorno de $respuesta
+	//Funcion que realiza un update para cambiar el estado del usuario a Bloqueado al realizar tres intentos fallidos
 	public function bloquearUsuario($user) {
 		$db = new mainModel();
 		$query= ("UPDATE TBL_usuarios SET estado_usuario=3 WHERE usuario = '$user'");
@@ -136,7 +137,6 @@ class Usuario extends mainModel{
 	}
 
 	//Función que realiza un select para obtener el parametro de intentos válidos de ingreso
-	//Aún no funciona, se sigue trabajando en ella
 	public function intentosValidos() {
 		$db = new mainModel();
 		$query = "SELECT valor FROM TBL_ms_parametros WHERE parametro = 'ADMIN_INTENTOS_INVALIDOS' LIMIT 1";
@@ -233,13 +233,14 @@ class Usuario extends mainModel{
 
 
 	/* Funciones de vista Primer Ingreso */
+	//Función que revisa si la pregunta que se seleccionó para ingresar la respuesta ya fue respondida anteriormente
 	public function revisarPreguntaRespondida($response,$user_id,$preg_id) {
 		$db = new mainModel();
 		$query = ("SELECT *FROM TBL_ms_preguntas_usuario WHERE id_pregunta='$preg_id'and id_usuario='$user_id'and respuesta='$response'");
 		return $respuesta = $db->ejecutar_consulta_simple($query);
 	}
 
-
+	//Función para guardar las respuestas que ingrese el usuario
 	public function insertarRespuestasSeguridad($response,$user_id,$preg_id) {
 		$db = new mainModel();
 		$query = ("INSERT into TBL_ms_preguntas_usuario (id_pregunta,id_usuario,respuesta) 
@@ -247,7 +248,8 @@ class Usuario extends mainModel{
 		return $respuesta = $db->actualizarRegistros($query);
 	}
 	
-
+	//Funcion para actualizar el estado de usuario de Nuevo a Activo
+	//después de responder la cantidad de preguntas establecida en el parámetro
 	public function actualizarUsuario($user_id) {
 		$db = new mainModel();
 		$query= ("UPDATE TBL_usuarios SET estado_usuario=1, primer_ingreso=1 WHERE id_usuario = '$user_id'");
