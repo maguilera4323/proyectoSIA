@@ -2,6 +2,6 @@
 	
 	require_once "mainModel.php";
 
-	class companyModelo extends mainModel{
+	class facturacionModelo extends mainModel{
 
     }

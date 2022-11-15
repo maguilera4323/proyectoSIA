@@ -6,7 +6,7 @@
 	{
 		/*--------- Instancia al controlador ---------*/
 		require_once "../controladores/facturacionControlador.php";
-		$ins_company = new companyControlador();
+		$ins_facturacion = new companyControlador();
 
 
 		
