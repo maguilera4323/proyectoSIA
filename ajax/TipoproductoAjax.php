@@ -11,7 +11,7 @@
 
 		/*--------- Agregar un tipo de producto ---------*/
 		if(isset($_POST['tipo_producto_nuevo'])){
-			echo $ins_pTiporoducto->agregar_Tipo_producto_controlador();
+			echo $ins_Tipoproducto->agregar_Tipo_producto_controlador();
 			die();
 		}
 		

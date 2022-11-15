@@ -27,26 +27,26 @@
 				<div class="row">
 					<div class="col-12 col-md-6">
 						<div class="form-group">
-							<label for="cliente_dni" class="bmd-label-floating">Nombre</label>
-							<input type="text" class="form-control" name="nombre_proveedor_nuevo" id="cliente_dni" maxlength="27">
+							<label for="nombre_producto_nuevo" class="bmd-label-floating">Nombre</label>
+							<input type="text" class="form-control" name="nombre_producto_nuevo" id="nombre_pro" pattern="[a-zA-Z]{2,100}"maxlength="27">
 						</div>
 					</div>
 					<div class="col-12 col-md-6">
 						<div class="form-group">
-							<label for="cliente_nombre" class="bmd-label-floating">Id Tipo Producto</label>
-							<input type="text" class="form-control" name="rtn_proveedor_nuevo" id="cliente_nombre" maxlength="40">
+							<label for="id_tipo_producto_nuevo" class="bmd-label-floating">Id Tipo Producto</label>
+							<input type="text" class="form-control" name="id_tipo_producto_nuevo" id="id_pro" maxlength="20">
 						</div>
 					</div>
 					<div class="col-12 col-md-4">
 						<div class="form-group">
-							<label for="cliente_apellido" class="bmd-label-floating">Descripcion</label>
-							<input type="text" class="form-control" name="telefono_proveedor_nuevo" id="cliente_apellido" maxlength="40">
+							<label for="descripcion_producto_nuevo" class="bmd-label-floating">Descripcion</label>
+							<input type="text" class="form-control" name="descripcion_producto_nuevo" id="descripcion_pro" maxlength="20">
 						</div>
 					</div>
 					<div class="col-12 col-md-4">
 						<div class="form-group">
-							<label for="cliente_telefono" class="bmd-label-floating">Precio</label>
-							<input type="text" class="form-control" name="correo_proveedor_nuevo" id="cliente_telefono" maxlength="20">
+							<label for="precio_producto_nuevo" class="bmd-label-floating">Precio</label>
+							<input type="text" class="form-control" name="precio_producto_nuevo" id="precio_pro" pattern="[0-9]{1,6}" maxlength="6">
 						</div>
 					</div>
 					<div class="col-12 col-md-4">

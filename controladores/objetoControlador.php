@@ -15,14 +15,36 @@ if($peticionAjax){
 class objetoControlador extends objetoModelo
 {
 
-	/*--------- Controlador agregar proveedor ---------*/
-	public function agregarObjeto()
-	{
+	public function agregarObjeto(){
 		$nom_objeto=mainModel::limpiar_cadena(strtoupper($_POST['objeto_nuevo']));
 		$descripcion=mainModel::limpiar_cadena($_POST['desc_objeto_nuevo']);
 		$tipo=mainModel::limpiar_cadena($_POST['tipo_objeto_nuevo']);
 		$creado=$_SESSION['usuario_login'];
 		$fec_creacion=date('y-m-d H:i:s');
+
+		//verificar datos ingresados
+		if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ ]{1,40}",$nom_objeto)){
+			$alerta=[
+				"Alerta"=>"simple",
+				"Titulo"=>"Ocurrió un error inesperado",
+				"Texto"=>"El nombre del objeto no coincide con el formato solicitado",
+				"Tipo"=>"error"
+			];
+			echo json_encode($alerta);
+			exit();
+		}
+
+		$check_objeto=mainModel::ejecutar_consulta_simple("SELECT objeto FROM TBL_objetos WHERE objeto='$nom_objeto'");
+			if($check_objeto->rowCount()>0){
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error inesperado",
+					"Texto"=>"El objeto ingresado ya se encuentra registrado en el sistema",
+					"Tipo"=>"error"
+				];
+				echo json_encode($alerta);
+				exit();
+			}
 
 			$datos_objeto_reg=[
 				"nombre"=>$nom_objeto,
@@ -61,12 +83,10 @@ class objetoControlador extends objetoModelo
 				"descripcion" => "El usuario ".$_SESSION['usuario_login']." creó un nuevo objeto en el sistema"
 			];
 			Bitacora::guardar_bitacora($datos_bitacora); 
-	} /* Fin controlador */
+	}
 
 
-	/*--------- Controlador actualizar usuario ---------*/
-	public function actualizarObjeto()
-	{	
+	public function actualizarObjeto(){	
 		$nom_objeto=mainModel::limpiar_cadena(strtoupper($_POST['objeto_act']));
 		$descripcion=mainModel::limpiar_cadena($_POST['desc_objeto_act']);
 		$tipo=mainModel::limpiar_cadena($_POST['tipo_objeto_act']);
@@ -74,74 +94,30 @@ class objetoControlador extends objetoModelo
 		$fec_modificacion=date('y-m-d H:i:s');
 		$id_actualizar=mainModel::limpiar_cadena($_POST['id_actualizacion']);
 		
-		/* if($Nombre=="" || $Rtn=="" || $Telefono=="" || $Correo=="" || $Direccion==""){
+		//verificar datos ingresados
+		if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ ]{1,40}",$nom_objeto)){
 			$alerta=[
 				"Alerta"=>"simple",
 				"Titulo"=>"Ocurrió un error inesperado",
-				"Texto"=>"No se han llenado todos los campos que son obligatorios",
+				"Texto"=>"El nombre del objeto no coincide con el formato solicitado",
 				"Tipo"=>"error"
 			];
 			echo json_encode($alerta);
 			exit();
-		} */
+		}
 
-
-			/* 
-			if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ ]{1,30}",$Nombre)){
+		$check_objeto=mainModel::ejecutar_consulta_simple("SELECT objeto FROM TBL_objetos WHERE objeto='$nom_objeto'");
+			if($check_objeto->rowCount()>0){
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El NOMBRE no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-
-			if(mainModel::verificar_datos("[0-9]{1,14}",$Rtn)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El RTN no coincide con el formato solicitado",
+					"Texto"=>"El objeto ingresado ya se encuentra registrado en el sistema",
 					"Tipo"=>"error"
 				];
 				echo json_encode($alerta);
 				exit();
 			}
 			
-			if(mainModel::verificar_datos("[0-9]{1,20}",$Telefono)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El TELEFONO no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-
-			if(mainModel::verificar_datos("[a-z@_0-9.]{1,30}",$Correo)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El CORREO no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-
-			if(mainModel::verificar_datos("[A-Za-zÑñ0-9 .,]{1,100}",$Direccion)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"La DIRECCION no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			} */
-		
 			$datos_objeto_act=[
 				"nombre"=>$nom_objeto,
 				"desc"=>$descripcion,
@@ -179,12 +155,6 @@ class objetoControlador extends objetoModelo
 				"descripcion" => "El usuario ".$_SESSION['usuario_login']." actualizó un objeto del sistema"
 			];
 			Bitacora::guardar_bitacora($datos_bitacora); 
-	} /* Fin controlador */
-	
-
-	public function datosObjetoControlador($id){
-		$id=mainModel::limpiar_cadena($id);
-		return objetoModelo::datos_objeto_modelo($id);
 	}
 
 	

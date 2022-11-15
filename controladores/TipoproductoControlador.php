@@ -24,7 +24,7 @@ class TipoproductoControlador extends TipoproductoModelo
  
 					
 			/*== AGREGAR TIPO DE PRODUCTO ==*/
-			$datos_producto_reg=[
+			$datos_Tipo_producto_reg=[
 				"tipo"=>$Tipo_producto,
 				"tamaño"=>$Tamaño_producto,
 				"clasificacion"=>$Clasificacion,
