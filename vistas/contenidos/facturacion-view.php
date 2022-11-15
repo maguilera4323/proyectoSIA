@@ -1,8 +1,16 @@
 <div class="full-box page-header">
     <h3 class="text-left">
        <i class="fas fa-plus fa-fw"></i>Nueva Venta</h1>
-       <h4> Datos del Cliente</h4>
-        <a href="#" class="btn_new btn_new_cliente"><i class="fas fa-plus"></i>Nuevo Cliente</a>
+      
+
+       <!-- BOTON PARA HACER LA BUSQUEDA DE CLIENTE -->
+       <div class="container-fluid">
+             <form class="d-flex">
+                <input class="form-control me-2 light-table-filter" data-table="table_id" type="text" 
+                placeholder="Buscar Cliente">
+                <hr>
+             </form>
+        </div>
     </h3>
 
 </div>
@@ -10,12 +18,14 @@
 <div class="container-fluid">
     <form action="" class="form-neon" autocomplete="off">
         <fieldset>
-            <legend><i class="far fa-building"></i> &nbsp; Información de la empresa</legend>
+            <legend><i class="fas fa-user"></i> &nbsp; Información del Cliente</legend>
+            <!-- BOTON PARA AGREGAR CLIENTE -->              
+            <a href="#" class="btn_new btn_new_cliente"><i class="fas fa-plus"></i>Nuevo Cliente</a>             
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12 col-md-6">
                         <div class="form-group">
-                            <label for="empresa_nombre" class="bmd-label-floating">Nombre de la empresa</label>
+                            <label for="empresa_nombre" class="bmd-label-floating">Nombre del Cliente</label>
                             <input type="text" pattern="[a-zA-z0-9áéíóúÁÉÍÓÚñÑ. ]{1,70}" class="form-control" name="empresa_nombre_reg" id="empresa_nombre" maxlength="70">
                         </div>
                     </div>
@@ -97,3 +107,4 @@
     <h4 class="alert-heading">¡Ocurrió un error inesperado!</h4>
     <p class="mb-0">Lo sentimos, no podemos mostrar la información solicitada debido a un error.</p>
 </div>
+
