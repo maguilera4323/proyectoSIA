@@ -52,7 +52,7 @@
 					<div class="col-12 col-md-4">
 						<div class="form-group">
 							<label for="archivo" class="bmd-label-floating">Agregar Imagen</label>
-							<input type="file" class="form-control" name="imagen" id="imagen" accept="image/*">
+							<input type="file" class="form-control" name="foto" id="archivo" accept="image/*">
 						</div>
 					</div>
 				</div>

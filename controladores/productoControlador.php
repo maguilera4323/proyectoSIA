@@ -23,10 +23,12 @@ class productoControlador extends productoModelo
 		$Descripcion=mainModel::limpiar_cadena($_POST['descripcion_producto_nuevo']);
 		$Precio=mainModel::limpiar_cadena($_POST['precio_producto_nuevo']);
  
-		$archivo=($_FILES['imagen']);//ADQUIERE LA IMAGEN
-		$extencion=pathinfo($archivo['name'],PATHINFO_EXTENSION);//CAPTURA LA EXTENCION DEL ARCHIVO
-		$Foto=$Nom_producto.".".$extencion;  //este sera el nombre de la imagen y esta es la variable que se usa para cargar en la BD
-		move_uploaded_file($archivo["tmp_name"], "./productos_img/$Foto");
+		$nombre_img=($_FILES['foto']['name']);//ADQUIERE LA IMAGEN
+		$temporal=$_FILES['foto']['tmp_name'];
+		$carpeta='../productos_img';
+		$ruta=$carpeta.'/'.$nombre_img;
+		move_uploaded_file($temporal,$carpeta.'/'. $nombre_img);
+
 		
 					
 			/*== AGREGAR PRODUCTO ==*/
@@ -35,7 +37,7 @@ class productoControlador extends productoModelo
 				"id_tipo_producto"=>$Id_Tipo_producto,
 				"descripcion"=>$Descripcion,
 				"precio"=>$Precio,
-				"foto"=>$Foto
+				"foto"=>$ruta
 			];
 
 			$agregar_producto=productoModelo::agregar_producto_modelo($datos_producto_reg);
