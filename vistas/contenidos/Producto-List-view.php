@@ -83,7 +83,7 @@ if($dato -> num_rows >0){
 <td><?php echo $fila['id_tipo_produ']; ?></td>
 <td><?php echo $fila['des_produ']; ?></td>
 <td><?php echo $fila['precio_produ']; ?></td>
-<td> <img src="productos_img/<?php echo $fila['foto_produ']; ?>" style="width:150px; height:150px";></td> 
+<td> <img src="../productos_img/<?php echo $fila['foto_produ']; ?>" style="width:150px; height:150px";></td> 
 
 
 <td>
