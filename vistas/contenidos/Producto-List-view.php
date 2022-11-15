@@ -84,7 +84,7 @@ if($dato -> num_rows >0){
 
 
 <td>
-	<a href="<?php echo SERVERURL; ?>producto-update/<?php echo $fila['id_producto']?>" class="btn btn-success">
+	<a href="<?php echo SERVERURL; ?>Producto-update/<?php echo $fila['id_producto']?>" class="btn btn-success">
 		<i class="fas fa-sync-alt"></i>	
 	</a>
 </td>
