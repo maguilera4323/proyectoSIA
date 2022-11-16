@@ -1,6 +1,8 @@
 <div class="full-box page-header">
     <h3 class="text-left">
-       <i class="fas fa-clipboard-list fa-fw"></i>FACTURACIÓN</h1>
+        <i class="fas fa-clipboard-list fa-fw"></i>FACTURACIÓN</h1>
+    </h3>
+       
       
 </div>
 
@@ -55,7 +57,7 @@
     </form>
 </div>       
         <section>
-            <table class="table venta" id="tblDatos">
+            <table class="table table-striped table-dark table_id text-center" id="tbldatos">
                     <thead>    
                          <tr>
                             <th>CODIGO</th>
@@ -96,7 +98,7 @@
                             del_producto_detalle(1);"><i class="far fa-trash-alt"></i></a>
                         </td>                       
                     </tbody>    
-                    <tfoot>
+                    
                         <tr>
                             <td colspan="5" class="textrigth">SUBTOTAL L.</td>
                             <td class="textrigth">1000.00</td>
@@ -106,10 +108,10 @@
                             <td class="textrigth">15</td>
                         </tr>
                         <tr>
-                            <td colspan="5" class="textrigth">TOTAL L.</td>
+                            <td colspan="5" class="textrigth">TOTAL A PAGAR L.</td>
                             <td class="textrigth">800.00</td>
                         </tr>
-                    </tfoot>                                                                                                                                                                                        
+                                                                                                                                                                                                         
             </table>  
 
         </section>
