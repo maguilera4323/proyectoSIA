@@ -55,7 +55,7 @@
     </form>
 </div>       
         <section>
-            <table class="table table-striped table-dark table_id text-center" id="tblDatos">
+            <table class="table venta" id="tblDatos">
                     <thead>    
                          <tr>
                             <th>CODIGO</th>
@@ -66,8 +66,7 @@
                     	    <th>ACCIÓN</th>
 						   
                         </tr>
-                        
-                        </thead>
+
                         <tr>
                             <td><input type="text" name="txt_cod_producto" id="txt_cod_producto"></td>
                             <td colspan="2"><input type="text" name="txt_descripcion" id="txt_descripcion" value="-"></td>
@@ -76,7 +75,7 @@
                             <td><input type="text" name="txt_precio_total" id="txt_precio_total" value="0.00" disabled></td>
                             <td><a href="#" id="add_producto_venta" class="link_add"><i class="fas fa-plus">Agregar</i></a> </td>
                         </tr>
-            
+
                         <tr>
                             <th>CÓDIGO</th>
                             <th colspan="2">DESCRIPCIÓN</th>
@@ -84,10 +83,35 @@
                             <th class="textrigth">PRECIO</th>
                             <th class="textrigth">PRECIO TOTAL</th>
                             <th>ACCIÓN</th>
-                        </tr>                   
-                        
-            </table>
-           
+                        </tr> 
+                    </thead>
+                    <tbody id="detalle venta">
+                        <td>1</td>
+                        <td colspan="2">Mouse USB</td>
+                        <td class="textcentre">1</td>
+                        <td class="textrigth">100.00</td>
+                        <td class="textrigth">100.00</td>
+                        <td class="">
+                            <a class="link_delete" href="#" onclick="event.preventDefault();
+                            del_producto_detalle(1);"><i class="far fa-trash-alt"></i></a>
+                        </td>                       
+                    </tbody>    
+                    <tfoot>
+                        <tr>
+                            <td colspan="5" class="textrigth">SUBTOTAL L.</td>
+                            <td class="textrigth">1000.00</td>
+                        </tr>
+                        <tr>
+                            <td colspan="5" class="textrigth">ISV (15%)</td>
+                            <td class="textrigth">15</td>
+                        </tr>
+                        <tr>
+                            <td colspan="5" class="textrigth">TOTAL L.</td>
+                            <td class="textrigth">800.00</td>
+                        </tr>
+                    </tfoot>                                                                                                                                                                                        
+            </table>  
+
         </section>
             
                         
