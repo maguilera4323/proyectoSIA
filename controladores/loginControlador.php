@@ -33,6 +33,7 @@ class loginControlador extends mainModel{
 				$array['usuario'] = $fila['usuario'];
 				$array['estado'] = $fila['estado_usuario'];
 				$array['rol'] = $fila['rol'];
+				$array['id_rol'] = $fila['id_rol'];
 			}
 
 			 //validacion en caso de que el estado del usuario sea Activo
@@ -47,6 +48,7 @@ class loginControlador extends mainModel{
 							$_SESSION['nombre_usuario']=($array['nombre']);
 							$_SESSION['estado']=$array['estado'];
 							$_SESSION['rol']=$array['rol'];
+							$_SESSION['id_rol']=$array['id_rol'];
 							$_SESSION['token_login']=md5(uniqid(mt_rand(),true));
 							$datos_bitacora = [
 								"id_objeto" => 0,
@@ -362,7 +364,15 @@ class loginControlador extends mainModel{
 					}
 				}
 
-}
+
+			public function registrarUltimaConexion($id){
+				$id_usuario=mainModel::limpiar_cadena($id);
+				$registrar = new Usuario(); 
+				$respuesta = $registrar->registrarUltimaConexionModelo($id_usuario);
+			}
+					 
+	}
+
 
 
 		

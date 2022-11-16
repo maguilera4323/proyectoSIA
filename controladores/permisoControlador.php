@@ -86,8 +86,6 @@ class permisoControlador extends permisoModelo
 
 
 	public function actualizarPermiso(){	
-		$nom_rol=mainModel::limpiar_cadena(strtoupper($_POST['rol_act']));
-		$nom_objeto=mainModel::limpiar_cadena(strtoupper($_POST['objeto_act']));
 		if(!isset($_POST['insertar_permiso_act'])){
 			$insertar_permiso=0;
 		}else{
