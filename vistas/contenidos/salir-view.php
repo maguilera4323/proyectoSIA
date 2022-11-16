@@ -2,6 +2,16 @@
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
+
+    //llamado al controlador de login
+    require_once 'controladores/loginControlador.php';
+    $usuario = new loginControlador(); //se crea nueva instancia de usuario
+
+	//valdacion para ver si se recibieron datos de ingreso
+    if (isset($_SESSION['id_login'])) {
+		$id_usuario=$_SESSION['id_login'];
+        $respuesta = $usuario->registrarUltimaConexion($id_usuario);  //se envian los datos a la funcion accesoUsuario de modelo Login
+    }
 }		
 		
 $datos_bitacora = 

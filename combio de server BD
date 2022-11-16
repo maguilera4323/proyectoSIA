@@ -1,0 +1,11 @@
+PAREA QUE EL SISTEMA FUNCIONE DEBEMOS CAMBIAR LOS ARCHIVOS DE 
+CONECCION EN
+
+archivo SERVER.PHP
+que esta en la carpeta config
+
+archivo cone.php
+que esta en el archivo rais
+
+y en los archos rsp-view.php y restaurar-view.php
+que se encuentras en la carperta contenidos

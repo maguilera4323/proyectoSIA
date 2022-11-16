@@ -34,7 +34,17 @@
 					<div class="col-12 col-md-6">
 						<div class="form-group">
 							<label for="id_tipo_producto_nuevo" class="bmd-label-floating">Id Tipo Producto</label>
-							<input type="text" class="form-control" name="id_tipo_producto_nuevo" id="id_pro" maxlength="20">
+							<select class="form-control" name="id_tipo_producto_nuevo" id="id_tipo_producto_nuevo">
+								<option value="0">Seleccione una opción</option>
+								<?php
+								include ("./cone.php");   
+								$tipo="SELECT * FROM TBL_tipo_producto";
+								$resultado=mysqli_query($conexion, $tipo);
+								while ($valores = mysqli_fetch_array($resultado)){
+									echo '<option value="'.$valores['id_tipo_produ'].'">'.$valores['id_tipo_produ'].'</option>';
+								}
+								?>
+							</select>
 						</div>
 					</div>
 					<div class="col-12 col-md-4">
@@ -52,7 +62,7 @@
 					<div class="col-12 col-md-4">
 						<div class="form-group">
 							<label for="archivo" class="bmd-label-floating">Agregar Imagen</label>
-							<input type="file" class="form-control" name="imagen" id="imagen" accept="image/*">
+							<input type="file" class="form-control" name="foto" id="archivo" accept="image/*">
 						</div>
 					</div>
 				</div>

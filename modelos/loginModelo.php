@@ -107,7 +107,7 @@ class Usuario extends mainModel{
 	//los resultados de la consulta pasan al controlador por medio del retorno de $respuesta
 	public function accesoUsuario($user, $password) {
 		$db = new mainModel();
-		$query = "SELECT u.id_usuario, u.usuario, u.nombre_usuario, u.estado_usuario, r.rol FROM TBL_usuarios u
+		$query = "SELECT u.id_usuario, u.usuario, u.nombre_usuario, u.estado_usuario, r.rol,r.id_rol FROM TBL_usuarios u
 					inner JOIN TBL_ms_roles r ON u.id_rol = r.id_rol
 		WHERE u.usuario = '".$user. "' AND BINARY u.contrasena = '".$password . "' LIMIT 1";
 		return $respuesta = $db->ejecutar_consulta_simple($query);
@@ -279,5 +279,11 @@ class Usuario extends mainModel{
 		$db = new mainModel();
 		$query = "SELECT valor FROM TBL_ms_parametros WHERE parametro = 'HORASVIGENCIA_CODIGO_CORREO' LIMIT 1";
 		return $respuesta = $db->ejecutar_consulta_simple($query);
+	}
+
+	public function registrarUltimaConexionModelo($user_id){
+		$db = new mainModel();
+		$query= ("UPDATE TBL_usuarios SET fecha_ultima_conexion=now() WHERE id_usuario = '$user_id'");
+		return $respuesta = $db->actualizarRegistros($query);
 	}
 }	

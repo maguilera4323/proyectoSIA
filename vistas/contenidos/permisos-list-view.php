@@ -34,9 +34,8 @@
 	$busqueda = $_GET['busqueda'];
 
 
-		if (isset($_GET['busqueda']))
-		{
-			$where="WHERE TBL_permisos.id_rol LIKE'%".$busqueda."%'";
+		if (isset($_GET['busqueda'])){
+			$where="WHERE TBL_ms_roles.rol LIKE'%".$busqueda."%'";
 		}
 	}
 ?>
@@ -45,14 +44,14 @@
 <div class="container-fluid">
   <form class="d-flex">
       <input class="form-control me-2 light-table-filter" data-table="table_id" type="text" 
-      placeholder="Buscar objeto">
+      placeholder="Buscar rol">
       <hr>
 </form>
 </div>
       <table class="table table-striped table-dark table_id text-center" id="tblDatos">
         <thead>    
         <tr>
-            <th>ROL</th>
+			<th>ROL</th>
             <th>OBJETO</th>
             <th>PERMISO INSERCION</th>
 			<th>PERMISO ACTUALIZACION</th>
@@ -147,33 +146,12 @@
 									</div>
 									<div class="form-group">
 										<label>Rol</label>
-										<select class="form-control" name="rol_act" required>
-											<?php
-												$SQL="SELECT * FROM TBL_ms_roles";
-												$dato = mysqli_query($conexion, $SQL);
-									
-												if($dato -> num_rows >0){
-													while($fila=mysqli_fetch_array($dato)){
-														echo '<option value="'.$fila['id_rol'].'">'.$fila['rol'].'</option>';
-														}
-													}
-											?>
-										</select>
+										<input type="text" class="form-control" id="cliente_dni" style="text-transform:uppercase;" value="<?php echo $fila['rol']?>" disabled>
 									</div>
 									<div class="form-group">
 										<label>Objeto</label>
-										<select class="form-control" name="objeto_act" required>
-										<?php
-										$SQL="SELECT * FROM TBL_objetos";
-										$dato = mysqli_query($conexion, $SQL);
-							
-										if($dato -> num_rows >0){
-											while($fila=mysqli_fetch_array($dato)){
-												echo '<option value="'.$fila['id_objeto'].'">'.$fila['objeto'].'</option>';
-												}
-											}
-										?>
-										</select>
+										<input type="text" class="form-control" id="cliente_dni" style="text-transform:uppercase;"
+										value="<?php echo $fila['objeto']?>" disabled>
 									</div>
 									<div class="form-group">
 										<div class="form-group">
@@ -204,7 +182,7 @@
 					</div>
 			</td>
 			<td>
-				<form class="FormularioAjax" action="<?php echo SERVERURL; ?>ajax/permisoAjax.php" method="POST" data-form="delete" autocomplete="off">
+			<form class="FormularioAjax" action="<?php echo SERVERURL; ?>ajax/permisoAjax.php" method="POST" data-form="delete" autocomplete="off">
 				<input type="hidden" pattern="" class="form-control" name="id_objeto_del" value="<?php echo $fila['id_objeto'] ?>">
 				<input type="hidden" pattern="" class="form-control" name="id_rol_del" value="<?php echo $fila['id_rol'] ?>">
 				<button type="submit" class="btn btn-warning">
