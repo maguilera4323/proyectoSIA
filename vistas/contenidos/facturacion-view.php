@@ -1,51 +1,46 @@
 <div class="full-box page-header">
     <h3 class="text-left">
-       <i class="fas fa-plus fa-fw"></i>Nueva Venta</h1>
+       <i class="fas fa-clipboard-list fa-fw"></i>FACTURACIÓN</h1>
       
-
-       <!-- BOTON PARA HACER LA BUSQUEDA DE CLIENTE -->
-       <div class="container-fluid">
-             <form class="d-flex">
-                <input class="form-control me-2 light-table-filter" data-table="table_id" type="text" 
-                placeholder="Buscar Cliente">
-                <hr>
-             </form>
-        </div>
-    </h3>
-
 </div>
 
 <div class="container-fluid">
+	<ul class="full-box list-unstyled page-nav-tabs">
+		<li>
+			<a class="active" href="<?php echo SERVERURL; ?>facturacion/"><i class="fas fa-plus fa-fw"></i> &nbsp; NUEVA VENTA</a>
+		</li>
+		<li>
+			<a href="<?php echo SERVERURL; ?>proveedor-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE FACTURAS</a>
+		</li>
+		</ul>	
+</div>       
+        <!-- BOTON PARA HACER LA BUSQUEDA DE CLIENTE -->
+        <div class="container-fluid">
+             <form class="d-flex">
+                <input class="form-control me-2 light-table-filter" data-table="table_id" type="text" 
+                placeholder="Buscar">
+                <hr>
+             </form>
+        </div>
+        <div class="container-fluid">
     <form action="" class="form-neon" autocomplete="off">
         <fieldset>
             <legend><i class="fas fa-user"></i> &nbsp; Información del Cliente</legend>
             <!-- BOTON PARA AGREGAR CLIENTE -->              
-            <a href="#" class="btn_new btn_new_cliente"><i class="fas fa-plus"></i>Nuevo Cliente</a>             
+            <a class="active" href="<?php echo SERVERURL; ?>client-update/"><i class="fas fa-plus fa-fw"></i> &nbsp; Agregar Nuevo</a>             
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12 col-md-6">
                         <div class="form-group">
-                            <label for="empresa_nombre" class="bmd-label-floating">Nombre del Cliente</label>
+                            <label for="cliente_nombre" class="bmd-label-floating">Nombre</label>
                             <input type="text" pattern="[a-zA-z0-9áéíóúÁÉÍÓÚñÑ. ]{1,70}" class="form-control" name="empresa_nombre_reg" id="empresa_nombre" maxlength="70">
                         </div>
                     </div>
 
                     <div class="col-12 col-md-6">
                         <div class="form-group">
-                            <label for="empresa_email" class="bmd-label-floating">Correo</label>
-                            <input type="email" class="form-control" name="empresa_email_reg" id="empresa_email" maxlength="70">
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <div class="form-group">
-                            <label for="empresa_telefono" class="bmd-label-floating">Telefono</label>
-                            <input type="text" pattern="[0-9()+]{8,20}" class="form-control" name="empresa_telefono_reg" id="empresa_telefono" maxlength="20">
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <div class="form-group">
-                            <label for="empresa_direccion" class="bmd-label-floating">Dirección</label>
-                            <input type="text" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,#\- ]{1,190}" class="form-control" name="empresa_direccion_reg" id="empresa_direccion" maxlength="190">
+                            <label for="RTN_cliente" class="bmd-label-floating">RTN</label>
+                            <input type="text" pattern="[0-9()+]{8,20}" class="form-control" name="RTN_cliente_reg" id="RTN_cliente" maxlength="14">
                         </div>
                     </div>
                 </div>
@@ -58,53 +53,41 @@
             <button type="submit" class="btn btn-raised btn-info btn-sm"><i class="far fa-save"></i> &nbsp; GUARDAR</button>
         </p>
     </form>
-</div>
-
-
-<div class="container-fluid">
-    <form action="" class="form-neon" autocomplete="off">
-        <fieldset>
-            <legend><i class="far fa-building"></i> &nbsp;Actualizar Información de la empresa</legend>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12 col-md-6">
-                        <div class="form-group">
-                            <label for="empresa_nombre" class="bmd-label-floating">Nombre de la empresa</label>
-                            <input type="text" pattern="[a-zA-z0-9áéíóúÁÉÍÓÚñÑ. ]{1,70}" class="form-control" name="empresa_nombre_up" id="empresa_nombre" maxlength="70">
-                        </div>
-                    </div>
-
-                    <div class="col-12 col-md-6">
-                        <div class="form-group">
-                            <label for="empresa_email" class="bmd-label-floating">Correo</label>
-                            <input type="email" class="form-control" name="empresa_email_up" id="empresa_email" maxlength="70">
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <div class="form-group">
-                            <label for="empresa_telefono" class="bmd-label-floating">Telefono</label>
-                            <input type="text" pattern="[0-9()+]{8,20}" class="form-control" name="empresa_telefono_up" id="empresa_telefono" maxlength="20">
-                        </div>
-                    </div>
-                    <div class="col-12 col-md-6">
-                        <div class="form-group">
-                            <label for="empresa_direccion" class="bmd-label-floating">Dirección</label>
-                            <input type="text" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,#\- ]{1,190}" class="form-control" name="empresa_direccion_up" id="empresa_direccion" maxlength="190">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </fieldset>
-        <br><br><br>
-        <p class="text-center" style="margin-top: 40px;">
-            <button type="submit" class="btn btn-raised btn-success btn-sm"><i class="fas fa-sync-alt"></i> &nbsp; ACTUALIZAR</button>
-        </p>
-    </form>
-</div>
-
-<div class="alert alert-danger text-center" role="alert">
-    <p><i class="fas fa-exclamation-triangle fa-5x"></i></p>
-    <h4 class="alert-heading">¡Ocurrió un error inesperado!</h4>
-    <p class="mb-0">Lo sentimos, no podemos mostrar la información solicitada debido a un error.</p>
-</div>
-
+</div>       
+        <section>
+            <table class="table table-striped table-dark table_id text-center" id="tblDatos">
+                    <thead>    
+                         <tr>
+                            <th>CODIGO</th>
+                            <th colspan="2">DESCRIPCIÓN</th>
+                            <th >CANTIDAD</th>
+                            <th>PRECIO</th>
+                            <th>PRECIO TOTAL</th>
+                    	    <th>ACCIÓN</th>
+						   
+                        </tr>
+                        
+                        </thead>
+                        <tr>
+                            <td><input type="text" name="txt_cod_producto" id="txt_cod_producto"></td>
+                            <td colspan="2"><input type="text" name="txt_descripcion" id="txt_descripcion" value="-"></td>
+                            <td><input type="text" name="txt_cant_producto" id="txt_cant_producto" value="0" min="1" disabled></td>
+                            <td><input type="text" name="txt_precio" id="txt_precio" value="0.00" disabled></td>
+                            <td><input type="text" name="txt_precio_total" id="txt_precio_total" value="0.00" disabled></td>
+                            <td><a href="#" id="add_producto_venta" class="link_add"><i class="fas fa-plus">Agregar</i></a> </td>
+                        </tr>
+            
+                        <tr>
+                            <th>CÓDIGO</th>
+                            <th colspan="2">DESCRIPCIÓN</th>
+                            <th>CANTIDAD</th>
+                            <th class="textrigth">PRECIO</th>
+                            <th class="textrigth">PRECIO TOTAL</th>
+                            <th>ACCIÓN</th>
+                        </tr>                   
+                        
+            </table>
+           
+        </section>
+            
+                        
