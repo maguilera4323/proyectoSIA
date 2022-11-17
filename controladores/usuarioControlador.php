@@ -163,7 +163,7 @@ class usuarioControlador extends usuarioModelo
 
 			if($agregar_usuario->rowCount()==1){
 				$alerta=[
-					"Alerta"=>"limpiar",
+					"Alerta"=>"recargar",
 					"Titulo"=>"Usuario registrado",
 					"Texto"=>"Los datos del usuario han sido registrados con exito",
 					"Tipo"=>"success",
@@ -285,7 +285,7 @@ class usuarioControlador extends usuarioModelo
 			if($actualizar_usuario->rowCount()==1)
 			{
 				$alerta=[
-					"Alerta"=>"limpiar",
+					"Alerta"=>"recargar",
 					"Titulo"=>"Usuario Actualizado",
 					"Texto"=>"Usuario actualizado exitosamente",
 					"Tipo"=>"success"

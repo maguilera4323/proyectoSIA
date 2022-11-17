@@ -113,7 +113,7 @@
 							//valida si el permiso tiene valor de cero, lo que significa que no puede acceder a la vista	
 							}else if($permiso_act==0){
 								echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Usted no tiene autorización para actualizar un rol
-								<button type="button" class="close" data-dismiss="alert" onclick="window.location.reload()">×</button>
+								<button type="button" class="close" data-dismiss="alert" onclick="window.location.reload()"X</button>
 								</div>';
 							}else{
 						?>
@@ -188,7 +188,7 @@
 	//valida si el permiso tiene valor de cero, lo que significa que no puede acceder a la vista	
 	}else if($permiso_in==0){
 		echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Usted no tiene autorización para crear un rol
-		<button type="button" class="close" data-dismiss="alert" onclick="window.location.reload()">×</button>
+		<button type="button" class="close" data-dismiss="alert" onclick="window.location.reload()">X</button>
 		</div>';
 	}else{
 ?>  
