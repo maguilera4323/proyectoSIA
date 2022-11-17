@@ -2,7 +2,7 @@
 	$peticionAjax=true;
 	require_once "../config/APP.php";
 
-	if(isset($_POST['recetario_nuevo']) || isset($_POST['nombre_parametro_act']) || isset($_POST['id_parametro_del']))
+	if(isset($_POST['recetario_nuevo']) || isset($_POST['recetario_act']) || isset($_POST['recetario_del']))
 	{
 		/*--------- Instancia al controlador ---------*/
 		require_once "../controladores/recetarioControlador.php";
@@ -15,15 +15,15 @@
 			die();
 		}
 		
-		/*--------- Actualizar un parametro ---------*/
-		if(isset($_POST['nombre_parametro_act']) ){
-			echo $ins_parametro->actualizarParametro();
+		/*--------- Actualizar un recetario ---------*/
+		if(isset($_POST['recetario_act']) ){
+			echo $ins_recetario->actualizarRecetario();
 			die();
 		}
 		
-		/*--------- Eliminar un parametro ---------*/
-		if(isset($_POST['id_parametro_del']) ){
-			echo $ins_parametro->eliminarParametro();
+		/*--------- Eliminar un recetario ---------*/
+		if(isset($_POST['recetario_del']) ){
+			echo $ins_recetario->eliminarRecetario();
 			die();
 		}
 	}

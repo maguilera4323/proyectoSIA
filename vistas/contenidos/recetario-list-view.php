@@ -62,45 +62,70 @@
 
 		<?php
 			include ("./cone.php");              
-			$SQL="SELECT * FROM TBL_recetario
+			$SQL="SELECT p.id_producto, p.nom_producto, i.id_insumos, i.nom_insumo, r.id_recetario, r.cant_insumo FROM TBL_recetario r
+			inner JOIN TBL_producto p ON p.id_producto = r.id_producto
+			inner JOIN TBL_insumos i ON i.id_insumos = r.id_insumo
 			$where";
 			$dato = mysqli_query($conexion, $SQL);
+		
 
 			if($dato -> num_rows >0){
 				while($fila=mysqli_fetch_array($dato)){
 				
 			?>
 		<tr>
-			<td><?php echo $fila['id_producto']; ?></td>
-			<td><?php echo $fila['id_insumo']; ?></td>
+			<td><?php echo $fila['nom_producto']; ?></td>
+			<td><?php echo $fila['nom_insumo']; ?></td>
 			<td><?php echo $fila['cant_insumo']; ?></td>
 			<td>
-				<div class="btn btn-success" data-toggle="modal" data-target="#ModalActualizar<?php echo $fila['id_parametro'];?>">
+				<div class="btn btn-success" data-toggle="modal" data-target="#ModalActualizar<?php echo $fila['id_recetario'];?>">
 					<i class="fas fa-sync-alt"> </i>
 				</div>
 						<!-- Modal actualizar-->
-						<div class="modal fade" id="ModalActualizar<?php echo $fila['id_parametro'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal fade" id="ModalActualizar<?php echo $fila['id_recetario'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 							<div class="modal-dialog" role="document">
 								<div class="modal-content">
 								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLabel">Actualizar Parametro</h5>
+									<h5 class="modal-title" id="exampleModalLabel">Actualizar Receta</h5>
 									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 									</button>
 								</div>
-								<div class="modal-body">
-									<form action="<?php echo SERVERURL; ?>ajax/parametroAjax.php" class="FormularioAjax" method="POST" data-form="save" autocomplete="off">
-										<div class="form-group">
-											<label>Nombre del Parametro</label>
-											<input type="text" class="form-control" name="nombre_parametro_act" id="cliente_dni"  style="text-transform:uppercase;"
-											value="<?php echo $fila['parametro']?>" required>
-										</div>
-										<div class="form-group">
-											<label>Valor</label>
-											<input type="text" class="form-control" name="valor_parametro_act" id="cliente_dni" 
-											value="<?php echo $fila['valor']?>" required>
-											<input type="hidden" class="form-control" name="id_actualizacion" value="<?php echo $fila['id_parametro']?>">
-										</div>
+								<div class="modal-body text-center">
+								<form action="<?php echo SERVERURL; ?>ajax/recetarioAjax.php" class="FormularioAjax" method="POST" data-form="save" autocomplete="off">
+								<div class="form-group">
+								<label for="id_producto" class="bmd-label-floating">Id Producto</label>
+									<select class="form-control" name="recetario_act" id="Id_producto_nuevo">
+									<option value="0">Seleccione una opción</option>
+									<?php
+									include ("./cone.php");   
+									$tipo="SELECT * FROM TBL_producto";
+									$resultado=mysqli_query($conexion, $tipo);
+									while ($valores = mysqli_fetch_array($resultado)){
+									echo '<option value="'.$valores['id_producto'].'">'.$valores['nom_producto'].'</option>';
+									}
+									?>
+								</select>
+								</div>
+								<div class="form-group">
+								<label for="id_insumo" class="bmd-label-floating">Id Insumo</label>
+									<select class="form-control" name="Id_insumo_act" id="Id_insumo_nuevo">
+									<option value="0">Seleccione una opción</option>
+									<?php
+									include ("./cone.php");   
+									$tipo="SELECT * FROM TBL_insumos";
+									$resultado=mysqli_query($conexion, $tipo);
+									while ($valores = mysqli_fetch_array($resultado)){
+									echo '<option value="'.$valores['id_insumos'].'">'.$valores['nom_insumo'].'</option>';
+									}
+									?>
+								</select>
+								<div class="form-group">
+								<label>Cantidad Insumo</label>
+								<input type="text" class="form-control" name="cant_insumo_act" value="<?php echo $fila['cant_insumo']; ?>" id="id_insumo" required>
+								<input type="hidden" class="form-control" name="id_actualizacion" value="<?php echo $fila['id_recetario']?>">
+								</div>
+											
 										<button type="submit" class="btn btn-primary">Guardar</button>
 										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 										</form>
@@ -110,8 +135,8 @@
 					</div>
 			</td>
 			<td>
-				<form class="FormularioAjax" action="<?php echo SERVERURL; ?>ajax/parametroAjax.php" method="POST" data-form="delete" autocomplete="off">
-				<input type="hidden" pattern="" class="form-control" name="id_parametro_del" value="<?php echo $fila['id_parametro'] ?>">
+				<form class="FormularioAjax" action="<?php echo SERVERURL; ?>ajax/recetarioAjax.php" method="POST" data-form="delete" autocomplete="off">
+				<input type="hidden" pattern="" class="form-control" name="recetario_del" value="<?php echo $fila['id_recetario'] ?>">
 				<button type="submit" class="btn btn-warning">
 					<i class="far fa-trash-alt"></i>
 				</button>

@@ -57,7 +57,7 @@ class recetarioControlador extends recetarioModelo
 			exit();
 		}
 
-		$check_recetario=mainModel::ejecutar_consulta_simple("SELECT recetario FROM TBL_recetario WHERE recetario='$Id_producto'");
+		$check_recetario=mainModel::ejecutar_consulta_simple("SELECT id_recetario FROM TBL_recetario WHERE id_recetario='$Id_producto'");
 			if($check_recetario->rowCount()>0){
 				$alerta=[
 					"Alerta"=>"simple",
@@ -76,7 +76,7 @@ class recetarioControlador extends recetarioModelo
 			
 			];
 
-			$agregar_insumo=recetarioModelo::agregar_recetario_modelo($datos_recetario_reg);
+			$agregar_recetario=recetarioModelo::agregar_recetario_modelo($datos_recetario_reg);
 
 			if($agregar_recetario->rowCount()==1){
 				$alerta=[
@@ -101,23 +101,22 @@ class recetarioControlador extends recetarioModelo
 				"id_objeto" => 0,
 				"fecha" => date('Y-m-d H:i:s'),
 				"id_usuario" => $_SESSION['id_login'],
-				"accion" => "Creación de Parámetro",
-				"descripcion" => "El usuario ".$_SESSION['usuario_login']." creó un nuevo parámetro en el sistema"
+				"accion" => "Creación de Receta",
+				"descripcion" => "El usuario ".$_SESSION['usuario_login']." creó una nueva receta en el sistema"
 			];
 			Bitacora::guardar_bitacora($datos_bitacora); 
 	} /* Fin controlador */
 
 
-	/*--------- Controlador actualizar parametro ---------*/
-	public function actualizarParametro()
+	/*--------- Controlador actualizar recetario ---------*/
+	public function actualizarRecetario()
 	{	
-		$nom_parametro=mainModel::limpiar_cadena(strtoupper($_POST['nombre_parametro_act']));
-		$valor=mainModel::limpiar_cadena($_POST['valor_parametro_act']);
-		$modificado=$_SESSION['usuario_login'];
-		$fec_modificacion=date('y-m-d H:i:s');
+		$Id_producto=mainModel::limpiar_cadena(strtoupper($_POST['recetario_act']));
+		$Id_insumo=mainModel::limpiar_cadena($_POST['Id_insumo_act']);
+		$cant_insumo=mainModel::limpiar_cadena($_POST['cant_insumo_act']);
 		$id_actualizar=mainModel::limpiar_cadena($_POST['id_actualizacion']);
 		
-		//verificar datos ingresados
+		/* //verificar datos ingresados
 		if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ_]{1,40}",$nom_parametro)){
 			$alerta=[
 				"Alerta"=>"simple",
@@ -151,23 +150,21 @@ class recetarioControlador extends recetarioModelo
 				echo json_encode($alerta);
 				exit();
 			}
-
-			$datos_parametro_act=[
-				"nombre"=>$nom_parametro,
-				"valor"=>$valor,
-				"id_usuario" => $_SESSION['id_login'],
-				"modif"=>$modificado,
-				"fecha_modif"=>$fec_modificacion
+ */
+			$datos_recetario_act=[
+				"id_producto"=>$Id_producto,
+				"id_insumo"=>$Id_insumo,
+				"cant_insumo"=>$cant_insumo,
 			];
 
-			$actualizar_parametro=parametroModelo::actualizar_parametro_modelo($datos_parametro_act,$id_actualizar);
+			$actualizar_recetario=recetarioModelo::actualizar_recetario_modelo($datos_recetario_act,$id_actualizar);
 
-			if($actualizar_parametro->rowCount()==1)
+			if($actualizar_recetario->rowCount()==1)
 			{
 				$alerta=[
 					"Alerta"=>"recargar",
-					"Titulo"=>"Parámetro Actualizado",
-					"Texto"=>"Parámetro actualizado exitosamente",
+					"Titulo"=>"Receta Actualizada",
+					"Texto"=>"Receta actualizada exitosamente",
 					"Tipo"=>"success"
 				];
 			}else
@@ -175,7 +172,7 @@ class recetarioControlador extends recetarioModelo
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"No hemos podido actualizar el parámetro",
+					"Texto"=>"No hemos podido actualizar la Receta",
 					"Tipo"=>"error"
 				];
 			}
@@ -185,27 +182,27 @@ class recetarioControlador extends recetarioModelo
 				"id_objeto" => 0,
 				"fecha" => date('Y-m-d H:i:s'),
 				"id_usuario" => $_SESSION['id_login'],
-				"accion" => "Modificación de Parámetro",
-				"descripcion" => "El usuario ".$_SESSION['usuario_login']." actualizó un parámetro del sistema"
+				"accion" => "Modificación de Receta",
+				"descripcion" => "El usuario ".$_SESSION['usuario_login']." actualizó una Receta del sistema"
 			];
 			Bitacora::guardar_bitacora($datos_bitacora); 
 	} /* Fin controlador */
 	
 
 	
-		//funcion para eliminar un parametro
-		public function eliminarParametro()
+		//funcion para eliminar un recetario
+		public function eliminarRecetario()
 		{
-			$id=mainModel::limpiar_cadena(($_POST['id_parametro_del']));
+			$id=mainModel::limpiar_cadena(($_POST['recetario_del']));
 
-		//verifica que el parametro si exista en el sistema
-		$check_parametro=mainModel::ejecutar_consulta_simple("SELECT id_parametro FROM TBL_ms_parametros
-		WHERE id_parametro='$id'");
-		if($check_parametro->rowCount()<=0){
+		//verifica que el recetario si exista en el sistema
+		$check_recetario=mainModel::ejecutar_consulta_simple("SELECT id_recetario FROM TBL_recetario
+		WHERE id_recetario='$id'");
+		if($check_recetario->rowCount()<=0){
 			$alerta=[
 				"Alerta"=>"simple",
 				"Titulo"=>"Ha ocurrido un error",
-				"Texto"=>"El parametro seleccionado no existe",
+				"Texto"=>"La receta seleccionada no existe",
 				"Tipo"=>"error"
 			];
 			echo json_encode($alerta);
@@ -213,12 +210,12 @@ class recetarioControlador extends recetarioModelo
 		}
 
 		
-		$eliminarparametro=parametroModelo::eliminar_parametro_modelo($id);
-			if($eliminarparametro->rowCount()==1){
+		$eliminarrecetario=recetarioModelo::eliminar_recetario_modelo($id);
+			if($eliminarrecetario->rowCount()==1){
 				$alerta=[
 					"Alerta"=>"recargar",
-					"Titulo"=>"Parametro Eliminado",
-					"Texto"=>"El parametro fue eliminado del sistema",
+					"Titulo"=>"Recetario Eliminado",
+					"Texto"=>"La receta fue eliminada del sistema",
 					"Tipo"=>"success"
 				];
                 echo json_encode($alerta);
@@ -227,8 +224,8 @@ class recetarioControlador extends recetarioModelo
                     "id_objeto" => 0,
                     "fecha" => date('Y-m-d H:i:s'),
                     "id_usuario" => $_SESSION['id_login'],
-                    "accion" => "Parámetro eliminado",
-                    "descripcion" => "El usuario ".$_SESSION['usuario_login']." eliminó un parámetro del sistema"
+                    "accion" => "Receta eliminada",
+                    "descripcion" => "El usuario ".$_SESSION['usuario_login']." eliminó una receta del sistema"
                 ];
                 Bitacora::guardar_bitacora($datos_bitacora);
                 exit();
@@ -236,7 +233,7 @@ class recetarioControlador extends recetarioModelo
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ha ocurrido un error",
-					"Texto"=>"El Parametro no pudo ser borrado",
+					"Texto"=>"La Receta no pudo ser borrada",
 					"Tipo"=>"error"
 				];
 			}
