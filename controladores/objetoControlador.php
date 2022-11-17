@@ -23,7 +23,7 @@ class objetoControlador extends objetoModelo
 		$fec_creacion=date('y-m-d H:i:s');
 
 		//verificar datos ingresados
-		if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ ]{1,40}",$nom_objeto)){
+		if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ_ ]{1,40}",$nom_objeto)){
 			$alerta=[
 				"Alerta"=>"simple",
 				"Titulo"=>"Ocurrió un error inesperado",
@@ -95,7 +95,7 @@ class objetoControlador extends objetoModelo
 		$id_actualizar=mainModel::limpiar_cadena($_POST['id_actualizacion']);
 		
 		//verificar datos ingresados
-		if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ ]{1,40}",$nom_objeto)){
+		if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ_ ]{1,40}",$nom_objeto)){
 			$alerta=[
 				"Alerta"=>"simple",
 				"Titulo"=>"Ocurrió un error inesperado",
@@ -105,18 +105,6 @@ class objetoControlador extends objetoModelo
 			echo json_encode($alerta);
 			exit();
 		}
-
-		$check_objeto=mainModel::ejecutar_consulta_simple("SELECT objeto FROM TBL_objetos WHERE objeto='$nom_objeto'");
-			if($check_objeto->rowCount()>0){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El objeto ingresado ya se encuentra registrado en el sistema",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
 			
 			$datos_objeto_act=[
 				"nombre"=>$nom_objeto,

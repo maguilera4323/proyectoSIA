@@ -108,8 +108,8 @@ class permisoControlador extends permisoModelo
 		}
 		$modificado=$_SESSION['usuario_login'];
 		$fec_modificacion=date('y-m-d H:i:s');
-		$id_rol_actualizar=mainModel::limpiar_cadena($_POST['id_objeto']);
-		$id_objeto_actualizar=mainModel::limpiar_cadena($_POST['id_rol']);
+		$id_rol_actualizar=mainModel::limpiar_cadena($_POST['id_rol']);
+		$id_objeto_actualizar=mainModel::limpiar_cadena($_POST['id_objeto']);
 
 			$datos_permiso_act=[
 				"ins"=>$insertar_permiso,

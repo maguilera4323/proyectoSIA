@@ -130,18 +130,6 @@ class parametroControlador extends parametroModelo
 			exit();
 		}
 
-		$check_parametro=mainModel::ejecutar_consulta_simple("SELECT parametro FROM TBL_ms_parametros WHERE parametro='$nom_parametro'");
-			if($check_parametro->rowCount()>0){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El parámetro ingresado ya se encuentra registrado en el sistema",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-
 			$datos_parametro_act=[
 				"nombre"=>$nom_parametro,
 				"valor"=>$valor,
