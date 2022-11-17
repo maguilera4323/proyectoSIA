@@ -24,7 +24,9 @@
 					<div class="col-12 col-md-3">
 						<div class="form-group">
 							<label for="nombre_insumo" class="bmd-label-floating">Nombre Insumo</label>
-							<input type="text" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,40}" class="form-control" name="insumo_nombre" id="nombre_insumo" maxlength="27">
+							<select class="form-control" name="insumo_nombre">
+								<option value="" selected="" disabled="">Seleccione una opción</option>
+							</select>
 						</div>
 					</div>
 					<div class="col-12 col-md-3">
@@ -52,16 +54,17 @@
                     <div class="col-12 col-md-3">
 						<div class="form-group">
 							<label for="fecha_compra" class="bmd-label-floating">Fecha de Compra</label>
-							<input type="date" pattern="" class="form-control" name="fechacompra_insumo" id="fecha_compra"  maxlength="40">
-							<!-- <?php $time = time(); 
-							// echo date("d-m-Y (H:i:s)", $time);
-							// ?>	-->			
+							<input type="date" pattern="" class="form-control" name="fechacompra_insumo" id="fecha_compra"  maxlength="40">		
 						</div>
 					</div>
 					<div class="col-12 col-md-3">
 						<div class="form-group">
 							<label for="proveedor_insumo" class="bmd-label-floating">Proveedor</label>
-							<input type="text" pattern="[0-9()+]{8,20}" class="form-control" name="proveedor" id="proveedor_insumo" maxlength="20">
+							<select class="form-control" name="proveedor">
+								<option value="" selected="" disabled="">Seleccione una opción</option>
+								<option value="1">1</option>
+								<option value="2">2</option>
+							</select>
 						</div>
 					</div>
 

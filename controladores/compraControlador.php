@@ -89,7 +89,95 @@ class compracontrolador extends compraModelo
     public function actualizar_compra_controlador()
     {
 
-        $id_actualizar=mainModel::limpiar_cadena($_POST['id_actualizacion']);
+        $id_actualizar=mainModel::limpiar_cadena($_POST['id_actualizacion_actu']);
+        $Insumo=mainModel::limpiar_cadena(strtoupper($_POST['insumo_nombre_actu']));
+        $Cantidad=mainModel::limpiar_cadena(strtoupper($_POST['insumo_cantidad_actu']));
+        $Preciounitario=mainModel::limpiar_cadena(strtoupper($_POST['insumo_precio_actu']));
+        $Fechacaducidad=mainModel::limpiar_cadena(strtoupper($_POST['fechacaducidad_insumo_actu']));
+        $Fechacompra=mainModel::limpiar_cadena(strtoupper($_POST['fechacompra_insumo_actu']));
+        $Proveedor=mainModel::limpiar_cadena(strtoupper($_POST['proveedor_actu']));
+        $Estadocompra=mainModel::limpiar_cadena(strtoupper($_POST['estadocompra_insumo_actu']));
+        $Totalcompra=mainModel::limpiar_cadena(strtoupper($_POST['totalcompra_insumo_actu']));
+
+
+         /*== comprobar campos vacios ==*/
+		if($Insumo=="" || $Cantidad=="" || $Preciounitario=="" || $Fechacaducidad=="" || $Fechacompra=="" || $Proveedor=="" || $Estadocompra=="" || $Totalcompra==""){
+			$alerta=[
+				"Alerta"=>"simple",
+				"Titulo"=>"Ocurrió un error inesperado",
+				"Texto"=>"No se han llenado todos los campos que son obligatorios",
+				"Tipo"=>"error"
+			];
+			echo json_encode($alerta);
+			exit();
+		}
+
+        /*== Verificando integridad de los datos ==*/
+			if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ ]{1,30}",$Insumo)){
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error inesperado",
+					"Texto"=>"El dato no coincide con el formato solicitado",
+					"Tipo"=>"error"
+				];
+				echo json_encode($alerta);
+				exit();
+			}
+
+			if(mainModel::verificar_datos("[0-9]{1,14}",$Cantidad)){
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error inesperado",
+					"Texto"=>"El dato no coincide con el formato solicitado",
+					"Tipo"=>"error"
+				];
+				echo json_encode($alerta);
+				exit();
+			}
+
+            if(mainModel::verificar_datos("[0-9]{1,14}",$Preciounitario)){
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error inesperado",
+					"Texto"=>"El dato no coincide con el formato solicitado",
+					"Tipo"=>"error"
+				];
+				echo json_encode($alerta);
+				exit();
+			}
+
+            if(mainModel::verificar_datos("A-ZÁÉÍÓÚÑ ]{1,30}",$Proveedor)){
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error inesperado",
+					"Texto"=>"El dato no coincide con el formato solicitado",
+					"Tipo"=>"error"
+				];
+				echo json_encode($alerta);
+				exit();
+			}
+
+            if(mainModel::verificar_datos("A-ZÁÉÍÓÚÑ ]{1,30}",$Estadocompra)){
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error inesperado",
+					"Texto"=>"El dato no coincide con el formato solicitado",
+					"Tipo"=>"error"
+				];
+				echo json_encode($alerta);
+				exit();
+			}
+
+            if(mainModel::verificar_datos("[0-9]{1,14}",$Totalcompra)){
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error inesperado",
+					"Texto"=>"El dato no coincide con el formato solicitado",
+					"Tipo"=>"error"
+				];
+				echo json_encode($alerta);
+				exit();
+			}
 
     }/* Fin controlador */
 
