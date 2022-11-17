@@ -58,6 +58,9 @@
 						<li>
 							<a href="<?php echo SERVERURL; ?>insumos-list/"><i class="fas fa-dolly-flatbed"></i> &nbsp; Movimientos de Inventario</a>
 						</li>
+						<li>
+							<a href="<?php echo SERVERURL; ?>recetario-list/"><i class="fas fa-hand-holding-usd fa-fw"></i> &nbsp; Recetario</a>
+						</li>
 					</ul>
 				</li>
 
