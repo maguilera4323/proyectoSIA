@@ -59,7 +59,7 @@
 			</div>
 		</a>
 
-		<a href="<?php echo SERVERURL; ?>item-list/" class="tile">
+		<a href="<?php echo SERVERURL; ?>insumos-list/" class="tile">
 			<div class="tile-tittle">INSUMOS</div>
 			<div class="tile-icon">
 				<i class="fas fa-pallet fa-fw"></i>
@@ -171,7 +171,7 @@
 			</div>
 		</a>
 
-		<a href="<?php echo SERVERURL; ?>item-list/" class="tile">
+		<a href="<?php echo SERVERURL; ?>insumos-list/" class="tile">
 			<div class="tile-tittle">INSUMOS</div>
 			<div class="tile-icon">
 				<i class="fas fa-pallet fa-fw"></i>
