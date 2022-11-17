@@ -45,7 +45,7 @@ if(isset($_GET['enviar'])){
   </div>
 
   <br>
-
+<!-- tabla  -->
 	<table class="table table-striped table-dark table_id text-center" id="tblDatos">
 		<!-- Encabezado de la tabla -->
 		<thead>
@@ -53,8 +53,6 @@ if(isset($_GET['enviar'])){
 				<th>ID Compra</th>
 				<th>Nombre Insumo</th>
 				<th>Cantidad</th>
-				<th>Precio Unitario HNL</th>
-				<th>Fecha Compra</th>
 				<th>Estado Compra</th>
 				<th>Total Compra</th>
 				<th>Detalle Compra</th>
@@ -67,8 +65,6 @@ if(isset($_GET['enviar'])){
 					<td>0001</td>
 					<td>Nombre Insumo</td>
 					<td>10</td>
-					<td>100.00</td>
-					<td>Fecha Compra</td>
 					<td>Estado Compra</td>
 					<td>1,000.00</td>
 					<td>
