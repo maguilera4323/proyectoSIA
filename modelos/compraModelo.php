@@ -8,17 +8,16 @@
         // modelo para agregar compra
         protected static function agregar_compra_modelo($datos)
         {
-            $sql=mainModel::conectar()->prepare("INSERT INTO() VALUES(?,?,?)");
+            $sql=mainModel::conectar()->prepare("INSERT INTO TBL_compras(id_proveedor,id_usuario,id_estado_compra,
+            fech_compra,total_compra) 
+            VALUES(?,?,?,?,?)");
 
 
-            $sql->bindParam(1,$datos['nombreinsumo']);
-			$sql->bindParam(2,$datos['cantidad']);
-			$sql->bindParam(3,$datos['precio']);
-			$sql->bindParam(4,$datos['fechacaducidad']);
-			$sql->bindParam(5,$datos['fechacompra']);
-            $sql->bindParam(6,$datos['proveedor']);
-            $sql->bindParam(7,$datos['estadocompra']);
-            $sql->bindParam(8,$datos['totalcompra']);
+			$sql->bindParam(1,$datos['idproveedor']);
+			$sql->bindParam(2,$datos['usuario']);
+			$sql->bindParam(3,$datos['estadocompra']);
+			$sql->bindParam(4,$datos['fechacompra']);
+            $sql->bindParam(5,$datos['totalcompra']);
 			$sql->execute();
 			return $sql;
 

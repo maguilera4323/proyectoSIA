@@ -4,8 +4,7 @@ if (session_status() == PHP_SESSION_NONE) {
 	session_start();
 }
 
-class Invoice
-{
+class Invoice{
 	private $host  = '20.163.218.52';
 	private $user  = 'admin_bd';
 	private $password   = "clave1234";
@@ -13,6 +12,7 @@ class Invoice
 	private $invoiceOrderTable = 'TBL_compras';
 	private $invoiceOrderItemTable = 'TBL_detalle_compra';
 	private $dbConnect = false;
+
 	public function __construct()
 	{
 		if (!$this->dbConnect) {
@@ -29,6 +29,7 @@ class Invoice
 		$result = mysqli_query($this->dbConnect, $sqlQuery);
 		if (!$result) {
 			die('Error in query: ' . mysqli_error());
+
 		}
 		$data = array();
 		while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {

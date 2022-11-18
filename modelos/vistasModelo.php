@@ -61,8 +61,7 @@
 				$contenido="login";
 
 			}else{
-				$contenido="404";
-				$contenido="rsp";
+				$contenido="404";				
 			}
 			return $contenido;
 		}
