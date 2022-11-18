@@ -1,95 +1,115 @@
-<div class="full-box page-header">
-    <h3 class="text-left">
-        <i class="fas fa-cart-plus"></i> &nbsp; AGREGAR NUEVA COMPRA
-    </h3>
-</div>
-<!-- NavBar Horizontal para agregar, buscar o listado compra -->
-<div class="container-fluid">
-    <ul class="full-box list-unstyled page-nav-tabs">
-        <li>
-            <a class="active" href="<?php echo SERVERURL; ?>compra-new/"><i class="fas fa-cart-plus"></i> &nbsp; AGREGAR COMPRA</a>
-        </li>
-        <li>
-            <a href="<?php echo SERVERURL; ?>compra-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE COMPRAS</a>
-        </li>
-    </ul>
-</div>
+<?php
+	//verifica si hay sesiones iniciadas
+	if (session_status() == PHP_SESSION_NONE) {
+		session_start();
+	}
 
-<div class="container-fluid">
-	<form action="" class="form-neon" autocomplete="off">
-		<fieldset>
-			<legend><i class="fas fa-cart-plus"></i> &nbsp; Datos de Compra</legend>
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-12 col-md-3">
-						<div class="form-group">
-							<label for="nombre_insumo" class="bmd-label-floating">Nombre Insumo</label>
-							<select class="form-control" name="insumo_nombre">
-								<option value="" selected="" disabled="">Seleccione una opción</option>
-							</select>
-						</div>
-					</div>
-					<div class="col-12 col-md-3">
-						<div class="form-group">
-							<label for="cantidadcompra" class="bmd-label-floating">Cantidad</label>
-							<input type="text" pattern= "[0-9-]{1,27}" class="form-control" name="insumo_cantidad" id="cantidadcompra" maxlength="40">
-						</div>
-					</div>
-                    <div class="col-12 col-md-3">
-						<div class="form-group">
-							<label for="precioinsumo" class="bmd-label-floating">Precio Unitario  HNL</label>
-							<input type="text" pattern= "[0-9-]{1,27}" class="form-control" name="insumo_precio" id="precioinsumo" maxlength="40">
-							<!-- <?php 
-								// $numero = 15200.67;
-								// number_format($numero,2);
-							?>-->
-						</div>
-					</div>
-					<div class="col-12 col-md-3">
-						<div class="form-group">
-							<label for="fecha_caducidad" class="bmd-label-floating">Fecha de Caducidad</label>
-							<input type="date" pattern="" class="form-control" name="fechacaducidad_insumo" id="fecha_caducidad"  maxlength="40">
-						</div>
-					</div>
-                    <div class="col-12 col-md-3">
-						<div class="form-group">
-							<label for="fecha_compra" class="bmd-label-floating">Fecha de Compra</label>
-							<input type="date" pattern="" class="form-control" name="fechacompra_insumo" id="fecha_compra"  maxlength="40">		
-						</div>
-					</div>
-					<div class="col-12 col-md-3">
-						<div class="form-group">
-							<label for="proveedor_insumo" class="bmd-label-floating">Proveedor</label>
-							<select class="form-control" name="proveedor">
-								<option value="" selected="" disabled="">Seleccione una opción</option>
-								<option value="1">1</option>
-								<option value="2">2</option>
-							</select>
-						</div>
-					</div>
+	//llamado al controlador de login
+    require_once 'controladores/compraControlador.php';
+	$invoice = new Invoice();
+	if (isset($_POST['invoice_btn'])) {
+		$invoice->saveInvoice($_POST);
+	}
+?>
+<br>
 
+<div class="container content-invoice">
+	<form action="" id="invoice-form" method="post" class="invoice-form" role="form" novalidate="">
+		<div class="load-animate animated fadeInUp">
+			<div class="row">
+			<h3 class="text-left">
+       			 <i class="fas fa-cart-plus"></i> &nbsp; AGREGAR NUEVA COMPRA
+    		</h3>
+			</div>
+			<br>
+			<input id="currency" type="hidden" value="$">
+			<div class="row">
+				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 					<div class="form-group">
-						<label for="estado_compra" class="bmd-label-floating">Estado Compra</label>
-							<select class="form-control" name="estadocompra_insumo">
-								<option value="" selected="" disabled="">Seleccione una opción</option>
-								<option value="1">En Proceso</option>
-								<option value="2">Finalizada</option>
-							</select>
-						</div>
-                    <div class="col-12 col-md-3">
-						<div class="form-group">
-							<label for="total_compra" class="bmd-label-floating">Total Compra</label>
-							<input type="text" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,#\- ]{1,150}" class="form-control" name="totalcompra_insumo" id="total_compra" maxlength="150">
-						</div>
+						<label >Proveedor</label>
+						<select class="form-control" name="proveedor_compra" id="proveedor_compra" >
+							<option value="1">LEYDE</option>
+							<option value="6">PLATICOS Y MAS</option>
+						</select>
+					</div>	
+					<div class="form-group">
+						<label >Usuario</label>
+						<input type="text" class="form-control" name="usuario_compra" id="cliente_apellido" maxlength="40" 
+						value="<?php echo $_SESSION['usuario_login']; ?>" style="text-transform:uppercase;" >
+					</div>	
+				</div>      		
+				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 pull-right">
+					<div class="form-group">
+						<label >Estado de Compra</label>
+						<select class="form-control" name="estado_compra" required>
+							<option value="1">Comestibles</option>
+							<option value="2">Equipo</option>
+						</select>
 					</div>
+					<div class="form-group">
+						<label>Fecha</label>
+						<?php $fcha = date("Y-m-d");?>
+						<input type="date" class="form-control" name="fecha_compra" id="fecha_compra" value="<?php echo $fcha?>" disabled>
+					</div>
+					
 				</div>
 			</div>
-            </fieldset>
-		<br><br><br>
-		<p class="text-center" style="margin-top: 20px;">
-			<button type="reset" class="btn btn-raised btn-secondary btn-sm"><i class="fas fa-paint-roller"></i> &nbsp; LIMPIAR</button>
-			&nbsp; &nbsp;
-			<button type="submit" class="btn btn-raised btn-info btn-sm"><i class="far fa-save"></i> &nbsp; GUARDAR</button>
-		</p>
+			<div class="row">
+				<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+					<button class="btn btn-danger delete" id="removeRows" type="button">- Eliminar</button>
+					<button class="btn btn-success" id="addRows" type="button">+ Agregar Más</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<table class="table table-bordered table-hover" id="invoiceItem">
+						<tr>
+							<th width="2%"><input id="checkAll" class="formcontrol" type="checkbox"></th>
+							<th width="15%">No Compra</th>
+							<th width="19%">Insumo</th>
+							<th width="19%">Fecha de caducidad</th>
+							<th width="15%">Cantidad</th>
+							<th width="15%">Precio</th>
+							<th width="15%">Total</th>
+						</tr>
+						<tr>
+							<td><input class="itemRow" type="checkbox"></td>
+							<td><input type="text" name="productCode[]" id="productCode_1" class="form-control" autocomplete="off"></td>
+							<td><input type="text" name="productName[]" id="productName_1" class="form-control" autocomplete="off"></td>
+							<td><input type="date" name="fechaCaducidad[]" id="fechaCaducidad_1" class="form-control" autocomplete="off"></td>
+							<td><input type="number" name="quantity[]" id="quantity_1" class="form-control quantity" autocomplete="off"></td>
+							<td><input type="number" name="price[]" id="price_1" class="form-control price" autocomplete="off"></td>
+							<td><input type="number" name="total[]" id="total_1" class="form-control total" autocomplete="off"></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+					<h3>Observaciones: </h3>
+					<div class="form-group">
+						<textarea class="form-control txt" rows="5" name="notes" id="notes" placeholder="Observaciones"></textarea>
+					</div>
+					<br>
+					<div class="form-group">
+						<input type="hidden" value="<?php echo $_SESSION['usuario_login']; ?>" class="form-control" name="userId">
+						<input data-loading-text="Guardando factura..." type="submit" name="invoice_btn" value="Guardar factura" class="btn btn-success submit_btn invoice-save-btm">
+					</div>
+
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+					<span class="form-inline">
+						<div class="form-group">
+							<label>Total: &nbsp;</label>
+							<div class="input-group">
+								<div class="input-group-addon currency">$</div>
+								<input value="" type="number" class="form-control" name="subTotal" id="subTotal" placeholder="Subtotal">
+							</div>
+					</span>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
 	</form>
+</div>
 </div>

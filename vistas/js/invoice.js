@@ -1,4 +1,4 @@
- $(document).ready(function(){
+$(document).ready(function(){
 	$(document).on('click', '#checkAll', function() {          	
 		$(".itemRow").prop("checked", this.checked);
 	});	
@@ -16,10 +16,8 @@
 		htmlRows += '<tr>';
 		htmlRows += '<td><input class="itemRow" type="checkbox"></td>';          
 		htmlRows += '<td><input type="text" name="productCode[]" id="productCode_'+count+'" class="form-control" autocomplete="off"></td>';          
-		htmlRows += '<td><select class="form-control" name="productName[]" id="productName_'+count+'">'
-					'<option value="" selected="" disabled="">Seleccione una opción</option>'
-                       '</select></td>;'
-		htmlRows += '<td><input type="date" name="caducidadFecha[]" id="caducidadFecha_'+count+'" class="form-control" autocomplete="off"></td>'; 
+		htmlRows += '<td><input type="text" name="productName[]" id="productName_'+count+'" class="form-control" autocomplete="off"></td>';	
+		htmlRows += '<td><input type="date" name="fechaCaducidad[]" id="fechaCaducidad_1" class="form-control" autocomplete="off"></td>';
 		htmlRows += '<td><input type="number" name="quantity[]" id="quantity_'+count+'" class="form-control quantity" autocomplete="off"></td>';   		
 		htmlRows += '<td><input type="number" name="price[]" id="price_'+count+'" class="form-control price" autocomplete="off"></td>';		 
 		htmlRows += '<td><input type="number" name="total[]" id="total_'+count+'" class="form-control total" autocomplete="off"></td>';          
@@ -54,7 +52,7 @@
 	});	
 	$(document).on('click', '.deleteInvoice', function(){
 		var id = $(this).attr("id");
-		if(confirm("Are you sure you want to remove this?")){
+		if(confirm("¿Deseas eliminar este registro?")){
 			$.ajax({
 				url:"action.php",
 				method:"POST",
@@ -103,5 +101,4 @@ function calculateTotal(){
 		}
 	}
 }
-
  
