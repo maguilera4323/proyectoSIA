@@ -11,44 +11,25 @@ if($peticionAjax){
 	require_once "./pruebabitacora.php";//aqui se ejecuta dentro del index y no se utiliza Ajax
 }
 
-class compracontrolador extends compraModelo
+class compraControlador extends compraModelo
 {
 
     // Nueva compra controlador
     public function agregar_compra_controlador()
     {
-
-        $Insumo=mainModel::limpiar_cadena(strtoupper($_POST['insumo_nombre']));
-        $Cantidad=mainModel::limpiar_cadena(strtoupper($_POST['insumo_cantidad']));
-        $Preciounitario=mainModel::limpiar_cadena(strtoupper($_POST['insumo_precio']));
-        $Fechacaducidad=mainModel::limpiar_cadena(strtoupper($_POST['fechacaducidad_insumo']));
+																// name de las vistas
+        $Proveedor=mainModel::limpiar_cadena(strtoupper($_POST['idproveedor']));
+        $Usuario=mainModel::limpiar_cadena(strtoupper($_POST['usuarioid']));
+        $Estadocompra=mainModel::limpiar_cadena(strtoupper($_POST['idestadocompra']));
         $Fechacompra=mainModel::limpiar_cadena(strtoupper($_POST['fechacompra_insumo']));
-        $Proveedor=mainModel::limpiar_cadena(strtoupper($_POST['proveedor']));
-        $Estadocompra=mainModel::limpiar_cadena(strtoupper($_POST['estadocompra_insumo']));
         $Totalcompra=mainModel::limpiar_cadena(strtoupper($_POST['totalcompra_insumo']));
-
-
-        /*== comprobar campos vacios ==*/
-		if($Insumo=="" || $Cantidad=="" || $Preciounitario=="" || $Fechacaducidad=="" || $Fechacompra=="" || $Proveedor=="" || $Estadocompra=="" || $Totalcompra==""){
-			$alerta=[
-				"Alerta"=>"simple",
-				"Titulo"=>"Ocurrió un error inesperado",
-				"Texto"=>"No se han llenado todos los campos que son obligatorios",
-				"Tipo"=>"error"
-			];
-			echo json_encode($alerta);
-			exit();
-		}
 
         // Agregar la compra
         $datos_compra_reg=[
-            "nombreinsumo"=>$Insumo,
-            "cantidad"=>$Cantidad,
-            "precio"=>$Preciounitario,
-            "fechacaducidad"=>$Fechacaducidad,
-            "fechacompra"=>$Fechacompra,
-            "proveedor"=>$Proveedor,
+			"proveedor"=>$Proveedor,
+			"usuario"=>$Usuario,
             "estadocompra"=>$Estadocompra,
+			"fechacompra"=>$Fechacompra,
             "totalcompra"=>$Totalcompra
         ];    
 
