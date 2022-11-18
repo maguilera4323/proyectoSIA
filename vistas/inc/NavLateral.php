@@ -47,7 +47,7 @@
 					</ul>
 				</li>
 				<li>
-					<a href="#" class="nav-btn-submenu"><i class="fas fa-pallet fa-fw"></i> &nbsp; Insumos <i class="fas fa-chevron-down"></i></a>
+					<a href="#" class="nav-btn-submenu"><i class="fas fa-pallet fa-fw"></i> &nbsp;Inventario e Insumos <i class="fas fa-chevron-down"></i></a>
 					<ul>
 						<li>
 							<a href="<?php echo SERVERURL; ?>insumos-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Insumos</a>
@@ -147,7 +147,7 @@
 					</ul>
 				</li>
 				<li>
-					<a href="#" class="nav-btn-submenu"><i class="fas fa-pallet fa-fw"></i> &nbsp; Insumos <i class="fas fa-chevron-down"></i></a>
+					<a href="#" class="nav-btn-submenu"><i class="fas fa-pallet fa-fw"></i> &nbsp;Inventario e Insumos <i class="fas fa-chevron-down"></i></a>
 					<ul>
 						<li>
 							<a href="<?php echo SERVERURL; ?>insumos-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Insumos</a>
