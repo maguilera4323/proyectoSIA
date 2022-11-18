@@ -1,3 +1,30 @@
+<?php
+		include ("./cone.php");     
+
+		//verificación de permisos
+		//se revisa si el usuario tiene acceso a una vista específica por medio del rol que tiene y el objeto al que quiere acceder
+		$id_rol=$_SESSION['id_rol'];
+			$SQL="SELECT permiso_actualizacion FROM TBL_permisos where id_rol='$id_rol' and id_objeto=2";
+			$dato = mysqli_query($conexion, $SQL);
+
+			if($dato -> num_rows >0){
+				while($fila=mysqli_fetch_array($dato)){
+					$permiso=$fila['permiso_actualizacion'];
+				}
+			}
+
+			//valida si el query anterior no retornó ningún valor
+			//en este caso no había un permiso registrado del objeto para el rol del usuario conectado
+			if(!isset($permiso)){
+				echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Usted no tiene autorizado actualizar proveedores</div>';
+				echo "<script> window.location.href='".SERVERURL."home/'; </script>";	
+			//valida si el permiso tiene valor de cero, lo que significa que no puede acceder a la vista	
+			}else if($permiso==0){
+				echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Usted no tiene autorizado actualizar proveedores</div>';
+				echo "<script> window.location.href='".SERVERURL."proveedor-list/'; </script>";
+			}
+			
+?>
 <div class="full-box page-header">
 	<h3 class="text-left">
 		<i class="fas fa-plus fa-fw"></i> &nbsp; AGREGAR PROVEEDOR

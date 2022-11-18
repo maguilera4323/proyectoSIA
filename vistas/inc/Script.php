@@ -27,6 +27,8 @@
 
 <script src="<?php echo SERVERURL; ?>vistas/js/page.js" ></script>
 
+<script src="<?php echo SERVERURL; ?>vistas/js/invoice.js" ></script>
+
 
 	<!-- 
     //// eliminanos el punto de inicio y colocamos <?php echo SERVERURL;?>vistas  para poder reconocer los JS

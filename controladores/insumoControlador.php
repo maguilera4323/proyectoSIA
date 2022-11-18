@@ -80,7 +80,7 @@ class insumoControlador extends insumoModelo
 
 			if($agregar_insumo->rowCount()==1){
 				$alerta=[
-					"Alerta"=>"limpiar",
+					"Alerta"=>"recargar",
 					"Titulo"=>"Insumo Registrado",
 					"Texto"=>"Los datos del insumo han sido registrados con exito",
 					"Tipo"=>"success"
@@ -175,7 +175,7 @@ class insumoControlador extends insumoModelo
 			if($actualizar_insumo->rowCount()==1)
 			{
 				$alerta=[
-					"Alerta"=>"limpiar",
+					"Alerta"=>"recargar",
 					"Titulo"=>"Insumo Actualizado",
 					"Texto"=>"Insumo actualizado exitosamente",
 					"Tipo"=>"success"

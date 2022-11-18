@@ -107,18 +107,6 @@ class rolControlador extends rolModelo
 			exit();
 		}
 
-		$check_rol=mainModel::ejecutar_consulta_simple("SELECT rol FROM TBL_ms_roles WHERE rol='$nom_rol'");
-			if($check_rol->rowCount()>0){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El rol ingresado ya se encuentra registrado en el sistema",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-
 			$datos_rol_act=[
 				"nombre"=>$nom_rol,
 				"desc"=>$descripcion,

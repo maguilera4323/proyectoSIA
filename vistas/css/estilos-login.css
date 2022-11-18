@@ -113,3 +113,7 @@
      right:0px;	
      pointer-events: none;
  }
+
+ input:disabled {
+    background: rgb(71, 66, 66);
+  }

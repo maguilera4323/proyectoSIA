@@ -80,19 +80,6 @@ class preguntasControlador extends preguntasModelo
 		$modificado=$_SESSION['usuario_login'];
 		$fec_modificacion=date('y-m-d H:i:s');
 		$id_actualizar=mainModel::limpiar_cadena($_POST['id_actualizacion']);
-		
-		//verificar datos ingresados
-		$check_pregunta=mainModel::ejecutar_consulta_simple("SELECT pregunta FROM TBL_preguntas WHERE pregunta='$nom_pregunta'");
-			if($check_pregunta->rowCount()>0){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"La pregunta ingresado ya se encuentra registrada en el sistema",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
 			
 			$datos_pregunta_act=[
 				"nombre"=>$nom_pregunta,
