@@ -27,7 +27,7 @@
 			<div class="row">
 				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 					<div class="form-group">
-						<label >Proveedor</label>
+						<label class="color-label">Proveedor</label>
 						<select class="form-control" name="proveedor_compra" id="proveedor_compra" >
 						<option value="" selected="" disabled="">Seleccione una opción</option>
 							<?php
@@ -43,14 +43,14 @@
 						</select>
 					</div>	
 					<div class="form-group">
-						<label >Usuario</label>
+						<label class="color-label">Usuario</label>
 						<input type="text" class="form-control" name="usuario_compra" id="cliente_apellido" maxlength="40" 
 						value="<?php echo $_SESSION['usuario_login']; ?>" style="text-transform:uppercase;" disabled>
 					</div>	
 				</div>      		
 				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 pull-right">
 					<div class="form-group">
-						<label >Estado de Compra</label>
+						<label class="color-label">Estado de Compra</label>
 						<select class="form-control" name="estado_compra" id="estado_compra" >
 						<option value="" selected="" disabled="">Seleccione una opción</option>
 							<?php
@@ -66,7 +66,7 @@
 						</select>
 					</div>
 					<div class="form-group">
-						<label>Fecha</label>
+						<label class="color-label">Fecha</label>
 						<?php $fcha = date("Y-m-d");?>
 						<input type="date" class="form-control" name="fecha_compra" id="fecha_compra" value="<?php echo $fcha?>" disabled>
 					</div>
@@ -128,7 +128,7 @@
 				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 					<span class="form-inline">
 						<div class="form-group">
-							<label>Total: &nbsp;</label>
+							<label class="color-label">Total: &nbsp;</label>
 							<div class="input-group">
 								<div class="input-group-addon currency">L.</div>
 								<input value="" type="number" class="form-control" name="subTotal" id="subTotal" placeholder="Subtotal">

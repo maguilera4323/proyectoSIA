@@ -167,13 +167,9 @@ class usuarioControlador extends usuarioModelo
 					"Titulo"=>"Usuario registrado",
 					"Texto"=>"Los datos del usuario han sido registrados con exito",
 					"Tipo"=>"success",
-					//"URL"=> header("Location:".SERVERURL."user-list/")
 				];
 				
-				//return header("Location:".SERVERURL."user-list/");
-
-			/* 	$envioCorreo = new Correo();
-				$respuesta = $envioCorreo->CorreoCreacionUsuario($Correo,$Usuario,$Contraseña); */
+				
 			}else{
 				$alerta=[
 					"Alerta"=>"simple",
@@ -194,14 +190,13 @@ class usuarioControlador extends usuarioModelo
 			Bitacora::guardar_bitacora($datos_bitacora); 
 				$envioCorreo = new Correo();
 				$respuesta = $envioCorreo->CorreoCreacionUsuario($Correo,$Usuario,$Contraseña); 
-			/* echo "<script>window.location.replace('http//localhost/proyectoSIA/user-list/');</script>"; */
+			
 			
 	} /* Fin controlador */
 
 
 	/*--------- Controlador actualizar usuario ---------*/
-	public function actualizar_usuario_controlador()
-	{	
+	public function actualizar_usuario_controlador(){	
 		$Usuario=mainModel::limpiar_cadena($_POST['usuario_actu']);
 		$Nombre=mainModel::limpiar_cadena($_POST['nombre_usuario_actu']);
 		$Estado=mainModel::limpiar_cadena($_POST['estado_actu']);
@@ -319,6 +314,7 @@ class usuarioControlador extends usuarioModelo
 
 		return usuarioModelo::datos_usuario_modelo($tipo,$id);
 	 }
+
 
 		//funcion para eliminar o inactivar un usuario
 		public function eliminarUsuario()

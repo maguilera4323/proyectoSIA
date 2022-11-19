@@ -141,7 +141,7 @@ if(isset($_GET['enviar'])){
 									<div class="row">
 										<div class="col-10 col-md-6">
 											<div class="form-group">
-												<label>Usuario</label>
+												<label class="color-label">Usuario</label>
 												<input type="text" class="form-control" name="usuario_actu" id="nom_usuario" maxlength="15" 
 												style="text-transform:uppercase;" value="<?php echo $fila['usuario']?>" >
 											</div>
@@ -149,14 +149,14 @@ if(isset($_GET['enviar'])){
 										
 										<div class="col-12 col-md-6">
 											<div class="form-group">
-												<label>Nombre</label>
+												<label class="color-label">Nombre</label>
 												<input type="text" class="form-control" name="nombre_usuario_actu" id="nombre_usuario" 
 												style="text-transform:uppercase;" maxlength="20" value="<?php echo $fila['nombre_usuario']?>" >
 											</div>
 										</div>
 									</div>
 									<div class="form-group">
-										<label>Correo</label>
+										<label class="color-label">Correo</label>
 										<input type="email" class="form-control" name="correo_electronico_actu" id="correo_electronico" 
 										maxlength="70" value="<?php echo $fila['correo_electronico']?>">
 									</div>
@@ -167,7 +167,7 @@ if(isset($_GET['enviar'])){
 									<div class="row">
 										<div class="col-10 col-md-4">
 											<div class="form-group">
-												<label>Vencimiento</label>
+												<label class="color-label">Vencimiento</label>
 												<input type="hidden" pattern="" class="form-control" name="usuario_creacion" value="<?php echo $_SESSION['usuario_login']?>">
 												<?php $fcha = date("Y-m-d");?>
 												<input type="date" class="form-control" name="fecha_vencimiento_actu" id="fecha_vencimiento" 
@@ -176,7 +176,7 @@ if(isset($_GET['enviar'])){
 										</div>
 										<div class="col-12 col-md-4">
 											<div class="form-group">
-													<label>Estado</label>
+													<label class="color-label">Estado</label>
 													<select class="form-control" name="estado_actu">
 														<option value="1">Activo</option>
 														<option value="2">Inactivo</option>
@@ -187,7 +187,7 @@ if(isset($_GET['enviar'])){
 										</div>
 										<div class="col-12 col-md-4">
 											<div class="form-group">
-												<label>Roles</label>
+												<label class="color-label">Roles</label>
 													<select class="form-control" name="id_rol_actu">
 														<option value="1">ADMIN SISTEMA</option>
 														<option value="2">ADMIN INVENTARIO</option>
@@ -265,7 +265,7 @@ if(isset($_GET['enviar'])){
 			<div class="row">
 					<div class="col-10 col-md-6">
 						<div class="form-group">
-							<label>Usuario</label>
+							<label class="color-label">Usuario</label>
 							<input type="text" class="form-control" name="usuario_reg" id="nom_usuario" maxlength="15" 
 							style="text-transform:uppercase;" required="" >
 						</div>
@@ -273,26 +273,26 @@ if(isset($_GET['enviar'])){
 					
 					<div class="col-12 col-md-6">
 						<div class="form-group">
-							<label>Nombre</label>
+							<label class="color-label">Nombre</label>
 							<input type="text" class="form-control" name="nombre_usuario_reg" id="nombre_usuario" 
 							style="text-transform:uppercase;" maxlength="20" required="" >
 						</div>
 					</div>
 				</div>
 						<div class="form-group">
-							<label>Correo</label>
+							<label class="color-label">Correo</label>
 							<input type="email" class="form-control" name="correo_electronico_reg" id="correo_electronico" maxlength="70" required="">
 						</div>
 				<div class="row">
 					<div class="col-10 col-md-6">
 						<div class="form-group">
-							<label>Contraseña</label>
+							<label class="color-label">Contraseña</label>
 							<input type="password" class="form-control" name="contrasena_reg" id="contrasena" pattern="[a-zA-Z0-9!#%&/()=?¡*+_$@.-]{8,100}" maxlength="100" required="" >
 						</div>
 					</div>
 					<div class="col-12 col-md-6">
 						<div class="form-group">
-							<label>Confirmar Contraseña</label>
+							<label class="color-label">Confirmar Contraseña</label>
 							<input type="password" class="form-control" name="conf_contrasena_reg" id="conf_contrasena" pattern="[a-zA-Z0-9!#%&/()=?¡*+_$@.-]{8,100}" maxlength="100" required="" >
 						</div>
 					</div>
@@ -300,7 +300,7 @@ if(isset($_GET['enviar'])){
 				<div class="row">
 					<div class="col-10 col-md-4">
 						<div class="form-group">
-							<label>Vencimiento</label>
+							<label class="color-label">Vencimiento</label>
 							<input type="hidden" pattern="" class="form-control" name="usuario_creacion" value="<?php echo $_SESSION['usuario_login']?>">
 							<?php $fcha = date("Y-m-d");?>
 							<input type="date" class="form-control" name="fecha_vencimiento_reg" id="fecha_vencimiento" value="<?php echo date("Y-m-d",strtotime($fcha."+ 360 days"))?>" disabled>
@@ -308,7 +308,7 @@ if(isset($_GET['enviar'])){
 					</div>
 					<div class="col-12 col-md-4">
 						<div class="form-group">
-								<label>Estado</label>
+								<label class="color-label">Estado</label>
 								<select class="form-control" name="estado" disabled>
 									<option value="" disabled>Seleccione...</option>
 									<option value="1">Activo</option>
@@ -320,7 +320,7 @@ if(isset($_GET['enviar'])){
 					</div>
 					<div class="col-12 col-md-4">
 						<div class="form-group">
-							<label>Roles</label>
+							<label class="color-label">Roles</label>
 							<select class="form-control" name="rol_nuevo" required>
 								<option value="" selected="" disabled="">Seleccione una opción</option>
 								<?php

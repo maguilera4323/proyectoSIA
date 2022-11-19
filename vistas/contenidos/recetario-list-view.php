@@ -51,8 +51,8 @@
       <table class="table table-striped table-dark table_id text-center" id="tblDatos">
         <thead>    
         <tr>
-            <th>ID PRODUCTO</th>
-            <th>ID INSUMO</th>
+            <th>PRODUCTO</th>
+            <th>INSUMO</th>
 			<th>CANTIDAD INSUMO</th>
             <th>ACTUALIZAR</th>
 			<th>ELIMINAR</th>
@@ -94,23 +94,21 @@
 								<div class="modal-body text-center">
 								<form action="<?php echo SERVERURL; ?>ajax/recetarioAjax.php" class="FormularioAjax" method="POST" data-form="save" autocomplete="off">
 								<div class="form-group">
-								<label for="id_producto" class="bmd-label-floating">Id Producto</label>
+								<label class="color-label">Producto</label>
 									<select class="form-control" name="recetario_act" id="Id_producto_nuevo">
-									<option value="0">Seleccione una opción</option>
-									<?php
-									include ("./cone.php");   
-									$tipo="SELECT * FROM TBL_producto";
-									$resultado=mysqli_query($conexion, $tipo);
-									while ($valores = mysqli_fetch_array($resultado)){
-									echo '<option value="'.$valores['id_producto'].'">'.$valores['nom_producto'].'</option>';
-									}
-									?>
-								</select>
+										<?php
+											include ("./cone.php");   
+											$tipo="SELECT * FROM TBL_producto";
+											$resultado=mysqli_query($conexion, $tipo);
+											while ($valores = mysqli_fetch_array($resultado)){
+											echo '<option value="'.$valores['id_producto'].'">'.$valores['nom_producto'].'</option>';
+											}
+										?>
+									</select>
 								</div>
 								<div class="form-group">
-								<label for="id_insumo" class="bmd-label-floating">Id Insumo</label>
-									<select class="form-control" name="Id_insumo_act" id="Id_insumo_nuevo">
-									<option value="0">Seleccione una opción</option>
+								<label class="color-label">Insumo</label>
+								<select class="form-control" name="Id_insumo_act" id="Id_insumo_nuevo">
 									<?php
 									include ("./cone.php");   
 									$tipo="SELECT * FROM TBL_insumos";
@@ -120,8 +118,12 @@
 									}
 									?>
 								</select>
+								</select>
+								</div>
+								
+								
 								<div class="form-group">
-								<label>Cantidad Insumo</label>
+								<label class="color-label">Cantidad Insumo</label>
 								<input type="text" class="form-control" name="cant_insumo_act" value="<?php echo $fila['cant_insumo']; ?>" id="id_insumo" required>
 								<input type="hidden" class="form-control" name="id_actualizacion" value="<?php echo $fila['id_recetario']?>">
 								</div>
@@ -178,7 +180,7 @@
       <div class="modal-body text-center">
 			<form action="<?php echo SERVERURL; ?>ajax/recetarioAjax.php" class="FormularioAjax" method="POST" data-form="save" autocomplete="off">
 			<div class="form-group">
-			<label for="id_producto" class="bmd-label-floating">Id Producto</label>
+			<label class="color-label">Producto</label>
 							<select class="form-control" name="recetario_nuevo" id="Id_producto_nuevo">
 								<option value="0">Seleccione una opción</option>
 								<?php
@@ -192,7 +194,7 @@
 							</select>
 			</div>
 			<div class="form-group">
-			<label for="id_insumo" class="bmd-label-floating">Id Insumo</label>
+			<label class="color-label">Insumo</label>
 							<select class="form-control" name="Id_insumo_nuevo" id="Id_insumo_nuevo">
 								<option value="0">Seleccione una opción</option>
 								<?php
@@ -204,8 +206,9 @@
 								}
 								?>
 							</select>
+							</div>
 				<div class="form-group">
-				<label>Cantidad Insumo</label>
+				<label class="color-label">Cantidad Insumo</label>
 				<input type="text" class="form-control" name="cant_insumo_nuevo" id="id_insumo" required>
 			</div>
 			<button type="submit" class="btn btn-primary">Guardar</button>

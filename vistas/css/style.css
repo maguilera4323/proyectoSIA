@@ -111,7 +111,7 @@ body,html{
 
 /*----------  Edit bootstrap styles  ----------*/
 .form-control[readonly]{
-	background-color: transparent;
+	background-color: white;
 }
 .form-control:focus,
 .form-control:active{
@@ -569,3 +569,19 @@ table form{
 	background: #428bca;
 	border: 1px solid #428bca;
 }
+
+div label.color-label{
+	color:#EC5252;
+	font-size:15px;
+}
+
+div label.color-label{
+	color:#EC5252;
+	font-size:15px;
+}
+
+
+
+
+ 
+ 

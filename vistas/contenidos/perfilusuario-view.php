@@ -70,7 +70,7 @@
 
     <!-- modal PERFIL USUARIO -->
 
-    <div class="modal fade" id="modalperfil<?php echo $id_editar;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modalperfil<?php echo $id_editar;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -80,7 +80,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form>
+	  	<form action="<?php echo SERVERURL; ?>ajax/usuarioAjax.php" class="FormularioAjax" method="POST" data-form="save" autocomplete="off">
           <div class="form-group">
             <label for="Usuario" class="col-form-label">Usuario:</label>
             <input type="text" value="<?php echo $campos['usuario']?>" class="form-control" id="usuarioo" name="usuario">
@@ -102,11 +102,11 @@
             <label for="message-text" class="col-form-label">Nueva Contraseña</label>
             <input type="password" class="form-control" id="newpasswordusuario" name="contraseñanueva">
           </div>
-        </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-success"> Guardar</button>
+        <button type="submit" class="btn btn-success"> Guardar</button>
+		</form>
       </div>
     </div>
   </div>

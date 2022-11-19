@@ -184,12 +184,12 @@
 										<input type="hidden" class="form-control" name="id_rol" value="<?php echo $fila['id_rol']?>">
 									</div>
 									<div class="form-group">
-										<label>Rol</label>
+										<label class="color-label">Rol</label>
 										<input type="text" class="form-control" id="cliente_dni" style="text-transform:uppercase;" 
 										value="<?php echo $fila['rol']?>" disabled>
 									</div>
 									<div class="form-group">
-										<label>Objeto</label>
+										<label class="color-label">Objeto</label>
 										<input type="text" class="form-control" id="cliente_dni" style="text-transform:uppercase;"
 										value="<?php echo $fila['objeto']?>" disabled>
 									</div>
@@ -278,7 +278,7 @@
       <div class="modal-body ">
 			<form action="<?php echo SERVERURL; ?>ajax/permisoAjax.php" class="FormularioAjax" method="POST" data-form="save" autocomplete="off">
 			<div class="form-group">
-				<label>Rol</label>
+				<label class="color-label">Rol</label>
 				<select class="form-control" name="rol_nuevo" required>
 					<option value="" selected="" disabled="">Seleccione una opción</option>
 					<?php
@@ -294,7 +294,7 @@
 				</select>
 			</div>
 			<div class="form-group">
-				<label>Objeto</label>
+				<label class="color-label">Objeto</label>
 				<select class="form-control" name="objeto_nuevo" required>
 					<option value="" selected="" disabled="">Seleccione una opción</option>
 					<?php
