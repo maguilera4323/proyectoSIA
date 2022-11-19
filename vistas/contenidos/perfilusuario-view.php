@@ -109,10 +109,10 @@
             <label for="message-text" class="col-form-label">Confirmar Contraseña:</label>
             <input type="password" value="" class="form-control" id="confirmarcontraseña" name="contraseña_confirmar">
           </div>
-      </div>
+     	 </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-success"> Guardar</button>
+        <button type="submit" class="btn btn-success"> Guardar</button>
 		</form>
       </div>
     </div>

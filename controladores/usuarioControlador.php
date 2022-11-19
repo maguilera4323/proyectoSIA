@@ -310,7 +310,6 @@ class usuarioControlador extends usuarioModelo
 
 	// controlador actualizar perfil
 	public function actualizar_perfil_controlador(){
-
 		$Usuario=mainModel::limpiar_cadena($_POST['usuario']);
 		$NombreUsuario=mainModel::limpiar_cadena($_POST['nombreusuario']);
 		$Correo=mainModel::limpiar_cadena($_POST['correousuario']);
