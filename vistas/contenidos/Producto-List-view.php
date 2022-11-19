@@ -16,7 +16,7 @@
 		<li>
 			<a href="<?php echo SERVERURL; ?>Tipo-Producto-new/"><i class="fas fa-search fa-fw"></i> &nbsp; AGREGAR TIPO DE PRODUCTO</a>
 		</li>
-		</ul>	
+		</ul>
 </div>
 
 <<?php
