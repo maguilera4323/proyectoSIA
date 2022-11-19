@@ -65,7 +65,7 @@ if(isset($_GET['enviar'])){
 		
 			<?php
 				include ("./cone.php");  
-				$SQL="SELECT * FROM TBL_compras
+				$SQL="SELECT * FROM TBL_compras ORDER BY id_compra DESC 
 				$where";
 				$dato = mysqli_query($conexion, $SQL);
 
@@ -119,3 +119,4 @@ if(isset($_GET['enviar'])){
 		</tbody>
 
 	</table>
+	<div id="paginador" class=""></div>

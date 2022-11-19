@@ -10,6 +10,7 @@
 
 		if(isset($_POST['nombre_insumo_nuevo'])){
 			echo $ins_insumo->agregarInsumo();
+			echo $ins_insumo->agregarInsumoInventario();
 			die();
 		}
 		

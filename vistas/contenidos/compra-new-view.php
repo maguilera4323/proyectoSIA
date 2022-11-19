@@ -1,14 +1,15 @@
 <?php
+	include ("./cone.php");  
 	//verifica si hay sesiones iniciadas
 	if (session_status() == PHP_SESSION_NONE) {
 		session_start();
 	}
 
-	//llamado al controlador de login
+	//llamado al controlador de la factura
     require_once 'controladores/compraControlador.php';
-	$invoice = new Invoice();
+	$factura = new Invoice();
 	if (isset($_POST['invoice_btn'])) {
-		$invoice->saveInvoice($_POST);
+		$factura->nuevaFactura($_POST);
 	}
 ?>
 <br>
@@ -28,22 +29,40 @@
 					<div class="form-group">
 						<label >Proveedor</label>
 						<select class="form-control" name="proveedor_compra" id="proveedor_compra" >
-							<option value="1">LEYDE</option>
-							<option value="6">PLATICOS Y MAS</option>
+						<option value="" selected="" disabled="">Seleccione una opción</option>
+							<?php
+							$SQL="SELECT * FROM TBL_Proveedores";
+								$dato = mysqli_query($conexion, $SQL);
+					
+								if($dato -> num_rows >0){
+									while($fila=mysqli_fetch_array($dato)){
+										echo '<option value='.$fila['id_Proveedores'].'>'.$fila['nom_proveedor'].'</option>';
+										}
+									}
+								?>
 						</select>
 					</div>	
 					<div class="form-group">
 						<label >Usuario</label>
 						<input type="text" class="form-control" name="usuario_compra" id="cliente_apellido" maxlength="40" 
-						value="<?php echo $_SESSION['usuario_login']; ?>" style="text-transform:uppercase;" >
+						value="<?php echo $_SESSION['usuario_login']; ?>" style="text-transform:uppercase;" disabled>
 					</div>	
 				</div>      		
 				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 pull-right">
 					<div class="form-group">
 						<label >Estado de Compra</label>
-						<select class="form-control" name="estado_compra" required>
-							<option value="1">Comestibles</option>
-							<option value="2">Equipo</option>
+						<select class="form-control" name="estado_compra" id="estado_compra" >
+						<option value="" selected="" disabled="">Seleccione una opción</option>
+							<?php
+							$SQL="SELECT * FROM TBL_estado_compras";
+								$dato = mysqli_query($conexion, $SQL);
+					
+								if($dato -> num_rows >0){
+									while($fila=mysqli_fetch_array($dato)){
+										echo '<option value="'.$fila['id_estado_compra'].'">'.$fila['nom_estado_compra'].'</option>';
+										}
+									}
+								?>
 						</select>
 					</div>
 					<div class="form-group">
@@ -74,11 +93,23 @@
 						</tr>
 						<tr>
 							<td><input class="itemRow" type="checkbox"></td>
-							<td><input type="text" name="productCode[]" id="productCode_1" class="form-control" autocomplete="off"></td>
-							<td><input type="text" name="productName[]" id="productName_1" class="form-control" autocomplete="off"></td>
+							<td><input type="text" name="compraid[]" id="compraid_1" class="form-control" autocomplete="off"></td>
+							<td><select class="form-control" name="insumoid[]" id="insumoid_1">
+								<option value="" selected="" disabled="">Seleccione una opción</option>
+									<?php
+									$SQL="SELECT * FROM TBL_insumos";
+										$dato = mysqli_query($conexion, $SQL);
+							
+										if($dato -> num_rows >0){
+											while($fila=mysqli_fetch_array($dato)){
+												echo '<option value="'.$fila['id_insumos'].'">'.$fila['nom_insumo'].'</option>';
+												}
+											}
+										?>
+							</select></td>
 							<td><input type="date" name="fechaCaducidad[]" id="fechaCaducidad_1" class="form-control" autocomplete="off"></td>
-							<td><input type="number" name="quantity[]" id="quantity_1" class="form-control quantity" autocomplete="off"></td>
-							<td><input type="number" name="price[]" id="price_1" class="form-control price" autocomplete="off"></td>
+							<td><input type="number" name="cantidad[]" id="cantidad_1" class="form-control quantity" autocomplete="off"></td>
+							<td><input type="number" name="precio[]" id="precio_1" class="form-control price" autocomplete="off"></td>
 							<td><input type="number" name="total[]" id="total_1" class="form-control total" autocomplete="off"></td>
 						</tr>
 					</table>
@@ -86,10 +117,7 @@
 			</div>
 			<div class="row">
 				<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-					<h3>Observaciones: </h3>
-					<div class="form-group">
-						<textarea class="form-control txt" rows="5" name="notes" id="notes" placeholder="Observaciones"></textarea>
-					</div>
+					
 					<br>
 					<div class="form-group">
 						<input type="hidden" value="<?php echo $_SESSION['usuario_login']; ?>" class="form-control" name="userId">
@@ -102,9 +130,46 @@
 						<div class="form-group">
 							<label>Total: &nbsp;</label>
 							<div class="input-group">
-								<div class="input-group-addon currency">$</div>
+								<div class="input-group-addon currency">L.</div>
 								<input value="" type="number" class="form-control" name="subTotal" id="subTotal" placeholder="Subtotal">
 							</div>
+							<!-- Código para los demás cálculos de la factura como el impuesto y el cambio!-->
+
+							<!-- <div class="form-group">
+							<label>Porcentaje Impuestos: &nbsp;</label>
+							<div class="input-group">
+								<input value="" type="number" class="form-control" name="taxRate" id="taxRate" placeholder="Porcentaje Impuestos">
+								<div class="input-group-addon">%</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label>Monto impuestos: &nbsp;</label>
+							<div class="input-group">
+								<div class="input-group-addon currency">L.</div>
+								<input value="" type="number" class="form-control" name="taxAmount" id="taxAmount" placeholder="Monto impuestos">
+							</div>
+						</div>
+						<div class="form-group">
+							<label>Total: &nbsp;</label>
+							<div class="input-group">
+								<div class="input-group-addon currency">$</div>
+								<input value="" type="number" class="form-control" name="totalAftertax" id="totalAftertax" placeholder="Total">
+							</div>
+						</div>
+						<div class="form-group">
+							<label>Monto Pagado: &nbsp;</label>
+							<div class="input-group">
+								<div class="input-group-addon currency">L.</div>
+								<input value="" type="number" class="form-control" name="amountPaid" id="amountPaid" placeholder="Monto Pagado">
+							</div>
+						</div>
+						<div class="form-group">
+							<label>Cambio: &nbsp;</label>
+							<div class="input-group">
+								<div class="input-group-addon currency">L.</div>
+								<input value="" type="number" class="form-control" name="amountDue" id="amountDue" placeholder="Cambio">
+							</div>
+						</div> -->
 					</span>
 				</div>
 			</div>

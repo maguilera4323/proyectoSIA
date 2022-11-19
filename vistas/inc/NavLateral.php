@@ -56,7 +56,7 @@
 							<a href="<?php echo SERVERURL; ?>inventario-list/"><i class="fas fa-warehouse"></i> &nbsp; Inventario Disponible</a>
 						</li>
 						<li>
-							<a href="<?php echo SERVERURL; ?>insumos-list/"><i class="fas fa-dolly-flatbed"></i> &nbsp; Movimientos de Inventario</a>
+							<a href="<?php echo SERVERURL; ?>movimiento-inventario/"><i class="fas fa-dolly-flatbed"></i> &nbsp; Movimientos de Inventario</a>
 						</li>
 						<li>
 							<a href="<?php echo SERVERURL; ?>recetario-list/"><i class="fas fa-hand-holding-usd fa-fw"></i> &nbsp; Recetario</a>

@@ -108,6 +108,19 @@ class insumoControlador extends insumoModelo
 	} /* Fin controlador */
 
 
+	public function agregarInsumoInventario()
+	{
+		$cantidad=0;
+		
+			$datos_inv_insumo_reg=[
+				"cant"=>$cantidad,
+			];
+
+			$agregar_inv_insumo=insumoModelo::agregar_inv_insumo_modelo($datos_inv_insumo_reg);
+
+	} /* Fin controlador */
+
+
 	/*--------- Controlador actualizar usuario ---------*/
 	public function actualizarInsumo()
 	{	
