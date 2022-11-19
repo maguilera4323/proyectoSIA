@@ -22,6 +22,14 @@
 											
 		}
 
+		protected static function agregar_inv_insumo_modelo($datos){
+			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_inventario(cant_existencia)
+			VALUES(?)");
+			$sql->bindParam(1,$datos['cant']);
+			$sql->execute();
+			return $sql;						
+		}
+
 
 
 		/*--------- Modelo actualizar proveedor ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/

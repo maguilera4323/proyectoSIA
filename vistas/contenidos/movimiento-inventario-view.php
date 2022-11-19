@@ -4,19 +4,19 @@
 
 		//verificación de permisos
 		//se revisa si el usuario tiene acceso a una vista específica por medio del rol que tiene y el objeto al que quiere acceder
-		$id_rol=$_SESSION['id_rol'];
-			$SQL="SELECT permiso_consulta FROM TBL_permisos where id_rol='$id_rol' and id_objeto=4";
+	/* 	$id_rol=$_SESSION['id_rol'];
+			$SQL="SELECT permiso_consulta FROM TBL_permisos where id_rol='$id_rol' and id_objeto=5";
 			$dato = mysqli_query($conexion, $SQL);
 
 			if($dato -> num_rows >0){
 				while($fila=mysqli_fetch_array($dato)){
 					$permiso=$fila['permiso_consulta'];
 				}
-			}
+			} */
 
 			//valida si el query anterior no retornó ningún valor
 			//en este caso no había un permiso registrado del objeto para el rol del usuario conectado
-			if(!isset($permiso)){
+			/* if(!isset($permiso)){
 				echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Usted no tiene acceso autorizado a esta vista</div>';
 				echo "<script> window.location.href='".SERVERURL."home/'; </script>";	
 			//valida si el permiso tiene valor de cero, lo que significa que no puede acceder a la vista	
@@ -33,12 +33,12 @@
 					"descripcion" => "El usuario ".$_SESSION['usuario_login']." entró a la Vista de Inventario"
 				];
 				Bitacora::guardar_bitacora($datos_bitacora);
-			}
+			} */
 ?>
 
 <div class="full-box page-header">
 	<h3 class="text-left">
-		<i class="fas fa-warehouse"></i> &nbsp; INVENTARIO
+		<i class="fas fa-dolly-flatbed"></i> &nbsp; MOVIMIENTO DE INVENTARIO
 	</h3>
 
 </div>
@@ -49,7 +49,7 @@
 			<a href="<?php echo SERVERURL; ?>insumos-list/"><div class="btn btn-dark btn-lg"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE INSUMOS</div></a>
 		</li>
 		<li>
-			<a href="<?php echo SERVERURL; ?>movimiento-inventario/"><div class="btn btn-danger btn-lg"><i class="fas fa-dolly-flatbed"></i> &nbsp; MOVIMIENTOS DE INVENTARIO</div></a>
+			<a href="<?php echo SERVERURL; ?>inventario-list/"><div class="btn btn-dark btn-lg"><i class="fas fa-warehouse"></i> &nbsp; INVENTARIO DISPONIBLE</div></a>
 		</li>
 	</ul>	
 </div>
@@ -62,7 +62,7 @@ if(isset($_GET['enviar'])){
   $busqueda = $_GET['busqueda'];
 	if (isset($_GET['busqueda']))
 	{
-		$where="WHERE TBL_inventario.id_insumo LIKE'%".$busqueda."%'";
+		$where="WHERE TBL_movi_inventario.id_insumo LIKE'%".$busqueda."%'";
 	}
   
 }
@@ -81,16 +81,22 @@ if(isset($_GET['enviar'])){
                          <thead>    
                          <tr>
                         <th>NOMBRE INSUMO</th>
-                        <th>EXISTENCIAS</th>
-                        <th>UNIDAD DE MEDIDA</th>
+						<th>CANTIDAD</th>
+                        <th>MOVIMIENTO</th>
+                        <th>FECHA</th>
+						<th>USUARIO</th>
+						<th>COMENTARIO</th>
                         </tr>
                         </thead>
                         <tbody>
 				<?php
 
 include ("./cone.php");              
-$SQL="SELECT iv.id_insumo, i.nom_insumo, iv.cant_existencia,i.unidad_medida FROM TBL_inventario iv
-inner JOIN TBL_insumos i ON i.id_insumos = iv.id_insumo
+$SQL="SELECT iv.id_cardex, i.id_insumos, i.nom_insumo, iv.cant_movimiento,iv.tipo_movimiento, iv.fecha_movimiento,
+ iv.id_usuario, u.usuario,iv.comentario FROM TBL_movi_inventario iv 
+inner JOIN TBL_insumos i ON i.id_insumos = iv.id_insumos
+inner JOIN TBL_usuarios u ON u.id_usuario = iv.id_usuario
+order by iv.id_cardex DESC
 $where";
 $dato = mysqli_query($conexion, $SQL);
 
@@ -100,8 +106,11 @@ if($dato -> num_rows >0){
 ?>
 <tr>
 <td><?php echo $fila['nom_insumo']; ?></td>
-<td><?php echo $fila['cant_existencia']; ?></td>
-<td><?php echo $fila['unidad_medida']; ?></td>
+<td><?php echo $fila['cant_movimiento']; ?></td>
+<td><?php echo $fila['tipo_movimiento']; ?></td>
+<td><?php echo $fila['fecha_movimiento']; ?></td>
+<td><?php echo $fila['usuario']; ?></td>
+<td><?php echo $fila['comentario']; ?></td>
 </tr>
 
 

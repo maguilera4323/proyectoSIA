@@ -1,86 +1,180 @@
-<div class="full-box page-header">
-    <h3 class="text-left">
-        <i class="fas fa-cart-plus"></i> &nbsp; AGREGAR NUEVA COMPRA
-    </h3>
-</div>
-<!-- NavBar Horizontal para agregar, buscar o listado compra -->
-<div class="container-fluid">
-    <ul class="full-box list-unstyled page-nav-tabs">
-        <li>
-            <a class="active" href="<?php echo SERVERURL; ?>compra-new/"><i class="fas fa-cart-plus"></i> &nbsp; AGREGAR COMPRA</a>
-        </li>
-        <li>
-            <a href="<?php echo SERVERURL; ?>compra-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE COMPRAS</a>
-        </li>
-    </ul>
-</div>
+<?php
+	include ("./cone.php");  
+	//verifica si hay sesiones iniciadas
+	if (session_status() == PHP_SESSION_NONE) {
+		session_start();
+	}
 
-<div class="container-fluid">
-	<form action="<?php echo SERVERURL; ?>ajax/compraAjax.php" class="form-neon FormularioAjax" method="POST" enctype="multipart/for-data" data-form="save" autocomplete="off">
-		<fieldset>
-			<legend><i class="fas fa-cart-plus"></i> &nbsp; Datos de Compra</legend>
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-12 col-md-3">
-						<div class="form-group">
-							<label for="nombre_insumo" class="bmd-label-floating">PROVEEDOR</label>
-							<select class="form-control" name="idproveedor" id="proveedorid">
-								<option value="0"> Seleccione una opción</option>
-								<?php
-								include ("./cone.php");   
-								$tipo="SELECT * FROM TBL_Proveedores";
-								$resultado=mysqli_query($conexion, $tipo);
-								while ($valores = mysqli_fetch_array($resultado)){
-									echo '<option value="'.$valores['id_Proveedores'].'">'.$valores['id_Proveedores'].'</option>';
-								}
-								?>
-							</select>
-						</div>
-					</div>
-					<div class="col-12 col-md-3">
-						<div class="form-group">
-							<label for="cantidadcompra" class="bmd-label-floating">ID USUARIO</label>
-							<input type="text" pattern= "[0-9-]{1,27}" class="form-control" name="usuarioid" id="idusuario" maxlength="40">
-						</div>
-					</div>
-                    <div class="col-12 col-md-3">
+	//llamado al controlador de la factura
+    require_once 'controladores/compraControlador.php';
+	$factura = new Invoice();
+	if (isset($_POST['invoice_btn'])) {
+		$factura->nuevaFactura($_POST);
+	}
+?>
+<br>
+
+<div class="container content-invoice">
+	<form action="" id="invoice-form" method="post" class="invoice-form" role="form" novalidate="">
+		<div class="load-animate animated fadeInUp">
+			<div class="row">
+			<h3 class="text-left">
+       			 <i class="fas fa-cart-plus"></i> &nbsp; AGREGAR NUEVA COMPRA
+    		</h3>
+			</div>
+			<br>
+			<input id="currency" type="hidden" value="$">
+			<div class="row">
+				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 					<div class="form-group">
-							<label for="nombre_insumo" class="bmd-label-floating"> ESTADO COMPRA</label>
-							<select class="form-control" name="idestadocompra" id="idcompraestado">
-								<option value="0"> Seleccione una opción</option>
-								<?php
-								include ("./cone.php");   
-								$tipo="SELECT * FROM TBL_estado_compras";
-								$resultado=mysqli_query($conexion, $tipo);
-								while ($valores = mysqli_fetch_array($resultado)){
-									echo '<option value="'.$valores['id_estado_compra'].'">'.$valores['id_estado_compra'].'</option>';
-								}
+						<label class="color-label">Proveedor</label>
+						<select class="form-control" name="proveedor_compra" id="proveedor_compra" >
+						<option value="" selected="" disabled="">Seleccione una opción</option>
+							<?php
+							$SQL="SELECT * FROM TBL_Proveedores";
+								$dato = mysqli_query($conexion, $SQL);
+					
+								if($dato -> num_rows >0){
+									while($fila=mysqli_fetch_array($dato)){
+										echo '<option value='.$fila['id_Proveedores'].'>'.$fila['nom_proveedor'].'</option>';
+										}
+									}
 								?>
-							</select>
-						</div>
+						</select>
+					</div>	
+					<div class="form-group">
+						<label class="color-label">Usuario</label>
+						<input type="text" class="form-control" name="usuario_compra" id="cliente_apellido" maxlength="40" 
+						value="<?php echo $_SESSION['usuario_login']; ?>" style="text-transform:uppercase;" disabled>
+					</div>	
+				</div>      		
+				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 pull-right">
+					<div class="form-group">
+						<label class="color-label">Estado de Compra</label>
+						<select class="form-control" name="estado_compra" id="estado_compra" >
+						<option value="" selected="" disabled="">Seleccione una opción</option>
+							<?php
+							$SQL="SELECT * FROM TBL_estado_compras";
+								$dato = mysqli_query($conexion, $SQL);
+					
+								if($dato -> num_rows >0){
+									while($fila=mysqli_fetch_array($dato)){
+										echo '<option value="'.$fila['id_estado_compra'].'">'.$fila['nom_estado_compra'].'</option>';
+										}
+									}
+								?>
+						</select>
 					</div>
-                    <div class="col-12 col-md-3">
-						<div class="form-group">
-							<label for="fecha_compra" class="bmd-label-floating">Fecha de Compra</label>
-							<input type="hidden" pattern="" class="form-control" name="usuario_creacion" value="<?php echo $_SESSION['usuario_login']?>">
-								<?php $fcha = date("Y-m-d");?>
-							<input type="date" class="form-control" name="fechacompra_insumo" id="fecha_compra" value="<?php echo date("Y-m-d",strtotime($fcha))?>" disabled>
-						</div>
+					<div class="form-group">
+						<label class="color-label">Fecha</label>
+						<?php $fcha = date("Y-m-d");?>
+						<input type="date" class="form-control" name="fecha_compra" id="fecha_compra" value="<?php echo $fcha?>" disabled>
 					</div>
-                    <div class="col-12 col-md-3">
-						<div class="form-group">
-							<label for="total_compra" class="bmd-label-floating">Total Compra</label>
-							<input type="text" pattern="[a-zA-Z0-9áéíóúÁÉÍÓÚñÑ().,#\- ]{1,150}" class="form-control" name="totalcompra_insumo" id="total_compra" maxlength="150">
-						</div>
-					</div>
+					
 				</div>
 			</div>
-            </fieldset>
-		<br><br><br>
-		<p class="text-center" style="margin-top: 40px;">
-			<button type="reset" class="btn btn-raised btn-secondary btn-sm"><i class="fas fa-paint-roller"></i> &nbsp; LIMPIAR</button>
-			&nbsp; &nbsp;
-			<button type="submit" class="btn btn-raised btn-info btn-sm"><i class="far fa-save"></i> &nbsp; GUARDAR</button>
-		</p>
+			<div class="row">
+				<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+					<button class="btn btn-danger delete" id="removeRows" type="button">- Eliminar</button>
+					<button class="btn btn-success" id="addRows" type="button">+ Agregar Más</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<table class="table table-bordered table-hover" id="invoiceItem">
+						<tr>
+							<th width="2%"><input id="checkAll" class="formcontrol" type="checkbox"></th>
+							<th width="15%">No Compra</th>
+							<th width="19%">Insumo</th>
+							<th width="19%">Fecha de caducidad</th>
+							<th width="15%">Cantidad</th>
+							<th width="15%">Precio</th>
+							<th width="15%">Total</th>
+						</tr>
+						<tr>
+							<td><input class="itemRow" type="checkbox"></td>
+							<td><input type="text" name="compraid[]" id="compraid_1" class="form-control" autocomplete="off"></td>
+							<td><select class="form-control" name="insumoid[]" id="insumoid_1">
+								<option value="" selected="" disabled="">Seleccione una opción</option>
+									<?php
+									$SQL="SELECT * FROM TBL_insumos";
+										$dato = mysqli_query($conexion, $SQL);
+							
+										if($dato -> num_rows >0){
+											while($fila=mysqli_fetch_array($dato)){
+												echo '<option value="'.$fila['id_insumos'].'">'.$fila['nom_insumo'].'</option>';
+												}
+											}
+										?>
+							</select></td>
+							<td><input type="date" name="fechaCaducidad[]" id="fechaCaducidad_1" class="form-control" autocomplete="off"></td>
+							<td><input type="number" name="cantidad[]" id="cantidad_1" class="form-control quantity" autocomplete="off"></td>
+							<td><input type="number" name="precio[]" id="precio_1" class="form-control price" autocomplete="off"></td>
+							<td><input type="number" name="total[]" id="total_1" class="form-control total" autocomplete="off"></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+					
+					<br>
+					<div class="form-group">
+						<input type="hidden" value="<?php echo $_SESSION['usuario_login']; ?>" class="form-control" name="userId">
+						<input data-loading-text="Guardando factura..." type="submit" name="invoice_btn" value="Guardar factura" class="btn btn-success submit_btn invoice-save-btm">
+					</div>
+
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+					<span class="form-inline">
+						<div class="form-group">
+							<label class="color-label">Total: &nbsp;</label>
+							<div class="input-group">
+								<div class="input-group-addon currency">L.</div>
+								<input value="" type="number" class="form-control" name="subTotal" id="subTotal" placeholder="Subtotal">
+							</div>
+							<!-- Código para los demás cálculos de la factura como el impuesto y el cambio!-->
+
+							<!-- <div class="form-group">
+							<label>Porcentaje Impuestos: &nbsp;</label>
+							<div class="input-group">
+								<input value="" type="number" class="form-control" name="taxRate" id="taxRate" placeholder="Porcentaje Impuestos">
+								<div class="input-group-addon">%</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label>Monto impuestos: &nbsp;</label>
+							<div class="input-group">
+								<div class="input-group-addon currency">L.</div>
+								<input value="" type="number" class="form-control" name="taxAmount" id="taxAmount" placeholder="Monto impuestos">
+							</div>
+						</div>
+						<div class="form-group">
+							<label>Total: &nbsp;</label>
+							<div class="input-group">
+								<div class="input-group-addon currency">$</div>
+								<input value="" type="number" class="form-control" name="totalAftertax" id="totalAftertax" placeholder="Total">
+							</div>
+						</div>
+						<div class="form-group">
+							<label>Monto Pagado: &nbsp;</label>
+							<div class="input-group">
+								<div class="input-group-addon currency">L.</div>
+								<input value="" type="number" class="form-control" name="amountPaid" id="amountPaid" placeholder="Monto Pagado">
+							</div>
+						</div>
+						<div class="form-group">
+							<label>Cambio: &nbsp;</label>
+							<div class="input-group">
+								<div class="input-group-addon currency">L.</div>
+								<input value="" type="number" class="form-control" name="amountDue" id="amountDue" placeholder="Cambio">
+							</div>
+						</div> -->
+					</span>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
 	</form>
+</div>
 </div>

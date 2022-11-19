@@ -1,173 +1,146 @@
 <?php
- if (session_status() == PHP_SESSION_NONE) {
+//verifica si hay sesiones iniciadas
+if (session_status() == PHP_SESSION_NONE) {
 	session_start();
-} 
-
-if($peticionAjax){
-	require_once "../modelos/compraModelo.php";
-	require_once "../pruebabitacora.php";
-}else{
-	require_once "./modelos/compraModelo.php";
-	require_once "./pruebabitacora.php";//aqui se ejecuta dentro del index y no se utiliza Ajax
 }
-
-class compraControlador extends compraModelo
-{
-
-    // Nueva compra controlador
-    public function agregar_compra_controlador()
-    {
-																// name de las vistas
-        $Proveedor=mainModel::limpiar_cadena(strtoupper($_POST['idproveedor']));
-        $Usuario=mainModel::limpiar_cadena(strtoupper($_POST['usuarioid']));
-        $Estadocompra=mainModel::limpiar_cadena(strtoupper($_POST['idestadocompra']));
-        $Fechacompra=mainModel::limpiar_cadena(strtoupper($_POST['fechacompra_insumo']));
-        $Totalcompra=mainModel::limpiar_cadena(strtoupper($_POST['totalcompra_insumo']));
-
-        // Agregar la compra
-        $datos_compra_reg=[
-			"proveedor"=>$Proveedor,
-			"usuario"=>$Usuario,
-            "estadocompra"=>$Estadocompra,
-			"fechacompra"=>$Fechacompra,
-            "totalcompra"=>$Totalcompra
-        ];    
-
-        $agregar_compra=compraModelo::agregar_compra_modelo($datos_compra_reg);
-
-        if ($agregar_compra->rowCount()==1){
-            $alerta=[
-                "Alerta"=>"limpiar",
-                "Titulo"=>"Proveedor registrado",
-                "Texto"=>"Los datos del proveedor han sido registrados con exito",
-                "Tipo"=>"success"
-            ];
-
-            
-        }else{
-            $alerta=[
-                "Alerta"=>"simple",
-                "Titulo"=>"Ocurrió un error inesperado",
-                "Texto"=>"No hemos podido registrar el Proveedor",
-                "Tipo"=>"error"
-            ];
-        }
-        echo json_encode($alerta);
-
-        // guardar las acciones de nueva compra en la bitacora
-        $datos_bitacora = [
-            "id_objeto" => 0,
-            "fecha" => date('Y-m-d h:i:s'),
-            "id_Proveedores" => $_SESSION['id_login'],
-            "accion" => "Creación de Compra",
-            "descripcion" => "El usuario ".$_SESSION['usuario_login']." realizó una nueva compra en el sistema"
-        ];
-        Bitacora::guardar_bitacora($datos_bitacora); 
-
-    }/* Fin controlador */
-
-    // Actualizar compra controlador
-    public function actualizar_compra_controlador()
-    {
-
-        $id_actualizar=mainModel::limpiar_cadena($_POST['id_actualizacion_actu']);
-        $Insumo=mainModel::limpiar_cadena(strtoupper($_POST['insumo_nombre_actu']));
-        $Cantidad=mainModel::limpiar_cadena(strtoupper($_POST['insumo_cantidad_actu']));
-        $Preciounitario=mainModel::limpiar_cadena(strtoupper($_POST['insumo_precio_actu']));
-        $Fechacaducidad=mainModel::limpiar_cadena(strtoupper($_POST['fechacaducidad_insumo_actu']));
-        $Fechacompra=mainModel::limpiar_cadena(strtoupper($_POST['fechacompra_insumo_actu']));
-        $Proveedor=mainModel::limpiar_cadena(strtoupper($_POST['proveedor_actu']));
-        $Estadocompra=mainModel::limpiar_cadena(strtoupper($_POST['estadocompra_insumo_actu']));
-        $Totalcompra=mainModel::limpiar_cadena(strtoupper($_POST['totalcompra_insumo_actu']));
+require_once "./pruebabitacora.php";
 
 
-         /*== comprobar campos vacios ==*/
-		if($Insumo=="" || $Cantidad=="" || $Preciounitario=="" || $Fechacaducidad=="" || $Fechacompra=="" || $Proveedor=="" || $Estadocompra=="" || $Totalcompra==""){
-			$alerta=[
-				"Alerta"=>"simple",
-				"Titulo"=>"Ocurrió un error inesperado",
-				"Texto"=>"No se han llenado todos los campos que son obligatorios",
-				"Tipo"=>"error"
-			];
-			echo json_encode($alerta);
-			exit();
+//clase para la factura
+class Invoice{
+	private $host  = '20.163.218.52';
+	private $user  = 'admin_bd';
+	private $password   = "clave1234";
+	private $database  = "proyecto_cafeteria";
+	private $datosCompra = 'TBL_compras';
+	private $datosDetalleCompra = 'TBL_detalle_compra';
+	private $dbConnect = false;
+
+	public function __construct()
+	{
+		if (!$this->dbConnect) {
+			$conn = new mysqli($this->host, $this->user, $this->password, $this->database);
+			if ($conn->connect_error) {
+				die("Error failed to connect to MySQL: " . $conn->connect_error);
+			} else {
+				$this->dbConnect = $conn;
+			}
+		}
+	}
+
+	//funciones no necesarias, se borrarán posteriormente
+	private function getData($sqlQuery)
+	{
+		$result = mysqli_query($this->dbConnect, $sqlQuery);
+		if (!$result) {
+			die('Error in query: ' . mysqli_error());
+
+		}
+		$data = array();
+		while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+			$data[] = $row;
+		}
+		return $data;
+	}
+
+	private function getNumRows($sqlQuery)
+	{
+		$result = mysqli_query($this->dbConnect, $sqlQuery);
+		if (!$result) {
+			die('Error in query: ' . mysqli_error());
+		}
+		$numRows = mysqli_num_rows($result);
+		return $numRows;
+	}
+
+
+		//función para crear y guardar una factura de compra
+		public function nuevaFactura($POST){	
+		//primer insert, para la tabla de Compras
+		$sqlInsert = "
+			INSERT INTO " . $this->datosCompra . "(id_proveedor, id_usuario, id_estado_compra,  fech_compra,total_compra) 
+			VALUES ('" . $POST['proveedor_compra'] . "', '" . $_SESSION['id_login'] . "', '" . $POST['estado_compra'] . "', now(),'" . $POST['subTotal'] . "')";
+		mysqli_query($this->dbConnect, $sqlInsert);
+		$lastInsertId = mysqli_insert_id($this->dbConnect); 
+
+		//segundo insert, para la tabla de Detalle Compras
+		//el ciclo es para insertar todos los insumos agregados a la compra
+		for ($i = 0; $i < count($POST['compraid']); $i++) {
+			$sqlInsertItem = "
+			INSERT INTO " . $this->datosDetalleCompra . "(id_compra, id_insumos, cantidad_comprada, precio_costo, fecha_caducidad) 
+			VALUES ('" . $POST['compraid'][$i] . "', '" . $POST['insumoid'][$i] . "', '" . $POST['cantidad'][$i] . "', '" . $POST['precio'][$i] . "', '" . $POST['fechaCaducidad'][$i] . "')";
+			mysqli_query($this->dbConnect, $sqlInsertItem);
 		}
 
-        /*== Verificando integridad de los datos ==*/
-			if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ ]{1,30}",$Insumo)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El dato no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-
-			if(mainModel::verificar_datos("[0-9]{1,14}",$Cantidad)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El dato no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-
-            if(mainModel::verificar_datos("[0-9]{1,14}",$Preciounitario)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El dato no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-
-            if(mainModel::verificar_datos("A-ZÁÉÍÓÚÑ ]{1,30}",$Proveedor)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El dato no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-
-            if(mainModel::verificar_datos("A-ZÁÉÍÓÚÑ ]{1,30}",$Estadocompra)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El dato no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-
-            if(mainModel::verificar_datos("[0-9]{1,14}",$Totalcompra)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El dato no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-
-    }/* Fin controlador */
-
-    // Eliminar compra controlador
-    public function eliminarCompra()
-    {
+		$datos_bitacora = [
+			"id_objeto" => 0,
+			"fecha" => date('Y-m-d H:i:s'),
+			"id_usuario" => $_SESSION['id_login'],
+			"accion" => "Nueva compra",
+			"descripcion" => "El usuario ".$_SESSION['usuario_login']." registró una compra en el sistema"
+		];
+		Bitacora::guardar_bitacora($datos_bitacora); 
+	}
 
 
+	public function updateInvoice($POST)
+	{
+		if ($POST['invoiceId']) {
+			$sqlInsert = "
+				UPDATE " . $this->invoiceOrderTable . " 
+				SET order_receiver_name = '" . $POST['companyName'] . "', order_receiver_address= '" . $POST['address'] . "', order_total_before_tax = '" . $POST['subTotal'] . "', order_total_tax = '" . $POST['taxAmount'] . "', order_tax_per = '" . $POST['taxRate'] . "', order_total_after_tax = '" . $POST['totalAftertax'] . "', order_amount_paid = '" . $POST['amountPaid'] . "', order_total_amount_due = '" . $POST['amountDue'] . "', note = '" . $POST['notes'] . "' 
+				WHERE user_id = '" . $POST['userId'] . "' AND order_id = '" . $POST['invoiceId'] . "'";
+			mysqli_query($this->dbConnect, $sqlInsert);
+		}
+		$this->deleteInvoiceItems($POST['invoiceId']);
+		for ($i = 0; $i < count($POST['productCode']); $i++) {
+			$sqlInsertItem = "
+				INSERT INTO " . $this->invoiceOrderItemTable . "(order_id, item_code, item_name, order_item_quantity, order_item_price, order_item_final_amount) 
+				VALUES ('" . $POST['invoiceId'] . "', '" . $POST['productCode'][$i] . "', '" . $POST['productName'][$i] . "', '" . $POST['quantity'][$i] . "', '" . $POST['price'][$i] . "', '" . $POST['total'][$i] . "')";
+			mysqli_query($this->dbConnect, $sqlInsertItem);
+		}
+	}
 
-    }/* Fin controlador */
 
+	public function getInvoiceList()
+	{
+		$sqlQuery = "
+			SELECT * FROM " . $this->invoiceOrderTable . " 
+			WHERE user_id = '" . $_SESSION['userid'] . "'";
+		return  $this->getData($sqlQuery);
+	}
+
+
+	public function getInvoice($invoiceId)
+	{
+		$sqlQuery = "
+			SELECT * FROM " . $this->invoiceOrderTable . " 
+			WHERE user_id = '" . $_SESSION['userid'] . "' AND order_id = '$invoiceId'";
+		$result = mysqli_query($this->dbConnect, $sqlQuery);
+		$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+		return $row;
+	}
+	public function getInvoiceItems($invoiceId)
+	{
+		$sqlQuery = "
+			SELECT * FROM " . $this->invoiceOrderItemTable . " 
+			WHERE order_id = '$invoiceId'";
+		return  $this->getData($sqlQuery);
+	}
+	public function deleteInvoiceItems($invoiceId)
+	{
+		$sqlQuery = "
+			DELETE FROM " . $this->invoiceOrderItemTable . " 
+			WHERE order_id = '" . $invoiceId . "'";
+		mysqli_query($this->dbConnect, $sqlQuery);
+	}
+	public function deleteInvoice($invoiceId)
+	{
+		$sqlQuery = "
+			DELETE FROM " . $this->invoiceOrderTable . " 
+			WHERE order_id = '" . $invoiceId . "'";
+		mysqli_query($this->dbConnect, $sqlQuery);
+		$this->deleteInvoiceItems($invoiceId);
+		return 1;
+	}
 }

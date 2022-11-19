@@ -167,13 +167,9 @@ class usuarioControlador extends usuarioModelo
 					"Titulo"=>"Usuario registrado",
 					"Texto"=>"Los datos del usuario han sido registrados con exito",
 					"Tipo"=>"success",
-					//"URL"=> header("Location:".SERVERURL."user-list/")
 				];
 				
-				//return header("Location:".SERVERURL."user-list/");
-
-			/* 	$envioCorreo = new Correo();
-				$respuesta = $envioCorreo->CorreoCreacionUsuario($Correo,$Usuario,$Contraseña); */
+				
 			}else{
 				$alerta=[
 					"Alerta"=>"simple",
@@ -194,14 +190,13 @@ class usuarioControlador extends usuarioModelo
 			Bitacora::guardar_bitacora($datos_bitacora); 
 				$envioCorreo = new Correo();
 				$respuesta = $envioCorreo->CorreoCreacionUsuario($Correo,$Usuario,$Contraseña); 
-			/* echo "<script>window.location.replace('http//localhost/proyectoSIA/user-list/');</script>"; */
+			
 			
 	} /* Fin controlador */
 
 
 	/*--------- Controlador actualizar usuario ---------*/
-	public function actualizar_usuario_controlador()
-	{	
+	public function actualizar_usuario_controlador(){	
 		$Usuario=mainModel::limpiar_cadena($_POST['usuario_actu']);
 		$Nombre=mainModel::limpiar_cadena($_POST['nombre_usuario_actu']);
 		$Estado=mainModel::limpiar_cadena($_POST['estado_actu']);
@@ -313,12 +308,51 @@ class usuarioControlador extends usuarioModelo
 	} /* Fin controlador */
 	
 
+	// controlador actualizar perfil
+	public function actualizar_perfil_controlador(){
+		$Usuario=mainModel::limpiar_cadena($_POST['usuario']);
+		$NombreUsuario=mainModel::limpiar_cadena($_POST['nombreusuario']);
+		$Correo=mainModel::limpiar_cadena($_POST['correousuario']);
+		$Contraseña=mainModel::limpiar_cadena($_POST['nuevacontraseña']);
+		$id_actualizar=mainModel::limpiar_cadena($_POST['id_actualizacion']); 
+
+		$datos_perfilusuario_actu=
+		[
+			"usuper"=>$Usuario,
+			"nombreper"=>$NombreUsuario,
+			"correoper"=>$Correo,	
+			"passwordper"=>$Contraseña,
+		];
+
+		$actualizar_perfilusuario =usuarioModelo:: actualizar_perfil_modelo ($datos_perfilusuario_actu,$id_actualizar);
+
+		if($actualizar_perfilusuario->rowCount()==1)
+		{
+			$alerta=[
+				"Alerta"=>"recargar",
+				"Titulo"=>"Usuario Actualizado",
+				"Texto"=>"Usuario actualizado exitosamente",
+				"Tipo"=>"success"
+			];
+		}else
+		{
+			$alerta=[
+				"Alerta"=>"simple",
+				"Titulo"=>"Ocurrió un error inesperado",
+				"Texto"=>"No hemos podido actualizar el usuario",
+				"Tipo"=>"error"
+			];
+		}
+	}/* Fin controlador PERFIL */
+
+
 	public function datosUsuarioControlador($tipo,$id)	{
 		$tipo=mainModel::limpiar_cadena($tipo);
 		$id=mainModel::limpiar_cadena($id);
 
 		return usuarioModelo::datos_usuario_modelo($tipo,$id);
 	 }
+
 
 		//funcion para eliminar o inactivar un usuario
 		public function eliminarUsuario()

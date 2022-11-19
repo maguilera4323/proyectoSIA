@@ -125,7 +125,7 @@
 								<div class="modal-body">
 									<form action="<?php echo SERVERURL; ?>ajax/preguntasAjax.php" class="FormularioAjax" method="POST" data-form="save" autocomplete="off">
 										<div class="form-group">
-											<label>Nombre de la Pregunta</label>
+											<label class="color-label">Nombre de la Pregunta</label>
 											<input type="text" class="form-control" name="nombre_pregunta_act" id="cliente_dni" maxlength="27" 
 											value="<?php echo $fila['pregunta']?>" required>
 										</div>
@@ -197,7 +197,7 @@
       <div class="modal-body text-center">
 			<form action="<?php echo SERVERURL; ?>ajax/preguntasAjax.php" class="FormularioAjax" method="POST" data-form="save" autocomplete="off">
 			<div class="form-group">
-				<label>Nombre de la Pregunta</label>
+				<label class="color-label">Nombre de la Pregunta</label>
 				<input type="text" class="form-control" name="nombre_pregunta_nuevo" id="cliente_dni" maxlength="27" required>
 			</div>
 			<button type="submit" class="btn btn-primary">Guardar</button>

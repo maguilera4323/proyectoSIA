@@ -47,7 +47,7 @@
 					</ul>
 				</li>
 				<li>
-					<a href="#" class="nav-btn-submenu"><i class="fas fa-pallet fa-fw"></i> &nbsp; Insumos <i class="fas fa-chevron-down"></i></a>
+					<a href="#" class="nav-btn-submenu"><i class="fas fa-pallet fa-fw"></i> &nbsp;Inventario e Insumos <i class="fas fa-chevron-down"></i></a>
 					<ul>
 						<li>
 							<a href="<?php echo SERVERURL; ?>insumos-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Insumos</a>
@@ -56,7 +56,7 @@
 							<a href="<?php echo SERVERURL; ?>inventario-list/"><i class="fas fa-warehouse"></i> &nbsp; Inventario Disponible</a>
 						</li>
 						<li>
-							<a href="<?php echo SERVERURL; ?>insumos-list/"><i class="fas fa-dolly-flatbed"></i> &nbsp; Movimientos de Inventario</a>
+							<a href="<?php echo SERVERURL; ?>movimiento-inventario/"><i class="fas fa-dolly-flatbed"></i> &nbsp; Movimientos de Inventario</a>
 						</li>
 						<li>
 							<a href="<?php echo SERVERURL; ?>recetario-list/"><i class="fas fa-hand-holding-usd fa-fw"></i> &nbsp; Recetario</a>
@@ -150,7 +150,7 @@
 					</ul>
 				</li>
 				<li>
-					<a href="#" class="nav-btn-submenu"><i class="fas fa-pallet fa-fw"></i> &nbsp; Insumos <i class="fas fa-chevron-down"></i></a>
+					<a href="#" class="nav-btn-submenu"><i class="fas fa-pallet fa-fw"></i> &nbsp;Inventario e Insumos <i class="fas fa-chevron-down"></i></a>
 					<ul>
 						<li>
 							<a href="<?php echo SERVERURL; ?>insumos-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Insumos</a>

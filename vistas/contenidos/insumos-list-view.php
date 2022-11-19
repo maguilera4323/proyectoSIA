@@ -55,7 +55,7 @@
 			<a href="<?php echo SERVERURL; ?>inventario-list/"><div class="btn btn-dark btn-lg"><i class="fas fa-warehouse"></i> &nbsp; INVENTARIO DISPONIBLE</div></a>
 		</li>
 		<li>
-			<a href="<?php echo SERVERURL; ?>user-list/"><div class="btn btn-danger btn-lg"><i class="fas fa-dolly-flatbed"></i> &nbsp; MOVIMIENTOS DE INVENTARIO</div></a>
+			<a href="<?php echo SERVERURL; ?>movimiento-inventario/"><div class="btn btn-danger btn-lg"><i class="fas fa-dolly-flatbed"></i> &nbsp; MOVIMIENTOS DE INVENTARIO</div></a>
 		</li>
 		
 	</ul>	
@@ -144,14 +144,14 @@ if(isset($_GET['enviar'])){
 									<div class="row">
 											<div class="col-12 col-md-6">
 												<div class="form-group">
-													<label >Nombre</label>
+													<label class="color-label">Nombre</label>
 													<input type="text" class="form-control" name="nombre_insumo_act" id="cliente_apellido" maxlength="40" 
 													style="text-transform:uppercase;" value="<?php echo $fila['nom_insumo']?>" >
 												</div>
 											</div>
 											<div class="col-12 col-md-6">
 												<div class="form-group">
-													<label>Categoria</label>
+													<label class="color-label">Categoria</label>
 													<select class="form-control" name="categoria_insumo_act" required>
 														<option value="1">Comestibles</option>
 														<option value="2">Equipo</option>
@@ -162,14 +162,14 @@ if(isset($_GET['enviar'])){
 										<div class="row">
 											<div class="col-12 col-md-6">
 												<div class="form-group">
-													<label>Cantidad Maxima</label>
+													<label class="color-label">Cantidad Maxima</label>
 													<input type="text" class="form-control" name="cantidadmax_insumo_act" id="cliente_direccion" maxlength="10" 
 													value="<?php echo $fila['cant_max']?>" >
 												</div>
 											</div>
 											<div class="col-12 col-md-6">
 												<div class="form-group">
-													<label>Cantidad Minima</label>
+													<label class="color-label">Cantidad Minima</label>
 													<input type="text" class="form-control" name="cantidadmin_insumo_act" id="cliente_telefono" maxlength="10" 
 													value="<?php echo $fila['cant_min']?>" >
 												</div>
@@ -178,7 +178,7 @@ if(isset($_GET['enviar'])){
 										<div class="row">
 											<div class="col-12 col-md-6">
 												<div class="form-group">
-													<label>Unidad de medida</label>
+													<label class="color-label">Unidad de medida</label>
 													<select class="form-control" name="unidad_insumo_act" required>
 														<option value="1">LB</option>
 														<option value="2">UN</option>
@@ -260,15 +260,15 @@ if(isset($_GET['enviar'])){
 				<div class="row">
 						<div class="col-12 col-md-6">
 							<div class="form-group">
-								<label >Nombre</label>
+								<label class="color-label">Nombre</label>
 								<input type="text" class="form-control" name="nombre_insumo_nuevo" id="cliente_apellido" maxlength="40" 
 								style="text-transform:uppercase;" required/>
 							</div>
 						</div>
 						<div class="col-12 col-md-6">
 							<div class="form-group">
-								<label>Categoria</label>
-								<select class="form-control" name="categoria_insumo_nuevo" required>
+								<label class="color-label">Categoria</label>
+								<select class="form-control hola" name="categoria_insumo_nuevo" required>
 									<option value="" selected="" disabled="">Seleccione una opción</option>
 									<option value="1">Comestibles</option>
 									<option value="2">Equipo</option>
@@ -279,13 +279,13 @@ if(isset($_GET['enviar'])){
 					<div class="row">
 						<div class="col-12 col-md-6">
 							<div class="form-group">
-								<label>Cantidad Maxima</label>
+								<label class="color-label">Cantidad Maxima</label>
 								<input type="text" class="form-control" name="cantidadmax_insumo_nuevo" id="cliente_direccion" maxlength="10" required/>
 							</div>
 						</div>
 						<div class="col-12 col-md-6">
 							<div class="form-group">
-								<label>Cantidad Minima</label>
+								<label class="color-label">Cantidad Minima</label>
 								<input type="text" class="form-control" name="cantidadmin_insumo_nuevo" id="cliente_telefono" maxlength="10" required/>
 							</div>
 						</div>
@@ -293,7 +293,7 @@ if(isset($_GET['enviar'])){
 					<div class="row">
 						<div class="col-12 col-md-6">
 							<div class="form-group">
-								<label>Unidad de medida</label>
+								<label class="color-label">Unidad de medida</label>
 								<select class="form-control" name="unidad_insumo_nuevo" required>
 									<option value="" selected="" disabled="">Seleccione una opción</option>
 									<option value="1">LB</option>

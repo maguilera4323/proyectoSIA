@@ -2,31 +2,29 @@
 	<h3 class="text-left">
 		<i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE PRODUCTOS
 	</h3>
-
 </div>
 
 <div class="container-fluid">
 	<ul class="full-box list-unstyled page-nav-tabs">
 		<li>
-			<a href="<?php echo SERVERURL; ?>producto-new/"><i class="fas fa-plus fa-fw"></i> &nbsp; AGREGAR PRODUCTO</a>
+			<a href="<?php echo SERVERURL; ?>producto-new/"><i class="fas fa-plus fa-fw"></i> AGREGAR PRODUCTO</a>
 		</li>
 		<li>
-			<a class="active" href="<?php echo SERVERURL; ?>producto-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE PRODUCTOS</a>
+			<a class="active" href="<?php echo SERVERURL; ?>producto-list/"><i class="fas fa-clipboard-list fa-fw"></i> LISTA DE PRODUCTOS</a>
 		</li>
 		<li>
-			<a href="<?php echo SERVERURL; ?>Tipo-Producto-new/"><i class="fas fa-search fa-fw"></i> &nbsp; AGREGAR TIPO DE PRODUCTO</a>
+			<a  href="<?php echo SERVERURL; ?>Tipo-Producto-new/"><i class="fas fa-search fa-fw"></i> AGREGAR TIPO DE PRODUCTO</a>
 		</li>
 		</ul>
+	</ul>	
 </div>
 
-<<?php
+<?php
 include ("./cone.php");
 $where="";
 
 if(isset($_GET['enviar'])){
   $busqueda = $_GET['busqueda'];
-
-
 	if (isset($_GET['busqueda']))
 	{
 		$where="WHERE TBL_Producto.nom_producto LIKE'%".$busqueda."%' OR id_tipo_produ LIKE'%".$busqueda."%'";
@@ -37,22 +35,17 @@ if(isset($_GET['enviar'])){
 
 ?>
 
-			</form>
-      <div class="container-fluid">
+  </form>
+  <div class="container-fluid">
   <form class="d-flex">
-      <input class="form-control me-2 light-table-filter" data-table="table_id" type="text" 
-      placeholder="Buscar Producto">
+      <input class="form-control me-2 light-table-filter" data-table="table_id" type="text" placeholder="Buscar Producto">
       <hr>
       </form>
   </div>
 
-  <br>
 
- 
-      <table class="table table-striped table-dark table_id " id="tblDatos">
-
-                   
-                         <thead>    
+      <table class="table table-striped table-dark table_id " id="tblDatos">                   
+                    <thead>    
                          <tr>
                         <th>ID</th>
                         <th>NOMBRE</th>
@@ -63,9 +56,8 @@ if(isset($_GET['enviar'])){
                     	<th>ACTUALIZAR</th>
 						<th>ELIMINAR</th>
                         </tr>
-                        </thead>
+                    </thead>
                         <tbody>
-
 				<?php
 
 include ("./cone.php");              
@@ -83,7 +75,7 @@ if($dato -> num_rows >0){
 <td><?php echo $fila['id_tipo_produ']; ?></td>
 <td><?php echo $fila['des_produ']; ?></td>
 <td><?php echo $fila['precio_produ']; ?></td>
-<td> <img src="../productos_img/<?php echo $fila['foto_produ']; ?>" style="width:150px; height:150px";></td> 
+<td> <img src="../productos_img/<?php echo $fila['foto_produ']; ?>" style="width:100px; height:100px";></td> 
 
 
 <td>

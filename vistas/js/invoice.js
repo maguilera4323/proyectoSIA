@@ -1,4 +1,4 @@
- $(document).ready(function(){
+$(document).ready(function(){
 	$(document).on('click', '#checkAll', function() {          	
 		$(".itemRow").prop("checked", this.checked);
 	});	
@@ -15,13 +15,15 @@
 		var htmlRows = '';
 		htmlRows += '<tr>';
 		htmlRows += '<td><input class="itemRow" type="checkbox"></td>';          
-		htmlRows += '<td><input type="text" name="productCode[]" id="productCode_'+count+'" class="form-control" autocomplete="off"></td>';          
-		htmlRows += '<td><select class="form-control" name="productName[]" id="productName_'+count+'">'
-					'<option value="" selected="" disabled="">Seleccione una opción</option>'
-                       '</select></td>;'
-		htmlRows += '<td><input type="date" name="caducidadFecha[]" id="caducidadFecha_'+count+'" class="form-control" autocomplete="off"></td>'; 
-		htmlRows += '<td><input type="number" name="quantity[]" id="quantity_'+count+'" class="form-control quantity" autocomplete="off"></td>';   		
-		htmlRows += '<td><input type="number" name="price[]" id="price_'+count+'" class="form-control price" autocomplete="off"></td>';		 
+		htmlRows += '<td><input type="text" name="compraid[]" id="compraid'+count+'" class="form-control" autocomplete="off"></td>';          
+		htmlRows += '<td><select class="form-control" name="insumoid[]" id="insumoid'+count+'">'
+						'<option value="" selected="" disabled="">Seleccione una opción</option>'
+						'<option value="1">Comestibles</option>'
+						'<option value="2">Equipo</option>'
+					'</select></td>';      
+		htmlRows += '<td><input type="date" name="fechaCaducidad[]" id="fechaCaducidad'+count+'" class="form-control" autocomplete="off"></td>';
+		htmlRows += '<td><input type="number" name="cantidad[]" id="cantidad'+count+'" class="form-control quantity" autocomplete="off"></td>';   		
+		htmlRows += '<td><input type="number" name="precio[]" id="precio'+count+'" class="form-control price" autocomplete="off"></td>';		 
 		htmlRows += '<td><input type="number" name="total[]" id="total_'+count+'" class="form-control total" autocomplete="off"></td>';          
 		htmlRows += '</tr>';
 		$('#invoiceItem').append(htmlRows);
@@ -33,10 +35,10 @@
 		$('#checkAll').prop('checked', false);
 		calculateTotal();
 	});		
-	$(document).on('blur', "[id^=quantity_]", function(){
+	$(document).on('blur', "[id^=cantidad_]", function(){
 		calculateTotal();
 	});	
-	$(document).on('blur', "[id^=price_]", function(){
+	$(document).on('blur', "[id^=precio_]", function(){
 		calculateTotal();
 	});	
 	$(document).on('blur', "#taxRate", function(){		
@@ -54,7 +56,7 @@
 	});	
 	$(document).on('click', '.deleteInvoice', function(){
 		var id = $(this).attr("id");
-		if(confirm("Are you sure you want to remove this?")){
+		if(confirm("¿Deseas eliminar este registro?")){
 			$.ajax({
 				url:"action.php",
 				method:"POST",
@@ -73,11 +75,11 @@
 });	
 function calculateTotal(){
 	var totalAmount = 0; 
-	$("[id^='price_']").each(function() {
+	$("[id^='precio_']").each(function() {
 		var id = $(this).attr('id');
-		id = id.replace("price_",'');
-		var price = $('#price_'+id).val();
-		var quantity  = $('#quantity_'+id).val();
+		id = id.replace("precio_",'');
+		var price = $('#precio_'+id).val();
+		var quantity  = $('#cantidad_'+id).val();
 		if(!quantity) {
 			quantity = 1;
 		}
@@ -103,5 +105,4 @@ function calculateTotal(){
 		}
 	}
 }
-
  
