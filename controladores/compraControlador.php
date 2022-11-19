@@ -3,14 +3,17 @@
 if (session_status() == PHP_SESSION_NONE) {
 	session_start();
 }
+require_once "./pruebabitacora.php";
 
+
+//clase para la factura
 class Invoice{
 	private $host  = '20.163.218.52';
 	private $user  = 'admin_bd';
 	private $password   = "clave1234";
 	private $database  = "proyecto_cafeteria";
-	private $invoiceOrderTable = 'TBL_compras';
-	private $invoiceOrderItemTable = 'TBL_detalle_compra';
+	private $datosCompra = 'TBL_compras';
+	private $datosDetalleCompra = 'TBL_detalle_compra';
 	private $dbConnect = false;
 
 	public function __construct()
@@ -24,6 +27,8 @@ class Invoice{
 			}
 		}
 	}
+
+	//funciones no necesarias, se borrarán posteriormente
 	private function getData($sqlQuery)
 	{
 		$result = mysqli_query($this->dbConnect, $sqlQuery);
@@ -48,21 +53,35 @@ class Invoice{
 		return $numRows;
 	}
 
-	
-	public function saveInvoice($POST)
-	{
+
+		//función para crear y guardar una factura de compra
+		public function nuevaFactura($POST){	
+		//primer insert, para la tabla de Compras
 		$sqlInsert = "
-			INSERT INTO " . $this->invoiceOrderTable . "(id_proveedor, id_usuario, id_estado_compra,  total_compra) 
-			VALUES ('" . $POST['proveedor_compra'] . "', '" . $_SESSION['id_login'] . "', '" . $POST['estado_compra'] . "', '" . $POST['subTotal'] . "')";
+			INSERT INTO " . $this->datosCompra . "(id_proveedor, id_usuario, id_estado_compra,  fech_compra,total_compra) 
+			VALUES ('" . $POST['proveedor_compra'] . "', '" . $_SESSION['id_login'] . "', '" . $POST['estado_compra'] . "', now(),'" . $POST['subTotal'] . "')";
 		mysqli_query($this->dbConnect, $sqlInsert);
 		$lastInsertId = mysqli_insert_id($this->dbConnect); 
-		for ($i = 0; $i < count($POST['productCode']); $i++) {
+
+		//segundo insert, para la tabla de Detalle Compras
+		//el ciclo es para insertar todos los insumos agregados a la compra
+		for ($i = 0; $i < count($POST['compraid']); $i++) {
 			$sqlInsertItem = "
-			INSERT INTO " . $this->invoiceOrderItemTable . "(id_compra, id_insumos, cantidad_comprada, precio_costo, fecha_caducidad) 
-			VALUES ('" . $POST['productCode'][$i] . "', '" . $POST['productName'][$i] . "', '" . $POST['quantity'][$i] . "', '" . $POST['price'][$i] . "', '" . $POST['fechaCaducidad'][$i] . "')";
+			INSERT INTO " . $this->datosDetalleCompra . "(id_compra, id_insumos, cantidad_comprada, precio_costo, fecha_caducidad) 
+			VALUES ('" . $POST['compraid'][$i] . "', '" . $POST['insumoid'][$i] . "', '" . $POST['cantidad'][$i] . "', '" . $POST['precio'][$i] . "', '" . $POST['fechaCaducidad'][$i] . "')";
 			mysqli_query($this->dbConnect, $sqlInsertItem);
 		}
+
+		$datos_bitacora = [
+			"id_objeto" => 0,
+			"fecha" => date('Y-m-d H:i:s'),
+			"id_usuario" => $_SESSION['id_login'],
+			"accion" => "Nueva compra",
+			"descripcion" => "El usuario ".$_SESSION['usuario_login']." registró una compra en el sistema"
+		];
+		Bitacora::guardar_bitacora($datos_bitacora); 
 	}
+
 
 	public function updateInvoice($POST)
 	{
