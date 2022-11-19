@@ -69,7 +69,22 @@
 				Bitacora::guardar_bitacora($datos_bitacora);*/
 			
 		} 
+
+
+		// modelo para actualizar perfil
+		protected static function actualizar_perfil_modelo($dato, $id){
+            $sql=mainModel::conectar()->prepare("UPDATE TBL_usuarios SET usuario=?,nombre_usuario=?,
+			 correo_electronico=?, contrasena=?
+			WHERE id_usuario=?");
+
+            $sql->bindParam(1,$dato['usuper']);
+            $sql->bindParam(1,$dato['nombreper']);
+            $sql->bindParam(1,$dato['correoper']);
+            $sql->bindParam(1,$dato['passwordper']);
+            return $sql;
+        }
 		
+
 		protected static function datos_usuario_modelo($tipo,$id){
 			if($tipo=='unico'){
 				$sql=mainModel::conectar()->prepare("SELECT * FROM TBL_usuarios where id_usuario=?");
@@ -79,6 +94,7 @@
 			return $sql;
 		}
 
+		
 		 protected static function eliminar_usuario_modelo($accion,$id){
 			if($accion=='inactivar'){
 				$sql=mainModel::conectar()->prepare("UPDATE TBL_usuarios set estado_usuario=2 where id_usuario=?");
