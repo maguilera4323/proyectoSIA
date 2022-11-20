@@ -13,7 +13,7 @@
 			<a class="active" href="<?php echo SERVERURL; ?>producto-list/"><i class="fas fa-clipboard-list fa-fw"></i> LISTA DE PRODUCTOS</a>
 		</li>
 		<li>
-			<a  href="<?php echo SERVERURL; ?>Tipo-Producto-new/"><i class="fas fa-search fa-fw"></i> AGREGAR TIPO DE PRODUCTO</a>
+			<a  href="<?php echo SERVERURL; ?>tipo-producto-new/"><i class="fas fa-search fa-fw"></i> AGREGAR TIPO DE PRODUCTO</a>
 		</li>
 		</ul>
 	</ul>	
@@ -79,7 +79,7 @@ if($dato -> num_rows >0){
 
 
 <td>
-	<a href="<?php echo SERVERURL; ?>Producto-update/<?php echo $fila['id_producto']?>" class="btn btn-success">
+	<a href="<?php echo SERVERURL; ?>producto-update/<?php echo $fila['id_producto']?>" class="btn btn-success">
 		<i class="fas fa-sync-alt"></i>	
 	</a>
 </td>
@@ -114,3 +114,5 @@ if($dato -> num_rows >0){
 
 	</body>
   </table>
+  <div id="paginador" class=""></div>	
+<div class="container-fluid"></div>

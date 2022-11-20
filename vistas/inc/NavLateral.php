@@ -100,7 +100,7 @@
 						<li>
 							<a href="<?php echo SERVERURL; ?>preguntas-list/"><i class="fas fa-question-circle"></i> &nbsp; Preguntas</a>
 						</li>
-						permisos-list
+					
 					</ul>
 				</li>
 
