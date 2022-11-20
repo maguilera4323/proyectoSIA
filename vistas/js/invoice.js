@@ -1,16 +1,23 @@
+//función de cálculo de la factura
+
 $(document).ready(function(){
 	$(document).on('click', '#checkAll', function() {          	
 		$(".itemRow").prop("checked", this.checked);
 	});	
+
+	//función para generar filas al presionar el botón de agregar más
 	$(document).on('click', '.itemRow', function() {  	
 		if ($('.itemRow:checked').length == $('.itemRow').length) {
 			$('#checkAll').prop('checked', true);
 		} else {
 			$('#checkAll').prop('checked', false);
 		}
-	});  
+	});
+
+	//inicia función que sirve para agregar datos al select que se genere en cada nueva fila
 	var count = $(".itemRow").length;
 	$(document).on('click', '#addRows', function() { 
+		//variable count para generar valores unicos para el id de cada input o select
 		count++;
 		$(document).ready(function(){
 			let $insumo=document.querySelector("#productName_"+count);
@@ -22,7 +29,7 @@ $(document).ready(function(){
 					success:function(response){
 						const insumos=JSON.parse(response)
 
-						let template='<option class="form-control" selected disabled> Seleccione</option>';
+						let template='<option class="form-control" selected disabled> Seleccione una opción</option>';
 
 						insumos.forEach(insumo => {
 							template+=`<option value="${insumo.idInsumo}">${insumo.nomInsumo}</option>`
@@ -34,8 +41,10 @@ $(document).ready(function(){
 			}
 
 			cargarInsumo();
-		}) 
+		})
+		//termina función
 
+		//se generan las filas para un nuevo insumo
 		var htmlRows = '';
 		htmlRows += '<tr>';
 		htmlRows += '<td><input class="itemRow" type="checkbox"></td>';          
@@ -51,7 +60,7 @@ $(document).ready(function(){
 		$('#invoiceItem').append(htmlRows);
 	}); 
 
-	
+	//funcion que se encarga de eliminar la fila y todos los registros guardados en esta
 	$(document).on('click', '#removeRows', function(){
 		$(".itemRow:checked").each(function() {
 			$(this).closest('tr').remove();
@@ -97,6 +106,8 @@ $(document).ready(function(){
 		}
 	});
 });	
+
+//funcion que realiza los cálculos de las filas
 function calculateTotal(){
 	var totalAmount = 0; 
 	$("[id^='price_']").each(function() {

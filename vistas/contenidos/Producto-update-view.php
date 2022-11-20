@@ -22,7 +22,7 @@
 <div class="container-fluid">
 <p><?php 
 				require_once "./controladores/productoControlador.php";
-				$ins_proveedor=new productoControlador();
+				$ins_producto=new productoControlador();
 					$host= $_SERVER["HTTP_HOST"];
 					$url= $_SERVER["REQUEST_URI"];
 					$url_completa="http://" . $host . $url; //variable con la url del sitio completa
