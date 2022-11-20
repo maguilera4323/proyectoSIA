@@ -59,7 +59,7 @@
 							<br>
 							<label for="nombre_usuario" class="bmd-label-floating">Correo Electronico</label>
 							<input type="text" class="form-control" name="correo_usuario_edit" style="text-transform:uppercase;" 
-							id="nombre_usuario" maxlength="20" value="<?php echo $campos['correo_electronico']?>" disabled>
+							id="correo_usuario" maxlength="20" value="<?php echo $campos['correo_electronico']?>" disabled>
 						</div>
 					</div>
 				</div>
@@ -86,7 +86,7 @@
 	  <form class="form-neon FormularioAjax" action="<?php echo SERVERURL; ?>ajax/usuarioAjax.php" method="POST" data-form="save" autocomplete="off">
           <div class="form-group">
             <label for="Usuario" class="col-form-label">Usuario:</label>
-            <input type="text" value="<?php echo $campos['usuario']?>" class="form-control" id="usuarioo" name="usuario">
+            <input type="text" value="<?php echo $campos['usuario']?>" class="form-control" id="usuarios" name="usuario">
           </div>
           <div class="form-group">
             <label for="message-text" class="col-form-label">Nombre Usuario:</label>
@@ -108,6 +108,7 @@
 		  <div class="form-group">
             <label for="message-text" class="col-form-label">Confirmar Contraseña:</label>
             <input type="password" value="" class="form-control" id="confirmarcontraseña" name="contraseña_confirmar">
+			<input type="hidden" pattern="" class="form-control" name="id_actualizacion" value="<?php echo $id_editar ?>">
           </div>
      	 </div>
       <div class="modal-footer">

@@ -56,31 +56,19 @@
 			$sql->bindParam(8,$id);
 			$sql->execute();
 			return $sql;
- 
-				/* VERIFICAR SU GUARDA DEL DATO EN BITACORA */
-/* 				$datos_bitacora = 
-				[
-					"id_objeto" => 0,
-					"fecha" => date('Y-m-d h:i:s'),
-					"id_usuario" => null,
-					"accion" => "Actualizacion de usuario",
-					"descripcion" => "Acceso de usuario"
-				];
-				Bitacora::guardar_bitacora($datos_bitacora);*/
-			
 		} 
 
 
 		// modelo para actualizar perfil
 		protected static function actualizar_perfil_modelo($dato, $id){
             $sql=mainModel::conectar()->prepare("UPDATE TBL_usuarios SET usuario=?,nombre_usuario=?,
-			 correo_electronico=?, contrasena=?
-			WHERE id_usuario=?");
-
+			 correo_electronico=?, contrasena=? WHERE id_usuario=?");
             $sql->bindParam(1,$dato['usuper']);
-            $sql->bindParam(1,$dato['nombreper']);
-            $sql->bindParam(1,$dato['correoper']);
-            $sql->bindParam(1,$dato['passwordper']);
+            $sql->bindParam(2,$dato['nombreper']);
+            $sql->bindParam(3,$dato['correoper']);
+            $sql->bindParam(4,$dato['passwordper']);
+			$sql->bindParam(5,$id);
+			$sql->execute();
             return $sql;
         }
 		

@@ -313,18 +313,71 @@ class usuarioControlador extends usuarioModelo
 		$Usuario=mainModel::limpiar_cadena($_POST['usuario']);
 		$NombreUsuario=mainModel::limpiar_cadena($_POST['nombreusuario']);
 		$Correo=mainModel::limpiar_cadena($_POST['correousuario']);
-		$Contraseña=mainModel::limpiar_cadena($_POST['nuevacontraseña']);
+		$Contraseña=mainModel::limpiar_cadena($_POST['contraseña_nueva']);
+		$Contraseña_actual=mainModel::limpiar_cadena($_POST['contraseña_actual']);
+		$Confirmar_contr=mainModel::limpiar_cadena($_POST['contraseña_confirmar']);
 		$id_actualizar=mainModel::limpiar_cadena($_POST['id_actualizacion']); 
 
-		$datos_perfilusuario_actu=
-		[
+		if(mainModel::verificar_datos("[A-ZÑ ]{1,20}",$NombreUsuario)){
+			$alerta=[
+				"Alerta"=>"simple",
+				"Titulo"=>"Ocurrió un error inesperado",
+				"Texto"=>"El nombre no coincide con el formato solicitado",
+				"Tipo"=>"error"
+			];
+			echo json_encode($alerta);
+			exit();
+		}
+
+
+
+		/*== Comprobando CLAVE ==*/
+
+
+		 if(mainModel::verificar_datos("[a-zA-Z0-9$@.-]{5,10}",$Contraseña) ){
+			$alerta=[
+				"Alerta"=>"simple",
+				"Titulo"=>"Ocurrió un error inesperado",
+				"Texto"=>"La clave no coincide con el formato solicitado",
+				"Tipo"=>"error"
+			];
+			echo json_encode($alerta);
+			exit();
+		} 
+
+		if($Contraseña!=$Confirmar_contr){
+			$alerta=[
+				"Alerta"=>"simple",
+				"Titulo"=>"Ocurrió un error inesperado",
+				"Texto"=>"Las contraseñas no coinciden. Ingreselas nuevamente.",
+				"Tipo"=>"error"
+			];
+			echo json_encode($alerta);
+			exit();
+		} 
+
+		if($Contraseña!=$Confirmar_contr){
+			$alerta=[
+				"Alerta"=>"simple",
+				"Titulo"=>"Ocurrió un error inesperado",
+				"Texto"=>"Usted no ha ingresado una contraseña o no ha respetado los parametros de validacion",
+				"Tipo"=>"error"
+			];
+			echo json_encode($alerta);
+			exit();
+		}else{
+			$clave=mainModel::encryption($Contraseña);
+		}
+
+
+ 		$datos_perfilusuario_actu=[
 			"usuper"=>$Usuario,
 			"nombreper"=>$NombreUsuario,
 			"correoper"=>$Correo,	
-			"passwordper"=>$Contraseña,
+			"passwordper"=>$clave
 		];
 
-		$actualizar_perfilusuario =usuarioModelo:: actualizar_perfil_modelo ($datos_perfilusuario_actu,$id_actualizar);
+		$actualizar_perfilusuario=usuarioModelo::actualizar_perfil_modelo($datos_perfilusuario_actu,$id_actualizar);
 
 		if($actualizar_perfilusuario->rowCount()==1)
 		{
@@ -343,7 +396,9 @@ class usuarioControlador extends usuarioModelo
 				"Tipo"=>"error"
 			];
 		}
-	}/* Fin controlador PERFIL */
+		echo json_encode($alerta);
+		die();
+	}
 
 
 	public function datosUsuarioControlador($tipo,$id)	{

@@ -93,8 +93,8 @@
 						</tr>
 						<tr>
 							<td><input class="itemRow" type="checkbox"></td>
-							<td><input type="text" name="compraid[]" id="compraid_1" class="form-control" autocomplete="off"></td>
-							<td><select class="form-control" name="insumoid[]" id="insumoid_1">
+							<td><input type="text" name="productCode[]" id="productCode_1" class="form-control" autocomplete="off"></td>
+							<td><select name="productName[]" id="productName_1" class="form-control">
 								<option value="" selected="" disabled="">Seleccione una opción</option>
 									<?php
 									$SQL="SELECT * FROM TBL_insumos";
@@ -102,14 +102,14 @@
 							
 										if($dato -> num_rows >0){
 											while($fila=mysqli_fetch_array($dato)){
-												echo '<option value="'.$fila['id_insumos'].'">'.$fila['nom_insumo'].'</option>';
+												echo '<option value='.$fila["id_insumos"].'>'.$fila['nom_insumo'].'</option>';
 												}
 											}
 										?>
 							</select></td>
 							<td><input type="date" name="fechaCaducidad[]" id="fechaCaducidad_1" class="form-control" autocomplete="off"></td>
-							<td><input type="number" name="cantidad[]" id="cantidad_1" class="form-control quantity" autocomplete="off"></td>
-							<td><input type="number" name="precio[]" id="precio_1" class="form-control price" autocomplete="off"></td>
+							<td><input type="number" name="quantity[]" id="quantity_1" class="form-control quantity" autocomplete="off"></td>
+							<td><input type="number" name="price[]" id="price_1" class="form-control price" autocomplete="off"></td>
 							<td><input type="number" name="total[]" id="total_1" class="form-control total" autocomplete="off"></td>
 						</tr>
 					</table>

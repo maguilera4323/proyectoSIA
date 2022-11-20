@@ -28,12 +28,6 @@
 		if(isset($_POST['id_usuario_del']) ){
 			echo $ins_usuario->eliminarUsuario();
 			die();
-		}else{
-			session_start();//se cambio de SPM  a SIA
-			session_unset();//Vaciamos la sesion
-			session_destroy();//destruimos la sesion
-			header("Location: ".SERVERURL."login/");//lo redirigimos al login para que ingrese con su usuario
-			exit();
 		}
 	}
 
