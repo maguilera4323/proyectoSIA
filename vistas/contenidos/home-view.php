@@ -83,11 +83,27 @@
 			</div>
 		</a>
 
-		<a href="<?php echo SERVERURL; ?>reservation-pending/" class="tile">
+		<a href="<?php echo SERVERURL; ?>producto-list/" class="tile">
 			<div class="tile-tittle">PRODUCTO</div>
 			<div class="tile-icon">
-				<i class="fas fa-hand-holding-usd fa-fw"></i>
-				<p>200  Cambiar</p>
+				<i class="fas fa-mug-hot fa-fw"></i>
+				<p>
+			<?php
+				include ("./cone.php");
+
+				$sql=" SELECT COUNT(*) as total_productos FROM `TBL_producto` ";
+				$result=mysqli_query($conexion,$sql);
+				while($mostrar=mysqli_fetch_assoc ($result)){
+			?>
+					<tbody>
+						<tr class="text-center" >
+							<td><?php echo $mostrar['total_productos']?></td>
+
+						</tr>
+					</tbody>
+			<?php
+				}
+			?> Productos registrados</p>
 			</div>
 		</a>
 
