@@ -12,22 +12,46 @@ $(document).ready(function(){
 	var count = $(".itemRow").length;
 	$(document).on('click', '#addRows', function() { 
 		count++;
+		$(document).ready(function(){
+			let $insumo=document.querySelector("#productName_"+count);
+
+			function cargarInsumo(){
+				$.ajax({
+					type:'GET',
+					url:"../controladores/compraControlador.php",
+					success:function(response){
+						const insumos=JSON.parse(response)
+
+						let template='<option class="form-control" selected disabled> Seleccione</option>'
+
+						insumos.array.forEach(insumo => {
+							template="<option value='${insumo.idInsumo}''>${insumo.idInsumo}</option>"
+						})
+
+						$insumo.innerHTML=template;
+					}
+				})
+			}
+
+			cargarInsumo();
+		})
+
 		var htmlRows = '';
 		htmlRows += '<tr>';
 		htmlRows += '<td><input class="itemRow" type="checkbox"></td>';          
-		htmlRows += '<td><input type="text" name="compraid[]" id="compraid'+count+'" class="form-control" autocomplete="off"></td>';          
-		htmlRows += '<td><select class="form-control" name="insumoid[]" id="insumoid'+count+'">'
-						'<option value="" selected="" disabled="">Seleccione una opción</option>'
-						'<option value="1">Comestibles</option>'
-						'<option value="2">Equipo</option>'
-					'</select></td>';      
-		htmlRows += '<td><input type="date" name="fechaCaducidad[]" id="fechaCaducidad'+count+'" class="form-control" autocomplete="off"></td>';
-		htmlRows += '<td><input type="number" name="cantidad[]" id="cantidad'+count+'" class="form-control quantity" autocomplete="off"></td>';   		
-		htmlRows += '<td><input type="number" name="precio[]" id="precio'+count+'" class="form-control price" autocomplete="off"></td>';		 
+		htmlRows += '<td><input type="text" name="productCode[]" id="productCode_'+count+'" class="form-control" autocomplete="off"></td>';          
+		htmlRows += '<td><select name="productName[]" id="productName_'+count+'" class="form-control">\
+							<option value="" selected="" disabled="">Seleccione una opción</option>\
+						</select></td>';
+		htmlRows +='<td><input type="date" name="fechaCaducidad[]" id="fechaCaducidad_'+count+'" class="form-control" autocomplete="off"></td>';
+		htmlRows += '<td><input type="number" name="quantity[]" id="quantity_'+count+'" class="form-control quantity" autocomplete="off"></td>';   		
+		htmlRows += '<td><input type="number" name="price[]" id="price_'+count+'" class="form-control price" autocomplete="off"></td>';		 
 		htmlRows += '<td><input type="number" name="total[]" id="total_'+count+'" class="form-control total" autocomplete="off"></td>';          
 		htmlRows += '</tr>';
 		$('#invoiceItem').append(htmlRows);
 	}); 
+
+	
 	$(document).on('click', '#removeRows', function(){
 		$(".itemRow:checked").each(function() {
 			$(this).closest('tr').remove();
@@ -35,10 +59,10 @@ $(document).ready(function(){
 		$('#checkAll').prop('checked', false);
 		calculateTotal();
 	});		
-	$(document).on('blur', "[id^=cantidad_]", function(){
+	$(document).on('blur', "[id^=quantity_]", function(){
 		calculateTotal();
 	});	
-	$(document).on('blur', "[id^=precio_]", function(){
+	$(document).on('blur', "[id^=price_]", function(){
 		calculateTotal();
 	});	
 	$(document).on('blur', "#taxRate", function(){		
@@ -75,11 +99,11 @@ $(document).ready(function(){
 });	
 function calculateTotal(){
 	var totalAmount = 0; 
-	$("[id^='precio_']").each(function() {
+	$("[id^='price_']").each(function() {
 		var id = $(this).attr('id');
-		id = id.replace("precio_",'');
-		var price = $('#precio_'+id).val();
-		var quantity  = $('#cantidad_'+id).val();
+		id = id.replace("price_",'');
+		var price = $('#price_'+id).val();
+		var quantity  = $('#quantity_'+id).val();
 		if(!quantity) {
 			quantity = 1;
 		}
@@ -105,4 +129,3 @@ function calculateTotal(){
 		}
 	}
 }
- 
