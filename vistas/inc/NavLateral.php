@@ -65,16 +65,16 @@
 				</li>
 
 				<li>
-					<a href="#" class="nav-btn-submenu"><i class="fas fa-file-invoice-dollar fa-fw"></i> &nbsp; Producto <i class="fas fa-chevron-down"></i></a>
+					<a href="#" class="nav-btn-submenu"><i class="fas fa-mug-hot fa-fw"></i> &nbsp; Producto <i class="fas fa-chevron-down"></i></a>
 					<ul>
 						<li>
 							<a href="<?php echo SERVERURL; ?>producto-new/"><i class="fas fa-plus fa-fw"></i> &nbsp; Nuevo Producto</a>
 						</li>
 						<li>
-							<a href="<?php echo SERVERURL; ?>producto-list/"><i class="fas fa-hand-holding-usd fa-fw"></i> &nbsp; Lista de Productos</a>
+							<a href="<?php echo SERVERURL; ?>producto-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Productos</a>
 						</li>
 						<li>
-							<a href="<?php echo SERVERURL; ?>Tipo-Producto-new/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Tipo de Producto</a>
+							<a href="<?php echo SERVERURL; ?>Tipo-Producto-new/"><i class="fas fa-wine-glass fa-fw"></i> &nbsp; Tipo de Producto</a>
 						</li>
 					</ul>
 				</li>
@@ -105,7 +105,15 @@
 				</li>
 
 				<li>
-					<a href="<?php echo SERVERURL; ?>facturacion/"><i class="fas fa-store-alt fa-fw"></i> &nbsp; Facturacion</a>
+				<a href="#" class="nav-btn-submenu"><i class="fas  fa-file-alt fa-fw"></i> &nbsp; Facturacion <i class="fas fa-chevron-down"></i></a>
+					<ul>
+						<li>
+                        <a href="<?php echo SERVERURL; ?>facturacion/"><i class="fas fa-file"></i> &nbsp; Nueva Factura </a>
+						</li>
+						<li>
+						<a href="<?php echo SERVERURL; ?>facturacion-list/"><i class="fas fa-archive"></i> &nbsp; Lista de Facturas</a>
+						</li>
+					</ul>
 				</li>
 
 				<li>
@@ -172,11 +180,11 @@
 			if($_SESSION['rol']=='Vendedor'){
 				?>
 				<li>
-					<a href="<?php echo SERVERURL; ?>home/"><i class="fab fa-dashcube fa-fw"></i> &nbsp; Inicio</a>
+					<a href="<?php echo SERVERURL; ?>home/"><i class="fab fa-mug-hot fa-fw"></i> &nbsp; Inicio</a>
 				</li>
 
 				<li>
-					<a href="#" class="nav-btn-submenu"><i class="fas fa-file-invoice-dollar fa-fw"></i> &nbsp; Producto <i class="fas fa-chevron-down"></i></a>
+					<a href="#" class="nav-btn-submenu"><i class="fas fa-mug-hot fa-fw"></i> &nbsp; Producto <i class="fas fa-chevron-down"></i></a>
 					<ul>
 						<li>
 							<a href="<?php echo SERVERURL; ?>producto-new/"><i class="fas fa-plus fa-fw"></i> &nbsp; Nuevo Producto</a>
@@ -196,7 +204,15 @@
 					</ul>
 				</li>
 				<li>
-					<a href="<?php echo SERVERURL; ?>facturacion/"><i class="fas fa-store-alt fa-fw"></i> &nbsp; Facturacion</a>
+				<a href="#" class="nav-btn-submenu"><i class="fas  fa-file-alt fa-fw"></i> &nbsp; Facturacion <i class="fas fa-chevron-down"></i></a>
+					<ul>
+						<li>
+                        <a href="<?php echo SERVERURL; ?>facturacion/"><i class="fas fa-file fa-fw"></i> &nbsp; Nueva Factura </a>
+						</li>
+						<li>
+						<a href="<?php echo SERVERURL; ?>facturacion-list/"><i class="fas fa-archive"></i> &nbsp; Lista de Facturas</a>
+						</li>
+					</ul>
 				</li>
 
 				<?php
