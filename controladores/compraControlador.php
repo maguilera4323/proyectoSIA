@@ -3,7 +3,7 @@
 if (session_status() == PHP_SESSION_NONE) {
 	session_start();
 }
-require_once "./pruebabitacora.php";
+/* require_once "./pruebabitacora.php"; */
 
 
 //clase para la factura
@@ -143,8 +143,4 @@ class Invoice{
 		$this->deleteInvoiceItems($invoiceId);
 		return 1;
 	}
-}
-
-function obtenerInsumo(){
-	
 }
