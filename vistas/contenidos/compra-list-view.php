@@ -50,10 +50,9 @@ if(isset($_GET['enviar'])){
 		<!-- Encabezado de la tabla -->
 		<thead>
 			<tr>
-				<th>ID Compra</th>
-				<th>ID Proveedor</th>
-				<th>ID Usuario</th>
-				<th>ID Estado Compra</th>
+				<th>Proveedor</th>
+				<th>Usuario</th>
+				<th>Estado Compra</th>
 				<th>Fecha Compra</th>
 				<th>Total Compra</th>
 				<th>Detalle Compra</th>
@@ -65,7 +64,12 @@ if(isset($_GET['enviar'])){
 		
 			<?php
 				include ("./cone.php");  
-				$SQL="SELECT * FROM TBL_compras ORDER BY id_compra DESC 
+				$SQL="SELECT c.id_compra,  c.id_proveedor, p.nom_proveedor,u.usuario,e.nom_estado_compra,c.fech_compra,
+				c.total_compra FROM TBL_compras c
+				inner JOIN TBL_Proveedores p ON p.id_Proveedores = c.id_proveedor
+				inner JOIN TBL_usuarios u ON u.id_usuario = c.id_usuario
+				inner JOIN TBL_estado_compras e ON e.id_estado_compra = c.id_estado_compra
+				ORDER BY c.id_compra DESC 
 				$where";
 				$dato = mysqli_query($conexion, $SQL);
 
@@ -73,12 +77,10 @@ if(isset($_GET['enviar'])){
 					while($fila=mysqli_fetch_array($dato)){
 
 			?>
-
 				<tr>
-				<td><?php echo $fila['id_compra']; ?></td>
-				<td><?php echo $fila['id_proveedor']; ?></td>
-				<td><?php echo $fila['id_usuario']; ?></td>
-				<td><?php echo $fila['id_estado_compra']; ?></td>
+				<td><?php echo $fila['nom_proveedor']; ?></td>
+				<td><?php echo $fila['usuario']; ?></td>
+				<td><?php echo $fila['nom_estado_compra']; ?></td>
 				<td><?php echo $fila['fech_compra']; ?></td>
 				<td><?php echo $fila['total_compra']; ?></td>
 

@@ -18,23 +18,23 @@ $(document).ready(function(){
 			function cargarInsumo(){
 				$.ajax({
 					type:'GET',
-					url:"../controladores/compraControlador.php",
+					url:"../controladores/obtenerInsumos.php",
 					success:function(response){
 						const insumos=JSON.parse(response)
 
-						let template='<option class="form-control" selected disabled> Seleccione</option>'
+						let template='<option class="form-control" selected disabled> Seleccione</option>';
 
-						insumos.array.forEach(insumo => {
-							template="<option value='${insumo.idInsumo}''>${insumo.idInsumo}</option>"
+						insumos.forEach(insumo => {
+							template+=`<option value="${insumo.idInsumo}">${insumo.nomInsumo}</option>`
 						})
 
 						$insumo.innerHTML=template;
 					}
-				})
+				});
 			}
 
 			cargarInsumo();
-		})
+		}) 
 
 		var htmlRows = '';
 		htmlRows += '<tr>';
@@ -42,7 +42,7 @@ $(document).ready(function(){
 		htmlRows += '<td><input type="text" name="productCode[]" id="productCode_'+count+'" class="form-control" autocomplete="off"></td>';          
 		htmlRows += '<td><select name="productName[]" id="productName_'+count+'" class="form-control">\
 							<option value="" selected="" disabled="">Seleccione una opción</option>\
-						</select></td>';
+					</select></td>';
 		htmlRows +='<td><input type="date" name="fechaCaducidad[]" id="fechaCaducidad_'+count+'" class="form-control" autocomplete="off"></td>';
 		htmlRows += '<td><input type="number" name="quantity[]" id="quantity_'+count+'" class="form-control quantity" autocomplete="off"></td>';   		
 		htmlRows += '<td><input type="number" name="price[]" id="price_'+count+'" class="form-control price" autocomplete="off"></td>';		 

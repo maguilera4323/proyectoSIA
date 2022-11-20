@@ -28,7 +28,7 @@
 				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 					<div class="form-group">
 						<label class="color-label">Proveedor</label>
-						<select class="form-control" name="proveedor_compra" id="proveedor_compra" >
+						<select class="form-control" name="proveedor_compra" id="proveedor_compra" required>
 						<option value="" selected="" disabled="">Seleccione una opción</option>
 							<?php
 							$SQL="SELECT * FROM TBL_Proveedores";
@@ -51,7 +51,7 @@
 				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 pull-right">
 					<div class="form-group">
 						<label class="color-label">Estado de Compra</label>
-						<select class="form-control" name="estado_compra" id="estado_compra" >
+						<select class="form-control" name="estado_compra" id="estado_compra" required>
 						<option value="" selected="" disabled="">Seleccione una opción</option>
 							<?php
 							$SQL="SELECT * FROM TBL_estado_compras";
@@ -131,7 +131,7 @@
 							<label class="color-label">Total: &nbsp;</label>
 							<div class="input-group">
 								<div class="input-group-addon currency">L.</div>
-								<input value="" type="number" class="form-control" name="subTotal" id="subTotal" placeholder="Subtotal">
+								<input value="" type="number" class="form-control" name="subTotal" id="subTotal">
 							</div>
 							<!-- Código para los demás cálculos de la factura como el impuesto y el cambio!-->
 
