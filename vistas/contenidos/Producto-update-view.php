@@ -28,7 +28,7 @@
 
 <div class="full-box page-header">
 	<h3 class="text-left">
-		<i class="fas fa-plus fa-fw"></i> &nbsp; AGREGAR PRODUCTO
+		<i class="fas fa-plus fa-fw"></i> &nbsp; ACTUALIZAR PRODUCTO
 	</h3>
 
 </div>
@@ -71,15 +71,16 @@
 				<div class="row">
 					<div class="col-12 col-md-6">
 						<div class="form-group">
-							<label for="nombre_producto_act" class="bmd-label-floating">Nombre</label>
-							<input type="text" class="form-control" name="nombre_producto_act" id="nombre_pro" pattern="[a-zA-Z]{2,100}"maxlength="27">
+							<label for="nombre_producto_actu" class="bmd-label-floating">Nombre</label>
+							<input type="text" class="form-control" value="<?php echo $campos['nom_producto'] ?>" name="nombre_producto_actu" id="nombre_producto_actu" pattern="[a-zA-Z]{2,100}"maxlength="27">
+							<input type="hidden" pattern="" class="form-control" name="id_actualizacion" value="<?php echo $id_editar ?>">
 						</div>
 					</div>
 					<div class="col-12 col-md-6">
 						<div class="form-group">
-							<label for="id_tipo_producto_act" class="bmd-label-floating">Id Tipo Producto</label>
-							<select class="form-control" name="id_tipo_producto_act" id="id_tipo_producto_act">
-								<option value="0">Seleccione una opción</option>
+							<label for="id_tipo_producto_actu" class="bmd-label-floating">Id Tipo Producto</label>
+							<select class="form-control" name="id_tipo_producto_actu" id="id_tipo_producto_act">
+								<option value="<?php echo $campos['id_producto'] ?>">Seleccione una opción</option>
 								<?php
 								include ("./cone.php");   
 								$tipo="SELECT * FROM TBL_tipo_producto";
@@ -93,20 +94,20 @@
 					</div>
 					<div class="col-12 col-md-4">
 						<div class="form-group">
-							<label for="descripcion_producto_act" class="bmd-label-floating">Descripcion</label>
-							<input type="text" class="form-control" name="descripcion_producto_act" id="descripcion_pro" maxlength="20">
+							<label for="descripcion_producto_actu" class="bmd-label-floating">Descripcion</label>
+							<input type="text" class="form-control" value="<?php echo $campos['des_produ'] ?>" name="descripcion_producto_actu" id="descripcion_pro" maxlength="20">
 						</div>
 					</div>
 					<div class="col-12 col-md-4">
 						<div class="form-group">
-							<label for="precio_producto_act" class="bmd-label-floating">Precio</label>
-							<input type="text" class="form-control" name="precio_producto_act" id="precio_pro" pattern="[0-9]{1,6}" maxlength="6">
+							<label for="precio_producto_actu" class="bmd-label-floating">Precio</label>
+							<input type="text" class="form-control" value="<?php echo $campos['precio_produ'] ?>" name="precio_producto_actu" id="precio_pro" pattern="[0-9]{1,6}" maxlength="6">
 						</div>
 					</div>
 					<div class="col-12 col-md-4">
 						<div class="form-group">
 							<label for="archivo" class="bmd-label-floating">Agregar Imagen</label>
-							<input type="file" class="form-control" name="foto" id="archivo" accept="image/*">
+							<input type="file" class="form-control" value="<?php echo $campos['foto_produ'] ?>" name="foto" id="archivo" accept="image/*">
 						</div>
 					</div>
 				</div>

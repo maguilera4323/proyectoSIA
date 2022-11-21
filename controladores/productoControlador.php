@@ -80,9 +80,14 @@ class productoControlador extends productoModelo
 		$Id_Tipo_producto=mainModel::limpiar_cadena($_POST['id_tipo_producto_actu']);
 		$Descripcion=mainModel::limpiar_cadena($_POST['descripcion_producto_actu']);
 		$Precio=mainModel::limpiar_cadena($_POST['precio_producto_actu']);
-		$Foto=mainModel::limpiar_cadena($_POST['foto_producto_actu']);
+
+		$nombre_img=($_FILES['foto']['name']);//ADQUIERE LA IMAGEN
+		$temporal=$_FILES['foto']['tmp_name'];
+		$carpeta='../productos_img';
+		$ruta=$carpeta.'/'.$nombre_img;
+		move_uploaded_file($temporal,$carpeta.'/'. $nombre_img);
 		
-		if($Nom_producto=="" || $Id_Tipo_producto=="" || $Descripcion=="" || $Precio=="" || $Foto==""){
+		if($Nom_producto=="" || $Id_Tipo_producto=="" || $Descripcion=="" || $Precio=="" || $ruta==""){
 			$alerta=[
 				"Alerta"=>"simple",
 				"Titulo"=>"Ocurrió un error inesperado",
@@ -106,16 +111,6 @@ class productoControlador extends productoModelo
 				exit();
 			}
 
-			/*if(mainModel::verificar_datos("[0-9]{1,14}",$Id_Tipo_producto)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El ID del tipo de producto no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}*/
 			
 			if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ ]{1,30}",$Descripcion)){
 				$alerta=[
@@ -147,7 +142,7 @@ class productoControlador extends productoModelo
 				"id_tipo_producto"=>$Id_Tipo_producto,
 				"descripcion"=>$Descripcion,
 				"precio"=>$Precio,
-				"foto"=>$Foto			
+				"foto"=>$ruta			
 			];
 
 			$actualizar_producto=productoModelo::actualizar_producto_modelo($datos_producto_actu,$id_actualizar);

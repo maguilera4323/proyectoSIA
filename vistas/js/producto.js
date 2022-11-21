@@ -1,3 +1,4 @@
+
 //función de cálculo de la factura
 
 $(document).ready(function(){
@@ -20,27 +21,27 @@ $(document).ready(function(){
 		//variable count para generar valores unicos para el id de cada input o select
 		count++;
 		$(document).ready(function(){
-			let $insumo=document.querySelector("#productName_"+count);
+			let $productos=document.querySelector("#producotName_"+count);
 
-			function cargarInsumo(){
+			function cargarProducto(){
 				$.ajax({
 					type:'GET',
-					url:"../controladores/obtenerInsumos.php",
+					url:"../controladores/obtenerproducto.php",
 					success:function(response){
-						const insumos=JSON.parse(response)
+						const producto=JSON.parse(response)
 
 						let template='<option class="form-control" selected disabled> Seleccione una opción</option>';
 
-						insumos.forEach(insumo => {
-							template+=`<option value="${insumo.idInsumo}">${insumo.nomInsumo}</option>`
+						producto.forEach(producto => {
+							template+=`<option value="${producto.idProducto}">${producto.nomProducto}</option>`
 						})
 
-						$insumo.innerHTML=template;
+						$productos.innerHTML=template;
 					}
 				});
 			}
 
-			cargarInsumo();
+			cargarProducto();
 		})
 		//termina función
 

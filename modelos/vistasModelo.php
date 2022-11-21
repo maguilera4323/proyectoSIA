@@ -13,6 +13,7 @@
 			"inventario-list","movimiento-inventario",
 			"objetos-list","parametros-list","perfilusuario",
 			"permisos-list","preguntas-list",
+			"pedidos-new",
 			"producto-list","producto-new","producto-update",
 			"proveedor-list","proveedor-new","proveedor-update",
 			"prueba",
