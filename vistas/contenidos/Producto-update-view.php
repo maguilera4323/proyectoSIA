@@ -1,3 +1,31 @@
+<?php
+		include ("./cone.php");  
+
+		//verificación de permisos
+		//se revisa si el usuario tiene acceso a una vista específica por medio del rol que tiene y el objeto al que quiere acceder
+		$id_rol=$_SESSION['id_rol'];
+			$SQL="SELECT permiso_actualizacion FROM TBL_permisos where id_rol='$id_rol' and id_objeto=3";
+			$dato = mysqli_query($conexion, $SQL);
+
+			if($dato -> num_rows >0){
+				while($fila=mysqli_fetch_array($dato)){
+					$permiso=$fila['permiso_actualizacion'];
+				}
+			}
+
+			//valida si el query anterior no retornó ningún valor
+			//en este caso no había un permiso registrado del objeto para el rol del usuario conectado
+			if(!isset($permiso)){
+				echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Usted no tiene autorizado actualizar productos</div>';
+				echo "<script> window.location.href='".SERVERURL."home/'; </script>";	
+			//valida si el permiso tiene valor de cero, lo que significa que no puede acceder a la vista	
+			}else if($permiso==0){
+				echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Usted no tiene autorizado actualizar productos</div>';
+				echo "<script> window.location.href='".SERVERURL."producto-list/'; </script>";
+			}
+			
+?>
+
 <div class="full-box page-header">
 	<h3 class="text-left">
 		<i class="fas fa-plus fa-fw"></i> &nbsp; AGREGAR PRODUCTO
@@ -6,21 +34,7 @@
 </div>
 
 <div class="container-fluid">
-	<ul class="full-box list-unstyled page-nav-tabs">
-		<li>
-			<a class="active" href="<?php echo SERVERURL; ?>producto-new/"><i class="fas fa-plus fa-fw"></i> &nbsp; AGREGAR PRODUCTO</a>
-		</li>
-		<li>
-			<a href="<?php echo SERVERURL; ?>producto-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE PRODUCTOS</a>
-		</li>
-		<li>
-			<a href="<?php echo SERVERURL; ?>tipo-producto-new/"><i class="fas fa-search fa-fw"></i> &nbsp; AGREGAR TIPO DE PRODUCTO</a>
-		</li>
-	</ul>	
-</div>
-
-<div class="container-fluid">
-<p><?php 
+		<p><?php 
 				require_once "./controladores/productoControlador.php";
 				$ins_producto=new productoControlador();
 					$host= $_SERVER["HTTP_HOST"];
@@ -36,6 +50,20 @@
 						$campos=$datos_producto->fetch();
 					}
 				?></p>
+	<ul class="full-box list-unstyled page-nav-tabs">
+		<li>
+			<a class="active" href="<?php echo SERVERURL; ?>producto-new/"><i class="fas fa-plus fa-fw"></i> &nbsp; AGREGAR PRODUCTO</a>
+		</li>
+		<li>
+			<a href="<?php echo SERVERURL; ?>producto-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE PRODUCTOS</a>
+		</li>
+		<li>
+			<a href="<?php echo SERVERURL; ?>Tipo-Producto-new/"><i class="fas fa-search fa-fw"></i> &nbsp; AGREGAR TIPO DE PRODUCTO</a>
+		</li>
+	</ul>
+</div>
+
+<div class="container-fluid">
 	<form action="<?php echo SERVERURL; ?>ajax/productoAjax.php" class="form-neon FormularioAjax" method="POST" enctype="multipart/for-data" data-form="save" autocomplete="off">
 		<fieldset>
 			<legend><i class="fas fa-user"></i> &nbsp; Información básica</legend>
@@ -43,14 +71,14 @@
 				<div class="row">
 					<div class="col-12 col-md-6">
 						<div class="form-group">
-							<label for="nombre_producto_nuevo" class="bmd-label-floating">Nombre</label>
-							<input type="text" class="form-control" name="nombre_producto_nuevo" id="nombre_pro" pattern="[a-zA-Z]{2,100}"maxlength="27">
+							<label for="nombre_producto_act" class="bmd-label-floating">Nombre</label>
+							<input type="text" class="form-control" name="nombre_producto_act" id="nombre_pro" pattern="[a-zA-Z]{2,100}"maxlength="27">
 						</div>
 					</div>
 					<div class="col-12 col-md-6">
 						<div class="form-group">
-							<label for="id_tipo_producto_nuevo" class="bmd-label-floating">Id Tipo Producto</label>
-							<select class="form-control" name="id_tipo_producto_nuevo" id="id_tipo_producto_nuevo">
+							<label for="id_tipo_producto_act" class="bmd-label-floating">Id Tipo Producto</label>
+							<select class="form-control" name="id_tipo_producto_act" id="id_tipo_producto_act">
 								<option value="0">Seleccione una opción</option>
 								<?php
 								include ("./cone.php");   
@@ -65,14 +93,14 @@
 					</div>
 					<div class="col-12 col-md-4">
 						<div class="form-group">
-							<label for="descripcion_producto_nuevo" class="bmd-label-floating">Descripcion</label>
-							<input type="text" class="form-control" name="descripcion_producto_nuevo" id="descripcion_pro" maxlength="20">
+							<label for="descripcion_producto_act" class="bmd-label-floating">Descripcion</label>
+							<input type="text" class="form-control" name="descripcion_producto_act" id="descripcion_pro" maxlength="20">
 						</div>
 					</div>
 					<div class="col-12 col-md-4">
 						<div class="form-group">
-							<label for="precio_producto_nuevo" class="bmd-label-floating">Precio</label>
-							<input type="text" class="form-control" name="precio_producto_nuevo" id="precio_pro" pattern="[0-9]{1,6}" maxlength="6">
+							<label for="precio_producto_act" class="bmd-label-floating">Precio</label>
+							<input type="text" class="form-control" name="precio_producto_act" id="precio_pro" pattern="[0-9]{1,6}" maxlength="6">
 						</div>
 					</div>
 					<div class="col-12 col-md-4">
