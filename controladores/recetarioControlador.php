@@ -46,7 +46,7 @@ class recetarioControlador extends recetarioModelo
 			exit();
 		}
 
-		if(mainModel::verificar_datos("[A-Za-zÑñ0-9]{1,40}",$cant_insumo)){
+		if(mainModel::verificar_datos("[0-9]{1,40}",$cant_insumo)){
 			$alerta=[
 				"Alerta"=>"simple",
 				"Titulo"=>"Ocurrió un error inesperado",
@@ -116,41 +116,20 @@ class recetarioControlador extends recetarioModelo
 		$cant_insumo=mainModel::limpiar_cadena($_POST['cant_insumo_act']);
 		$id_actualizar=mainModel::limpiar_cadena($_POST['id_actualizacion']);
 		
-		/* //verificar datos ingresados
-		if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ_]{1,40}",$nom_parametro)){
+
+		//verificar datos ingresados
+		if(mainModel::verificar_datos("[0-9]{1,40}",$cant_insumo)){
 			$alerta=[
 				"Alerta"=>"simple",
 				"Titulo"=>"Ocurrió un error inesperado",
-				"Texto"=>"El nombre del parámetro no coincide con el formato solicitado",
+				"Texto"=>"Los datos de la receta no coincide con el formato solicitado",
 				"Tipo"=>"error"
 			];
 			echo json_encode($alerta);
 			exit();
 		}
 
-		if(mainModel::verificar_datos("[A-Za-zÑñ0-9]{1,40}",$valor)){
-			$alerta=[
-				"Alerta"=>"simple",
-				"Titulo"=>"Ocurrió un error inesperado",
-				"Texto"=>"El valor del parámetro no coincide con el formato solicitado",
-				"Tipo"=>"error"
-			];
-			echo json_encode($alerta);
-			exit();
-		}
 
-		$check_parametro=mainModel::ejecutar_consulta_simple("SELECT parametro FROM TBL_ms_parametros WHERE parametro='$nom_parametro'");
-			if($check_parametro->rowCount()>0){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El parámetro ingresado ya se encuentra registrado en el sistema",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
- */
 			$datos_recetario_act=[
 				"id_producto"=>$Id_producto,
 				"id_insumo"=>$Id_insumo,

@@ -15,7 +15,6 @@ if($peticionAjax){
 class rolControlador extends rolModelo
 {
 
-	/*--------- Controlador agregar proveedor ---------*/
 	public function agregarRol()
 	{
 		$nom_rol=mainModel::limpiar_cadena(strtoupper($_POST['nombre_rol_nuevo']));
@@ -86,7 +85,6 @@ class rolControlador extends rolModelo
 	} /* Fin controlador */
 
 
-	/*--------- Controlador actualizar usuario ---------*/
 	public function actualizarRol()
 	{	
 		$nom_rol=mainModel::limpiar_cadena(strtoupper($_POST['nombre_rol_act']));
@@ -144,19 +142,11 @@ class rolControlador extends rolModelo
 			];
 			Bitacora::guardar_bitacora($datos_bitacora); 
 	} /* Fin controlador */
-	
-
-	public function datosRolControlador($id){
-		$id=mainModel::limpiar_cadena($id);
-		return rolModelo::datos_rol_modelo($id);
-	}
 
 	
 
-		//funcion para eliminar un proveedor
-		public function eliminarRol()
-		{
-			$id=mainModel::limpiar_cadena(($_POST['id_rol_del']));
+		public function eliminarRol(){
+		$id=mainModel::limpiar_cadena(($_POST['id_rol_del']));
 
 		//verifica que el insumo si exista en el sistema
 		$check_rol=mainModel::ejecutar_consulta_simple("SELECT id_rol FROM TBL_ms_roles

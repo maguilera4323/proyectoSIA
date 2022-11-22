@@ -19,6 +19,9 @@ class permisoControlador extends permisoModelo
 	{
 		$nom_rol=mainModel::limpiar_cadena(strtoupper($_POST['rol_nuevo']));
 		$nom_objeto=mainModel::limpiar_cadena(strtoupper($_POST['objeto_nuevo']));
+		//condicionales para agregar los valores de los permisos
+		//si no recibieron ningún valor se dejan en cero, lo que indica que no fueron seleccionados
+		//y por lo tanto el permiso no fue otorgado
 		if(!isset($_POST['insertar_permiso'])){
 			$insertar_permiso=0;
 		}else{
@@ -86,6 +89,9 @@ class permisoControlador extends permisoModelo
 
 
 	public function actualizarPermiso(){	
+		//condicionales para actualizar los valores de los permisos
+		//si no recibieron ningún valor se dejan en cero, lo que indica que no fueron seleccionados
+		//y por lo tanto el permiso no fue otorgado
 		if(!isset($_POST['insertar_permiso_act'])){
 			$insertar_permiso=0;
 		}else{

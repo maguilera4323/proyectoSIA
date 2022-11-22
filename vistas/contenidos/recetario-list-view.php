@@ -1,14 +1,42 @@
 <?php
 	require_once "./pruebabitacora.php";
+		include ("./cone.php");     
 
-	$datos_bitacora = [
-		"id_objeto" => 0,
-		"fecha" => date('Y-m-d H:i:s'),
-		"id_usuario" => $_SESSION['id_login'],
-		"accion" => "Cambio de vista",
-		"descripcion" => "El usuario ".$_SESSION['usuario_login']." entró a la vista Recetario"
-	];
-	Bitacora::guardar_bitacora($datos_bitacora); 
+		//verificación de permisos
+		//se revisa si el usuario tiene acceso a una vista específica por medio del rol que tiene y el objeto al que quiere acceder
+		$id_rol=$_SESSION['id_rol'];
+			$SQL="SELECT * FROM TBL_permisos where id_rol='$id_rol' and id_objeto=13";
+			$dato = mysqli_query($conexion, $SQL);
+
+			if($dato -> num_rows >0){
+				while($fila=mysqli_fetch_array($dato)){
+					$permiso_in=$fila['permiso_insercion'];
+					$permiso_act=$fila['permiso_actualizacion'];
+					$permiso_eli=$fila['permiso_eliminacion'];
+					$permiso_con=$fila['permiso_consulta'];
+				}
+			}
+
+			//valida si el query anterior no retornó ningún valor
+			//en este caso no había un permiso registrado del objeto para el rol del usuario conectado
+			if(!isset($permiso_con)){
+				echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Usted no tiene acceso autorizado a esta vista</div>';
+				echo "<script> window.location.href='".SERVERURL."home/'; </script>";	
+			//valida si el permiso tiene valor de cero, lo que significa que no puede acceder a la vista	
+			}else if($permiso_con==0){
+				echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Usted no tiene acceso autorizado a esta vista</div>';
+				echo "<script> window.location.href='".SERVERURL."home/'; </script>";
+			}else{
+				$datos_bitacora = 
+				[
+					"id_objeto" => 13,
+					"fecha" => date('Y-m-d H:i:s'),
+					"id_usuario" => $_SESSION['id_login'],//cambiar aqui para que me pueda traer el USU conectado
+					"accion" => "Cambio de vista",
+					"descripcion" => "El usuario ".$_SESSION['usuario_login']." entró a la Vista del Recetario"
+				];
+				Bitacora::guardar_bitacora($datos_bitacora);
+			}
 ?>
 
 <div class="full-box page-header">
@@ -83,6 +111,17 @@
 				</div>
 						<!-- Modal actualizar-->
 						<div class="modal fade" id="ModalActualizar<?php echo $fila['id_recetario'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<?php
+							if(!isset($permiso_act)){
+								echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Usted no tiene autorización para actualizar un rol</div>';
+								echo "<script> window.location.href='".SERVERURL."home/'; </script>";	
+							//valida si el permiso tiene valor de cero, lo que significa que no puede acceder a la vista	
+							}else if($permiso_act==0){
+								echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Usted no tiene autorización para actualizar un rol
+								<button type="button" class="close" data-dismiss="alert" onclick="window.location.reload()"X</button>
+								</div>';
+							}else{
+						?>
 							<div class="modal-dialog" role="document">
 								<div class="modal-content">
 								<div class="modal-header">
@@ -134,6 +173,9 @@
 									</div>
 								</div>
 							</div>
+							<?php
+								}
+							?>
 					</div>
 			</td>
 			<td>
@@ -168,7 +210,18 @@
 
 <!-- Modal crear-->
 <div class="modal fade" id="ModalCrear" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+<?php
+	if(!isset($permiso_in)){
+		echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Usted no tiene autorización para crear un rol</div>';
+		echo "<script> window.location.href='".SERVERURL."home/'; </script>";	
+	//valida si el permiso tiene valor de cero, lo que significa que no puede acceder a la vista	
+	}else if($permiso_in==0){
+		echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Usted no tiene autorización para crear un rol
+		<button type="button" class="close" data-dismiss="alert" onclick="window.location.reload()">X</button>
+		</div>';
+	}else{
+?>  
+<div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Nueva Receta</h5>
@@ -217,6 +270,9 @@
       </div>
     </div>
   </div>
+  <?php
+		}
+	?>
 </div>
 
 

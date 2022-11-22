@@ -26,9 +26,6 @@
 					<a href="#" class="nav-btn-submenu"><i class="fas fa-users fa-fw"></i> &nbsp; Proveedores <i class="fas fa-chevron-down"></i></a>
 					<ul>
 						<li>
-							<a href="<?php echo SERVERURL; ?>proveedor-new/"><i class="fas fa-plus fa-fw"></i> &nbsp; Agregar Proveedor</a>
-						</li>
-						<li>
 							<a href="<?php echo SERVERURL; ?>proveedor-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Proveedores</a>
 						</li>
 						
@@ -38,9 +35,6 @@
 				<li>
 					<a href="#" class="nav-btn-submenu"><i class="fas fa-shopping-cart"></i></i> &nbsp; Compras <i class="fas fa-chevron-down"></i></a>
 					<ul>
-						<li>
-							<a href="<?php echo SERVERURL; ?>compra-new/"><i class="fas fa-plus fa-fw"></i> &nbsp; Agregar Compras</a>
-						</li>
 						<li>
 							<a href="<?php echo SERVERURL; ?>compra-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Compras</a>
 						</li>
@@ -67,9 +61,6 @@
 				<li>
 					<a href="#" class="nav-btn-submenu"><i class="fas fa-mug-hot fa-fw"></i> &nbsp; Producto <i class="fas fa-chevron-down"></i></a>
 					<ul>
-						<li>
-							<a href="<?php echo SERVERURL; ?>producto-new/"><i class="fas fa-plus fa-fw"></i> &nbsp; Nuevo Producto</a>
-						</li>
 						<li>
 							<a href="<?php echo SERVERURL; ?>producto-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Productos</a>
 						</li>
@@ -137,9 +128,6 @@
 					<a href="#" class="nav-btn-submenu"><i class="fas fa-users fa-fw"></i> &nbsp; Proveedores <i class="fas fa-chevron-down"></i></a>
 					<ul>
 						<li>
-							<a href="<?php echo SERVERURL; ?>proveedor-new/"><i class="fas fa-plus fa-fw"></i> &nbsp; Agregar Proveedor</a>
-						</li>
-						<li>
 							<a href="<?php echo SERVERURL; ?>proveedor-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Proveedores</a>
 						</li>
 						
@@ -186,9 +174,6 @@
 				<li>
 					<a href="#" class="nav-btn-submenu"><i class="fas fa-mug-hot fa-fw"></i> &nbsp; Producto <i class="fas fa-chevron-down"></i></a>
 					<ul>
-						<li>
-							<a href="<?php echo SERVERURL; ?>producto-new/"><i class="fas fa-plus fa-fw"></i> &nbsp; Nuevo Producto</a>
-						</li>
 						<li>
 							<a href="<?php echo SERVERURL; ?>reservation-reservation/"><i class="far fa-calendar-alt fa-fw"></i> &nbsp; Reservaciones</a>
 						</li>

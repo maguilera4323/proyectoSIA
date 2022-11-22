@@ -8,7 +8,7 @@ if($peticionAjax){
 	require_once "../pruebabitacora.php";
 }else{
 	require_once "./modelos/proveedorModelo.php";
-	require_once "./pruebabitacora.php";//aqui se ejecuta dentro del index y no se utiliza Ajax
+	require_once "./pruebabitacora.php";
 }
 
 
@@ -49,7 +49,7 @@ class proveedorControlador extends proveedorModelo
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"No hemos podido registrar el Proveedor",
+					"Texto"=>"No hemos podido registrar el proveedor",
 					"Tipo"=>"error"
 				];
 			}

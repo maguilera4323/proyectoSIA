@@ -134,8 +134,8 @@
 								<input value="" type="number" class="form-control" name="subTotal" id="subTotal" placeholder="Subtotal">
 							</div>
 							<!-- Código para los demás cálculos de la factura como el impuesto y el cambio!-->
-
-							<!-- <div class="form-group">
+							</div>
+							<div class="form-group">
 							<label>Porcentaje Impuestos: &nbsp;</label>
 							<div class="input-group">
 								<input value="" type="number" class="form-control" name="taxRate" id="taxRate" placeholder="Porcentaje Impuestos">
@@ -169,7 +169,7 @@
 								<div class="input-group-addon currency">L.</div>
 								<input value="" type="number" class="form-control" name="amountDue" id="amountDue" placeholder="Cambio">
 							</div>
-						</div> -->
+						</div>
 					</span>
 				</div>
 			</div>

@@ -53,28 +53,43 @@ class Invoice{
 			"fecha" => date('Y-m-d H:i:s'),
 			"id_usuario" => $_SESSION['id_login'],
 			"accion" => "Nueva compra",
-			"descripcion" => "El usuario ".$_SESSION['usuario_login']." registró un pedido en el sistema"
+			"descripcion" => "El usuario ".$_SESSION['usuario_login']." registró una compra en el sistema"
 		];
 		Bitacora::guardar_bitacora($datos_bitacora); 
 	}
 
 
-	public function actualizarFactura($POST)
-	{
-		if ($POST['id_actualizacion']) {
-			$sqlInsert = "
+	public function actualizarFactura($POST){
+		//primer update, para la tabla de Compras
+		if ($POST['proveedor_compra']) {
+			for ($i = 0; $i <1; $i++) {
+			$sqlUpdate = "
 				UPDATE " . $this->datosCompra . " 
 				SET id_proveedor = '" . $POST['proveedor_compra'] . "', id_usuario= '" . $_SESSION['id_login'] . "', id_estado_compra = '" . $POST['estado_compra'] . "', fech_compra = '" . $POST['fecha_compra'] . "', total_compra = '" . $POST['subTotal'] . "' 
-				WHERE id_compra = '" . $POST['id_actualizacion'] . "' ";
-			mysqli_query($this->dbConnect, $sqlInsert);
+				WHERE id_compra = '" . $POST['id_act_compra'][$i] . "' ";
+			mysqli_query($this->dbConnect, $sqlUpdate);
 		}
-		/* $this->deleteInvoiceItems($POST['invoiceId']);
-		for ($i = 0; $i < count($POST['productCode']); $i++) {
-			$sqlInsertItem = "
-				INSERT INTO " . $this->invoiceOrderItemTable . "(order_id, item_code, item_name, order_item_quantity, order_item_price, order_item_final_amount) 
-				VALUES ('" . $POST['invoiceId'] . "', '" . $POST['productCode'][$i] . "', '" . $POST['productName'][$i] . "', '" . $POST['quantity'][$i] . "', '" . $POST['price'][$i] . "', '" . $POST['total'][$i] . "')";
-			mysqli_query($this->dbConnect, $sqlInsertItem);
-		} */
+
+
+		//segundo update, para la tabla de DetalleCompras
+		//el ciclo for para actualizar los insumos agregados a la compra
+			for ($i = 0; $i < count($POST['productName']); $i++) {
+				 $sqlUpdateItem = "
+				UPDATE " . $this->datosDetalleCompra . "
+				SET id_compra = '" . $POST['id_act_compra'][$i] . "', id_insumos= '" . $POST['productName'][$i] . "', cantidad_comprada = '" . $POST['quantity'][$i] . "', precio_costo = '" . $POST['price'][$i] . "', fecha_caducidad = '" . $POST['fechaCaducidad'][$i] . "' 
+					WHERE id_detalle_compra = '" . $POST['id_act_detallecompra'][$i] . "' ";
+				mysqli_query($this->dbConnect, $sqlUpdateItem); 
+			}
+		}
+
+		$datos_bitacora = [
+			"id_objeto" => 0,
+			"fecha" => date('Y-m-d H:i:s'),
+			"id_usuario" => $_SESSION['id_login'],
+			"accion" => "Nueva compra",
+			"descripcion" => "El usuario ".$_SESSION['usuario_login']." actualizó los datos de una compra en el sistema"
+		];
+		Bitacora::guardar_bitacora($datos_bitacora);
 	}
 
 

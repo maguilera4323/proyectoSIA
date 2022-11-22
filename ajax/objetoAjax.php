@@ -9,7 +9,6 @@
 		$ins_objeto = new objetoControlador();
 
 
-		/*--------- Agregar un proveedor ---------*/
 		if(isset($_POST['objeto_nuevo'])){
 			echo $ins_objeto->agregarObjeto();
 			die();

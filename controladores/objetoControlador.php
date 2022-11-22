@@ -173,8 +173,8 @@ class objetoControlador extends objetoModelo
 			if($eliminarobjeto->rowCount()==1){
 				$alerta=[
 					"Alerta"=>"recargar",
-					"Titulo"=>"Objeto Borrado",
-					"Texto"=>"El objeto fue borrado del sistema",
+					"Titulo"=>"Objeto Eliminado",
+					"Texto"=>"El objeto fue eliminado del sistema",
 					"Tipo"=>"success"
 				];
                 echo json_encode($alerta);
