@@ -74,7 +74,7 @@
 							<a href="<?php echo SERVERURL; ?>producto-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Productos</a>
 						</li>
 						<li>
-							<a href="<?php echo SERVERURL; ?>Tipo-Producto-new/"><i class="fas fa-wine-glass fa-fw"></i> &nbsp; Tipo de Producto</a>
+							<a href="<?php echo SERVERURL; ?>tipo-producto-new/"><i class="fas fa-wine-glass fa-fw"></i> &nbsp; Tipo de Producto</a>
 						</li>
 					</ul>
 				</li>
