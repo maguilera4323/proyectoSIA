@@ -47,15 +47,14 @@ $(document).ready(function(){
 		//se generan las filas para un nuevo insumo
 		var htmlRows = '';
 		htmlRows += '<tr>';
-		htmlRows += '<td><input class="itemRow" type="checkbox"></td>';          
-		htmlRows += '<td><input type="text" name="productCode[]" id="productCode_'+count+'" class="form-control" autocomplete="off"></td>';          
+		htmlRows += '<td><input class="itemRow" type="checkbox"></td>';         
 		htmlRows += '<td><select name="productName[]" id="productName_'+count+'" class="form-control">\
 							<option value="" selected="" disabled="">Seleccione una opción</option>\
 					</select></td>';
 		htmlRows +='<td><input type="date" name="fechaCaducidad[]" id="fechaCaducidad_'+count+'" class="form-control" autocomplete="off"></td>';
 		htmlRows += '<td><input type="number" name="quantity[]" id="quantity_'+count+'" class="form-control quantity" autocomplete="off"></td>';   		
 		htmlRows += '<td><input type="number" name="price[]" id="price_'+count+'" class="form-control price" autocomplete="off"></td>';		 
-		htmlRows += '<td><input type="number" name="total[]" id="total_'+count+'" class="form-control total" autocomplete="off"></td>';          
+		htmlRows += '<td><input type="number" name="totales[]" id="totales_'+count+'" class="form-control total" autocomplete="off"></td>';          
 		htmlRows += '</tr>';
 		$('#invoiceItem').append(htmlRows);
 	}); 
@@ -66,27 +65,15 @@ $(document).ready(function(){
 			$(this).closest('tr').remove();
 		});
 		$('#checkAll').prop('checked', false);
-		calculateTotal();
+		calculateTotalCompra();
 	});		
 	$(document).on('blur', "[id^=quantity_]", function(){
-		calculateTotal();
+		calculateTotalCompra();
 	});	
 	$(document).on('blur', "[id^=price_]", function(){
-		calculateTotal();
+		calculateTotalCompra();
 	});	
-	$(document).on('blur', "#taxRate", function(){		
-		calculateTotal();
-	});	
-	$(document).on('blur', "#amountPaid", function(){
-		var amountPaid = $(this).val();
-		var totalAftertax = $('#totalAftertax').val();	
-		if(amountPaid && totalAftertax) {
-			totalAftertax = amountPaid-totalAftertax;			
-			$('#amountDue').val(totalAftertax);
-		} else {
-			$('#amountDue').val(totalAftertax);
-		}	
-	});	
+	
 	$(document).on('click', '.deleteInvoice', function(){
 		var id = $(this).attr("id");
 		if(confirm("¿Deseas eliminar este registro?")){
@@ -108,7 +95,7 @@ $(document).ready(function(){
 });	
 
 //funcion que realiza los cálculos de las filas
-function calculateTotal(){
+function calculateTotalCompra(){
 	var totalAmount = 0; 
 	$("[id^='price_']").each(function() {
 		var id = $(this).attr('id');
@@ -119,24 +106,9 @@ function calculateTotal(){
 			quantity = 1;
 		}
 		var total = price*quantity;
-		$('#total_'+id).val(parseFloat(total));
+		$('#totales_'+id).val(parseFloat(total));
 		totalAmount += total;			
 	});
 	$('#subTotal').val(parseFloat(totalAmount));	
-	var taxRate = $("#taxRate").val();
-	var subTotal = $('#subTotal').val();	
-	if(subTotal) {
-		var taxAmount = subTotal*taxRate/100;
-		$('#taxAmount').val(taxAmount);
-		subTotal = parseFloat(subTotal)+parseFloat(taxAmount);
-		$('#totalAftertax').val(subTotal);		
-		var amountPaid = $('#amountPaid').val();
-		var totalAftertax = $('#totalAftertax').val();	
-		if(amountPaid && totalAftertax) {
-			totalAftertax = amountPaid-totalAftertax;			
-			$('#amountDue').val(totalAftertax);
-		} else {		
-			$('#amountDue').val(subTotal);
-		}
-	}
+	
 }

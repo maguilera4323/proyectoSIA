@@ -9,29 +9,69 @@
     require_once 'controladores/facturacionControlador.php';
 	$factura = new Invoice();
 	if (isset($_POST['invoice_btn'])) {
-		$factura->nuevaFactura($_POST);
+		$factura->actualizarFactura($_POST);
 	}
 ?>
 
 <div class="container content-invoice">
+<?php	
+					//variables para generar la url completa del sitio y obtener el id del registro
+					$host= $_SERVER["HTTP_HOST"];
+					$url= $_SERVER["REQUEST_URI"];
+					$url_completa="http://" . $host . $url; 
+					//variable que contiene el id de la compra a editar
+					$id_act_pedido = explode('/',$url_completa)[5]; 
+					
+					//query para obtener los datos guardados en la tabla de compras
+					//estos datos serán mostrados en la vista
+					$query="SELECT * FROM TBL_pedidos where id_pedido='$id_act_pedido'";
+					$resultado=mysqli_query($conexion,$query);
+
+					if($resultado -> num_rows >0){
+					while($fila=mysqli_fetch_array($resultado)){
+							$numFactura=$fila['num_factura'];
+							$sitioEntrega=$fila['sitio_entrega'];
+							$fechaPedido=$fila['fech_pedido'];
+							$fechaEntrega=$fila['fech_entrega'];
+							$subtotal=$fila['sub_total'];
+							$impuesto=$fila['ISV'];
+							$Total=$fila['total'];
+							$fechaFact=$fila['fech_facturacion'];
+						}
+					}
+
+					//query para obtener el id del primer insumo de la compra
+					//este dato será utilizado en un ciclo más abajo para poder obtener los id de todos los insumos
+					$queryPrimerIdDetalle="SELECT id_detalle_pedido FROM TBL_detalle_pedido 
+					where id_pedido='$id_act_pedido' LIMIT 1";
+					$resultadoPrimerIdDetalle=mysqli_query($conexion,$queryPrimerIdDetalle);
+
+					if($resultadoPrimerIdDetalle -> num_rows >0){
+					while($filaPriDetalle=mysqli_fetch_array($resultadoPrimerIdDetalle)){
+							//se obtiene el id del primer insumo comprado
+							$id_act_detalle=$filaPriDetalle['id_detalle_pedido'];
+						}
+					}
+
+					//query para obtener la cantidad de insumos que corresponden a la compra seleccionada para editar
+					//el valor obtenido será utilizado en el ciclo de abajo como limite 
+					$queryRegistrosDetalle="SELECT COUNT(*) as contador FROM TBL_detalle_pedido 
+					where id_pedido='$id_act_pedido'";
+					$resultadoDetalle=mysqli_query($conexion,$queryRegistrosDetalle);
+
+					if($resultadoDetalle -> num_rows >0){
+					while($filaDetalle=mysqli_fetch_array($resultadoDetalle)){
+							$cantidadProductosVenta=$filaDetalle['contador'];
+						}
+					}
+			?>
 	<form action="" id="invoice-form" method="post" class="invoice-form" role="form" novalidate="">
 		<div class="load-animate animated fadeInUp">
 			<div class="row">
 			<h3 class="text-left">
-       			 <i class="fas fa-cart-plus"></i> &nbsp; AGREGAR NUEVO PEDIDO
+       			 <i class="fas fa-cart-plus"></i> &nbsp; EDITAR PEDIDO
     		</h3>
 			</div>
-			<?php
-				$SQL="SELECT * FROM TBL_pedidos";
-				$dato = mysqli_query($conexion, $SQL);
-					
-				if($dato -> num_rows >0){
-					while($fila=mysqli_fetch_array($dato)){
-						$ultimoIdPedido=$fila['id_pedido'];
-					}
-				}
-				$idPedidoActual=$ultimoIdPedido+1;
-			?>
 			<br>
 			<input id="currency" type="hidden" value="$">
 			<div class="row">
@@ -55,7 +95,7 @@
 					<div class="form-group">
 						<label class="color-label">Num. Factura</label>
 						<input type="text" class="form-control" name="num_factura" id="num_factura" maxlength="40" 
-						style="text-transform:uppercase;">
+						style="text-transform:uppercase;" value="<?php echo $numFactura; ?>">
 					</div>	
 					<div class="form-group">
 						<label class="color-label">Forma de Pago</label>
@@ -77,8 +117,7 @@
 				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
 					<div class="form-group">
 						<label class="color-label">Sitio de Entrega</label>
-						<input type="text" name="sitio_entrega" id="sitio_entrega" class="form-control" autocomplete="off">
-					    <input type="hidden" name="numPedido" id="numPedido" class="form-control" value="<?php echo $idPedidoActual; ?>" autocomplete="off">
+						<input type="text" name="sitio_entrega" id="sitio_entrega" class="form-control" value="<?php echo $sitioEntrega; ?>" autocomplete="off">
 					</div>	
 					<div class="form-group">
 						<label class="color-label">Estado de Pedido</label>
@@ -105,11 +144,11 @@
 				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 pull-right">
 					<div class="form-group">
 						<label class="color-label">Fecha Pedido</label>
-						<input type="date" class="form-control" name="fecha_pedido" id="fecha_pedido">
+						<input type="date" class="form-control" name="fecha_pedido" id="fecha_pedido" value="<?php echo $fechaPedido; ?>">
 					</div>
 					<div class="form-group">
 						<label class="color-label">Fecha Entrega</label>
-						<input type="date" class="form-control" name="fecha_entrega" id="fecha_entrega">
+						<input type="date" class="form-control" name="fecha_entrega" id="fecha_entrega" value="<?php echo $fechaEntrega; ?>">
 					</div>
 				</div>
 			</div>
@@ -124,14 +163,36 @@
 					<table class="table table-bordered table-hover" id="invoiceItemFactura">
 						<tr>
 							<th width="2%"><input id="checkAllFactura" class="formcontrol" type="checkbox"></th>
+							<th width="15%">No Detalle Pedido</th>
 							<th width="19%">Producto</th>
 							<th width="15%">Cantidad</th>
 							<th width="15%">Precio</th>
 							<th width="15%">Total</th>
 						</tr>
+						<?php
+						//Ciclo para obtener todos los registros de la tabla TBL_detalle_compra usando el valor del primer id del detalle compra
+						//este id aumentará en 1 con cada iteración del ciclo debido a que los registros del detalle_compra relacionados con una compra especifica
+						//están en la tabla TBL_detalle_compra de forma seguida
+						for ($i = 1; $i <=$cantidadProductosVenta; $i++) {
+
+							//query para obtener los datos de TBL_detalle_compra
+							//Estos datos se imprimirán en la tabla
+							$queryDetalle="SELECT id_detalle_pedido, id_producto,cantidad,precio_venta
+							FROM TBL_detalle_pedido where id_detalle_pedido='$id_act_detalle' LIMIT 1";
+							$resultadoDetalle=mysqli_query($conexion,$queryDetalle);
+							
+							if($resultadoDetalle -> num_rows >0){
+							while($filaDetalle=mysqli_fetch_array($resultadoDetalle)){
+									$idProducto=$filaDetalle['id_producto'];
+									$cantidad=$filaDetalle['cantidad'];
+									$precio=$filaDetalle['precio_venta'];
+								}
+							} 
+						?>
 						<tr>
 							<td><input class="itemRowFactura" type="checkbox"></td>
-							<td><select name="nombreProducto[]" id="nombreProducto_1" class="form-control">
+							<td><input type="text" name="productCode[]" id="productCode_<?php echo $count; ?>" class="form-control" value="<?php echo $id_act_detalle;?>" autocomplete="off"></td>
+							<td><select name="nombreProducto[]" id="nombreProducto_<?php echo $i; ?>" class="form-control">
 								<option value="" selected="" disabled="">Seleccione una opción</option>
 									<?php
 									$SQL="SELECT * FROM TBL_producto";
@@ -144,10 +205,24 @@
 											}
 										?>
 							</select></td>
-							<td><input type="number" name="cantidad[]" id="cantidad_1" class="form-control quantity" autocomplete="off"></td>
-							<td><input type="number" name="precio[]" id="precio_1" class="form-control price" autocomplete="off"></td>
-							<td><input type="number" name="total[]" id="total_1" class="form-control total" autocomplete="off"></td>
+							<td><input type="number" name="cantidad[]" id="cantidad_<?php echo $i; ?>" value="<?php echo $cantidad;?>"class="form-control quantity" autocomplete="off"></td>
+							<td><input type="number" name="precio[]" id="precio_<?php echo $i; ?>" value="<?php echo $precio;?>" class="form-control price" autocomplete="off"></td>
+							<td><input type="number" name="total[]" id="total_<?php echo $i; ?>" value="<?php echo $precio*$cantidad; ?>" class="form-control total" autocomplete="off"></td>
 						</tr>
+						<div class="form-group">
+								<!--datos enviados para realizar las actualizaciones en el controlador!-->
+								<!--id_act_compra[] para realizar el primer query de actualizacion del pedido!-->
+								<!--id_act_detallecompra[] para realizar el segundo query de actualizacion del detalle de pedido!-->
+								<input type="hidden" value="<?php echo $id_act_pedido; ?>" class="form-control" 
+								id="id_act_pedido_<?php echo $i; ?>" name="id_act_pedido[]">
+								<input type="hidden" value="<?php echo $id_act_detalle; ?>" class="form-control" 
+								id="id_act_detallepedido_<?php echo $i; ?>" name="id_act_detallepedido[]">
+							</div>
+						<?php 
+						//después de traer un registro a la tabla el valor de $id_act_detalle aumenta en 1
+						//para traer todos los registros relacionados con la compra
+						$id_act_detalle+=1;
+						}?>
 					</table>
 				</div>
 			</div>
@@ -167,14 +242,14 @@
 							<label class="color-label">Total: &nbsp;</label>
 							<div class="input-group">
 								<div class="input-group-addon currency">L.</div>
-								<input value="" type="number" class="form-control" name="subTotal" id="subTotal" placeholder="Subtotal">
+								<input type="number" class="form-control" name="subTotal" id="subTotal" placeholder="Subtotal" value="<?php echo $subtotal; ?>">
 							</div>
 							<!-- Código para los demás cálculos de la factura como el impuesto y el cambio!-->
 							</div>
 							<div class="form-group">
 							<label>Porcentaje Impuestos: &nbsp;</label>
 							<div class="input-group">
-								<input value="" type="number" class="form-control" name="taxRate" id="taxRate" placeholder="Porcentaje Impuestos">
+								<input type="number" class="form-control" name="taxRate" id="taxRate" placeholder="Porcentaje Impuestos" >
 								<div class="input-group-addon">%</div>
 							</div>
 						</div>
@@ -182,28 +257,28 @@
 							<label>Monto impuestos: &nbsp;</label>
 							<div class="input-group">
 								<div class="input-group-addon currency">L.</div>
-								<input value="" type="number" class="form-control" name="taxAmount" id="taxAmount" placeholder="Monto impuestos">
+								<input type="number" class="form-control" name="taxAmount" id="taxAmount" placeholder="Monto impuestos" value="<?php echo $impuesto; ?>">
 							</div>
 						</div>
 						<div class="form-group">
 							<label>Total: &nbsp;</label>
 							<div class="input-group">
 								<div class="input-group-addon currency">L.</div>
-								<input value="" type="number" class="form-control" name="totalAftertax" id="totalAftertax" placeholder="Total">
+								<input type="number" class="form-control" name="totalAftertax" id="totalAftertax" placeholder="Total" value="<?php echo $Total; ?>">
 							</div>
 						</div>
 						<div class="form-group">
 							<label>Monto Pagado: &nbsp;</label>
 							<div class="input-group">
 								<div class="input-group-addon currency">L.</div>
-								<input value="" type="number" class="form-control" name="amountPaid" id="amountPaid" placeholder="Monto Pagado">
+								<input type="number" class="form-control" name="amountPaid" id="amountPaid" placeholder="Monto Pagado">
 							</div>
 						</div>
 						<div class="form-group">
 							<label>Cambio: &nbsp;</label>
 							<div class="input-group">
 								<div class="input-group-addon currency">L.</div>
-								<input value="" type="number" class="form-control" name="amountDue" id="amountDue" placeholder="Cambio">
+								<input type="number" class="form-control" name="amountDue" id="amountDue" placeholder="Cambio">
 							</div>
 						</div>
 					</span>

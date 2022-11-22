@@ -12,8 +12,8 @@ class Invoice{
 	private $user  = 'admin_bd';
 	private $password   = "clave1234";
 	private $database  = "proyecto_cafeteria";
-	private $datosCompra = 'TBL_pedidos';
-	private $datosDetalleCompra = 'TBL_detalle_pedido';
+	private $datosPedido = 'TBL_pedidos';
+	private $datosDetallePedido = 'TBL_detalle_pedido';
 	private $dbConnect = false;
 
 	public function __construct()
@@ -34,19 +34,20 @@ class Invoice{
 		public function nuevaFactura($POST){	
 		//primer insert, para la tabla de Compras
 		$sqlInsert = "
-			INSERT INTO " . $this->datosPedido . "(id_cliente, num_factura, fech_pedido,  fech_entrega, sitio_entrega, id_estado_pedido, sub_total, ISV, total, id_forma_pago, fech_facturacion, porcentaje_isv) 
-			VALUES ('" . $POST['cliente_pedido'] . "', '" . $_SESSION['id_login'] . "', '" . $POST['estado_pedido'] . "', now(),'" . $POST['subTotal'] . "')";
+			INSERT INTO " . $this->datosPedido . "(id_cliente, num_factura, fech_pedido,  fech_entrega, sitio_entrega, id_estado_pedido, sub_total, ISV, total, id_forma_pago, fech_facturacion) 
+			VALUES ('" . $POST['cliente_pedido'] . "', '" . $POST['num_factura'] . "', '" . $POST['fecha_pedido'] . "', '" . $POST['fecha_entrega'] . "','" . $POST['sitio_entrega'] . "',
+			'" . $POST['estado_pedido'] . "', '" . $POST['subTotal'] . "','" . $POST['taxAmount'] . "','" . $POST['totalAftertax'] . "','" . $POST['forma_pago_venta'] . "', now() )";
 		mysqli_query($this->dbConnect, $sqlInsert);
 		$lastInsertId = mysqli_insert_id($this->dbConnect); 
 
 		//segundo insert, para la tabla de Detalle Compras
 		//el ciclo es para insertar todos los insumos agregados a la compra
-		for ($i = 0; $i < count($POST['productCode']); $i++) {
+		for ($i = 0; $i < count($POST['nombreProducto']); $i++) {
 			$sqlInsertItem = "
 			INSERT INTO " . $this->datosDetallePedido . "(id_pedido, id_producto, cantidad, precio_venta) 
-			VALUES ('" . $POST['productCode'][$i] . "', '" . $POST['productName'][$i] . "', '" . $POST['quantity'][$i] . "', '" . $POST['price'][$i] . "', '" . $POST['fechaCaducidad'][$i] . "')";
+			VALUES ('" . $POST['numPedido'] . "', '" . $POST['nombreProducto'][$i] . "', '" . $POST['cantidad'][$i] . "', '" . $POST['precio'][$i] . "')";
 			mysqli_query($this->dbConnect, $sqlInsertItem);
-		}
+		} 
 
 		$datos_bitacora = [
 			"id_objeto" => 0,
@@ -59,24 +60,31 @@ class Invoice{
 	}
 
 
-	public function actualizarFactura($POST)
-	{
-		if ($POST['id_actualizacion']) {
-			$sqlInsert = "
-				UPDATE " . $this->datosCompra . " 
-				SET id_proveedor = '" . $POST['proveedor_compra'] . "', id_usuario= '" . $_SESSION['id_login'] . "', id_estado_compra = '" . $POST['estado_compra'] . "', fech_compra = '" . $POST['fecha_compra'] . "', total_compra = '" . $POST['subTotal'] . "' 
-				WHERE id_compra = '" . $POST['id_actualizacion'] . "' ";
-			mysqli_query($this->dbConnect, $sqlInsert);
+	public function actualizarFactura($POST){
+		//primer update, para la tabla de Compras
+		if ($POST['nombreProducto']) {
+			for ($i = 0; $i <1; $i++) {
+			$sqlUpdate = "
+				UPDATE " . $this->datosPedido . " 
+				SET id_cliente = '" . $POST['cliente_pedido'] . "', num_factura= '" . $POST['num_factura'] . "', fech_pedido = '" . $POST['fecha_pedido'] . "', 
+				fech_entrega = '" . $POST['fecha_entrega'] . "', sitio_entrega = '" . $POST['sitio_entrega'] . "', id_estado_pedido = '" . $POST['estado_pedido'] . "',
+				sub_total = '" . $POST['subTotal'] . "', ISV = '" . $POST['taxAmount'] . "', total = '" . $POST['totalAftertax'] . "', id_forma_pago = '" . $POST['forma_pago_venta'] . "',
+				fech_facturacion = now() WHERE id_pedido = '" . $POST['id_act_pedido'][$i] . "' ";
+			mysqli_query($this->dbConnect, $sqlUpdate);
 		}
-		/* $this->deleteInvoiceItems($POST['invoiceId']);
-		for ($i = 0; $i < count($POST['productCode']); $i++) {
-			$sqlInsertItem = "
-				INSERT INTO " . $this->invoiceOrderItemTable . "(order_id, item_code, item_name, order_item_quantity, order_item_price, order_item_final_amount) 
-				VALUES ('" . $POST['invoiceId'] . "', '" . $POST['productCode'][$i] . "', '" . $POST['productName'][$i] . "', '" . $POST['quantity'][$i] . "', '" . $POST['price'][$i] . "', '" . $POST['total'][$i] . "')";
-			mysqli_query($this->dbConnect, $sqlInsertItem);
-		} */
-	}
 
+
+		//segundo update, para la tabla de DetalleCompras
+		//el ciclo for para actualizar los insumos agregados a la compra
+			for ($i = 0; $i < count($POST['nombreProducto']); $i++) {
+				 $sqlUpdateItem = "
+				UPDATE " . $this->datosDetallePedido . "
+				SET id_pedido = '" . $POST['id_act_pedido'][$i] . "', id_producto= '" . $POST['nombreProducto'][$i] . "', cantidad = '" . $POST['cantidad'][$i] . "', precio_venta = '" . $POST['precio'][$i] . "' 
+					WHERE id_detalle_pedido = '" . $POST['id_act_detallepedido'][$i] . "' ";
+				mysqli_query($this->dbConnect, $sqlUpdateItem); 
+			} 
+		}
+	}
 
 
 	public function deleteInvoiceItems($invoiceId)

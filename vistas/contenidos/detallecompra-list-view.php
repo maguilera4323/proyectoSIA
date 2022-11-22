@@ -37,8 +37,17 @@
 ?>
 
 <div class="full-box page-header">
+<?php	
+	//variables para generar la url completa del sitio y obtener el id del registro
+	$host= $_SERVER["HTTP_HOST"];
+	$url= $_SERVER["REQUEST_URI"];
+	$url_completa="http://" . $host . $url; 
+	//variable que contiene el id de la compra seleccionada
+	//para poder ver todos los insumos relacionados a esta
+	$id_compra = explode('/',$url_completa)[5]; 
+?>
 	<h3 class="text-left">
-		<i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE COMPRAS
+		<i class="fas fa-clipboard-list fa-fw"></i> &nbsp; DETALLE DE COMPRAS
 	</h3>
 
 </div>
@@ -46,10 +55,7 @@
 <div class="container-fluid">
 	<ul class="full-box list-unstyled page-nav-tabs">
 		<li>
-			<a href="<?php echo SERVERURL; ?>compra-new/"><i class="fas fa-plus fa-fw"></i> &nbsp; AGREGAR COMPRA</a>
-		</li>
-		<li>
-			<a class="active" href="<?php echo SERVERURL; ?>compra-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE COMPRAS</a>
+			<a href="<?php echo SERVERURL; ?>compra-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE COMPRAS</a>
 		</li>
 	</ul>	
 </div>
@@ -72,41 +78,28 @@ if(isset($_GET['enviar'])){
 ?>
 </form>
 
-<!-- para la parte de búsqueda-->
-	<div class="container-fluid">
-  <form class="d-flex">
-      <input class="form-control me-2 light-table-filter" data-table="table_id" type="text" 
-      placeholder="Buscar Compra">
-      <hr>
-      </form>
-  </div>
-
   <br>
 <!-- tabla  -->
 	<table class="table table-striped table-dark table_id text-center" id="tblDatos">
 		<!-- Encabezado de la tabla -->
 		<thead>
 			<tr>
-				<th>Proveedor</th>
-				<th>Usuario</th>
-				<th>Estado Compra</th>
-				<th>Fecha Compra</th>
-				<th>Total Compra</th>
-				<th>Detalle Compra</th>
-				<th>Editar Compra</th>
-				<th>Eliminar Compra</th>
+				<th>ID DETALLE</th>
+				<th>INSUMO</th>
+				<th>CANTIDAD</th>
+				<th>PRECIO</th>
+				<th>FECHA DE CADUCIDAD</th>
 			</tr>
 		</thead>
 		<tbody>
 		
 			<?php
-				$SQL="SELECT c.id_compra,  c.id_proveedor, p.nom_proveedor,u.usuario,e.nom_estado_compra,c.fech_compra,
-				c.total_compra FROM TBL_compras c
-				inner JOIN TBL_Proveedores p ON p.id_Proveedores = c.id_proveedor
-				inner JOIN TBL_usuarios u ON u.id_usuario = c.id_usuario
-				inner JOIN TBL_estado_compras e ON e.id_estado_compra = c.id_estado_compra
-				ORDER BY c.id_compra DESC 
-				$where";
+				$SQL="SELECT dc.id_detalle_compra, i.nom_insumo,  dc.cantidad_comprada, dc.precio_costo,dc.fecha_caducidad
+				FROM TBL_detalle_compra dc
+				inner JOIN TBL_insumos i ON i.id_insumos = dc.id_insumos
+				inner JOIN TBL_compras c ON c.id_compra = dc.id_compra
+				WHERE c.id_compra='$id_compra'";
+				
 				$dato = mysqli_query($conexion, $SQL);
 
 				if($dato -> num_rows >0){
@@ -114,31 +107,11 @@ if(isset($_GET['enviar'])){
 
 			?>
 				<tr>
-				<td><?php echo $fila['nom_proveedor']; ?></td>
-				<td><?php echo $fila['usuario']; ?></td>
-				<td><?php echo $fila['nom_estado_compra']; ?></td>
-				<td><?php echo $fila['fech_compra']; ?></td>
-				<td><?php echo $fila['total_compra']; ?></td>
-
-				<td>
-					<a href="<?php echo SERVERURL; ?>detallecompra-list/<?php echo $fila['id_compra']?>" class="btn btn-success">
-					<i class="fas fa-info-circle"></i>
-					</a>
-				</td>
-				<td>
-					<a href="<?php echo SERVERURL; ?>compra-update/<?php echo $fila['id_compra']?>" class="btn btn-success">
-						<i class="fas fa-sync-alt"></i>	
-					</a>
-				</td>
-				<td>
-				<form class="FormularioAjax" action="<?php echo SERVERURL; ?>ajax/compraAjax.php" method="POST" data-form="delete" autocomplete="off">
-				<input type="hidden" pattern="" class="form-control" name="id_compra_del" value="<?php echo $fila['id_compra'] ?>">
-				<input type="hidden" pattern="" class="form-control" name="id_proveedor_del" value="<?php echo $fila['id_proveedor'] ?>">	
-				<button type="submit" class="btn btn-warning">
-					<i class="far fa-trash-alt"></i>
-				</button>
-				</form>
-			</td>
+				<td><?php echo $fila['id_detalle_compra']; ?></td>
+				<td><?php echo $fila['nom_insumo']; ?></td>
+				<td><?php echo $fila['cantidad_comprada']; ?></td>
+				<td><?php echo $fila['precio_costo']; ?></td>
+				<td><?php echo $fila['fecha_caducidad']; ?></td>
 			</tr>
 			<?php
 				}

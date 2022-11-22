@@ -41,10 +41,10 @@ class Invoice{
 
 		//segundo insert, para la tabla de Detalle Compras
 		//el ciclo es para insertar todos los insumos agregados a la compra
-		for ($i = 0; $i < count($POST['productCode']); $i++) {
+		for ($i = 0; $i < count($POST['productName']); $i++) {
 			$sqlInsertItem = "
 			INSERT INTO " . $this->datosDetalleCompra . "(id_compra, id_insumos, cantidad_comprada, precio_costo, fecha_caducidad) 
-			VALUES ('" . $POST['productCode'][$i] . "', '" . $POST['productName'][$i] . "', '" . $POST['quantity'][$i] . "', '" . $POST['price'][$i] . "', '" . $POST['fechaCaducidad'][$i] . "')";
+			VALUES ('" . $POST['productCode'] . "', '" . $POST['productName'][$i] . "', '" . $POST['quantity'][$i] . "', '" . $POST['price'][$i] . "', '" . $POST['fechaCaducidad'][$i] . "')";
 			mysqli_query($this->dbConnect, $sqlInsertItem);
 		}
 

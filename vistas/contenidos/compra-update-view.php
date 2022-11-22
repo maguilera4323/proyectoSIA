@@ -197,8 +197,6 @@
 							<td><input type="number" name="quantity[]" id="quantity_<?php echo $i; ?>" class="form-control quantity" value="<?php echo $cantidad; ?>" autocomplete="off"></td>
 							<td><input type="number" name="price[]" id="price_<?php echo $i; ?>" class="form-control price" value="<?php echo $precio; ?>" autocomplete="off"></td>
 							<td><input type="number" name="total[]" id="total_<?php echo $i; ?>" class="form-control total" value="<?php echo $precio*$cantidad; ?>"autocomplete="off"  onchange="sumar(this.value);"></td>
-							<!-- <td><input type="number" name="id_act_compra[]" id="id_act_compra_<?php echo $i; ?>" class="form-control total" value="<?php echo $id_act_compra; ?>" autocomplete="off"  onchange="sumar(this.value);"></td>
-						    <td><input type="number" name="id_act_detallecompra[]" id="id_act_detallecompra_<?php echo $i; ?>" class="form-control total" value="<?php echo $id_act_detalle; ?>" autocomplete="off"  onchange="sumar(this.value);"></td> -->
 						</tr>
 							<div class="form-group">
 								<!--datos enviados para realizar las actualizaciones en el controlador!-->

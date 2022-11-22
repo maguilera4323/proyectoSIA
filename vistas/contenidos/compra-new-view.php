@@ -45,6 +45,19 @@
        			 <i class="fas fa-cart-plus"></i> &nbsp; AGREGAR NUEVA COMPRA
     		</h3>
 			</div>
+			</div>
+			<?php
+				$SQL="SELECT * FROM TBL_compras";
+				$dato = mysqli_query($conexion, $SQL);
+					
+				if($dato -> num_rows >0){
+					while($fila=mysqli_fetch_array($dato)){
+						$ultimoIdCompra=$fila['id_compra'];
+					}
+				}
+				$idCompraActual=$ultimoIdCompra+1;
+			?>
+			<br>
 			<br>
 			<input id="currency" type="hidden" value="$">
 			<div class="row">
@@ -67,6 +80,7 @@
 					</div>	
 					<div class="form-group">
 						<label class="color-label">Usuario</label>
+						<input type="hidden" name="productCode" id="productCode" class="form-control" value="<?php echo $idCompraActual; ?>" autocomplete="off">
 						<input type="text" class="form-control" name="usuario_compra" id="cliente_apellido" maxlength="40" 
 						value="<?php echo $_SESSION['usuario_login']; ?>" style="text-transform:uppercase;" disabled>
 					</div>	
@@ -107,7 +121,6 @@
 					<table class="table table-bordered table-hover" id="invoiceItem">
 						<tr>
 							<th width="2%"><input id="checkAll" class="formcontrol" type="checkbox"></th>
-							<th width="15%">No Compra</th>
 							<th width="19%">Insumo</th>
 							<th width="19%">Fecha de caducidad</th>
 							<th width="15%">Cantidad</th>
@@ -116,7 +129,6 @@
 						</tr>
 						<tr>
 							<td><input class="itemRow" type="checkbox"></td>
-							<td><input type="text" name="productCode[]" id="productCode_1" class="form-control" autocomplete="off"></td>
 							<td><select name="productName[]" id="productName_1" class="form-control">
 								<option value="" selected="" disabled="">Seleccione una opción</option>
 									<?php
@@ -133,7 +145,7 @@
 							<td><input type="date" name="fechaCaducidad[]" id="fechaCaducidad_1" class="form-control" autocomplete="off"></td>
 							<td><input type="number" name="quantity[]" id="quantity_1" class="form-control quantity" autocomplete="off"></td>
 							<td><input type="number" name="price[]" id="price_1" class="form-control price" autocomplete="off"></td>
-							<td><input type="number" name="total[]" id="total_1" class="form-control total" autocomplete="off"></td>
+							<td><input type="number" name="totales[]" id="totales_1" class="form-control total" autocomplete="off"></td>
 						</tr>
 					</table>
 				</div>
@@ -157,43 +169,6 @@
 								<div class="input-group-addon currency">L.</div>
 								<input value="" type="number" class="form-control" name="subTotal" id="subTotal">
 							</div>
-							<!-- Código para los demás cálculos de la factura como el impuesto y el cambio!-->
-
-							<!-- <div class="form-group">
-							<label>Porcentaje Impuestos: &nbsp;</label>
-							<div class="input-group">
-								<input value="" type="number" class="form-control" name="taxRate" id="taxRate" placeholder="Porcentaje Impuestos">
-								<div class="input-group-addon">%</div>
-							</div>
-						</div>
-						<div class="form-group">
-							<label>Monto impuestos: &nbsp;</label>
-							<div class="input-group">
-								<div class="input-group-addon currency">L.</div>
-								<input value="" type="number" class="form-control" name="taxAmount" id="taxAmount" placeholder="Monto impuestos">
-							</div>
-						</div>
-						<div class="form-group">
-							<label>Total: &nbsp;</label>
-							<div class="input-group">
-								<div class="input-group-addon currency">$</div>
-								<input value="" type="number" class="form-control" name="totalAftertax" id="totalAftertax" placeholder="Total">
-							</div>
-						</div>
-						<div class="form-group">
-							<label>Monto Pagado: &nbsp;</label>
-							<div class="input-group">
-								<div class="input-group-addon currency">L.</div>
-								<input value="" type="number" class="form-control" name="amountPaid" id="amountPaid" placeholder="Monto Pagado">
-							</div>
-						</div>
-						<div class="form-group">
-							<label>Cambio: &nbsp;</label>
-							<div class="input-group">
-								<div class="input-group-addon currency">L.</div>
-								<input value="" type="number" class="form-control" name="amountDue" id="amountDue" placeholder="Cambio">
-							</div>
-						</div> -->
 					</span>
 				</div>
 			</div>
