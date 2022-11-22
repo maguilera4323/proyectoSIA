@@ -46,7 +46,7 @@
 <div class="container-fluid">
 	<ul class="full-box list-unstyled page-nav-tabs">
 		<li>
-			<a href="<?php echo SERVERURL; ?>proveedor-new/"><i class="fas fa-plus fa-fw"></i> &nbsp; AGREGAR CLINTE</a>
+			<a href="<?php echo SERVERURL; ?>cliente-new/"><i class="fas fa-plus fa-fw"></i> &nbsp; AGREGAR CLINTE</a>
 		</li>
 		<li>
 			<a class="active" href="<?php echo SERVERURL; ?>cliente-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE CLIENTE</a>
@@ -64,7 +64,7 @@ if(isset($_GET['enviar'])){
 
 	if (isset($_GET['busqueda']))
 	{
-		$where="WHERE TBL_Proveedores.nom_proveedor LIKE'%".$busqueda."%'";
+		$where="WHERE TBL_Clientes.nom_cliente LIKE'%".$busqueda."%'";
 	}
   
 }
@@ -76,7 +76,7 @@ if(isset($_GET['enviar'])){
       <div class="container-fluid">
   <form class="d-flex">
       <input class="form-control me-2 light-table-filter" data-table="table_id" type="text" 
-      placeholder="Buscar Proveedor">
+      placeholder="Buscar cliente">
       <hr>
       </form>
   </div>
@@ -89,9 +89,8 @@ if(isset($_GET['enviar'])){
                          <tr>
                         <th>NOMBRE</th>
                         <th>RTN</th>
+						<th>DNI</th>
                         <th>TELEFONO</th>
-                        <th>CORREO</th>
-                        <th>DIRECCION</th>
                     	<th>ACTUALIZAR</th>
 						<th>ELIMINAR</th>
                         </tr>
@@ -101,7 +100,7 @@ if(isset($_GET['enviar'])){
 				<?php
 
 include ("./cone.php");              
-$SQL="SELECT * FROM TBL_Proveedores 
+$SQL="SELECT * FROM TBL_Clientes 
 $where";
 $dato = mysqli_query($conexion, $SQL);
 
@@ -110,20 +109,19 @@ if($dato -> num_rows >0){
     
 ?>
 <tr>
-<td><?php echo $fila['nom_proveedor']; ?></td>
-<td><?php echo $fila['rtn_proveedor']; ?></td>
-<td><?php echo $fila['tel_proveedor']; ?></td>
-<td><?php echo $fila['correo_proveedor']; ?></td>
-<td><?php echo $fila['dir_proveedor']; ?></td>
+<td><?php echo $fila['nom_cliente']; ?></td>
+<td><?php echo $fila['rtn_cliente']; ?></td>
+<td><?php echo $fila['dni_clinte']; ?></td>
+<td><?php echo $fila['tel_cliente']; ?></td>
 <td>
-	<a href="<?php echo SERVERURL; ?>proveedor-update/<?php echo $fila['id_Proveedores']?>" class="btn btn-success">
+	<a href="<?php echo SERVERURL; ?>cliente-update/<?php echo $fila['id_clientes']?>" class="btn btn-success">
 		<i class="fas fa-sync-alt"></i>	
 	</a>
 </td>
 <td>
-	<form class="FormularioAjax" action="<?php echo SERVERURL; ?>ajax/proveedorAjax.php" method="POST" data-form="delete" autocomplete="off">
-	<input type="hidden" pattern="" class="form-control" name="id_proveedor_del" value="<?php echo $fila['id_Proveedores'] ?>">
-	<input type="hidden" pattern="" class="form-control" name="proveedor_del" value="<?php echo $fila['nom_proveedor'] ?>">	
+	<form class="FormularioAjax" action="<?php echo SERVERURL; ?>ajax/clienteAjax.php" method="POST" data-form="delete" autocomplete="off">
+	<input type="hidden" pattern="" class="form-control" name="id_clientes_del" value="<?php echo $fila['id_clientes'] ?>">
+	<input type="hidden" pattern="" class="form-control" name="cliente_del" value="<?php echo $fila['nom_cliente'] ?>">	
 	<button type="submit" class="btn btn-warning">
 		<i class="far fa-trash-alt"></i>
 	</button>
