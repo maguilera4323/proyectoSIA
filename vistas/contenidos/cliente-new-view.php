@@ -51,7 +51,7 @@
 				<div class="row">
 					<div class="col-12 col-md-6">
 						<div class="form-group">
-							<label for="cliente_dni" class="bmd-label-floating">Nombre Cliennte</label>
+							<label for="cliente_dni" class="bmd-label-floating">Nombre Cliente</label>
 							<input type="text" class="form-control" name="nombre_cliente_nuevo" id="cliente_dni" maxlength="27">
 						</div>
 					</div>

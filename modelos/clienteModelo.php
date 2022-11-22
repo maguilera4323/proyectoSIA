@@ -2,47 +2,44 @@
 	
 	require_once "mainModel.php";
 
-	class proveedorModelo extends mainModel{
+	class clienteModelo extends mainModel{
 
-		/*--------- Modelo agregar proveedor ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
-		protected static function agregar_proveedor_modelo($datos)
+		/*--------- Modelo agregar cliente ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
+		protected static function agregar_cliente_modelo($datos)
 		{
-			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_Proveedores(nom_proveedor,rtn_proveedor,
-			tel_proveedor,correo_proveedor,dir_proveedor)
-			VALUES(?,?,?,?,?)");
+			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_Clientes(nom_cliente,rtn_cliente,
+			dni_clinte,tel_cliente)
+			VALUES(?,?,?,?)");
 
 			$sql->bindParam(1,$datos['nombre']);
+			$sql->bindParam(3,$datos['dni']);
 			$sql->bindParam(2,$datos['rtn']);
-			$sql->bindParam(3,$datos['telefono']);
-			$sql->bindParam(4,$datos['correo']);
-			$sql->bindParam(5,$datos['direccion']);
+			$sql->bindParam(4,$datos['tel']);
 			$sql->execute();
 			return $sql;
 
 											
 		}
 
-		/*--------- Modelo actualizar proveedor ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
-		protected static function actualizar_proveedor_modelo($dato,$id)
+		/*--------- Modelo actualizar CLIENTE ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
+		protected static function actualizar_cliente_modelo($dato,$id)
 		{
-			$sql=mainModel::conectar()->prepare("UPDATE TBL_Proveedores SET nom_proveedor=?,rtn_proveedor=?,tel_proveedor=?,
-			correo_proveedor=?, dir_proveedor=? WHERE id_Proveedores=?");
+			$sql=mainModel::conectar()->prepare("UPDATE TBL_Clientes SET nom_cliente=?,rtn_cliente=?,dni_clinte=?,tel_cliente=? WHERE id_clientes=?");
 
 			$sql->bindParam(1,$dato['nombre']);
-			$sql->bindParam(2,$dato['rtn']);	
-			$sql->bindParam(3,$dato['telefono']);			
-			$sql->bindParam(4,$dato['correo']);			
-			$sql->bindParam(5,$dato['direccion']);
-			$sql->bindParam(6,$id);
+			$sql->bindParam(3,$dato['dni']);
+			$sql->bindParam(2,$dato['rtn']);
+			$sql->bindParam(4,$dato['tel']);
+			$sql->bindParam(5,$id);
 			$sql->execute();
 			return $sql;
 		}
 
 
 
-		protected static function datos_proveedor_modelo($tipo,$id){
+		protected static function datos_cliente_modelo($tipo,$id){
 			if($tipo=='unico'){
-				$sql=mainModel::conectar()->prepare("SELECT * FROM TBL_Proveedores where id_Proveedores=?");
+				$sql=mainModel::conectar()->prepare("SELECT * FROM TBL_Clientes where id_clientes=?");
 				$sql->bindParam(1,$id);
 			}
 			$sql->execute();
@@ -51,7 +48,7 @@
 
 
 
-		 protected static function eliminar_proveedor_modelo($accion,$id){
+		 protected static function eliminar_cliente_modelo($accion,$id){
 			if ($accion=='borrar'){
 				$sql=mainModel::conectar()->prepare("DELETE FROM TBL_Proveedores where id_Proveedores=?");
 				$sql->bindParam(1,$id);

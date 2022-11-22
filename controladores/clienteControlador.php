@@ -4,43 +4,41 @@
 } 
 
 if($peticionAjax){
-	require_once "../modelos/proveedorModelo.php";
+	require_once "../modelos/clienteModelo.php";
 	require_once "../pruebabitacora.php";
 }else{
-	require_once "./modelos/proveedorModelo.php";
+	require_once "./modelos/clienteModelo.php";
 	require_once "./pruebabitacora.php";//aqui se ejecuta dentro del index y no se utiliza Ajax
 }
 
 
-class proveedorControlador extends proveedorModelo
+class clienteControlador extends clienteModelo
 {
 
-	/*--------- Controlador agregar proveedor ---------*/
-	public function agregar_proveedor_controlador()
+	/*--------- Controlador agregar cliente ---------*/
+	public function agregar_cliente_controlador()
 	{
-		$Nombre=mainModel::limpiar_cadena(strtoupper($_POST['nombre_proveedor_nuevo']));
-		$Rtn=mainModel::limpiar_cadena(strtoupper($_POST['rtn_proveedor_nuevo']));
-		$Telefono=mainModel::limpiar_cadena($_POST['telefono_proveedor_nuevo']);
-		$Correo=mainModel::limpiar_cadena($_POST['correo_proveedor_nuevo']);
-		$Direccion=mainModel::limpiar_cadena($_POST['direccion_proveedor_nuevo']);
+		$Nombre=mainModel::limpiar_cadena(strtoupper($_POST['nombre_cliente_nuevo']));
+		$Dni=mainModel::limpiar_cadena(strtoupper($_POST['dni_cliente']));
+		$Rtn=mainModel::limpiar_cadena($_POST['rtn_cliente']);
+		$telefono=mainModel::limpiar_cadena($_POST['telefono_nuevo']);
 		
 					
 			/*== AGREGAR PROVEEDOR ==*/
-			$datos_proveedor_reg=[
+			$datos_cliente_reg=[
 				"nombre"=>$Nombre,
-				"rtn"=>$Rtn,
-				"telefono"=>$Telefono,
-				"correo"=>$Correo,
-				"direccion"=>$Direccion
+				"dni"=>$Dni,
+				"rtn"=>$Rtn,	
+				"tel"=>$telefono,
 			];
 
-			$agregar_proveedor=proveedorModelo::agregar_proveedor_modelo($datos_proveedor_reg);
+			$agregar_cliente=clienteModelo::agregar_cliente_modelo($datos_cliente_reg);
 
-			if($agregar_proveedor->rowCount()==1){
+			if($agregar_cliente->rowCount()==1){
 				$alerta=[
 					"Alerta"=>"limpiar",
-					"Titulo"=>"Proveedor registrado",
-					"Texto"=>"Los datos del proveedor han sido registrados con exito",
+					"Titulo"=>"Cliente registrado",
+					"Texto"=>"Los datos del cliente han sido registrados con exito",
 					"Tipo"=>"success"
 				];
 
@@ -49,7 +47,7 @@ class proveedorControlador extends proveedorModelo
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"No hemos podido registrar el Proveedor",
+					"Texto"=>"No hemos podido registrar el Cliente",
 					"Tipo"=>"error"
 				];
 			}
@@ -59,24 +57,23 @@ class proveedorControlador extends proveedorModelo
 				"id_objeto" => 0,
 				"fecha" => date('Y-m-d h:i:s'),
 				"id_usuario" => $_SESSION['id_login'],
-				"accion" => "Creación de Proveedor",
-				"descripcion" => "El usuario ".$_SESSION['usuario_login']." creó un nuevo proveedor en el sistema"
+				"accion" => "Creación de Cliente",
+				"descripcion" => "El usuario ".$_SESSION['usuario_login']." creó un nuevo cliente en el sistema"
 			];
 			Bitacora::guardar_bitacora($datos_bitacora); 
 	} /* Fin controlador */
 
 
 	/*--------- Controlador actualizar proveedor ---------*/
-	public function actualizar_proveedor_controlador()
+	public function actualizar_cliente_controlador()
 	{	
 		$id_actualizar=mainModel::limpiar_cadena($_POST['id_actualizacion']);
-		$Nombre=mainModel::limpiar_cadena($_POST['nombre_proveedor_actu']);
-		$Rtn=mainModel::limpiar_cadena($_POST['rtn_proveedor_actu']);
-		$Telefono=mainModel::limpiar_cadena($_POST['telefono_proveedor_actu']);
-		$Correo=mainModel::limpiar_cadena($_POST['correo_proveedor_actu']);
-		$Direccion=mainModel::limpiar_cadena($_POST['direccion_proveedor_actu']);
+		$Nombre=mainModel::limpiar_cadena(strtoupper($_POST['nombre_cliente_actu']));
+		$Dni=mainModel::limpiar_cadena(strtoupper($_POST['dni_cliente_actu']));
+		$Rtn=mainModel::limpiar_cadena($_POST['rtn_cliente_actu']);
+		$telefono=mainModel::limpiar_cadena($_POST['telefono_actu']);
 		
-		if($Nombre=="" || $Rtn=="" || $Telefono=="" || $Correo=="" || $Direccion==""){
+		if($Nombre=="" || $Dni=="" || $Rtn=="" || $telefono="" ){
 			$alerta=[
 				"Alerta"=>"simple",
 				"Titulo"=>"Ocurrió un error inesperado",
@@ -111,59 +108,26 @@ class proveedorControlador extends proveedorModelo
 				exit();
 			}
 			
-			if(mainModel::verificar_datos("[0-9]{1,20}",$Telefono)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El TELEFONO no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-
-			if(mainModel::verificar_datos("[a-z@_0-9.]{1,30}",$Correo)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El CORREO no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-
-			if(mainModel::verificar_datos("[A-Za-zÑñ0-9 .,]{1,100}",$Direccion)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"La DIRECCION no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-		
 	
-			/*== ACTUALIZAR PROVEEDOR ==*/
-		$datos_proveedor_actu=
+	
+			/*== ACTUALIZAR cliente ==*/
+		$datos_cliente_actu=
 			[
 				"nombre"=>$Nombre,
-				"rtn"=>$Rtn,
-				"telefono"=>$Telefono,
-				"correo"=>$Correo,
-				"direccion"=>$Direccion,
+				"dni"=>$Dni,
+				"rtn"=>$Rtn,	
+				"tel"=>$telefono,
 						
 			];
 
-			$actualizar_proveedor=proveedorModelo::actualizar_proveedor_modelo($datos_proveedor_actu,$id_actualizar);
+			$actualizar_cliente=clienteModelo::actualizar_cliente_modelo($datos_cliente_actu,$id_actualizar);
 
-			if($actualizar_proveedor->rowCount()==1)
+			if($actualizar_cliente->rowCount()==1)
 			{
 				$alerta=[
 					"Alerta"=>"limpiar",
-					"Titulo"=>"Proveedor Actualizado",
-					"Texto"=>"Proveedor actualizado exitosamente",
+					"Titulo"=>"Cliente Actualizado",
+					"Texto"=>"CLiente actualizado exitosamente",
 					"Tipo"=>"success"
 				];
 			}else
@@ -171,7 +135,7 @@ class proveedorControlador extends proveedorModelo
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"No hemos podido actualizar el proveedor",
+					"Texto"=>"No hemos podido actualizar el Cliente",
 					"Tipo"=>"error"
 				];
 			}
@@ -181,36 +145,36 @@ class proveedorControlador extends proveedorModelo
 				"id_objeto" => 0,
 				"fecha" => date('Y-m-d h:i:s'),
 				"id_usuario" => $_SESSION['id_login'],
-				"accion" => "Modificación de proveedor",
-				"descripcion" => "El usuario ".$_SESSION['usuario_login']." actualizó un proveedor en el sistema"
+				"accion" => "Modificación de cliente",
+				"descripcion" => "El usuario ".$_SESSION['usuario_login']." actualizó un cliente en el sistema"
 			];
 			Bitacora::guardar_bitacora($datos_bitacora); 
 	} /* Fin controlador */
 	
 
-	public function datosproveedorControlador($tipo,$id){
+	public function datosclienteControlador($tipo,$id){
 		$tipo=mainModel::limpiar_cadena($tipo);
 		$id=mainModel::limpiar_cadena($id);
 
-		return proveedorModelo::datos_proveedor_modelo($tipo,$id);
+		return clienteModelo::datos_cliente_modelo($tipo,$id);
 	}
 
 	
 
-		//funcion para eliminar un proveedor
-		public function eliminarProveedor()
+		//funcion para eliminar un cliente
+		public function eliminarCliente()
 		{
-			$id=mainModel::limpiar_cadena(($_POST['id_proveedor_del']));
-			$Proveedor=mainModel::limpiar_cadena(($_POST['proveedor_del']));
+			$id=mainModel::limpiar_cadena(($_POST['id_cliente_del']));
+			$Cliente=mainModel::limpiar_cadena(($_POST['cliente_del']));
 			$array=array();
 			$valor='';
 
 		
 
-		//verifica que el proveedor si exista en el sistema
-		$check_proveedor=mainModel::ejecutar_consulta_simple("SELECT id_Proveedores FROM TBL_Proveedores
-		WHERE id_Proveedores='$id'");
-		if($check_proveedor->rowCount()<=0){
+		//verifica que el cliente si exista en el sistema
+		$check_cliente=mainModel::ejecutar_consulta_simple("SELECT id_clientes FROM TBL_Cliente
+		WHERE id_cliente='$id'");
+		if($check_cliente->rowCount()<=0){
 			$alerta=[
 				"Alerta"=>"simple",
 				"Titulo"=>"Ha ocurrido un error",
@@ -222,8 +186,8 @@ class proveedorControlador extends proveedorModelo
 		}
 
 		
-		$eliminarproveedor=proveedorModelo::eliminar_proveedor_modelo("borrar",$id);
-			if($eliminarproveedor->rowCount()==1){
+		$eliminarcliente=clienteModelo::eliminar_cliente_modelo("borrar",$id);
+			if($eliminarcliente->rowCount()==1){
 				$alerta=[
 					"Alerta"=>"recargar",
 					"Titulo"=>"Usuario Borrado",
@@ -244,7 +208,7 @@ class proveedorControlador extends proveedorModelo
 			"fecha" => date('Y-m-d H:i:s'),
 			"id_usuario" => $_SESSION['id_login'],
 			"accion" => "Proveedor eliminado",
-			"descripcion" => "El usuario ".$_SESSION['usuario_login']." eliminó un proveedor del sistema"
+			"descripcion" => "El usuario ".$_SESSION['usuario_login']." eliminó un cliente del sistema"
 		];
 		Bitacora::guardar_bitacora($datos_bitacora);
 			exit();

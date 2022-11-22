@@ -2,26 +2,26 @@
 	$peticionAjax=true;
 	require_once "../config/APP.php";
 
-	if(isset($_POST['nombre_proveedor_nuevo']) || isset($_POST['nombre_proveedor_actu']) || isset($_POST['id_proveedor_del']))
+	if(isset($_POST['nombre_cliente_nuevo']) || isset($_POST['nombre_cliente_actu']) || isset($_POST['id_cliente_del']))
 	{
 		/*--------- Instancia al controlador ---------*/
-		require_once "../controladores/proveedorControlador.php";
-		$ins_proveedor = new proveedorControlador();
+		require_once "../controladores/clienteControlador.php";
+		$ins_cliente = new clienteControlador();
 
 
 		/*--------- Agregar un proveedor ---------*/
-		if(isset($_POST['nombre_proveedor_nuevo'])){
-			echo $ins_proveedor->agregar_proveedor_controlador();
+		if(isset($_POST['nombre_cliente_nuevo'])){
+			echo $ins_cliente->agregar_cliente_controlador();
 			die();
 		}
 		
-		if(isset($_POST['nombre_proveedor_actu']) ){
-			echo $ins_proveedor->actualizar_proveedor_controlador();
+		if(isset($_POST['nombre_cliente_actu']) ){
+			echo $ins_proveedor->actualizar_cliente_controlador();
 			die();
 		}
 		
-		if(isset($_POST['id_proveedor_del']) ){
-			echo $ins_proveedor->eliminarProveedor();
+		if(isset($_POST['id_cliente_del']) ){
+			echo $ins_proveedor->eliminarCliente();
 			die();
 		}else{
 			session_start();//se cambio de SPM  a SIA
