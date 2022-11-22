@@ -97,10 +97,6 @@
             <input type="text" value="<?php echo $campos['correo_electronico']?>" class="form-control" id="usuariocorreo" name="correousuario">
           </div>
 		  <h>CAMBIO DE CONTRASEÑA</h6>
-		  <div class="form-group">
-            <label for="Usuario" class="col-form-label">Contraseña Actual:</label>
-            <input type="password" value="" class="form-control" id="actualcontraseña" name="contraseña_actual"><?php if(isset($existe)) {echo $existe;} ?>
-          </div>
           <div class="form-group">
             <label for="message-text" class="col-form-label">Nueva Contraseña:</label>
             <input type="password" value="" style="color:red" class="form-control" id="nuevacontraseña" name="contraseña_nueva">

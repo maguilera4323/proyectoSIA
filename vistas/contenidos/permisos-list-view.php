@@ -72,7 +72,7 @@
 <div class="container-fluid">
   <form class="d-flex">
       <input class="form-control me-2 light-table-filter" data-table="table_id" type="text" 
-      placeholder="Buscar rol">
+      placeholder="Buscar permiso">
       <hr>
 </form>
 </div>

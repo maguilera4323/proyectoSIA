@@ -5,7 +5,7 @@
 		//verificación de permisos
 		//se revisa si el usuario tiene acceso a una vista específica por medio del rol que tiene y el objeto al que quiere acceder
 		$id_rol=$_SESSION['id_rol'];
-			$SQL="SELECT * FROM TBL_permisos where id_rol='$id_rol' and id_objeto=12";
+			$SQL="SELECT * FROM TBL_permisos where id_rol='$id_rol' and id_objeto=15";
 			$dato = mysqli_query($conexion, $SQL);
 
 			if($dato -> num_rows >0){
@@ -26,11 +26,11 @@
 			}else{
 				$datos_bitacora = 
 				[
-					"id_objeto" => 12,
+					"id_objeto" => 15,
 					"fecha" => date('Y-m-d H:i:s'),
 					"id_usuario" => $_SESSION['id_login'],//cambiar aqui para que me pueda traer el USU conectado
 					"accion" => "Cambio de vista",
-					"descripcion" => "El usuario ".$_SESSION['usuario_login']." entró a la Vista de Compras"
+					"descripcion" => "El usuario ".$_SESSION['usuario_login']." entró a la Vista de Detalle de Compras"
 				];
 				Bitacora::guardar_bitacora($datos_bitacora);
 			}

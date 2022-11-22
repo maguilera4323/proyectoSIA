@@ -5,6 +5,29 @@
 		session_start();
 	}
 
+		//verificación de permisos
+		//se revisa si el usuario tiene acceso a una vista específica por medio del rol que tiene y el objeto al que quiere acceder
+		$id_rol=$_SESSION['id_rol'];
+			$SQL="SELECT * FROM TBL_permisos where id_rol='$id_rol' and id_objeto=16";
+			$dato = mysqli_query($conexion, $SQL);
+
+			if($dato -> num_rows >0){
+				while($fila=mysqli_fetch_array($dato)){
+					$permiso_ins=$fila['permiso_insercion'];
+				}
+			}
+
+			//valida si el query anterior no retornó ningún valor
+			//en este caso no había un permiso registrado del objeto para el rol del usuario conectado
+			if(!isset($permiso_ins)){
+				echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Usted no tiene acceso autorizado a esta vista</div>';
+				echo "<script> window.location.href='".SERVERURL."home/'; </script>";	
+			//valida si el permiso tiene valor de cero, lo que significa que no puede acceder a la vista	
+			}else if($permiso_ins==0){
+				echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Usted no tiene acceso autorizado a esta vista</div>';
+				echo "<script> window.location.href='".SERVERURL."facturacion-list/'; </script>";
+			}
+
 	//llamado al controlador de la factura
     require_once 'controladores/facturacionControlador.php';
 	$factura = new Invoice();
@@ -157,7 +180,8 @@
 					<br>
 					<div class="form-group">
 						<input type="hidden" value="<?php echo $_SESSION['usuario_login']; ?>" class="form-control" name="userId">
-						<input data-loading-text="Guardando factura..." type="submit" name="invoice_btn" value="Guardar factura" class="btn btn-success submit_btn invoice-save-btm">
+						<input data-loading-text="Guardando factura..." type="submit" name="invoice_btn" value="Guardar factura" 
+						class="btn btn-success submit_btn invoice-save-btm" style="font-size:20px; border: 2px solid #777574;">
 					</div>
 
 				</div>
