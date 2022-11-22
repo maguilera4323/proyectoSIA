@@ -23,6 +23,18 @@
 					<a href="<?php echo SERVERURL; ?>home/"><i class="fab fa-dashcube fa-fw"></i> &nbsp; Inicio</a>
 				</li>
 				<li>
+					<a href="#" class="nav-btn-submenu"><i class="fas fa-walking"></i> &nbsp; Clientes <i class="fas fa-chevron-down"></i></a>
+					<ul>
+						<li>
+							<a href="<?php echo SERVERURL; ?>cliente-new/"><i class="fas fa-plus fa-fw"></i> &nbsp; Agregar Cliente</a>
+						</li>
+						<li>
+							<a href="<?php echo SERVERURL; ?>cliente-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; Lista de Clientes</a>
+						</li>
+						
+					</ul>
+				</li>
+				<li>
 					<a href="#" class="nav-btn-submenu"><i class="fas fa-users fa-fw"></i> &nbsp; Proveedores <i class="fas fa-chevron-down"></i></a>
 					<ul>
 						<li>

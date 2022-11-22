@@ -6,6 +6,7 @@
 		protected static function obtener_vistas_modelo($vistas){
 
 			$listaBlanca=["bitacora",
+			"cliente-new","cliente-list","cliente-update",
 			"compra-detalle","compra-list", "compra-update" ,"compra-new",
 			"facturacion","facturacion-list",
 			"home",
