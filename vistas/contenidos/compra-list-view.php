@@ -1,3 +1,41 @@
+<?php
+	require_once "./pruebabitacora.php";
+		include ("./cone.php");     
+
+		//verificación de permisos
+		//se revisa si el usuario tiene acceso a una vista específica por medio del rol que tiene y el objeto al que quiere acceder
+		$id_rol=$_SESSION['id_rol'];
+			$SQL="SELECT * FROM TBL_permisos where id_rol='$id_rol' and id_objeto=12";
+			$dato = mysqli_query($conexion, $SQL);
+
+			if($dato -> num_rows >0){
+				while($fila=mysqli_fetch_array($dato)){
+					$permiso_con=$fila['permiso_consulta'];
+				}
+			}
+
+			//valida si el query anterior no retornó ningún valor
+			//en este caso no había un permiso registrado del objeto para el rol del usuario conectado
+			if(!isset($permiso_con)){
+				echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Usted no tiene acceso autorizado a esta vista</div>';
+				echo "<script> window.location.href='".SERVERURL."home/'; </script>";	
+			//valida si el permiso tiene valor de cero, lo que significa que no puede acceder a la vista	
+			}else if($permiso_con==0){
+				echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Usted no tiene acceso autorizado a esta vista</div>';
+				echo "<script> window.location.href='".SERVERURL."home/'; </script>";
+			}else{
+				$datos_bitacora = 
+				[
+					"id_objeto" => 12,
+					"fecha" => date('Y-m-d H:i:s'),
+					"id_usuario" => $_SESSION['id_login'],//cambiar aqui para que me pueda traer el USU conectado
+					"accion" => "Cambio de vista",
+					"descripcion" => "El usuario ".$_SESSION['usuario_login']." entró a la Vista de Compras"
+				];
+				Bitacora::guardar_bitacora($datos_bitacora);
+			}
+?>
+
 <div class="full-box page-header">
 	<h3 class="text-left">
 		<i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE COMPRAS
@@ -18,7 +56,6 @@
 
 <!-- BUscar compra -->
 <?php
-include ("./cone.php");
 $where="";
 
 if(isset($_GET['enviar'])){
@@ -63,7 +100,6 @@ if(isset($_GET['enviar'])){
 		<tbody>
 		
 			<?php
-				include ("./cone.php");  
 				$SQL="SELECT c.id_compra,  c.id_proveedor, p.nom_proveedor,u.usuario,e.nom_estado_compra,c.fech_compra,
 				c.total_compra FROM TBL_compras c
 				inner JOIN TBL_Proveedores p ON p.id_Proveedores = c.id_proveedor

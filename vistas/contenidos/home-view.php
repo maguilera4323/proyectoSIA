@@ -55,7 +55,23 @@
 			<div class="tile-tittle">COMPRAS</div>
 			<div class="tile-icon">
 				<i class="fas fa-shopping-cart"></i>
-				<p>4 cambiar</p>
+				<p>
+			<?php
+				include ("./cone.php");
+
+				$sql=" SELECT COUNT(*) as total_compras FROM `TBL_compras` ";
+				$result=mysqli_query($conexion,$sql);
+				while($mostrar=mysqli_fetch_assoc ($result)){
+			?>
+					<tbody>
+						<tr class="text-center" >
+							<td><?php echo $mostrar['total_compras']?></td>
+
+						</tr>
+					</tbody>
+			<?php
+				}
+			?> Compras registradas</p>
 			</div>
 		</a>
 

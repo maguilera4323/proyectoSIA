@@ -8,8 +8,6 @@
 		require_once "../controladores/rolControlador.php";
 		$ins_rol = new rolControlador();
 
-
-		/*--------- Agregar un proveedor ---------*/
 		if(isset($_POST['nombre_rol_nuevo'])){
 			echo $ins_rol->agregarRol();
 			die();

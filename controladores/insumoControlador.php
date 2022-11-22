@@ -15,7 +15,7 @@ if($peticionAjax){
 class insumoControlador extends insumoModelo
 {
 
-	/*--------- Controlador agregar proveedor ---------*/
+
 	public function agregarInsumo()
 	{
 		$nombre=mainModel::limpiar_cadena(strtoupper($_POST['nombre_insumo_nuevo']));
@@ -105,23 +105,21 @@ class insumoControlador extends insumoModelo
 				"descripcion" => "El usuario ".$_SESSION['usuario_login']." creó un nuevo insumo en el sistema"
 			];
 			Bitacora::guardar_bitacora($datos_bitacora); 
-	} /* Fin controlador */
+	} 
 
 
 	public function agregarInsumoInventario()
 	{
 		$cantidad=0;
-		
 			$datos_inv_insumo_reg=[
 				"cant"=>$cantidad,
 			];
 
 			$agregar_inv_insumo=insumoModelo::agregar_inv_insumo_modelo($datos_inv_insumo_reg);
 
-	} /* Fin controlador */
+	} 
 
 
-	/*--------- Controlador actualizar usuario ---------*/
 	public function actualizarInsumo()
 	{	
 		$nombre=mainModel::limpiar_cadena(strtoupper($_POST['nombre_insumo_act']));
