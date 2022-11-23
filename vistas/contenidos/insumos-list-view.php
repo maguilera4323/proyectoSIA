@@ -37,7 +37,10 @@
 				];
 				Bitacora::guardar_bitacora($datos_bitacora);
 			}
+
+	
 ?>
+
 
 <div class="full-box page-header">
 	<h3 class="text-left">
@@ -56,6 +59,16 @@
 		</li>
 		<li>
 			<a href="<?php echo SERVERURL; ?>movimiento-inventario/"><div class="btn btn-danger btn-lg"><i class="fas fa-dolly-flatbed"></i> &nbsp; MOVIMIENTOS DE INVENTARIO</div></a>
+		</li>
+		<li>
+		<form action="../controladores/pdfControlador.php" method="post" accept-charset="utf-8">
+                  <div class="row">
+                    <div class="col">
+                      <span class="btn btn-dark mb-2" id="filtro">Filtrar</span>
+                      <button type="submit" class="btn btn-danger mb-2">Descargar Reporte</button>
+                    </div>
+                  </div>
+                </form>
 		</li>
 		
 	</ul>	
