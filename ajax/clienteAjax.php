@@ -16,12 +16,12 @@
 		}
 		
 		if(isset($_POST['nombre_cliente_actu']) ){
-			echo $ins_proveedor->actualizar_cliente_controlador();
+			echo $ins_cliente->actualizar_cliente_controlador();
 			die();
 		}
 		
 		if(isset($_POST['id_cliente_del']) ){
-			echo $ins_proveedor->eliminarCliente();
+			echo $ins_cliente->eliminarCliente();
 			die();
 		}else{
 			session_start();//se cambio de SPM  a SIA

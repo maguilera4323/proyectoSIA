@@ -23,8 +23,66 @@ class clienteControlador extends clienteModelo
 		$Rtn=mainModel::limpiar_cadena($_POST['rtn_cliente']);
 		$telefono=mainModel::limpiar_cadena($_POST['telefono_nuevo']);
 		
+
+		if($Nombre=="" || $Dni=="" || $Rtn=="" || $telefono=="" ){
+			$alerta=[
+				"Alerta"=>"simple",
+				"Titulo"=>"Ocurrió un error inesperado",
+				"Texto"=>"No se han llenado todos los campos que son obligatorios",
+				"Tipo"=>"error"
+			];
+			echo json_encode($alerta);
+			exit();
+		}
+
+
+			/*== Verificando integridad de los datos ==*/
+			if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ ]{1,30}",$Nombre)){
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error inesperado",
+					"Texto"=>"El NOMBRE no coincide con el formato solicitado",
+					"Tipo"=>"error"
+				];
+				echo json_encode($alerta);
+				exit();
+			}
+
+			if(mainModel::verificar_datos("[0-9 -]{1,14}",$Rtn)){
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error inesperado",
+					"Texto"=>"El RTN no coincide con el formato solicitado",
+					"Tipo"=>"error"
+				];
+				echo json_encode($alerta);
+				exit();
+			}
+
+			if(mainModel::verificar_datos("[0-9 -]{1,14}",$Dni)){
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error inesperado",
+					"Texto"=>"El DNI no coincide con el formato solicitado",
+					"Tipo"=>"error"
+				];
+				echo json_encode($alerta);
+				exit();
+			}
+
+			if(mainModel::verificar_datos("[0-9 -]{1,20}",$telefono)){
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error inesperado",
+					"Texto"=>"El TELEFONO no coincide con el formato solicitado",
+					"Tipo"=>"error"
+				];
+				echo json_encode($alerta);
+				exit();
+			}
+
 					
-			/*== AGREGAR PROVEEDOR ==*/
+			/*== AGREGAR CLIENTE ==*/
 			$datos_cliente_reg=[
 				"nombre"=>$Nombre,
 				"dni"=>$Dni,
@@ -73,7 +131,7 @@ class clienteControlador extends clienteModelo
 		$Rtn=mainModel::limpiar_cadena($_POST['rtn_cliente_actu']);
 		$telefono=mainModel::limpiar_cadena($_POST['telefono_actu']);
 		
-		if($Nombre=="" || $Dni=="" || $Rtn=="" || $telefono="" ){
+		if($Nombre=="" || $Dni=="" || $Rtn=="" || $telefono=="" ){
 			$alerta=[
 				"Alerta"=>"simple",
 				"Titulo"=>"Ocurrió un error inesperado",
@@ -97,11 +155,33 @@ class clienteControlador extends clienteModelo
 				exit();
 			}
 
-			if(mainModel::verificar_datos("[0-9]{1,14}",$Rtn)){
+			if(mainModel::verificar_datos("[0-9 -]{1,14}",$Rtn)){
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
 					"Texto"=>"El RTN no coincide con el formato solicitado",
+					"Tipo"=>"error"
+				];
+				echo json_encode($alerta);
+				exit();
+			}
+
+			if(mainModel::verificar_datos("[0-9 -]{1,14}",$Dni)){
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error inesperado",
+					"Texto"=>"El DNI no coincide con el formato solicitado",
+					"Tipo"=>"error"
+				];
+				echo json_encode($alerta);
+				exit();
+			}
+
+			if(mainModel::verificar_datos("[0-9 -]{1,20}",$telefono)){
+				$alerta=[
+					"Alerta"=>"simple",
+					"Titulo"=>"Ocurrió un error inesperado",
+					"Texto"=>"El TELEFONO no coincide con el formato solicitado",
 					"Tipo"=>"error"
 				];
 				echo json_encode($alerta);
