@@ -90,10 +90,10 @@ class MYPDF extends TCPDF{
         $pdf->SetFont('helvetica','B',8); //La B es para letras en Negritas
         $pdf->Cell(15,6,'ROL',1,0,'C',1);
         $pdf->Cell(18,6,'OBJETO',1,0,'C',1);
-        $pdf->Cell(35,6,'PERMISO INSERCION',1,0,'C',1);
-        $pdf->Cell(35,6,'PERMISO ACTUALIZACION',1,0,'C',1); 
-        $pdf->Cell(35,6,'PERMISO ELIMINACION',1,0,'C',1); 
-        $pdf->Cell(35,6,'PERMISO CONSULTA',1,1,'C',1); 
+        $pdf->Cell(35,6,'INSERCION',1,0,'C',1);
+        $pdf->Cell(35,6,'ACTUALIZACION',1,0,'C',1); 
+        $pdf->Cell(35,6,'ELIMINACION',1,0,'C',1); 
+        $pdf->Cell(35,6,'CONSULTA',1,1,'C',1); 
         /*El 1 despues de  Fecha Ingreso indica que hasta alli 
         llega la linea */
 

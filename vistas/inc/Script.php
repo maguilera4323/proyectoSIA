@@ -21,6 +21,8 @@
 
 <script src="<?php echo SERVERURL; ?>vistas/js/alertas.js" ></script>
 
+<script src="<?php echo SERVERURL; ?>vistas/js/alertasFactura.js" ></script>
+
 <script src="<?php echo SERVERURL; ?>vistas/js/funciones.js" ></script>
 
 <script src="<?php echo SERVERURL; ?>vistas/js/buscador.js" ></script>

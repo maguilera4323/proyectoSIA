@@ -38,19 +38,6 @@
 			return $sql;
 		}
 
-
-
-		protected static function datos_proveedor_modelo($tipo,$id){
-			if($tipo=='unico'){
-				$sql=mainModel::conectar()->prepare("SELECT * FROM TBL_Proveedores where id_Proveedores=?");
-				$sql->bindParam(1,$id);
-			}
-			$sql->execute();
-			return $sql;
-		}
-
-
-
 		 protected static function eliminar_proveedor_modelo($accion,$id){
 			if ($accion=='borrar'){
 				$sql=mainModel::conectar()->prepare("DELETE FROM TBL_Proveedores where id_Proveedores=?");

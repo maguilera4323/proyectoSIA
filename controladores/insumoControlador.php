@@ -211,16 +211,7 @@ class insumoControlador extends insumoModelo
 			];
 			Bitacora::guardar_bitacora($datos_bitacora); 
 	} /* Fin controlador */
-	
 
-	public function datosInsumoControlador($tipo,$id){
-		$tipo=mainModel::limpiar_cadena($tipo);
-		$id=mainModel::limpiar_cadena($id);
-
-		return insumoModelo::datos_insumo_modelo($tipo,$id);
-	}
-
-	
 
 		//funcion para eliminar un proveedor
 		public function eliminarInsumo()

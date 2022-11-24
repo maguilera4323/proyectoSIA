@@ -37,6 +37,16 @@
 				];
 				Bitacora::guardar_bitacora($datos_bitacora);
 			}
+
+			$SQL_parametro="SELECT valor FROM TBL_ms_parametros where parametro='ADMIN_DIAS_VIGENCIA'";
+			$dato_parametro = mysqli_query($conexion, $SQL_parametro);
+
+			if($dato_parametro -> num_rows >0){
+				while($fila=mysqli_fetch_array($dato_parametro)){
+					$vigencia=$fila['valor'];
+
+				}
+			}
 ?>
 
 <div class="full-box page-header">
@@ -142,7 +152,7 @@ if(isset($_GET['enviar'])){
 										<div class="col-10 col-md-6">
 											<div class="form-group">
 												<label class="color-label">Usuario</label>
-												<input type="text" class="form-control" name="usuario_actu" id="nom_usuario" maxlength="15" 
+												<input type="text" class="form-control" name="usuario_actu" id="nom_usuario" 
 												style="text-transform:uppercase;" value="<?php echo $fila['usuario']?>" >
 											</div>
 										</div>
@@ -151,14 +161,14 @@ if(isset($_GET['enviar'])){
 											<div class="form-group">
 												<label class="color-label">Nombre</label>
 												<input type="text" class="form-control" name="nombre_usuario_actu" id="nombre_usuario" 
-												style="text-transform:uppercase;" maxlength="20" value="<?php echo $fila['nombre_usuario']?>" >
+												style="text-transform:uppercase;" value="<?php echo $fila['nombre_usuario']?>" >
 											</div>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="color-label">Correo</label>
 										<input type="email" class="form-control" name="correo_electronico_actu" id="correo_electronico" 
-										maxlength="70" value="<?php echo $fila['correo_electronico']?>">
+										 value="<?php echo $fila['correo_electronico']?>">
 									</div>
 									<div class="form-group">
 										<input type="hidden" pattern="" class="form-control" name="id_actualizacion" value="<?php echo $fila['id_usuario'];?>">
@@ -177,7 +187,7 @@ if(isset($_GET['enviar'])){
 										<div class="col-12 col-md-4">
 											<div class="form-group">
 													<label class="color-label">Estado</label>
-													<select class="form-control" name="estado_actu">
+													<select class="form-control" name="estado_actu" required>
 														<option value="1">Activo</option>
 														<option value="2">Inactivo</option>
 														<option value="3">Bloqueado</option>
@@ -266,7 +276,7 @@ if(isset($_GET['enviar'])){
 					<div class="col-10 col-md-6">
 						<div class="form-group">
 							<label class="color-label">Usuario</label>
-							<input type="text" class="form-control" name="usuario_reg" id="nom_usuario" maxlength="15" 
+							<input type="text" class="form-control" name="usuario_reg" id="nom_usuario" 
 							style="text-transform:uppercase;" required="" >
 						</div>
 					</div>
@@ -275,25 +285,25 @@ if(isset($_GET['enviar'])){
 						<div class="form-group">
 							<label class="color-label">Nombre</label>
 							<input type="text" class="form-control" name="nombre_usuario_reg" id="nombre_usuario" 
-							style="text-transform:uppercase;" maxlength="20" required="" >
+							style="text-transform:uppercase;" required="" >
 						</div>
 					</div>
 				</div>
 						<div class="form-group">
 							<label class="color-label">Correo</label>
-							<input type="email" class="form-control" name="correo_electronico_reg" id="correo_electronico" maxlength="70" required="">
+							<input type="email" class="form-control" name="correo_electronico_reg" id="correo_electronico" required="">
 						</div>
 				<div class="row">
 					<div class="col-10 col-md-6">
 						<div class="form-group">
 							<label class="color-label">Contraseña</label>
-							<input type="password" class="form-control" name="contrasena_reg" id="contrasena" pattern="[a-zA-Z0-9!#%&/()=?¡*+_$@.-]{8,100}" maxlength="100" required="" >
+							<input type="password" class="form-control" name="contrasena_reg" id="contrasena" pattern="[a-zA-Z0-9!#%&/()=?¡*+_$@.-]{8,100}" maxlength="10" required="" >
 						</div>
 					</div>
 					<div class="col-12 col-md-6">
 						<div class="form-group">
 							<label class="color-label">Confirmar Contraseña</label>
-							<input type="password" class="form-control" name="conf_contrasena_reg" id="conf_contrasena" pattern="[a-zA-Z0-9!#%&/()=?¡*+_$@.-]{8,100}" maxlength="100" required="" >
+							<input type="password" class="form-control" name="conf_contrasena_reg" id="conf_contrasena" pattern="[a-zA-Z0-9!#%&/()=?¡*+_$@.-]{8,100}" maxlength="10" required="" >
 						</div>
 					</div>
 				</div>

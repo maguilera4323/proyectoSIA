@@ -49,6 +49,18 @@ class Invoice{
 			mysqli_query($this->dbConnect, $sqlInsertItem);
 		} 
 
+		/* cho '<script>
+		Swal.fire({
+			title: "Compra realizad",
+    		text: "La compra fue realizada exitosamente",
+			confirmButtonText: "Aceptar"
+		}).then((result) => {
+			if(result.value){
+				location.reload();
+			}
+		});
+		</script>'; */
+
 		$datos_bitacora = [
 			"id_objeto" => 0,
 			"fecha" => date('Y-m-d H:i:s'),

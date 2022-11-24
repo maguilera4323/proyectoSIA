@@ -85,10 +85,10 @@
         <tr>
 			<th>ROL</th>
             <th>OBJETO</th>
-            <th>PERMISO INSERCION</th>
-			<th>PERMISO ACTUALIZACION</th>
-			<th>PERMISO ELIMINACION</th>
-			<th>PERMISO CONSULTA</th>
+            <th>INSERCION</th>
+			<th>ACTUALIZACION</th>
+			<th>ELIMINACION</th>
+			<th>CONSULTA</th>
             <th>ACTUALIZAR</th>
 			<th>ELIMINAR</th>
             </tr>

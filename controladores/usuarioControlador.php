@@ -34,7 +34,7 @@ class usuarioControlador extends usuarioModelo
 		$privilegio=mainModel::limpiar_cadena($_POST['id_rol']);
 
 			/*== Verificando integridad de los datos ==*/
-			if(mainModel::verificar_datos("[A-Z]{1,15}",$Usuario)){
+			if(mainModel::verificar_datos("[A-Z]{1,20}",$Usuario)){
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
@@ -45,7 +45,7 @@ class usuarioControlador extends usuarioModelo
 				exit();
 			}
 
-			if(mainModel::verificar_datos("[A-ZÑ ]{1,20}",$Nombre)){
+			if(mainModel::verificar_datos("[A-ZÑ ]{1,25}",$Nombre)){
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
@@ -206,35 +206,24 @@ class usuarioControlador extends usuarioModelo
 		$privilegio=mainModel::limpiar_cadena($_POST['id_rol_actu']);
 		$id_actualizar=mainModel::limpiar_cadena($_POST['id_actualizacion']); 
 
-		if($Usuario=="" || $Nombre=="" || $Correo==""){
-			$alerta=[
-				"Alerta"=>"simple",
-				"Titulo"=>"Ocurrió un error inesperado",
-				"Texto"=>"No se han llenado todos los campos que son obligatorios",
-				"Tipo"=>"error"
-			];
-			echo json_encode($alerta);
-			exit();
-		}
-
 
 			/*== Verificando integridad de los datos ==*/
-			if(mainModel::verificar_datos("[A-Z]{1,15}",$Usuario)){
+			if(mainModel::verificar_datos("[A-Z]{1,20}",$Usuario)){
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El USUARIO no coincide con el formato solicitado",
+					"Texto"=>"El usuario no coincide con el formato solicitado",
 					"Tipo"=>"error"
 				];
 				echo json_encode($alerta);
 				exit();
 			}
 
-			if(mainModel::verificar_datos("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,20}",$Nombre)){
+			if(mainModel::verificar_datos("[a-zA-ZáéíóúÁÉÍÓÚñÑ ]{1,25}",$Nombre)){
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El NOMBRE no coincide con el formato solicitado",
+					"Texto"=>"El nombre no coincide con el formato solicitado",
 					"Tipo"=>"error"
 				];
 				echo json_encode($alerta);
@@ -318,7 +307,7 @@ class usuarioControlador extends usuarioModelo
 		$Confirmar_contr=mainModel::limpiar_cadena($_POST['contraseña_confirmar']);
 		$id_actualizar=mainModel::limpiar_cadena($_POST['id_actualizacion']); 
 
-		if(mainModel::verificar_datos("[A-ZÑ ]{1,20}",$NombreUsuario)){
+		if(mainModel::verificar_datos("[A-ZÑ ]{1,25}",$NombreUsuario)){
 			$alerta=[
 				"Alerta"=>"simple",
 				"Titulo"=>"Ocurrió un error inesperado",
@@ -328,9 +317,7 @@ class usuarioControlador extends usuarioModelo
 			echo json_encode($alerta);
 			exit();
 		}
-
-
-
+		
 		/*== Comprobando CLAVE ==*/
 
 
