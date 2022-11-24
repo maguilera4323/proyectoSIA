@@ -70,11 +70,15 @@
 
 </form>
 <div class="container-fluid">
-  <form class="d-flex">
-      <input class="form-control me-2 light-table-filter" data-table="table_id" type="text" 
-      placeholder="Buscar permiso">
+	<form class="d-flex" action="../pdf/permisospdf.php" method="post" accept-charset="utf-8">		
+		<input class="form-control me-2 light-table-filter" data-table="table_id" type="text" name="filtropermisos"
+		placeholder="Buscar Permisos"> <div class="row">
+					<div class="col">
+						<button type="submit" class="btn btn-danger mb-2"><i class="fas fa-file-pdf"></i> &nbsp;Descargar Reporte</button>
+					</div>
+					</div>>
       <hr>
-</form>
+      </form>
 </div>
       <table class="table table-striped table-dark table_id text-center" id="tblDatos">
         <thead>    
