@@ -10,31 +10,44 @@ ob_end_clean(); //limpiar la memoria
 class MYPDF extends TCPDF{
       
     	public function Header() {
-            $bMargin = $this->getBreakMargin();
+
+            /*$bMargin = $this->getBreakMargin();
             $auto_page_break = $this->AutoPageBreak;
             $this->SetAutoPageBreak(false, 0);
-            $img_file = dirname( __FILE__ ) .'../images/CityCoffe.jpeg';
+            $img_file = dirname( __FILE__ ) .'./images/CityCoffe.jpeg';
             $this->Image($img_file, 85, 8, 20, 25, '', '', '', false, 30, '', false, false, 0);
             $this->SetAutoPageBreak($auto_page_break, $bMargin);
-            $this->setPageMark();
+            $this->setPageMark();*/
+            $this->SetFont('helvetica', 'B',35);
+            $this->Cell(0,5, 'City Coffe', 0,0,'C');
+            $this->Image('images/logo.jpeg', 0, -40, 20, 20, 'jpeg');
+
 	    }
+
+
+        public function footer() {
+            $this->SetFont('helvetica', 'B', 9);
+            $this->SetX(-15);
+            $this->AliasNbPages('tpagina');
+            $this->Write(5, $this->PageNo().'/{tpagina}');
+        }
+        
+
 }
-
-
 //Iniciando un nuevo pdf
 $pdf = new MYPDF(PDF_PAGE_ORIENTATION, 'mm', 'Letter', true, 'UTF-8', false);
  
 //Establecer margenes del PDF
 $pdf->SetMargins(20, 35, 25);
 $pdf->SetHeaderMargin(20);
-$pdf->setPrintFooter(false);
+$pdf->setPrintFooter(true);
 $pdf->setPrintHeader(true); //Eliminar la linea superior del PDF por defecto
 $pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM); //Activa o desactiva el modo de salto de página automático
  
 //Informacion del PDF
 $pdf->SetCreator('UrianViera');
 $pdf->SetAuthor('UrianViera');
-$pdf->SetTitle('Informe de Empleados');
+$pdf->SetTitle('Reporte Insumos');
  
 /** Eje de Coordenadas
  *          Y
@@ -52,26 +65,18 @@ $pdf->SetTitle('Informe de Empleados');
 
 //Agregando la primera página
 $pdf->AddPage();
-$pdf->SetFont('helvetica','B',10); //Tipo de fuente y tamaño de letra
-$pdf->SetXY(150, 20);
-$pdf->SetXY(150, 25);
+$pdf->SetFont('helvetica','A',9); //Tipo de fuente y tamaño de letra
+$pdf->SetXY(17, 35);
+$pdf->SetXY(17, 40);
 $pdf->Write(0, 'Fecha: '. date('d-m-Y'));
-$pdf->SetXY(150, 30);
-$pdf->Write(0, 'Hora: '. date('h:i A'));
-
-$canal ='WebDeveloper';
-$pdf->SetFont('helvetica','B',10); //Tipo de fuente y tamaño de letra
-$pdf->SetXY(15, 20); //Margen en X y en Y
-$pdf->SetTextColor(204,0,0);
-$pdf->Write(0, 'Desarrollador: Urian Viera');
-$pdf->SetTextColor(0, 0, 0); //Color Negrita
-$pdf->SetXY(15, 25);
-$pdf->Write(0, 'Canal: '. $canal);
+$pdf->SetXY(17, 45);
+$pdf->Write(0, 'Hora: '. date('h:i:s A'));
 
 
 
-$pdf->Ln(35); //Salto de Linea
-$pdf->Cell(40,26,'',0,0,'C');
+
+$pdf->Ln(30); //Salto de Linea
+$pdf->Cell(40,10,'',0,0,'C');
 /*$pdf->SetDrawColor(50, 0, 0, 0);
 $pdf->SetFillColor(100, 0, 0, 0); */
 $pdf->SetTextColor(34,68,136);
@@ -81,8 +86,8 @@ $pdf->SetTextColor(34,68,136);
 //$pdf->SetTextColor(204,0,0); //Marron
 //$pdf->SetTextColor(245,245,205); //Gris claro
 //$pdf->SetTextColor(100, 0, 0); //Color Carne
-$pdf->SetFont('helvetica','B', 15); 
-$pdf->Cell(100,6,'LISTA DE INSUMOS',0,0,'C');
+$pdf->SetFont('helvetica','B', 18); 
+$pdf->Cell(90,6,'REPORTE DE INSUMOS',0,0,'C');
 
 
 $pdf->Ln(10); //Salto de Linea
@@ -101,9 +106,8 @@ llega la linea */
 $pdf->SetFont('helvetica','',10);
 
 
-$sqlTrabajadores = ("SELECT * FROM TBL_insumos");
-//$sqlTrabajadores = ("SELECT * FROM trabajadores");
-$query = mysqli_query($conexion, $sqlTrabajadores);
+$sqlinsumos = ("SELECT * FROM TBL_insumos");
+$query = mysqli_query($conexion, $sqlinsumos);
 
 while ($dataRow = mysqli_fetch_array($query)) {
         $pdf->Cell(40,6,($dataRow['nom_insumo']),1,0,'C');
@@ -113,7 +117,10 @@ while ($dataRow = mysqli_fetch_array($query)) {
     }
 
 
+
+    
 //$pdf->AddPage(); //Agregar nueva Pagina
+
 
 $pdf->Output('Resumen_Pedido_'.date('d_m_y').'.pdf', 'I'); 
 // Output funcion que recibe 2 parameros, el nombre del archivo, ver archivo o descargar,
