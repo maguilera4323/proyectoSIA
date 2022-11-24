@@ -1,20 +1,33 @@
 <?php
 require_once('../tcpdf/tcpdf.php'); //Llamando a la Libreria TCPDF
-include ("../cone.php");    //Llamando a la conexión para BD
+include ("../cone.php"); 
+include('../APP.php');   //Llamando a la conexión para BD
 date_default_timezone_set('America/Tegucigalpa');
 
 ob_end_clean(); //limpiar la memoria
 
 class MYPDF extends TCPDF{
     	public function Header() {
+            $path = dirname( __FILE__ );
+            $logo = $path.'/images/cafe.jpg';
             $bMargin = $this->getBreakMargin();
             $auto_page_break = $this->AutoPageBreak;
             $this->SetAutoPageBreak(false, 0);
-            $img_file = dirname( __FILE__ ) .'/images/cafe.jpg';
-            $this->Image($img_file, 85, 8, 20, 25, '', '', '', false, 30, '', false, false, 0);
+            $this->Image($logo, 85, 8, 20, 25, '', '', '', false, 30, '', false, false, 0);
             $this->SetAutoPageBreak($auto_page_break, $bMargin);
             $this->setPageMark();
 	    }
+
+            public function Footer() {
+                $this->SetY(-15);
+                $this->SetFont('helvetica', '', 8);
+                //Mostrar cantidad de paginas
+                //$this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
+                $this->html = '<p style="border-top:1px solid #999; text-align:center;">
+                                                HOLA DIOS 
+                                                </p>';
+                $this->writeHTML($this->html, true, false, true, false, '');
+        }
 }
 
 
@@ -25,7 +38,7 @@ class MYPDF extends TCPDF{
         //Establecer margenes del PDF
         $pdf->SetMargins(20, 35, 25);
         $pdf->SetHeaderMargin(20);
-        $pdf->setPrintFooter(false);
+        $pdf->setPrintFooter(true);
         $pdf->setPrintHeader(true); //Eliminar la linea superior del PDF por defecto
         $pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM); //Activa o desactiva el modo de salto de página automático
         
