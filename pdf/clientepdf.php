@@ -32,7 +32,7 @@ class MYPDF extends TCPDF{
         //Informacion del PDF
         $pdf->SetCreator('WorkNet');
         $pdf->SetAuthor('WorkNet');
-        $pdf->SetTitle('Informe de Proveedores');
+        $pdf->SetTitle('Informe de Clientes');
         
         /** Eje de Coordenadas
          *          Y
@@ -79,7 +79,7 @@ class MYPDF extends TCPDF{
         //$pdf->SetTextColor(245,245,205); //Gris claro
         //$pdf->SetTextColor(100, 0, 0); //Color Carne
         $pdf->SetFont('helvetica','B', 15); 
-        $pdf->Cell(100,6,'LISTA DE PROVEEDORES',0,0,'C');
+        $pdf->Cell(100,6,'LISTA DE CLIENTES',0,0,'C');
 
 
         $pdf->Ln(10); //Salto de Linea
@@ -88,30 +88,31 @@ class MYPDF extends TCPDF{
         //Almando la cabecera de la Tabla
         $pdf->SetFillColor(232,232,232);
         $pdf->SetFont('helvetica','B',12); //La B es para letras en Negritas
-        $pdf->Cell(37,6,'NOMBRE',1,0,'C',1);
-        $pdf->Cell(37,6,'RTN',1,0,'C',1);
-        $pdf->Cell(32,6,'TELEFONO',1,0,'C',1);
-        $pdf->Cell(37,6,'CORREO',1,0,'C',1); 
-        $pdf->Cell(37,6,'DIRECCION',1,1,'C',1); 
+        $pdf->Cell(40,6,'NOMBRE',1,0,'C',1);
+        $pdf->Cell(40,6,'RTN',1,0,'C',1);
+        $pdf->Cell(40,6,'DNI',1,0,'C',1);
+        $pdf->Cell(37,6,'TELEFONO',1,0,'C',1); 
         /*El 1 despues de  Fecha Ingreso indica que hasta alli 
         llega la linea */
 
         $pdf->SetFont('helvetica','',10);
 
         // filtro de insumos
-        $filtroproveedor=($_POST['filtroproveedor']);
+        $filtrocliente=($_POST['filtrocliente']);
 
-        $sqlTrabajadores = ("SELECT * FROM TBL_Proveedores WHERE nom_proveedor LIKE'%".$filtroproveedor."%'");
+        $sqlTrabajadores = ("SELECT * FROM TBL_Clientes WHERE nom_cliente LIKE'%".$filtrocliente."%'");
         
         //$sqlTrabajadores = ("SELECT * FROM trabajadores");
         $query = mysqli_query($conexion, $sqlTrabajadores);
 
+        $query = mysqli_query($conexion, $sqlTrabajadores);
+
         while ($dataRow = mysqli_fetch_array($query)) {
-                $pdf->Cell(37,6,($dataRow['nom_proveedor']),1,0,'C');
-                $pdf->Cell(37,6,$dataRow['rtn_proveedor'],1,0,'C');
-                $pdf->Cell(32,6, $dataRow['tel_proveedor'],1,0,'C');
-                $pdf->Cell(37,6, $dataRow['correo_proveedor'],1,0,'C');
-                $pdf->Cell(37,6, $dataRow['dir_proveedor'],1,1,'C');
+                $pdf->Cell(40,6,($dataRow['nom_cliente']),1,0,'C');
+                $pdf->Cell(40,6,$dataRow['rtn_cliente'],1,0,'C');
+                $pdf->Cell(40,6, $dataRow['dni_clinte'],1,0,'C');
+                $pdf->Cell(37,6, $dataRow['tel_cliente'],1,1,'C');
+                // $pdf->Cell(37,6, $dataRow['dir_proveedor'],1,1,'C');
             }
 
 
