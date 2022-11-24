@@ -91,7 +91,7 @@ class MYPDF extends TCPDF{
         $pdf->Cell(40,6,'NOMBRE',1,0,'C',1);
         $pdf->Cell(40,6,'RTN',1,0,'C',1);
         $pdf->Cell(40,6,'DNI',1,0,'C',1);
-        $pdf->Cell(37,6,'TELEFONO',1,0,'C',1); 
+        $pdf->Cell(37,6,'TELEFONO',1,1,'C',1); 
         /*El 1 despues de  Fecha Ingreso indica que hasta alli 
         llega la linea */
 
