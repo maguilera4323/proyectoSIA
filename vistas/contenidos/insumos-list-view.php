@@ -63,11 +63,6 @@
 		<li>
 			<a href="<?php echo SERVERURL; ?>movimiento-inventario/"><div class="btn btn-danger btn-lg"><i class="fas fa-dolly-flatbed"></i> &nbsp; MOVIMIENTOS DE INVENTARIO</div></a>
 		</li>
-		<li>
-		<form action="../pdf/pdfInsumos.php" method="post">
-            <button type="submit" name="imprimir" value="insumo" class="btn btn-danger btn-lg"><i class="fas fa-file-pdf"></i> &nbsp; PDF</button>
-		</form>
-		</li>
 		
 	</ul>	
 </div>
@@ -93,8 +88,7 @@ if(isset($_GET['enviar'])){
       <input class="form-control me-2 light-table-filter" data-table="table_id" type="text" name="filtroinsumo"
       placeholder="Buscar insumo"> <div class="row">
                     <div class="col">
-                      <span class="btn btn-dark mb-2" id="filtro">Filtrar</span>
-                      <button type="submit" class="btn btn-danger mb-2">Descargar Reporte</button>
+                      <button type="submit" class="btn btn-danger mb-2"><i class="fas fa-file-pdf"></i> &nbsp;Descargar Reporte</button>
                     </div>
                   </div>
       <hr>
