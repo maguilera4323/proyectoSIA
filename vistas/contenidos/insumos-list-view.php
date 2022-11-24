@@ -90,9 +90,15 @@ if(isset($_GET['enviar'])){
 
 </form>
 <div class="container-fluid">
-  <form class="d-flex">
-      <input class="form-control me-2 light-table-filter" data-table="table_id" type="text" 
-      placeholder="Buscar insumo">
+  <form class="d-flex" action="../controladores/pdfControlador.php" method="post" accept-charset="utf-8">
+  				
+      <input class="form-control me-2 light-table-filter" data-table="table_id" type="text" name="filtroinsumo"
+      placeholder="Buscar insumo"> <div class="row">
+                    <div class="col">
+                      <span class="btn btn-dark mb-2" id="filtro">Filtrar</span>
+                      <button type="submit" class="btn btn-danger mb-2">Descargar Reporte</button>
+                    </div>
+                  </div>
       <hr>
     </form>
 </div>
