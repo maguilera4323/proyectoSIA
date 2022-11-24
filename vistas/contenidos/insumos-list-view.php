@@ -1,6 +1,11 @@
 <?php
 	require_once "./pruebabitacora.php";
-		include ("./cone.php");     
+	include ("./cone.php");  
+	
+		//verifica si hay sesiones iniciadas
+	if (session_status() == PHP_SESSION_NONE) {
+		session_start();
+	}    
 
 		//verificación de permisos
 		//se revisa si el usuario tiene acceso a una vista específica por medio del rol que tiene y el objeto al que quiere acceder
@@ -37,8 +42,6 @@
 				];
 				Bitacora::guardar_bitacora($datos_bitacora);
 			}
-
-	
 ?>
 
 
@@ -61,14 +64,9 @@
 			<a href="<?php echo SERVERURL; ?>movimiento-inventario/"><div class="btn btn-danger btn-lg"><i class="fas fa-dolly-flatbed"></i> &nbsp; MOVIMIENTOS DE INVENTARIO</div></a>
 		</li>
 		<li>
-		<form action="../controladores/pdfControlador.php" method="post" accept-charset="utf-8">
-                  <div class="row">
-                    <div class="col">
-                      <span class="btn btn-dark mb-2" id="filtro">Filtrar</span>
-                      <button type="submit" class="btn btn-danger mb-2">Descargar Reporte</button>
-                    </div>
-                  </div>
-                </form>
+		<form action="../pdf/pdfInsumos.php" method="post">
+            <button type="submit" name="imprimir" value="insumo" class="btn btn-danger btn-lg"><i class="fas fa-file-pdf"></i> &nbsp; PDF</button>
+		</form>
 		</li>
 		
 	</ul>	
