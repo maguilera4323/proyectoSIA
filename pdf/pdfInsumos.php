@@ -98,8 +98,11 @@ class MYPDF extends TCPDF{
 
         $pdf->SetFont('helvetica','',10);
 
+        // filtro de insumos
+        $filtroinsumos=($_POST['filtroinsumo']);
 
-        $sqlTrabajadores = ("SELECT * FROM TBL_insumos");
+        $sqlTrabajadores = ("SELECT * FROM TBL_insumos WHERE nom_insumo LIKE'%".$filtroinsumos."%'");
+        
         //$sqlTrabajadores = ("SELECT * FROM trabajadores");
         $query = mysqli_query($conexion, $sqlTrabajadores);
 
