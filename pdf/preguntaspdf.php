@@ -114,8 +114,16 @@ class MYPDF extends TCPDF{
         $query = mysqli_query($conexion, $sqlTrabajadores);
 
         while ($dataRow = mysqli_fetch_array($query)) {
-                $pdf->Cell(60,6,($dataRow['pregunta']),1,1,'C');
+                $pdf->SetFont('helvetica','B',10); //Tipo de fuente y tamaño de letra
+                $pdf->SetXY(15, 20); //Margen en X y en Y
+                $pdf->SetTextColor(204,0,0);
+                $pdf->Write(0, $dataRow);
+                $pdf->SetTextColor(0, 0, 0); //Color Negrita
+                $pdf->SetXY(15, 25);
+                $pdf->Write(0, "'La Felicidad Hecha Café'");
             }
+
+
 
 
         // $pdf->AddPage(); //Agregar nueva Pagina
