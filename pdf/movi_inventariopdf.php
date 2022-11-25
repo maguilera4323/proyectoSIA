@@ -43,7 +43,7 @@ class MYPDF extends TCPDF{
         //Informacion del PDF
         $pdf->SetCreator('WorkNet');
         $pdf->SetAuthor('WorkNet');
-        $pdf->SetTitle('Reporte de Objetos');
+        $pdf->SetTitle('Reporte Movimientos Inventario');
         
         /** Eje de Coordenadas
          *          Y
@@ -90,7 +90,7 @@ class MYPDF extends TCPDF{
         //$pdf->SetTextColor(245,245,205); //Gris claro
         //$pdf->SetTextColor(100, 0, 0); //Color Carne
         $pdf->SetFont('helvetica','B', 15); 
-        $pdf->Cell(100,6,'LISTA DE OBJETOS',0,0,'C');
+        $pdf->Cell(100,6,'LISTA DE MOVIMIENTOS DEL INVENTARIO',0,0,'C');
 
 
         $pdf->Ln(10); //Salto de Linea
@@ -99,27 +99,33 @@ class MYPDF extends TCPDF{
         //Almando la cabecera de la Tabla
         $pdf->SetFillColor(232,232,232);
         $pdf->SetFont('helvetica','B',10); //La B es para letras en Negritas
-        $pdf->Cell(38,6,'OBJETO',1,0,'C',1);
-        $pdf->Cell(110,6,'DESCRIPCION',1,0,'C',1);
-        $pdf->Cell(31,6,'TIPO DE OBJETO',1,1,'C',1); 
+        $pdf->Cell(33,6,'NOMBRE INSUMO',1,0,'C',1);
+        $pdf->Cell(20,6,'CANTIDAD',1,0,'C',1);
+        $pdf->Cell(30,6,'MOVIMIENTO',1,0,'C',1);
+        $pdf->Cell(35,6,'FECHA',1,0,'C',1);
+        $pdf->Cell(20,6,'USUARIO',1,0,'C',1);
+        $pdf->Cell(35,6,'COMENTARIO',1,1,'C',1); 
         /*El 1 despues de  Fecha Ingreso indica que hasta alli 
         llega la linea */
 
         $pdf->SetFont('helvetica','',10);
 
-        // filtro de objetos
-        $filtroobjetos=($_POST['filtroobjetos']);
+        // filtro de INVENTARIO
+        $filtromovi_inventario=($_POST['filtromovi_inventario']);
 
-        $sqlobjetos = ("SELECT * FROM TBL_objetos WHERE id_objeto LIKE'%".$filtroobjetos."%'");
+        $sqlmovi_inventario = ("SELECT * FROM TBL_movi_inventario WHERE id_cardex LIKE'%".$filtromovi_inventario."%'");
         
 
-        $query = mysqli_query($conexion, $sqlobjetos);
+        $query = mysqli_query($conexion, $sqlmovi_inventario);
 
         while ($dataRow = mysqli_fetch_array($query)) {
-                //$pdf->Cell(15,6,($dataRow['id_objeto']),1,0,'C');
-                $pdf->Cell(38,6,$dataRow['objeto'],1,0,'C');
-                $pdf->Cell(110,6, $dataRow['descripcion'],1,0,'C');
-                $pdf->Cell(31,6, $dataRow['tipo_objeto'],1,1,'C');
+                $pdf->Cell(33,6,$dataRow['id_insumos'],1,0,'C');
+                $pdf->Cell(20,6,$dataRow['cant_movimiento'],1,0,'C');
+                $pdf->Cell(30,6,$dataRow['tipo_movimiento'],1,0,'C');
+                $pdf->Cell(35,6,$dataRow['fecha_movimiento'],1,0,'C');
+                $pdf->Cell(20,6,$dataRow['id_usuario'],1,0,'C');
+                $pdf->Cell(35,6, $dataRow['comentario'],1,1,'C');
+                
             }
 
 

@@ -43,7 +43,7 @@ class MYPDF extends TCPDF{
         //Informacion del PDF
         $pdf->SetCreator('WorkNet');
         $pdf->SetAuthor('WorkNet');
-        $pdf->SetTitle('Reporte de Objetos');
+        $pdf->SetTitle('Reporte de Usuarios');
         
         /** Eje de Coordenadas
          *          Y
@@ -90,7 +90,7 @@ class MYPDF extends TCPDF{
         //$pdf->SetTextColor(245,245,205); //Gris claro
         //$pdf->SetTextColor(100, 0, 0); //Color Carne
         $pdf->SetFont('helvetica','B', 15); 
-        $pdf->Cell(100,6,'LISTA DE OBJETOS',0,0,'C');
+        $pdf->Cell(100,6,'LISTA DE USUARIOS',0,0,'C');
 
 
         $pdf->Ln(10); //Salto de Linea
@@ -99,27 +99,33 @@ class MYPDF extends TCPDF{
         //Almando la cabecera de la Tabla
         $pdf->SetFillColor(232,232,232);
         $pdf->SetFont('helvetica','B',10); //La B es para letras en Negritas
-        $pdf->Cell(38,6,'OBJETO',1,0,'C',1);
-        $pdf->Cell(110,6,'DESCRIPCION',1,0,'C',1);
-        $pdf->Cell(31,6,'TIPO DE OBJETO',1,1,'C',1); 
+        $pdf->Cell(20,6,'USUARIO',1,0,'C',1);
+        $pdf->Cell(35,6,'NOMBRE',1,0,'C',1);
+        $pdf->Cell(20,6,'ESTADO',1,0,'C',1);
+        $pdf->Cell(30,6,'ROL',1,0,'C',1);
+        $pdf->Cell(50,6,'CORREO',1,0,'C',1);
+        $pdf->Cell(25,6,'CREADO POR',1,1,'C',1); 
         /*El 1 despues de  Fecha Ingreso indica que hasta alli 
         llega la linea */
 
         $pdf->SetFont('helvetica','',10);
 
-        // filtro de objetos
-        $filtroobjetos=($_POST['filtroobjetos']);
+        // filtro de USUARIOS
+        $filtrousuarios=($_POST['filtrousuarios']);
 
-        $sqlobjetos = ("SELECT * FROM TBL_objetos WHERE id_objeto LIKE'%".$filtroobjetos."%'");
+        $sqlusuarios = ("SELECT * FROM TBL_usuarios WHERE id_usuario LIKE'%".$filtrousuarios."%'");
         
 
-        $query = mysqli_query($conexion, $sqlobjetos);
+        $query = mysqli_query($conexion, $sqlusuarios);
 
         while ($dataRow = mysqli_fetch_array($query)) {
-                //$pdf->Cell(15,6,($dataRow['id_objeto']),1,0,'C');
-                $pdf->Cell(38,6,$dataRow['objeto'],1,0,'C');
-                $pdf->Cell(110,6, $dataRow['descripcion'],1,0,'C');
-                $pdf->Cell(31,6, $dataRow['tipo_objeto'],1,1,'C');
+                $pdf->Cell(20,6,$dataRow['usuario'],1,0,'C');
+                $pdf->Cell(35,6,$dataRow['nombre_usuario'],1,0,'C');
+                $pdf->Cell(20,6,$dataRow['estado_usuario'],1,0,'C');
+                $pdf->Cell(30,6,$dataRow['id_rol'],1,0,'C');
+                $pdf->Cell(50,6,$dataRow['correo_electronico'],1,0,'C');
+                $pdf->Cell(25,6, $dataRow['creado_por'],1,1,'C');
+                
             }
 
 

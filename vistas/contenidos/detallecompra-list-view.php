@@ -5,7 +5,7 @@
 		//verificación de permisos
 		//se revisa si el usuario tiene acceso a una vista específica por medio del rol que tiene y el objeto al que quiere acceder
 		$id_rol=$_SESSION['id_rol'];
-			$SQL="SELECT * FROM TBL_permisos where id_rol='$id_rol' and id_objeto=15";
+			$SQL="SELECT * FROM TBL_permisos where id_rol='$id_rol' and id_objeto=12";
 			$dato = mysqli_query($conexion, $SQL);
 
 			if($dato -> num_rows >0){
@@ -26,38 +26,21 @@
 			}else{
 				$datos_bitacora = 
 				[
-					"id_objeto" => 15,
+					"id_objeto" => 12,
 					"fecha" => date('Y-m-d H:i:s'),
 					"id_usuario" => $_SESSION['id_login'],//cambiar aqui para que me pueda traer el USU conectado
 					"accion" => "Cambio de vista",
-					"descripcion" => "El usuario ".$_SESSION['usuario_login']." entró a la Vista de Detalle de Compras"
+					"descripcion" => "El usuario ".$_SESSION['usuario_login']." entró a la Vista de lista de facturas"
 				];
 				Bitacora::guardar_bitacora($datos_bitacora);
 			}
 ?>
 
 <div class="full-box page-header">
-<?php	
-	//variables para generar la url completa del sitio y obtener el id del registro
-	$host= $_SERVER["HTTP_HOST"];
-	$url= $_SERVER["REQUEST_URI"];
-	$url_completa="http://" . $host . $url; 
-	//variable que contiene el id de la compra seleccionada
-	//para poder ver todos los insumos relacionados a esta
-	$id_compra = explode('/',$url_completa)[5]; 
-?>
 	<h3 class="text-left">
-		<i class="fas fa-clipboard-list fa-fw"></i> &nbsp; DETALLE DE COMPRAS
+		<i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE COMPRAS
 	</h3>
 
-</div>
-
-<div class="container-fluid">
-	<ul class="full-box list-unstyled page-nav-tabs">
-		<li>
-			<a href="<?php echo SERVERURL; ?>compra-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE COMPRAS</a>
-		</li>
-	</ul>	
 </div>
 
 <!-- BUscar compra -->
@@ -70,13 +53,22 @@ if(isset($_GET['enviar'])){
 
 	if (isset($_GET['busqueda']))
 	{
-		$where="WHERE TBL_usuarios.usuario LIKE'%".$busqueda."%' OR nombre_usuario  LIKE'%".$busqueda."%'";
+		$where="WHERE TBL_detalle_compra.id_detalle_compra LIKE'%".$busqueda."%' OR id_detalle_compra  LIKE'%".$busqueda."%'";
 	}
   
 }
 
 ?>
 </form>
+
+<!-- para la parte de búsqueda-->
+	<div class="container-fluid">
+  <form class="d-flex">
+      <input class="form-control me-2 light-table-filter" data-table="table_id" type="text" 
+      placeholder="Buscar Compra">
+      <hr>
+      </form>
+  </div>
 
   <br>
 <!-- tabla  -->
@@ -85,33 +77,49 @@ if(isset($_GET['enviar'])){
 		<thead>
 			<tr>
 				<th>ID DETALLE</th>
-				<th>INSUMO</th>
-				<th>CANTIDAD</th>
-				<th>PRECIO</th>
-				<th>FECHA DE CADUCIDAD</th>
+				<th>Insumo</th>
+				<th>Cantidad</th>
+				<th>Precio</th>
+				<th>Fecha de Caducidad</th>
+
 			</tr>
 		</thead>
 		<tbody>
 		
-			<?php
-				$SQL="SELECT dc.id_detalle_compra, i.nom_insumo,  dc.cantidad_comprada, dc.precio_costo,dc.fecha_caducidad
-				FROM TBL_detalle_compra dc
-				inner JOIN TBL_insumos i ON i.id_insumos = dc.id_insumos
-				inner JOIN TBL_compras c ON c.id_compra = dc.id_compra
-				WHERE c.id_compra='$id_compra'";
-				
+		<?php
+		
+				$SQL="SELECT dc.id_detalle_compra, i.nom_insumo, dc.cantidad_comprada, dc.precio_costo, dc.fecha_caducidad
+							 FROM TBL_detalle_compra dc
+							
+						inner join TBL_insumos i on dc.id_insumos=i.id_insumos
+
+						ORDER BY dc.id_detalle_compra DESC
+						$where";						
 				$dato = mysqli_query($conexion, $SQL);
 
 				if($dato -> num_rows >0){
 					while($fila=mysqli_fetch_array($dato)){
 
-			?>
+				?>
 				<tr>
 				<td><?php echo $fila['id_detalle_compra']; ?></td>
 				<td><?php echo $fila['nom_insumo']; ?></td>
 				<td><?php echo $fila['cantidad_comprada']; ?></td>
 				<td><?php echo $fila['precio_costo']; ?></td>
 				<td><?php echo $fila['fecha_caducidad']; ?></td>
+				
+
+<!-- 				<td>
+					<a href="<?php echo SERVERURL; ?>detallecompra-list/" class="btn btn-success">
+					<i class="fas fa-info-circle"></i>
+					</a>
+				</td>
+				<td>
+					<a href="<?php echo SERVERURL; ?>facturacion-update/" class="btn btn-success">
+						<i class="fas fa-sync-alt"></i>	
+					</a>
+				</td> -->
+
 			</tr>
 			<?php
 				}

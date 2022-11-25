@@ -46,7 +46,7 @@
 <div class="container-fluid">
 	<ul class="full-box list-unstyled page-nav-tabs">
 		<li>
-			<a href="<?php echo SERVERURL; ?>facturacion/"><i class="fas fa-plus fa-fw"></i> &nbsp; AGREGAR VENTA</a>
+			<a href="<?php echo SERVERURL; ?>facturacion/"><i class="fas fa-plus fa-fw"></i> &nbsp; AGREGAR PEDIDO</a>
 		</li>
 		<li>
 			<a class="active" href="<?php echo SERVERURL; ?>facturacion-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE FACTURAS</a>
@@ -87,56 +87,63 @@ if(isset($_GET['enviar'])){
 		<!-- Encabezado de la tabla -->
 		<thead>
 			<tr>
+				<th>Factura Numero</th>
 				<th>Cliente</th>
 				<th>Fecha de Pedido</th>
+				<th>Fecha de entrega</th>
 				<th>Estado Pedido</th>
 				<th>Total Pedido</th>
 				<th>Detalle Compra</th>
-				<th>Editar Compra</th>
+				<th>Actualizar</th>
+				<!-- <th>borrar</th> -->
 			</tr>
 		</thead>
 		<tbody>
 		
-			<?php
-				$SQL="SELECT c.id_compra,  c.id_proveedor, p.nom_proveedor,u.usuario,e.nom_estado_compra,c.fech_compra,
-				c.total_compra FROM TBL_compras c
-				inner JOIN TBL_Proveedores p ON p.id_Proveedores = c.id_proveedor
-				inner JOIN TBL_usuarios u ON u.id_usuario = c.id_usuario
-				inner JOIN TBL_estado_compras e ON e.id_estado_compra = c.id_estado_compra
-				ORDER BY c.id_compra DESC 
-				$where";
+		<?php
+		
+				$SQL="SELECT p.num_factura, p.fech_pedido, p.fech_entrega, p.total,
+							c.nom_cliente,
+							e.estado_pedido FROM TBL_pedidos p
+							
+						inner join TBL_Clientes c on p.id_cliente=c.id_clientes
+						inner join TBL_estado_pedido e on p.id_estado_pedido=e.id_estado_pedido
+						ORDER BY p.num_factura DESC
+						$where";						
 				$dato = mysqli_query($conexion, $SQL);
 
 				if($dato -> num_rows >0){
 					while($fila=mysqli_fetch_array($dato)){
 
-			?>
+				?>
 				<tr>
-				<td><?php echo $fila['nom_proveedor']; ?></td>
-				<td><?php echo $fila['usuario']; ?></td>
-				<td><?php echo $fila['nom_estado_compra']; ?></td>
-				<td><?php echo $fila['fech_compra']; ?></td>
-				<td><?php echo $fila['total_compra']; ?></td>
+				<td><?php echo $fila['num_factura']; ?></td>
+				<td><?php echo $fila['nom_cliente']; ?></td>
+				<td><?php echo $fila['fech_pedido']; ?></td>
+				<td><?php echo $fila['fech_entrega']; ?></td>
+				<td><?php echo $fila['estado_pedido']; ?></td>
+				<td><?php echo $fila['total']; ?></td>
 
 				<td>
-					<a href="<?php echo SERVERURL; ?>detallecompra-list/<?php echo $fila['id_compra']?>" class="btn btn-success">
+					<a href="<?php echo SERVERURL; ?>detallecompra-list/" class="btn btn-success">
 					<i class="fas fa-info-circle"></i>
 					</a>
 				</td>
 				<td>
-					<a href="<?php echo SERVERURL; ?>facturacion-update/<?php echo $fila['id_compra']?>" class="btn btn-success">
+					<a href="<?php echo SERVERURL; ?>facturacion-update/" class="btn btn-success">
 						<i class="fas fa-sync-alt"></i>	
 					</a>
 				</td>
-				<td>
+<!-- 				<td>
 				<form class="FormularioAjax" action="<?php echo SERVERURL; ?>ajax/compraAjax.php" method="POST" data-form="delete" autocomplete="off">
-				<input type="hidden" pattern="" class="form-control" name="id_compra_del" value="<?php echo $fila['id_compra'] ?>">
-				<input type="hidden" pattern="" class="form-control" name="id_proveedor_del" value="<?php echo $fila['id_proveedor'] ?>">	
+				<input type="hidden" pattern="" class="form-control" name="id_compra_del" value="">
+				<input type="hidden" pattern="" class="form-control" name="id_proveedor_del" value="">	
 				<button type="submit" class="btn btn-warning">
 					<i class="far fa-trash-alt"></i>
 				</button>
 				</form>
-			</td>
+			</td> 
+-->
 			</tr>
 			<?php
 				}
