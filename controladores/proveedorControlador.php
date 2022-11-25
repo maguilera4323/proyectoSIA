@@ -24,6 +24,62 @@ class proveedorControlador extends proveedorModelo
 		$Correo=mainModel::limpiar_cadena($_POST['correo_proveedor_nuevo']);
 		$Direccion=mainModel::limpiar_cadena($_POST['direccion_proveedor_nuevo']);
 		
+		/*== Verificando integridad de los datos ==*/
+		if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ ]{1,30}",$Nombre)){
+			$alerta=[
+				"Alerta"=>"simple",
+				"Titulo"=>"Ocurrió un error inesperado",
+				"Texto"=>"El Nombre no coincide con el formato solicitado",
+				"Tipo"=>"error"
+			];
+			echo json_encode($alerta);
+			exit();
+		}
+
+		if(mainModel::verificar_datos("[0-9]{1,14}",$Rtn)){
+			$alerta=[
+				"Alerta"=>"simple",
+				"Titulo"=>"Ocurrió un error inesperado",
+				"Texto"=>"El RTN no coincide con el formato solicitado",
+				"Tipo"=>"error"
+			];
+			echo json_encode($alerta);
+			exit();
+		}
+		
+		if(mainModel::verificar_datos("[0-9]{1,20}",$Telefono)){
+			$alerta=[
+				"Alerta"=>"simple",
+				"Titulo"=>"Ocurrió un error inesperado",
+				"Texto"=>"El telefono no coincide con el formato solicitado",
+				"Tipo"=>"error"
+			];
+			echo json_encode($alerta);
+			exit();
+		}
+
+		if(mainModel::verificar_datos("[a-z@_0-9.]{1,30}",$Correo)){
+			$alerta=[
+				"Alerta"=>"simple",
+				"Titulo"=>"Ocurrió un error inesperado",
+				"Texto"=>"El Correo no coincide con el formato solicitado",
+				"Tipo"=>"error"
+			];
+			echo json_encode($alerta);
+			exit();
+		}
+
+		if(mainModel::verificar_datos("[A-Za-zÑñ0-9 .,]{1,250}",$Direccion)){
+			$alerta=[
+				"Alerta"=>"simple",
+				"Titulo"=>"Ocurrió un error inesperado",
+				"Texto"=>"La Dirección no coincide con el formato solicitado",
+				"Tipo"=>"error"
+			];
+			echo json_encode($alerta);
+			exit();
+		}
+	
 					
 			/*== AGREGAR PROVEEDOR ==*/
 			$datos_proveedor_reg=[
@@ -38,7 +94,7 @@ class proveedorControlador extends proveedorModelo
 
 			if($agregar_proveedor->rowCount()==1){
 				$alerta=[
-					"Alerta"=>"limpiar",
+					"Alerta"=>"recargar",
 					"Titulo"=>"Proveedor registrado",
 					"Texto"=>"Los datos del proveedor han sido registrados con exito",
 					"Tipo"=>"success"
@@ -93,7 +149,7 @@ class proveedorControlador extends proveedorModelo
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El NOMBRE no coincide con el formato solicitado",
+					"Texto"=>"El Nombre no coincide con el formato solicitado",
 					"Tipo"=>"error"
 				];
 				echo json_encode($alerta);
@@ -115,7 +171,7 @@ class proveedorControlador extends proveedorModelo
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El TELEFONO no coincide con el formato solicitado",
+					"Texto"=>"El telefono no coincide con el formato solicitado",
 					"Tipo"=>"error"
 				];
 				echo json_encode($alerta);
@@ -126,7 +182,7 @@ class proveedorControlador extends proveedorModelo
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El CORREO no coincide con el formato solicitado",
+					"Texto"=>"El Correo no coincide con el formato solicitado",
 					"Tipo"=>"error"
 				];
 				echo json_encode($alerta);
@@ -137,7 +193,7 @@ class proveedorControlador extends proveedorModelo
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"La DIRECCION no coincide con el formato solicitado",
+					"Texto"=>"La Dirección no coincide con el formato solicitado",
 					"Tipo"=>"error"
 				];
 				echo json_encode($alerta);
@@ -161,7 +217,7 @@ class proveedorControlador extends proveedorModelo
 			if($actualizar_proveedor->rowCount()==1)
 			{
 				$alerta=[
-					"Alerta"=>"limpiar",
+					"Alerta"=>"recargar",
 					"Titulo"=>"Proveedor Actualizado",
 					"Texto"=>"Proveedor actualizado exitosamente",
 					"Tipo"=>"success"
@@ -226,27 +282,31 @@ class proveedorControlador extends proveedorModelo
 			if($eliminarproveedor->rowCount()==1){
 				$alerta=[
 					"Alerta"=>"recargar",
-					"Titulo"=>"Usuario Borrado",
-					"Texto"=>"El Proveedor fue borrado",
+					"Titulo"=>"Proveedor Eliminado",
+					"Texto"=>"El Proveedor fue eliminado del sistema",
 					"Tipo"=>"success"
 				];
+
+				echo json_encode($alerta);
+
+			$datos_bitacora = [
+				"id_objeto" => 0,
+				"fecha" => date('Y-m-d H:i:s'),
+				"id_usuario" => $_SESSION['id_login'],
+				"accion" => "Proveedor eliminado",
+				"descripcion" => "El usuario ".$_SESSION['usuario_login']." eliminó un proveedor del sistema"
+			];
+			Bitacora::guardar_bitacora($datos_bitacora);
+			
 			}else{
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ha ocurrido un error",
 					"Texto"=>"El proveedor no pudo ser borrado",
 					"Tipo"=>"error"
-				];
+				];echo json_encode($alerta);
 			}
-			echo json_encode($alerta);
-		$datos_bitacora = [
-			"id_objeto" => 0,
-			"fecha" => date('Y-m-d H:i:s'),
-			"id_usuario" => $_SESSION['id_login'],
-			"accion" => "Proveedor eliminado",
-			"descripcion" => "El usuario ".$_SESSION['usuario_login']." eliminó un proveedor del sistema"
-		];
-		Bitacora::guardar_bitacora($datos_bitacora);
+			
 			exit();
 
 			

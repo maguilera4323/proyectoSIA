@@ -86,7 +86,6 @@
             <th>PARAMETRO</th>
             <th>VALOR</th>
             <th>ACTUALIZAR</th>
-			<th>ELIMINAR</th>
             </tr>
         </thead>
         <tbody>
@@ -152,14 +151,6 @@
 								}
 							?>
 					</div>
-			</td>
-			<td>
-				<form class="FormularioAjax" action="<?php echo SERVERURL; ?>ajax/parametroAjax.php" method="POST" data-form="delete" autocomplete="off">
-				<input type="hidden" pattern="" class="form-control" name="id_parametro_del" value="<?php echo $fila['id_parametro'] ?>">
-				<button type="submit" class="btn btn-warning">
-					<i class="far fa-trash-alt"></i>
-				</button>
-				</form>
 			</td>
 		</tr>
 

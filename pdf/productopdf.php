@@ -22,7 +22,7 @@ class MYPDF extends TCPDF{
                 //Mostrar cantidad de paginas
                 //$this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
                 $this->html = '<p style="border-top:1px solid #999; text-align:center;">
-                                        WORKNET | PAG 1
+                                                WORKNET | PAG 1
                                                 </p>';
                 $this->writeHTML($this->html, true, false, true, false, '');
         }
@@ -43,7 +43,7 @@ class MYPDF extends TCPDF{
         //Informacion del PDF
         $pdf->SetCreator('WorkNet');
         $pdf->SetAuthor('WorkNet');
-        $pdf->SetTitle('Informe de Permisos');
+        $pdf->SetTitle('Informe de Productos');
         
         /** Eje de Coordenadas
          *          Y
@@ -90,7 +90,7 @@ class MYPDF extends TCPDF{
         //$pdf->SetTextColor(245,245,205); //Gris claro
         //$pdf->SetTextColor(100, 0, 0); //Color Carne
         $pdf->SetFont('helvetica','B', 15); 
-        $pdf->Cell(100,6,'LISTA DE PERMISOS',0,0,'C');
+        $pdf->Cell(100,6,'LISTA DE PRODUCTOS',0,0,'C');
 
 
         $pdf->Ln(10); //Salto de Linea
@@ -98,38 +98,36 @@ class MYPDF extends TCPDF{
 
         //Almando la cabecera de la Tabla
         $pdf->SetFillColor(232,232,232);
-        $pdf->SetFont('helvetica','B',8); //La B es para letras en Negritas
-        $pdf->Cell(15,6,'ROL',1,0,'C',1);
-        $pdf->Cell(18,6,'OBJETO',1,0,'C',1);
-        $pdf->Cell(35,6,'INSERCION',1,0,'C',1);
-        $pdf->Cell(35,6,'ACTUALIZACION',1,0,'C',1); 
-        $pdf->Cell(35,6,'ELIMINACION',1,0,'C',1); 
-        $pdf->Cell(35,6,'CONSULTA',1,1,'C',1); 
+        $pdf->SetFont('helvetica','B',10); //La B es para letras en Negritas
+        $pdf->Cell(32,6,'NOMBRE',1,0,'C',1);
+        $pdf->Cell(40,6,'TIPO DE PRODUCTO',1,0,'C',1);
+        $pdf->Cell(35,6,'DESCRIPCION',1,0,'C',1);
+        $pdf->Cell(28,6,'PRECIO',1,0,'C',1); 
+        $pdf->Cell(45,6,'FOTO',1,1,'C',1); 
         /*El 1 despues de  Fecha Ingreso indica que hasta alli 
         llega la linea */
 
-        $pdf->SetFont('helvetica','',10);
+        $pdf->SetFont('helvetica','',8); // el "10" es para el tamaño de letra del cuerpo de la tabla
 
-        // filtro de permisos
-        $filtropermisos=($_POST['filtropermisos']);
+        // filtro de producto
+        $filtroproducto=($_POST['filtroproducto']);
 
-        $sqlTrabajadores = ("SELECT * FROM TBL_permisos WHERE id_rol LIKE'%".$filtropermisos."%'");
+        $sqlTrabajadores = ("SELECT * FROM TBL_producto WHERE nom_producto LIKE'%".$filtroproducto."%'");
         
         //$sqlTrabajadores = ("SELECT * FROM trabajadores");
         $query = mysqli_query($conexion, $sqlTrabajadores);
 
         while ($dataRow = mysqli_fetch_array($query)) {
-                $pdf->Cell(15,6,($dataRow['id_rol']),1,0,'C');
-                $pdf->Cell(18,6,$dataRow['id_objeto'],1,0,'C');
-                $pdf->Cell(35,6, $dataRow['permiso_insercion'],1,0,'C');
-                $pdf->Cell(35,6, $dataRow['permiso_actualizacion'],1,0,'C');
-                $pdf->Cell(35,6, $dataRow['permiso_eliminacion'],1,0,'C');
-                $pdf->Cell(35,6, $dataRow['permiso_consulta'],1,1,'C');
+                $pdf->Cell(32,6,($dataRow['nom_producto']),1,0,'C');
+                $pdf->Cell(40,6,$dataRow['id_tipo_produ'],1,0,'C');
+                $pdf->Cell(35,6, $dataRow['des_produ'],1,0,'C');
+                $pdf->Cell(28,6, $dataRow['precio_produ'],1,0,'C');
+                $pdf->Cell(45,6, $dataRow['foto_produ'],1,1,'C');
             }
 
 
         // $pdf->AddPage(); //Agregar nueva Pagina
 
-        $pdf->Output('Resumen_Permisos_'.date('d_m_y').'.pdf', 'I'); 
+        $pdf->Output('Resumen_Producto_'.date('d_m_y').'.pdf', 'I'); 
         // Output funcion que recibe 2 parameros, el nombre del archivo, ver archivo o descargar,
         // La D es para Forzar una desca

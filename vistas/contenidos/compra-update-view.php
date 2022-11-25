@@ -85,7 +85,7 @@
 						}
 					}
 			?>
-	<form action="" id="invoice-form" method="post" class="invoice-form" role="form" data-form="save" novalidate="">
+	<form action="" id="invoice-form" method="post" class="invoice-form" data-form="save">
 		<div class="load-animate animated fadeInUp">
 			<div class="row">
 			<h3 class="text-left">

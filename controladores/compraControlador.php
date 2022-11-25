@@ -3,7 +3,7 @@
 if (session_status() == PHP_SESSION_NONE) {
 	session_start();
 }
-/* require_once "./pruebabitacora.php"; */
+/* require_once "../pruebabitacora.php";  */
 
 
 //clase para la factura
@@ -43,19 +43,26 @@ class Invoice{
 		//el ciclo es para insertar todos los insumos agregados a la compra
 		for ($i = 0; $i < count($POST['productName']); $i++) {
 			$sqlInsertItem = "
-			INSERT INTO " . $this->datosDetalleCompra . "(id_compra, id_insumos, cantidad_comprada, precio_costo, fecha_caducidad) 
-			VALUES ('" . $POST['productCode'] . "', '" . $POST['productName'][$i] . "', '" . $POST['quantity'][$i] . "', '" . $POST['price'][$i] . "', '" . $POST['fechaCaducidad'][$i] . "')";
+			INSERT INTO " . $this->datosDetalleCompra . "(id_compra, id_insumos, cantidad_comprada, precio_costo, fecha_caducidad,estado_compra) 
+			VALUES ('" . $POST['productCode'] . "', '" . $POST['productName'][$i] . "', '" . $POST['quantity'][$i] . "', '" . $POST['price'][$i] . "', '" . $POST['fechaCaducidad'][$i] . "', '" . $POST['estado_compra'] . "')";
 			mysqli_query($this->dbConnect, $sqlInsertItem);
 		}
 
-		$datos_bitacora = [
+		if (isset($lastInsertId)=='true'){
+			echo '<script>
+			swal.fire("Compra Realizada", "Su compra se ha realizado exitosamente", "success")
+			</script>'; 
+		}
+		
+
+		/* $datos_bitacora = [
 			"id_objeto" => 0,
 			"fecha" => date('Y-m-d H:i:s'),
 			"id_usuario" => $_SESSION['id_login'],
 			"accion" => "Nueva compra",
 			"descripcion" => "El usuario ".$_SESSION['usuario_login']." registró una compra en el sistema"
 		];
-		Bitacora::guardar_bitacora($datos_bitacora); 
+		Bitacora::guardar_bitacora($datos_bitacora);  */
 	}
 
 

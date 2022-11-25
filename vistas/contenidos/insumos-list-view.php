@@ -81,19 +81,14 @@ if(isset($_GET['enviar'])){
 }
 ?>
 
-</form>
 <div class="container-fluid">
-  <form class="d-flex" action="../pdf/pdfInsumos.php" method="post" accept-charset="utf-8">
-  				
-      <input class="form-control me-2 light-table-filter" data-table="table_id" type="text" name="filtroinsumo"
-      placeholder="Buscar insumo"> <div class="row">
-                    <div class="col">
-                      <button type="submit" class="btn btn-danger mb-2"><i class="fas fa-file-pdf"></i> &nbsp;Descargar Reporte</button>
-                    </div>
-                  </div>
-      <hr>
-    </form>
-</div>
+  <form class="d-flex" action="../pdf/pdfinsumos.php" method="post" accept-charset="utf-8">
+  	<input class="form-control me-2 light-table-filter" data-table="table_id" type="text" name="filtroinsumo" placeholder="Buscar Insumo">
+	<button type="submit" class="btn btn-danger mx-auto btn-lg"><i class="fas fa-file-pdf"></i> &nbsp;Descargar Reporte</button>
+      </form>
+  </div>
+  </div>
+
  
 <table class="table table-striped table-dark table_id text-center" id="tblDatos">
         <thead>    
@@ -156,8 +151,8 @@ if(isset($_GET['enviar'])){
 											<div class="col-12 col-md-6">
 												<div class="form-group">
 													<label class="color-label">Nombre</label>
-													<input type="text" class="form-control" name="nombre_insumo_act" id="cliente_apellido" maxlength="40" 
-													style="text-transform:uppercase;" value="<?php echo $fila['nom_insumo']?>" >
+													<input type="text" class="form-control" name="nombre_insumo_act" id="cliente_apellido"  
+													style="text-transform:uppercase;" value="<?php echo $fila['nom_insumo']?>" required>
 												</div>
 											</div>
 											<div class="col-12 col-md-6">
@@ -174,15 +169,15 @@ if(isset($_GET['enviar'])){
 											<div class="col-12 col-md-6">
 												<div class="form-group">
 													<label class="color-label">Cantidad Maxima</label>
-													<input type="text" class="form-control" name="cantidadmax_insumo_act" id="cliente_direccion" maxlength="10" 
-													value="<?php echo $fila['cant_max']?>" >
+													<input type="text" class="form-control" name="cantidadmax_insumo_act" id="cliente_direccion"
+													value="<?php echo $fila['cant_max']?>" required>
 												</div>
 											</div>
 											<div class="col-12 col-md-6">
 												<div class="form-group">
 													<label class="color-label">Cantidad Minima</label>
-													<input type="text" class="form-control" name="cantidadmin_insumo_act" id="cliente_telefono" maxlength="10" 
-													value="<?php echo $fila['cant_min']?>" >
+													<input type="text" class="form-control" name="cantidadmin_insumo_act" id="cliente_telefono" 
+													value="<?php echo $fila['cant_min']?>" required>
 												</div>
 											</div>
 										</div>
@@ -291,13 +286,13 @@ if(isset($_GET['enviar'])){
 						<div class="col-12 col-md-6">
 							<div class="form-group">
 								<label class="color-label">Cantidad Maxima</label>
-								<input type="text" class="form-control" name="cantidadmax_insumo_nuevo" id="cliente_direccion" maxlength="10" required/>
+								<input type="text" class="form-control" name="cantidadmax_insumo_nuevo" id="cliente_direccion"  required/>
 							</div>
 						</div>
 						<div class="col-12 col-md-6">
 							<div class="form-group">
 								<label class="color-label">Cantidad Minima</label>
-								<input type="text" class="form-control" name="cantidadmin_insumo_nuevo" id="cliente_telefono" maxlength="10" required/>
+								<input type="text" class="form-control" name="cantidadmin_insumo_nuevo" id="cliente_telefono"  required/>
 							</div>
 						</div>
 					</div>

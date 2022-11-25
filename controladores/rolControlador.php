@@ -148,7 +148,6 @@ class rolControlador extends rolModelo
 		public function eliminarRol(){
 		$id=mainModel::limpiar_cadena(($_POST['id_rol_del']));
 
-		//verifica que el insumo si exista en el sistema
 		$check_rol=mainModel::ejecutar_consulta_simple("SELECT id_rol FROM TBL_ms_roles
 		WHERE id_rol='$id'");
 		if($check_rol->rowCount()<=0){

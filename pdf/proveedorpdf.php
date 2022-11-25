@@ -15,6 +15,17 @@ class MYPDF extends TCPDF{
             $this->SetAutoPageBreak($auto_page_break, $bMargin);
             $this->setPageMark();
 	    }
+
+            public function Footer() {
+                $this->SetY(-15);
+                $this->SetFont('helvetica', '', 8);
+                //Mostrar cantidad de paginas
+                //$this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
+                $this->html = '<p style="border-top:1px solid #999; text-align:center;">
+                                        WORKNET | PAG 1
+                                                </p>';
+                $this->writeHTML($this->html, true, false, true, false, '');
+        }
 }
 
 
@@ -25,7 +36,7 @@ class MYPDF extends TCPDF{
         //Establecer margenes del PDF
         $pdf->SetMargins(20, 35, 25);
         $pdf->SetHeaderMargin(20);
-        $pdf->setPrintFooter(false);
+        $pdf->setPrintFooter(true);
         $pdf->setPrintHeader(true); //Eliminar la linea superior del PDF por defecto
         $pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM); //Activa o desactiva el modo de salto de página automático
         
@@ -96,9 +107,9 @@ class MYPDF extends TCPDF{
         /*El 1 despues de  Fecha Ingreso indica que hasta alli 
         llega la linea */
 
-        $pdf->SetFont('helvetica','',10);
+        $pdf->SetFont('helvetica','',10); // el "10" es para el tamaño de letra del cuerpo de la tabla
 
-        // filtro de insumos
+        // filtro de proveedores
         $filtroproveedor=($_POST['filtroproveedor']);
 
         $sqlTrabajadores = ("SELECT * FROM TBL_Proveedores WHERE nom_proveedor LIKE'%".$filtroproveedor."%'");

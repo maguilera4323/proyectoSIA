@@ -43,7 +43,7 @@ class MYPDF extends TCPDF{
         //Informacion del PDF
         $pdf->SetCreator('WorkNet');
         $pdf->SetAuthor('WorkNet');
-        $pdf->SetTitle('Informe de Permisos');
+        $pdf->SetTitle('Informe de Preguntas');
         
         /** Eje de Coordenadas
          *          Y
@@ -90,7 +90,7 @@ class MYPDF extends TCPDF{
         //$pdf->SetTextColor(245,245,205); //Gris claro
         //$pdf->SetTextColor(100, 0, 0); //Color Carne
         $pdf->SetFont('helvetica','B', 15); 
-        $pdf->Cell(100,6,'LISTA DE PERMISOS',0,0,'C');
+        $pdf->Cell(100,6,'LISTA DE PREGUNTAS',0,0,'C');
 
 
         $pdf->Ln(10); //Salto de Linea
@@ -98,38 +98,28 @@ class MYPDF extends TCPDF{
 
         //Almando la cabecera de la Tabla
         $pdf->SetFillColor(232,232,232);
-        $pdf->SetFont('helvetica','B',8); //La B es para letras en Negritas
-        $pdf->Cell(15,6,'ROL',1,0,'C',1);
-        $pdf->Cell(18,6,'OBJETO',1,0,'C',1);
-        $pdf->Cell(35,6,'INSERCION',1,0,'C',1);
-        $pdf->Cell(35,6,'ACTUALIZACION',1,0,'C',1); 
-        $pdf->Cell(35,6,'ELIMINACION',1,0,'C',1); 
-        $pdf->Cell(35,6,'CONSULTA',1,1,'C',1); 
+        $pdf->SetFont('helvetica','B',12); //La B es para letras en Negritas
+        $pdf->Cell(60,6,'PREGUNTA',1,1,'C',1);
         /*El 1 despues de  Fecha Ingreso indica que hasta alli 
         llega la linea */
 
         $pdf->SetFont('helvetica','',10);
 
-        // filtro de permisos
-        $filtropermisos=($_POST['filtropermisos']);
+        // filtro de preguntas
+        $filtropreguntas=($_POST['filtropreguntas']);
 
-        $sqlTrabajadores = ("SELECT * FROM TBL_permisos WHERE id_rol LIKE'%".$filtropermisos."%'");
+        $sqlTrabajadores = ("SELECT * FROM TBL_preguntas WHERE pregunta LIKE'%".$filtropreguntas."%'");
         
         //$sqlTrabajadores = ("SELECT * FROM trabajadores");
         $query = mysqli_query($conexion, $sqlTrabajadores);
 
         while ($dataRow = mysqli_fetch_array($query)) {
-                $pdf->Cell(15,6,($dataRow['id_rol']),1,0,'C');
-                $pdf->Cell(18,6,$dataRow['id_objeto'],1,0,'C');
-                $pdf->Cell(35,6, $dataRow['permiso_insercion'],1,0,'C');
-                $pdf->Cell(35,6, $dataRow['permiso_actualizacion'],1,0,'C');
-                $pdf->Cell(35,6, $dataRow['permiso_eliminacion'],1,0,'C');
-                $pdf->Cell(35,6, $dataRow['permiso_consulta'],1,1,'C');
+                $pdf->Cell(60,6,($dataRow['pregunta']),1,1,'C');
             }
 
 
         // $pdf->AddPage(); //Agregar nueva Pagina
 
-        $pdf->Output('Resumen_Permisos_'.date('d_m_y').'.pdf', 'I'); 
+        $pdf->Output('Resumen_Preguntas_'.date('d_m_y').'.pdf', 'I'); 
         // Output funcion que recibe 2 parameros, el nombre del archivo, ver archivo o descargar,
         // La D es para Forzar una desca

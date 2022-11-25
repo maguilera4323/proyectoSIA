@@ -29,16 +29,16 @@
 			}
 
 	//llamado al controlador de la factura
-    require_once 'controladores/compraControlador.php';
+     require_once 'controladores/compraControlador.php';
 	$factura = new Invoice();
 	if (isset($_POST['invoice_btn'])) {
 		$factura->nuevaFactura($_POST);
-	}
+	} 
 ?>
 <br>
 
 <div class="container content-invoice">
-	<form action="" id="invoice-form" method="post" class="invoice-form" role="form" novalidate="">
+	<form action="" id="invoice-form" method="post" class="invoice-form" data-form="save">
 		<div class="load-animate animated fadeInUp">
 			<div class="row">
 			<h3 class="text-left">
@@ -156,7 +156,7 @@
 					<br>
 					<div class="form-group">
 						<input type="hidden" value="<?php echo $_SESSION['usuario_login']; ?>" class="form-control" name="userId">
-						<input data-loading-text="Guardando factura..." type="submit" name="invoice_btn" value="Guardar Compra" 
+						<input type="submit" name="invoice_btn" value="Guardar Compra" 
 						class="btn btn-success submit_btn invoice-save-btm" style="font-size:20px; border: 2px solid #777574;">
 					</div>
 

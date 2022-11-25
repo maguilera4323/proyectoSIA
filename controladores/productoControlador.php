@@ -29,7 +29,39 @@ class productoControlador extends productoModelo
 		$ruta=$carpeta.'/'.$nombre_img;
 		move_uploaded_file($temporal,$carpeta.'/'. $nombre_img);
 
+		if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ ]{1,30}",$Nom_producto)){
+			$alerta=[
+				"Alerta"=>"simple",
+				"Titulo"=>"Ocurrió un error inesperado",
+				"Texto"=>"El nombre no coincide con el formato solicitado",
+				"Tipo"=>"error"
+			];
+			echo json_encode($alerta);
+			exit();
+		}
+
 		
+		if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑa-záéíóúñ ]{1,30}",$Descripcion)){
+			$alerta=[
+				"Alerta"=>"simple",
+				"Titulo"=>"Ocurrió un error inesperado",
+				"Texto"=>"La Descripcion no coincide con el formato solicitado",
+				"Tipo"=>"error"
+			];
+			echo json_encode($alerta);
+			exit();
+		}
+
+		if(mainModel::verificar_datos("[0-9]{1,8}",$Precio)){
+			$alerta=[
+				"Alerta"=>"simple",
+				"Titulo"=>"Ocurrió un error inesperado",
+				"Texto"=>"El Precio no coincide con el formato solicitado",
+				"Tipo"=>"error"
+			];
+			echo json_encode($alerta);
+			exit();
+		}
 					
 			/*== AGREGAR PRODUCTO ==*/
 			$datos_producto_reg=[
@@ -44,7 +76,7 @@ class productoControlador extends productoModelo
 
 			if($agregar_producto->rowCount()==1){
 				$alerta=[
-					"Alerta"=>"limpiar",
+					"Alerta"=>"recargar",
 					"Titulo"=>"Producto registrado",
 					"Texto"=>"Los datos del producto han sido registrados con exito",
 					"Tipo"=>"success"
@@ -76,7 +108,7 @@ class productoControlador extends productoModelo
 	public function actualizar_producto_controlador()
 	{	
 		$id_actualizar=mainModel::limpiar_cadena($_POST['id_actualizacion']);
-		$Nom_producto=mainModel::limpiar_cadena($_POST['nombre_producto_actu']);
+		$Nom_producto=mainModel::limpiar_cadena(strtoupper($_POST['nombre_producto_actu']));
 		$Id_Tipo_producto=mainModel::limpiar_cadena($_POST['id_tipo_producto_actu']);
 		$Descripcion=mainModel::limpiar_cadena($_POST['descripcion_producto_actu']);
 		$Precio=mainModel::limpiar_cadena($_POST['precio_producto_actu']);
@@ -86,25 +118,13 @@ class productoControlador extends productoModelo
 		$carpeta='../productos_img';
 		$ruta=$carpeta.'/'.$nombre_img;
 		move_uploaded_file($temporal,$carpeta.'/'. $nombre_img);
-		
-		if($Nom_producto=="" || $Id_Tipo_producto=="" || $Descripcion=="" || $Precio=="" || $ruta==""){
-			$alerta=[
-				"Alerta"=>"simple",
-				"Titulo"=>"Ocurrió un error inesperado",
-				"Texto"=>"No se han llenado todos los campos que son obligatorios",
-				"Tipo"=>"error"
-			];
-			echo json_encode($alerta);
-			exit();
-		}
-
 
 			/*== Verificando integridad de los datos ==*/
 			if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ ]{1,30}",$Nom_producto)){
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El NOMBRE no coincide con el formato solicitado",
+					"Texto"=>"El nombre no coincide con el formato solicitado",
 					"Tipo"=>"error"
 				];
 				echo json_encode($alerta);
@@ -112,7 +132,7 @@ class productoControlador extends productoModelo
 			}
 
 			
-			if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ ]{1,30}",$Descripcion)){
+			if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑa-záéíóúñ ]{1,30}",$Descripcion)){
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
@@ -150,7 +170,7 @@ class productoControlador extends productoModelo
 			if($actualizar_producto->rowCount()==1)
 			{
 				$alerta=[
-					"Alerta"=>"limpiar",
+					"Alerta"=>"recargar",
 					"Titulo"=>"Producto Actualizado",
 					"Texto"=>"Producto actualizado exitosamente",
 					"Tipo"=>"success"
@@ -215,8 +235,8 @@ class productoControlador extends productoModelo
 			if($eliminarproducto->rowCount()==1){
 				$alerta=[
 					"Alerta"=>"recargar",
-					"Titulo"=>"Producto Borrado",
-					"Texto"=>"El Producto fue borrado",
+					"Titulo"=>"Producto Eliminado",
+					"Texto"=>"El Producto fue eliminado del sistema",
 					"Tipo"=>"success"
 				];
 			}else{
