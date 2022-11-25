@@ -64,7 +64,7 @@ if(isset($_GET['enviar'])){
 
 	if (isset($_GET['busqueda']))
 	{
-		$where="WHERE TBL_usuarios.usuario LIKE'%".$busqueda."%' OR nombre_usuario  LIKE'%".$busqueda."%'";
+		$where="WHERE TBL_pedidos.usuario LIKE'%".$busqueda."%' OR nombre_usuario  LIKE'%".$busqueda."%'";
 	}
   
 }
@@ -74,11 +74,12 @@ if(isset($_GET['enviar'])){
 
 <!-- para la parte de búsqueda-->
 	<div class="container-fluid">
-  <form class="d-flex">
-      <input class="form-control me-2 light-table-filter" data-table="table_id" type="text" 
-      placeholder="Buscar Factura">
-      <hr>
+	<div class="container-fluid">
+  <form class="d-flex" action="../pdf/pdfFacturas.php" method="post" accept-charset="utf-8">
+  	<input class="form-control me-2 light-table-filter" data-table="table_id" type="text" name="filtrofactura" placeholder="Buscar facturas">
+	<button type="submit" class="btn btn-danger mx-auto btn-lg"><i class="fas fa-file-pdf"></i> &nbsp;Descargar Reporte</button>
       </form>
+  </div>
   </div>
 
   <br>
@@ -87,7 +88,6 @@ if(isset($_GET['enviar'])){
 		<!-- Encabezado de la tabla -->
 		<thead>
 			<tr>
-				<th>Factura Numero</th>
 				<th>Cliente</th>
 				<th>Fecha de Pedido</th>
 				<th>Fecha de entrega</th>
@@ -117,7 +117,6 @@ if(isset($_GET['enviar'])){
 
 				?>
 				<tr>
-				<td><?php echo $fila['num_factura']; ?></td>
 				<td><?php echo $fila['nom_cliente']; ?></td>
 				<td><?php echo $fila['fech_pedido']; ?></td>
 				<td><?php echo $fila['fech_entrega']; ?></td>
@@ -130,7 +129,7 @@ if(isset($_GET['enviar'])){
 					</a>
 				</td>
 				<td>
-					<a href="<?php echo SERVERURL; ?>facturacion-update/" class="btn btn-success">
+					<a href="<?php echo SERVERURL; ?>facturacion-update/<?php echo $fila['id_pedido']?>" class="btn btn-success">
 						<i class="fas fa-sync-alt"></i>	
 					</a>
 				</td>

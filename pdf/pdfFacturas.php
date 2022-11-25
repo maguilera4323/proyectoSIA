@@ -98,11 +98,13 @@ class MYPDF extends TCPDF{
         //Almando la cabecera de la Tabla
         $pdf->SetFillColor(232,232,232);
         $pdf->SetFont('helvetica','B',12); //La B es para letras en Negritas
-        $pdf->Cell(40,6,'NUMERO FACTURA',1,0,'C',1);
-        $pdf->Cell(40,6,'FECHA ENTREGA',1,0,'C',1);
-        $pdf->Cell(40,6,'SITIO',1,0,'C',1);
-        $pdf->Cell(37,6,'ESTADO',1,0,'C',1); 
-        $pdf->Cell(37,6,'TOTAL',1,1,'C',1); 
+        $pdf->Cell(30,6,'CLIENTE',1,0,'L',1);
+        $pdf->Cell(30,6,'FECHA',1,0,'L',1);
+        $pdf->Cell(30,6,'SITIO',1,0,'L',1);
+        $pdf->Cell(30,6,'ESTADO',1,0,'L',1); 
+        $pdf->Cell(30,6,'SUBTOTAL',1,0,'L',1); 
+        $pdf->Cell(15,6,'ISV',1,0,'L',1); 
+        $pdf->Cell(20,6,'TOTAL',1,1,'L',1); 
         /*El 1 despues de  Fecha Ingreso indica que hasta alli 
         llega la linea */
 
@@ -112,7 +114,11 @@ class MYPDF extends TCPDF{
         $filtrofactura=($_POST['filtrofactura']);
 
         if(isset($filtrofactura)){
-           $sqlTrabajadores = ("SELECT * FROM TBL_pedidos WHERE num_factura LIKE'%".$filtrofactura."%'");
+           $sqlTrabajadores = ("SELECT c.nom_cliente, p.fech_entrega,p.sitio_entrega,e.estado_pedido,p.sub_total,
+           p.ISV, p.total FROM TBL_pedidos p
+           inner join TBL_Clientes c on c.id_clientes=p.id_cliente
+           inner join TBL_estado_pedido e on e.id_estado_pedido=p.id_estado_pedido
+           WHERE p.num_factura LIKE'%".$filtrofactura."%'");
         }else{
                 $sqlTrabajadores = ("SELECT * FROM TBL_pedidos");
         }
@@ -121,16 +127,18 @@ class MYPDF extends TCPDF{
         $query = mysqli_query($conexion, $sqlTrabajadores);
 
         while ($dataRow = mysqli_fetch_array($query)) {
-                $pdf->Cell(40,6,($dataRow['num_factura']),1,0,'C');
-                $pdf->Cell(40,6,$dataRow['fech_entrega'],1,0,'C');
-                $pdf->Cell(40,6, $dataRow['sitio_entrega'],1,0,'C');
-                $pdf->Cell(37,6, $dataRow['id_estado_pedido'],1,0,'C');
-                $pdf->Cell(37,6, $dataRow['total'],1,1,'C');
+                $pdf->Cell(30,6,$dataRow['nom_cliente'],1,0,'L');
+                $pdf->Cell(30,6,$dataRow['fech_entrega'],1,0,'L');
+                $pdf->Cell(30,6, $dataRow['sitio_entrega'],1,0,'L');
+                $pdf->Cell(30,6, $dataRow['estado_pedido'],1,0,'L');
+                $pdf->Cell(30,6, $dataRow['sub_total'],1,0,'L');
+                $pdf->Cell(15,6, $dataRow['ISV'],1,0,'L');
+                $pdf->Cell(20,6, $dataRow['total'],1,1,'L');
             }
 
 
         // $pdf->AddPage(); //Agregar nueva Pagina
 
-        $pdf->Output('Resumen_Clientes_'.date('d_m_y').'.pdf', 'I'); 
+        $pdf->Output('Resumen_Facturas_'.date('d_m_y').'.pdf', 'I'); 
         // Output funcion que recibe 2 parameros, el nombre del archivo, ver archivo o descargar,
         // La D es para Forzar una desca

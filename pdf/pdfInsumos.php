@@ -1,7 +1,7 @@
 <?php
 require_once('../tcpdf/tcpdf.php'); //Llamando a la Libreria TCPDF
 include ("../cone.php"); 
-include('../APP.php');   //Llamando a la conexión para BD
+
 date_default_timezone_set('America/Tegucigalpa');
 
 ob_end_clean(); //limpiar la memoria
@@ -53,7 +53,7 @@ class MYPDF extends TCPDF{
         //Informacion del PDF
         $pdf->SetCreator('UrianViera');
         $pdf->SetAuthor('UrianViera');
-        $pdf->SetTitle('Informe de Empleados');
+        $pdf->SetTitle('Informe de Insumos');
         
         /** Eje de Coordenadas
          *          Y

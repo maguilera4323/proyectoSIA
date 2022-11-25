@@ -87,7 +87,6 @@ if(isset($_GET['enviar'])){
 	<button type="submit" class="btn btn-danger mx-auto btn-lg"><i class="fas fa-file-pdf"></i> &nbsp;Descargar Reporte</button>
       </form>
   </div>
-  </div>
 
  
 <table class="table table-striped table-dark table_id text-center" id="tblDatos">

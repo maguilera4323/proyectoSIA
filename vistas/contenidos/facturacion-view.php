@@ -204,7 +204,8 @@
 							<div class="form-group">
 							<label>Porcentaje Impuestos: &nbsp;</label>
 							<div class="input-group">
-								<input value="" type="number" class="form-control" name="taxRate" id="taxRate"  step="any" placeholder="Porcentaje Impuestos">
+								<input  type="number" class="form-control" name="taxRate" id="taxRate"  step="any" 
+								value="15" disabled>
 								<div class="input-group-addon">%</div>
 							</div>
 						</div>
