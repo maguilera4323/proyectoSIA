@@ -19,7 +19,7 @@
             'password'=> $_POST['clave'],
 			'contador'=> $_POST['contador']
         );
-        $respuesta = $usuario->accesoUsuario($datos); //se envian los datos a la funcion accesoUsuario de modelo Login
+        $respuesta = $usuario->accesoUsuario($datos); //se envian los datos a la funcion accesoUsuario de Logincontrolador
     }
 	?>
 

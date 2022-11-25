@@ -23,7 +23,9 @@
 
 <script src="<?php echo SERVERURL; ?>vistas/js/alertasFactura.js" ></script>
 
-<script src="<?php echo SERVERURL; ?>vistas/js/funciones.js" ></script>
+<script src="<?php echo SERVERURL; ?>vistas/js/funciones-login.js" ></script>
+
+<script src="<?php echo SERVERURL; ?>vistas/js/funciones-usuarios.js"></script>
 
 <script src="<?php echo SERVERURL; ?>vistas/js/buscador.js" ></script>
 

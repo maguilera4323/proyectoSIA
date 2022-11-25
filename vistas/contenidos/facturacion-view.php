@@ -186,6 +186,8 @@
 						<input type="hidden" value="<?php echo $_SESSION['usuario_login']; ?>" class="form-control" name="userId">
 						<input data-loading-text="Guardando factura..." type="submit" name="invoice_btn" value="Guardar factura" 
 						class="btn btn-success submit_btn invoice-save-btm" style="font-size:20px; border: 2px solid #777574;">
+						<a href="<?php echo SERVERURL; ?>facturacion-list/"><input value="salir" 
+						class="btn btn-success submit_btn invoice-save-btm" style="font-size:20px; border: 2px solid #777574;"></a>
 					</div>
 
 				</div>

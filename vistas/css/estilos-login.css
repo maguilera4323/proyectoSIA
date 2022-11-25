@@ -117,3 +117,43 @@
  input:disabled {
     background: rgb(71, 66, 66);
   }
+
+  .contrasena div {
+    position: relative;
+}
+ 
+ 
+.contrasena input {
+    width: 100%;
+    padding: 7px;
+}
+ 
+.contrasena span {
+    position: absolute;
+    right: 4px;
+    top: 38px;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 2px 10px;
+    background-color: #dadada;
+}
+
+.conf-contrasena div {
+    position: relative;
+}
+ 
+ 
+.conf-contrasena input {
+    width: 100%;
+    padding: 7px;
+}
+ 
+.conf-contrasena span {
+    position: absolute;
+    right: 4px;
+    top: 38px;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 2px 10px;
+    background-color: #dadada;
+}

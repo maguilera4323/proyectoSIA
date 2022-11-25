@@ -38,7 +38,7 @@
 
 <div class="full-box page-header">
 	<h3 class="text-left">
-		<i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE COMPRAS
+		<i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE DETALLE DE COMPRAS
 	</h3>
 
 </div>
@@ -87,14 +87,17 @@ if(isset($_GET['enviar'])){
 		<tbody>
 		
 		<?php
+			//variables para generar la url completa del sitio y obtener el id del registro
+			$host= $_SERVER["HTTP_HOST"];
+			$url= $_SERVER["REQUEST_URI"];
+			$url_completa="http://" . $host . $url; 
+			//variable que contiene el id de la compra a editar
+			$id_compra = explode('/',$url_completa)[5]; 
 		
 				$SQL="SELECT dc.id_detalle_compra, i.nom_insumo, dc.cantidad_comprada, dc.precio_costo, dc.fecha_caducidad
 							 FROM TBL_detalle_compra dc
-							
 						inner join TBL_insumos i on dc.id_insumos=i.id_insumos
-
-						ORDER BY dc.id_detalle_compra DESC
-						$where";						
+						where dc.id_compra='$id_compra'";						
 				$dato = mysqli_query($conexion, $SQL);
 
 				if($dato -> num_rows >0){

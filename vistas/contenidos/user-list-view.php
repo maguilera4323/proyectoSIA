@@ -298,15 +298,17 @@ if(isset($_GET['enviar'])){
 						</div>
 				<div class="row">
 					<div class="col-10 col-md-6">
-						<div class="form-group">
+						<div class="form-group contrasena">
 							<label class="color-label">Contraseña</label>
 							<input type="password" class="form-control" name="contrasena_reg" id="contrasena" pattern="[a-zA-Z0-9!#%&/()=?¡*+_$@.-]{8,100}" maxlength="10" required="" >
+							<span onclick="mosContrasena()"><i class="fas fa-eye-slash icon-clave" style="color:black;"></i></span>
 						</div>
 					</div>
-					<div class="col-12 col-md-6">
-						<div class="form-group">
+					<div class="col-10 col-md-6">
+						<div class="form-group conf-contrasena">
 							<label class="color-label">Confirmar Contraseña</label>
-							<input type="password" class="form-control" name="conf_contrasena_reg" id="conf_contrasena" pattern="[a-zA-Z0-9!#%&/()=?¡*+_$@.-]{8,100}" maxlength="10" required="" >
+							<input type="password" class="form-control" name="conf_contrasena_reg" id="conf_contra" pattern="[a-zA-Z0-9!#%&/()=?¡*+_$@.-]{8,100}" maxlength="10" required="" >
+							<span onclick="mosConfContrasena()"><i class="fas fa-eye-slash icon-confclave" style="color:black;"></i></span>
 						</div>
 					</div>
 				</div>

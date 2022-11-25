@@ -30,7 +30,7 @@
 					"fecha" => date('Y-m-d H:i:s'),
 					"id_usuario" => $_SESSION['id_login'],//cambiar aqui para que me pueda traer el USU conectado
 					"accion" => "Cambio de vista",
-					"descripcion" => "El usuario ".$_SESSION['usuario_login']." entró a la Vista de lista de facturas"
+					"descripcion" => "El usuario ".$_SESSION['usuario_login']." entró a la Vista de Detalle de Facturación"
 				];
 				Bitacora::guardar_bitacora($datos_bitacora);
 			}
@@ -38,20 +38,9 @@
 
 <div class="full-box page-header">
 	<h3 class="text-left">
-		<i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE FACTURAS
+		<i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE DETALLE DE FACTURAS
 	</h3>
 
-</div>
-
-<div class="container-fluid">
-	<ul class="full-box list-unstyled page-nav-tabs">
-		<li>
-			<a href="<?php echo SERVERURL; ?>facturacion/"><i class="fas fa-plus fa-fw"></i> &nbsp; AGREGAR PEDIDO</a>
-		</li>
-		<li>
-			<a class="active" href="<?php echo SERVERURL; ?>facturacion-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE FACTURAS</a>
-		</li>
-	</ul>	
 </div>
 
 <!-- BUscar compra -->
@@ -64,7 +53,7 @@ if(isset($_GET['enviar'])){
 
 	if (isset($_GET['busqueda']))
 	{
-		$where="WHERE TBL_usuarios.usuario LIKE'%".$busqueda."%' OR nombre_usuario  LIKE'%".$busqueda."%'";
+		$where="WHERE TBL_detalle_compra.id_detalle_compra LIKE'%".$busqueda."%' OR id_detalle_compra  LIKE'%".$busqueda."%'";
 	}
   
 }
@@ -76,7 +65,7 @@ if(isset($_GET['enviar'])){
 	<div class="container-fluid">
   <form class="d-flex">
       <input class="form-control me-2 light-table-filter" data-table="table_id" type="text" 
-      placeholder="Buscar Factura">
+      placeholder="Buscar Compra">
       <hr>
       </form>
   </div>
@@ -87,29 +76,25 @@ if(isset($_GET['enviar'])){
 		<!-- Encabezado de la tabla -->
 		<thead>
 			<tr>
-				<th>Factura Numero</th>
-				<th>Cliente</th>
-				<th>Fecha de Pedido</th>
-				<th>Fecha de entrega</th>
-				<th>Estado Pedido</th>
-				<th>Total Pedido</th>
-				<th>Detalle Pedido</th>
-				<th>Actualizar</th>
-				<th>Imprimir</th>
+				<th>ID DETALLE</th>
+				<th>PRODUCTO</th>
+				<th>CANTIDAD</th>
+				<th>PRECIO</th>
 			</tr>
 		</thead>
 		<tbody>
 		
 		<?php
-		
-				$SQL="SELECT p.id_pedido,p.num_factura, p.fech_pedido, p.fech_entrega, p.total,
-							c.nom_cliente,
-							e.estado_pedido FROM TBL_pedidos p
-							
-						inner join TBL_Clientes c on p.id_cliente=c.id_clientes
-						inner join TBL_estado_pedido e on p.id_estado_pedido=e.id_estado_pedido
-						ORDER BY p.id_pedido DESC
-						$where";						
+		//variables para generar la url completa del sitio y obtener el id del registro
+		$host= $_SERVER["HTTP_HOST"];
+		$url= $_SERVER["REQUEST_URI"];
+		$url_completa="http://" . $host . $url; 
+		//variable que contiene el id de la compra a editar
+		$id_pedido = explode('/',$url_completa)[5]; 
+
+				$SQL="SELECT dp.id_detalle_pedido, p.nom_producto, dp.cantidad, dp.precio_venta FROM TBL_detalle_pedido dp
+						inner join TBL_producto p on p.id_producto=dp.id_producto
+						where dp.id_pedido='$id_pedido'";			
 				$dato = mysqli_query($conexion, $SQL);
 
 				if($dato -> num_rows >0){
@@ -117,29 +102,10 @@ if(isset($_GET['enviar'])){
 
 				?>
 				<tr>
-				<td><?php echo $fila['num_factura']; ?></td>
-				<td><?php echo $fila['nom_cliente']; ?></td>
-				<td><?php echo $fila['fech_pedido']; ?></td>
-				<td><?php echo $fila['fech_entrega']; ?></td>
-				<td><?php echo $fila['estado_pedido']; ?></td>
-				<td><?php echo $fila['total']; ?></td>
-
-				<td>
-					<a href="<?php echo SERVERURL; ?>detalleventa-list/<?php echo $fila['id_pedido']?>" class="btn btn-success">
-					<i class="fas fa-info-circle"></i>
-					</a>
-				</td>
-				<td>
-					<a href="<?php echo SERVERURL; ?>facturacion-update/" class="btn btn-success">
-						<i class="fas fa-sync-alt"></i>	
-					</a>
-				</td>
-				<td>
-				<form action="../pdf/pdfFacturaUnica.php" method="post" accept-charset="utf-8">
-					<input type="hidden" name="id_factura" value="<?php echo $fila['id_pedido']?>">
-					<button type="submit" class="btn btn-danger" ><i class="fas fa-file-pdf"></i></button>
-					</form>
-				</td>
+				<td><?php echo $fila['id_detalle_pedido']; ?></td>
+				<td><?php echo $fila['nom_producto']; ?></td>
+				<td><?php echo $fila['cantidad']; ?></td>
+				<td><?php echo $fila['precio_venta']; ?></td>
 
 			</tr>
 			<?php

@@ -9,7 +9,7 @@
 			"cliente-new","cliente-list","cliente-update",
 			"detallecompra-list","compra-list", "compra-update" ,"compra-new",
 			"facturacion","facturacion-list","facturacion-update","factura-detalle",
-			"home",
+			"home","detalleventa-list",
 			"insumos-list","insumos-new","insumos-update",
 			"inventario-list","movimiento-inventario",
 			"objetos-list","parametros-list","perfilusuario",
