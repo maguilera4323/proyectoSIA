@@ -75,7 +75,7 @@ if(isset($_GET['enviar'])){
 			</form>
 <div class="container-fluid">
   <form class="d-flex" action="../pdf/clientepdf.php" method="post" accept-charset="utf-8">
-  	<input class="form-control me-2 light-table-filter" data-table="table_id" type="text" name="filtrocliente" placeholder="Ingrese cliente">
+  	<input class="form-control me-2 light-table-filter" data-table="table_id" type="text" name="filtrocliente" placeholder="Buscar cliente">
 	<button type="submit" class="btn btn-danger mx-auto btn-lg"><i class="fas fa-file-pdf"></i> &nbsp;Descargar Reporte</button>
       </form>
   </div>

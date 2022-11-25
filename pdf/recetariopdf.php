@@ -36,7 +36,7 @@ class MYPDF extends TCPDF{
         //Establecer margenes del PDF
         $pdf->SetMargins(20, 35, 25);
         $pdf->SetHeaderMargin(20);
-        $pdf->setPrintFooter(false);
+        $pdf->setPrintFooter(true);
         $pdf->setPrintHeader(true); //Eliminar la linea superior del PDF por defecto
         $pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM); //Activa o desactiva el modo de salto de página automático
         
