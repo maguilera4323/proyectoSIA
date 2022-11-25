@@ -10,8 +10,7 @@ class MYPDF extends TCPDF{
             $bMargin = $this->getBreakMargin();
             $auto_page_break = $this->AutoPageBreak;
             $this->SetAutoPageBreak(false, 0);
-            $img_file = dirname( __FILE__ ) .'/images/cafe.jpg';
-            $this->Image($img_file, 85, 8, 20, 25, '', '', '', false, 30, '', false, false, 0);
+            $this->Image('https://i.pinimg.com/564x/35/f5/3c/35f53c0062b906ca788a77b97e92e9f1.jpg', 90, 15, 35, 35, '', '', '', false, 30, '', false, false, 0);
             $this->SetAutoPageBreak($auto_page_break, $bMargin);
             $this->setPageMark();
 	    }
@@ -113,17 +112,21 @@ class MYPDF extends TCPDF{
         // filtro de INVENTARIO
         $filtromovi_inventario=($_POST['filtromovi_inventario']);
 
-        $sqlmovi_inventario = ("SELECT * FROM TBL_movi_inventario WHERE id_cardex LIKE'%".$filtromovi_inventario."%'");
+        $sqlmovi_inventario = ("SELECT i.id_insumos,i.nom_insumo, m.cant_movimiento,m.tipo_movimiento,m.fecha_movimiento,
+        u.usuario,m.comentario FROM TBL_movi_inventario m
+        inner join TBL_insumos i on i.id_insumos=m.id_insumos
+        inner join TBL_usuarios u on u.id_usuario=m.id_usuario
+        WHERE i.nom_insumo LIKE'%".$filtromovi_inventario."%'");
         
 
         $query = mysqli_query($conexion, $sqlmovi_inventario);
 
         while ($dataRow = mysqli_fetch_array($query)) {
-                $pdf->Cell(33,6,$dataRow['id_insumos'],1,0,'C');
+                $pdf->Cell(33,6,$dataRow['nom_insumo'],1,0,'C');
                 $pdf->Cell(20,6,$dataRow['cant_movimiento'],1,0,'C');
                 $pdf->Cell(30,6,$dataRow['tipo_movimiento'],1,0,'C');
                 $pdf->Cell(35,6,$dataRow['fecha_movimiento'],1,0,'C');
-                $pdf->Cell(20,6,$dataRow['id_usuario'],1,0,'C');
+                $pdf->Cell(20,6,$dataRow['usuario'],1,0,'C');
                 $pdf->Cell(35,6, $dataRow['comentario'],1,1,'C');
                 
             }

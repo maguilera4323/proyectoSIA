@@ -61,14 +61,20 @@ class Invoice{
 		});
 		</script>'; */
 
-		$datos_bitacora = [
+		if (isset($lastInsertId)=='true'){
+			echo '<script>
+			swal.fire("Venta Realizada", "La venta se ha realizado exitosamente", "success")
+			</script>'; 
+		}
+
+		/* $datos_bitacora = [
 			"id_objeto" => 0,
 			"fecha" => date('Y-m-d H:i:s'),
 			"id_usuario" => $_SESSION['id_login'],
 			"accion" => "Nuevo pedido",
 			"descripcion" => "El usuario ".$_SESSION['usuario_login']." registró un pedido en el sistema"
 		];
-		Bitacora::guardar_bitacora($datos_bitacora); 
+		Bitacora::guardar_bitacora($datos_bitacora);  */
 	}
 
 

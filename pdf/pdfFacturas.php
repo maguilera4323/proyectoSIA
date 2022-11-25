@@ -10,8 +10,7 @@ class MYPDF extends TCPDF{
             $bMargin = $this->getBreakMargin();
             $auto_page_break = $this->AutoPageBreak;
             $this->SetAutoPageBreak(false, 0);
-            $img_file = dirname( __FILE__ ) .'/images/cafe.jpg';
-            $this->Image($img_file, 85, 8, 20, 25, '', '', '', false, 30, '', false, false, 0);
+            $this->Image('https://i.pinimg.com/564x/35/f5/3c/35f53c0062b906ca788a77b97e92e9f1.jpg', 90, 15, 35, 35, '', '', '', false, 30, '', false, false, 0);
             $this->SetAutoPageBreak($auto_page_break, $bMargin);
             $this->setPageMark();
 	    }

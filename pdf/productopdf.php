@@ -10,8 +10,7 @@ class MYPDF extends TCPDF{
             $bMargin = $this->getBreakMargin();
             $auto_page_break = $this->AutoPageBreak;
             $this->SetAutoPageBreak(false, 0);
-            $img_file = dirname( __FILE__ ) .'/images/cafe.jpg';
-            $this->Image($img_file, 85, 8, 20, 25, '', '', '', false, 30, '', false, false, 0);
+            $this->Image('https://i.pinimg.com/564x/35/f5/3c/35f53c0062b906ca788a77b97e92e9f1.jpg', 90, 15, 35, 35, '', '', '', false, 30, '', false, false, 0);
             $this->SetAutoPageBreak($auto_page_break, $bMargin);
             $this->setPageMark();
 	    }
@@ -99,11 +98,10 @@ class MYPDF extends TCPDF{
         //Almando la cabecera de la Tabla
         $pdf->SetFillColor(232,232,232);
         $pdf->SetFont('helvetica','B',10); //La B es para letras en Negritas
-        $pdf->Cell(32,6,'NOMBRE',1,0,'C',1);
+        $pdf->Cell(40,6,'NOMBRE',1,0,'C',1);
         $pdf->Cell(40,6,'TIPO DE PRODUCTO',1,0,'C',1);
-        $pdf->Cell(35,6,'DESCRIPCION',1,0,'C',1);
-        $pdf->Cell(28,6,'PRECIO',1,0,'C',1); 
-        $pdf->Cell(45,6,'FOTO',1,1,'C',1); 
+        $pdf->Cell(40,6,'DESCRIPCION',1,0,'C',1);
+        $pdf->Cell(40,6,'PRECIO',1,1,'C',1); 
         /*El 1 despues de  Fecha Ingreso indica que hasta alli 
         llega la linea */
 
@@ -112,17 +110,18 @@ class MYPDF extends TCPDF{
         // filtro de producto
         $filtroproducto=($_POST['filtroproducto']);
 
-        $sqlTrabajadores = ("SELECT * FROM TBL_producto WHERE nom_producto LIKE'%".$filtroproducto."%'");
+        $sqlTrabajadores = ("SELECT p.nom_producto,tp.tipo_producto,p.des_produ,p.precio_produ FROM TBL_producto p
+                inner join TBL_tipo_producto tp on tp.id_tipo_produ=p.id_tipo_produ
+        WHERE p.nom_producto LIKE'%".$filtroproducto."%'");
         
         //$sqlTrabajadores = ("SELECT * FROM trabajadores");
         $query = mysqli_query($conexion, $sqlTrabajadores);
 
         while ($dataRow = mysqli_fetch_array($query)) {
-                $pdf->Cell(32,6,($dataRow['nom_producto']),1,0,'C');
-                $pdf->Cell(40,6,$dataRow['id_tipo_produ'],1,0,'C');
-                $pdf->Cell(35,6, $dataRow['des_produ'],1,0,'C');
-                $pdf->Cell(28,6, $dataRow['precio_produ'],1,0,'C');
-                $pdf->Cell(45,6, $dataRow['foto_produ'],1,1,'C');
+                $pdf->Cell(40,6,($dataRow['nom_producto']),1,0,'C');
+                $pdf->Cell(40,6,$dataRow['tipo_producto'],1,0,'C');
+                $pdf->Cell(40,6, $dataRow['des_produ'],1,0,'C');
+                $pdf->Cell(40,6, $dataRow['precio_produ'],1,1,'C');
             }
 
 

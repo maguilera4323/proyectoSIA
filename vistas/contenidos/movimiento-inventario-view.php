@@ -69,14 +69,13 @@ if(isset($_GET['enviar'])){
 ?>
 
 			</form>
-      <div class="container-fluid">
-	  <form class="d-flex" action="../pdf/movi_inventariopdf.php" method="post" accept-charset="utf-8">		
-		<input class="form-control me-2 light-table-filter" data-table="table_id" type="text" name="filtromovi_inventario"
-		placeholder="Buscar Insumo"> <div class="row">
-					<div class="col">
-						<button type="submit" class="btn btn-danger mb-2"><i class="fas fa-file-pdf"></i> &nbsp;Descargar Reporte</button>
-					</div>
-					</div>>
+			<div class="container-fluid">
+  <form class="d-flex" action="../pdf/movi_inventariopdf.php" method="post" accept-charset="utf-8">
+  	<input class="form-control me-2 light-table-filter" data-table="table_id" type="text" name="filtromovi_inventario" placeholder="Buscar Movimientos">
+	<button type="submit" class="btn btn-danger mx-auto btn-lg"><i class="fas fa-file-pdf"></i> &nbsp;Descargar Reporte</button>
+      </form>
+  </div>
+  </div>
       <hr>
       </form>
   </div>

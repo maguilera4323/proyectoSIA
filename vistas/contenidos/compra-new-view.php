@@ -54,8 +54,11 @@
 					while($fila=mysqli_fetch_array($dato)){
 						$ultimoIdCompra=$fila['id_compra'];
 					}
+					$idCompraActual=$ultimoIdCompra+1;
+				}else{
+					$idCompraActual=1;
 				}
-				$idCompraActual=$ultimoIdCompra+1;
+				
 			?>
 			<br>
 			<br>
@@ -167,7 +170,7 @@
 							<label class="color-label">Total: &nbsp;</label>
 							<div class="input-group">
 								<div class="input-group-addon currency">L.</div>
-								<input value="" type="number" class="form-control" name="subTotal" id="subTotal">
+								<input value="" type="number" class="form-control" name="subTotal" step="any" id="subTotal">
 							</div>
 					</span>
 				</div>

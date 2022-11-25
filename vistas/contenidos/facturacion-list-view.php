@@ -95,20 +95,20 @@ if(isset($_GET['enviar'])){
 				<th>Total Pedido</th>
 				<th>Detalle Compra</th>
 				<th>Actualizar</th>
-				<!-- <th>borrar</th> -->
+				<th>Imprimir</th>
 			</tr>
 		</thead>
 		<tbody>
 		
 		<?php
 		
-				$SQL="SELECT p.num_factura, p.fech_pedido, p.fech_entrega, p.total,
+				$SQL="SELECT p.id_pedido,p.num_factura, p.fech_pedido, p.fech_entrega, p.total,
 							c.nom_cliente,
 							e.estado_pedido FROM TBL_pedidos p
 							
 						inner join TBL_Clientes c on p.id_cliente=c.id_clientes
 						inner join TBL_estado_pedido e on p.id_estado_pedido=e.id_estado_pedido
-						ORDER BY p.num_factura DESC
+						ORDER BY p.id_pedido DESC
 						$where";						
 				$dato = mysqli_query($conexion, $SQL);
 
@@ -134,16 +134,13 @@ if(isset($_GET['enviar'])){
 						<i class="fas fa-sync-alt"></i>	
 					</a>
 				</td>
-<!-- 				<td>
-				<form class="FormularioAjax" action="<?php echo SERVERURL; ?>ajax/compraAjax.php" method="POST" data-form="delete" autocomplete="off">
-				<input type="hidden" pattern="" class="form-control" name="id_compra_del" value="">
-				<input type="hidden" pattern="" class="form-control" name="id_proveedor_del" value="">	
-				<button type="submit" class="btn btn-warning">
-					<i class="far fa-trash-alt"></i>
-				</button>
-				</form>
-			</td> 
--->
+				<td>
+				<form action="../pdf/pdfFacturaUnica.php" method="post" accept-charset="utf-8">
+					<input type="hidden" name="id_factura" value="<?php echo $fila['id_pedido']?>">
+					<button type="submit" class="btn btn-danger" ><i class="fas fa-file-pdf"></i></button>
+					</form>
+				</td>
+
 			</tr>
 			<?php
 				}

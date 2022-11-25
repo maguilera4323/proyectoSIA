@@ -10,7 +10,7 @@ class MYPDF extends TCPDF{
             $bMargin = $this->getBreakMargin();
             $auto_page_break = $this->AutoPageBreak;
             $this->SetAutoPageBreak(false, 0);
-            $this->Image('https://topclub.ua/images/uploads/citycafe_logo.jpg', 100, 8, 20, 25, '', '', '', false, 30, '', false, false, 0);
+            $this->Image('https://i.pinimg.com/564x/35/f5/3c/35f53c0062b906ca788a77b97e92e9f1.jpg', 90, 12, 30, 30, '', '', '', false, 30, '', false, false, 0);
             $this->SetAutoPageBreak($auto_page_break, $bMargin);
             $this->setPageMark();
 	    }
@@ -29,6 +29,7 @@ class MYPDF extends TCPDF{
 
 
 //Iniciando un nuevo pdf
+        $id_factura=$_POST['id_factura'];
 
         $pdf = new MYPDF(PDF_PAGE_ORIENTATION, 'mm', 'Letter', true, 'UTF-8', false);
         
@@ -60,7 +61,7 @@ class MYPDF extends TCPDF{
 
         //Agregando la primera página
         $pdf->AddPage();
-        
+        $pdf->Ln(8); //Salto de Linea
         $pdf->SetFont('helvetica','B', 16); 
         $pdf->Cell(172,6,'CITY COFFE',0,0,'C');
         $pdf->Ln(8); //Salto de Linea
@@ -84,26 +85,19 @@ class MYPDF extends TCPDF{
         //$pdf->SetTextColor(100, 0, 0); //Color Carne
         $pdf->SetFont('helvetica','B', 15); 
         $pdf->Cell(180,6,'FACTURA',0,0,'C');
-        $pdf->Ln(15); //Salto de Linea
+        $pdf->Ln(10); //Salto de Linea
        
 
         //Almando la cabecera de la Tabla
         /*El 1 despues de  Fecha Ingreso indica que hasta alli 
         llega la linea */
 
-        // filtro de cliente
-        $filtrofactura=($_POST['filtrofactura']);
-
-        if(isset($filtrofactura)){
            $sqlTrabajadores = ("SELECT p.id_pedido,c.nom_cliente, p.fech_pedido, p.fech_entrega,p.sitio_entrega,p.num_factura,
            ep.estado_pedido,p.sub_total,p.ISV,p.total,f.forma_pago,p.fech_facturacion,p.porcentaje_isv FROM TBL_pedidos p
            inner join TBL_Clientes c on c.id_clientes=p.id_cliente
            inner join TBL_estado_pedido ep on ep.id_estado_pedido=p.id_estado_pedido
            inner join TBL_forma_pago f on f.id_forma_pago=p.id_forma_pago
-           WHERE p.id_pedido=24");
-        }else{
-        $sqlTrabajadores = ("SELECT * FROM TBL_pedidos WHERE id_pedido=24");
-        }
+           WHERE p.id_pedido='$id_factura'");
 
         $query = mysqli_query($conexion, $sqlTrabajadores);
 
@@ -168,25 +162,25 @@ class MYPDF extends TCPDF{
          $pdf->SetFillColor(232,232,232);
             $pdf->SetFont('helvetica','B',12); //La B es para letras en Negritas
             $pdf-> SetFillColor(255,255,255);
-            $pdf->Cell(120,6,'SUBTOTAL L.',0,0,'R',1);
+            $pdf->Cell(130,6,'SUBTOTAL L.',1,0,'R',1);
             $pdf->SetFillColor(232,232,232);
             $pdf->Cell(40,6,($subtotal),1,1,'C',1);
             $pdf-> SetFillColor(255,255,255);
-            $pdf->Cell(120,6,'ISV 15% L.',0,0,'R',1);
+            $pdf->Cell(130,6,'ISV 15% L.',0,0,'R',1);
             $pdf->SetFillColor(232,232,232);
             $pdf->Cell(40,6,($impuesto),1,1,'C',1);
             $pdf-> SetFillColor(255,255,255);
-            $pdf->Cell(120,6,'TOTAL L.',0,0,'R',1);
+            $pdf->Cell(130,6,'TOTAL L.',0,0,'R',1);
             $pdf->SetFillColor(232,232,232);
             $pdf->Cell(40,6,($total),1,1,'C',1);
         
-            $pdf->Ln(20); //Salto de Linea
+            $pdf->Ln(30); //Salto de Linea
 
             $pdf->SetFillColor(255,255,255);
-            $pdf->SetFont('helvetica','B',12); //La B es para letras en Negritas
+            $pdf->SetFont('helvetica','B',10); //La B es para letras en Negritas
             $pdf->Cell(120,6,'CAI: A2E6TY-GT463S-FRIR421-465732-NSGH35D-GT',0,0,'L',1);
             $pdf->Ln(9); //Salto de Linea
-            $pdf->Cell(120,6,'RANGO DE FACTURCIÓN: 002-001-01-00000000 AL 002-001-01-00100000',0,0,'L',1);
+            $pdf->Cell(120,6,'RANGO DE FACTURACIÓN: 002-001-01-00000000 AL 002-001-01-00100000',0,0,'L',1);
             $pdf->Ln(9); //Salto de Linea
             $pdf->Cell(120,6,'FECHA LIMITE DE EMISIÓN: 12-10-2023',0,0,'L',1);
         /* $pdf->AddPage();  *///Agregar nueva Pagina

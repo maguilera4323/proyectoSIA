@@ -64,7 +64,7 @@
 
 		if (isset($_GET['busqueda']))
 		{
-			$where="WHERE TBL_objetos.objeto LIKE'%".$busqueda."%'";
+			$where="WHERE TBL_objetos.objeto LIKE'%".$busqueda."%' or TBL_objetos.tipo_objeto LIKE'%".$busqueda."%'";
 		}
 	}
 ?>
@@ -72,12 +72,10 @@
 </form>
 <div class="container-fluid">
 <form class="d-flex" action="../pdf/objetospdf.php" method="post" accept-charset="utf-8">		
-		<input class="form-control me-2 light-table-filter" data-table="table_id" type="text" name="filtroobjetos"
-		placeholder="Buscar Objetos"> <div class="row">
-					<div class="col">
-						<button type="submit" class="btn btn-danger mb-2"><i class="fas fa-file-pdf"></i> &nbsp;Descargar Reporte</button>
-					</div>
-					</div>>
+	<input class="form-control me-2 light-table-filter" data-table="table_id" type="text" name="filtroobjetos"
+	placeholder="Buscar Objetos"> 
+	<button type="submit" class="btn btn-danger mx-auto btn-lg"><i class="fas fa-file-pdf"></i> &nbsp;Descargar Reporte</button>
+</div>
       <hr>
       </form>
 </div>

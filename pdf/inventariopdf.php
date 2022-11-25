@@ -10,8 +10,7 @@ class MYPDF extends TCPDF{
             $bMargin = $this->getBreakMargin();
             $auto_page_break = $this->AutoPageBreak;
             $this->SetAutoPageBreak(false, 0);
-            $img_file = dirname( __FILE__ ) .'/images/cafe.jpg';
-            $this->Image($img_file, 85, 8, 20, 25, '', '', '', false, 30, '', false, false, 0);
+            $this->Image('https://i.pinimg.com/564x/35/f5/3c/35f53c0062b906ca788a77b97e92e9f1.jpg', 90, 15, 35, 35, '', '', '', false, 30, '', false, false, 0);
             $this->SetAutoPageBreak($auto_page_break, $bMargin);
             $this->setPageMark();
 	    }
@@ -99,9 +98,9 @@ class MYPDF extends TCPDF{
         //Almando la cabecera de la Tabla
         $pdf->SetFillColor(232,232,232);
         $pdf->SetFont('helvetica','B',10); //La B es para letras en Negritas
-        $pdf->Cell(40,6,'NOMBRE INSUMO',1,0,'C',1);
-        $pdf->Cell(40,6,'EXISTENCIAS',1,0,'C',1);
-        $pdf->Cell(40,6,'UNIDAD DE MEDIDA',1,1,'C',1); 
+        $pdf->Cell(55,6,'NOMBRE INSUMO',1,0,'C',1);
+        $pdf->Cell(55,6,'EXISTENCIAS',1,0,'C',1);
+        $pdf->Cell(55,6,'UNIDAD DE MEDIDA',1,1,'C',1); 
         /*El 1 despues de  Fecha Ingreso indica que hasta alli 
         llega la linea */
 
@@ -110,14 +109,17 @@ class MYPDF extends TCPDF{
         // filtro de INVENTARIO
         $filtroinventario=($_POST['filtroinventario']);
 
-        $sqlinventario = ("SELECT * FROM TBL_inventario WHERE id_insumo LIKE'%".$filtroinventario."%'");
+        $sqlinventario = ("SELECT iv.id_insumo,i.nom_insumo,iv.cant_existencia,i.unidad_medida FROM TBL_inventario iv
+                inner join TBL_insumos i on i.id_insumos=iv.id_insumo
+         WHERE i.nom_insumo LIKE'%".$filtroinventario."%'");
         
 
         $query = mysqli_query($conexion, $sqlinventario);
 
         while ($dataRow = mysqli_fetch_array($query)) {
-                $pdf->Cell(40,6,$dataRow['id_insumo'],1,0,'C');
-                $pdf->Cell(40,6, $dataRow['cant_existencia'],1,1,'C');
+                $pdf->Cell(55,6,$dataRow['nom_insumo'],1,0,'C');
+                $pdf->Cell(55,6, $dataRow['cant_existencia'],1,0,'C');
+                $pdf->Cell(55,6, $dataRow['unidad_medida'],1,1,'C');
                 
             }
 

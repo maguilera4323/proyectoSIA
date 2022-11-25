@@ -10,8 +10,7 @@ class MYPDF extends TCPDF{
             $bMargin = $this->getBreakMargin();
             $auto_page_break = $this->AutoPageBreak;
             $this->SetAutoPageBreak(false, 0);
-            $img_file = dirname( __FILE__ ) .'/images/cafe.jpg';
-            $this->Image($img_file, 85, 8, 20, 25, '', '', '', false, 30, '', false, false, 0);
+            $this->Image('https://i.pinimg.com/564x/35/f5/3c/35f53c0062b906ca788a77b97e92e9f1.jpg', 90, 15, 35, 35, '', '', '', false, 30, '', false, false, 0);
             $this->SetAutoPageBreak($auto_page_break, $bMargin);
             $this->setPageMark();
 	    }
@@ -102,9 +101,8 @@ class MYPDF extends TCPDF{
         $pdf->Cell(20,6,'USUARIO',1,0,'C',1);
         $pdf->Cell(35,6,'NOMBRE',1,0,'C',1);
         $pdf->Cell(20,6,'ESTADO',1,0,'C',1);
-        $pdf->Cell(30,6,'ROL',1,0,'C',1);
-        $pdf->Cell(50,6,'CORREO',1,0,'C',1);
-        $pdf->Cell(25,6,'CREADO POR',1,1,'C',1); 
+        $pdf->Cell(40,6,'ROL',1,0,'C',1);
+        $pdf->Cell(55,6,'CORREO',1,1,'C',1);
         /*El 1 despues de  Fecha Ingreso indica que hasta alli 
         llega la linea */
 
@@ -113,18 +111,20 @@ class MYPDF extends TCPDF{
         // filtro de USUARIOS
         $filtrousuarios=($_POST['filtrousuarios']);
 
-        $sqlusuarios = ("SELECT * FROM TBL_usuarios WHERE id_usuario LIKE'%".$filtrousuarios."%'");
+        $sqlusuarios = ("SELECT u.usuario, u.nombre_usuario,u.estado_usuario,r.rol,u.correo_electronico,
+        u.creado_por FROM TBL_usuarios u
+        inner join TBL_ms_roles r on r.id_rol=u.id_rol
+        WHERE r.rol LIKE'%".$filtrousuarios."%' or u.usuario LIKE'%".$filtrousuarios."%' or u.nombre_usuario LIKE'%".$filtrousuarios."%'");
         
 
         $query = mysqli_query($conexion, $sqlusuarios);
 
         while ($dataRow = mysqli_fetch_array($query)) {
-                $pdf->Cell(20,6,$dataRow['usuario'],1,0,'C');
-                $pdf->Cell(35,6,$dataRow['nombre_usuario'],1,0,'C');
-                $pdf->Cell(20,6,$dataRow['estado_usuario'],1,0,'C');
-                $pdf->Cell(30,6,$dataRow['id_rol'],1,0,'C');
-                $pdf->Cell(50,6,$dataRow['correo_electronico'],1,0,'C');
-                $pdf->Cell(25,6, $dataRow['creado_por'],1,1,'C');
+                $pdf->Cell(20,7,$dataRow['usuario'],1,0,'C');
+                $pdf->Cell(35,7,$dataRow['nombre_usuario'],1,0,'C');
+                $pdf->Cell(20,7,$dataRow['estado_usuario'],1,0,'C');
+                $pdf->Cell(40,7,$dataRow['rol'],1,0,'C');
+                $pdf->Cell(55,7,$dataRow['correo_electronico'],1,1,'C');
                 
             }
 
