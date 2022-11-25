@@ -43,18 +43,14 @@ class Invoice{
 		//el ciclo es para insertar todos los insumos agregados a la compra
 		for ($i = 0; $i < count($POST['productName']); $i++) {
 			$sqlInsertItem = "
-			INSERT INTO " . $this->datosDetalleCompra . "(id_compra, id_insumos, cantidad_comprada, precio_costo, fecha_caducidad) 
-			VALUES ('" . $POST['productCode'] . "', '" . $POST['productName'][$i] . "', '" . $POST['quantity'][$i] . "', '" . $POST['price'][$i] . "', '" . $POST['fechaCaducidad'][$i] . "')";
+			INSERT INTO " . $this->datosDetalleCompra . "(id_compra, id_insumos, cantidad_comprada, precio_costo, fecha_caducidad,estado_compra) 
+			VALUES ('" . $POST['productCode'] . "', '" . $POST['productName'][$i] . "', '" . $POST['quantity'][$i] . "', '" . $POST['price'][$i] . "', '" . $POST['fechaCaducidad'][$i] . "', '" . $POST['estado_compra'] . "')";
 			mysqli_query($this->dbConnect, $sqlInsertItem);
 		}
 
-		if ($lastInsertId){
+		if (isset($lastInsertId)=='true'){
 			echo '<script>
-			Swal.fire({
-				title: "Compra realizada",
-				text: "La compra fue realizada exitosamente",
-				confirmButtonText: "Aceptar"
-			});
+			swal.fire("Compra Realizada", "Su compra se ha realizado exitosamente", "success")
 			</script>'; 
 		}
 		

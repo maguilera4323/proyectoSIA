@@ -139,7 +139,7 @@ if($dato -> num_rows >0){
 						<div class="modal-dialog" role="document">
 								<div class="modal-content">
 								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLabel">Actualizar Pregunta</h5>
+									<h5 class="modal-title" id="exampleModalLabel">Actualizar Proveedor</h5>
 									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 									</button>
@@ -231,7 +231,7 @@ if($dato -> num_rows >0){
 <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Nuevo Usuario</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Nuevo Proveedor</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
