@@ -32,7 +32,7 @@ class MYPDF extends TCPDF{
         //Informacion del PDF
         $pdf->SetCreator('WorkNet');
         $pdf->SetAuthor('WorkNet');
-        $pdf->SetTitle('Informe de Preguntas');
+        $pdf->SetTitle('Informe de Productos');
         
         /** Eje de Coordenadas
          *          Y
@@ -79,7 +79,7 @@ class MYPDF extends TCPDF{
         //$pdf->SetTextColor(245,245,205); //Gris claro
         //$pdf->SetTextColor(100, 0, 0); //Color Carne
         $pdf->SetFont('helvetica','B', 15); 
-        $pdf->Cell(100,6,'LISTA DE PREGUNTAS',0,0,'C');
+        $pdf->Cell(100,6,'LISTA DE PRODUCTOS',0,0,'C');
 
 
         $pdf->Ln(10); //Salto de Linea
@@ -87,28 +87,36 @@ class MYPDF extends TCPDF{
 
         //Almando la cabecera de la Tabla
         $pdf->SetFillColor(232,232,232);
-        $pdf->SetFont('helvetica','B',12); //La B es para letras en Negritas
-        $pdf->Cell(60,6,'PREGUNTA',1,1,'C',1);
+        $pdf->SetFont('helvetica','B',10); //La B es para letras en Negritas
+        $pdf->Cell(32,6,'NOMBRE',1,0,'C',1);
+        $pdf->Cell(40,6,'TIPO DE PRODUCTO',1,0,'C',1);
+        $pdf->Cell(35,6,'DESCRIPCION',1,0,'C',1);
+        $pdf->Cell(28,6,'PRECIO',1,0,'C',1); 
+        $pdf->Cell(45,6,'FOTO',1,1,'C',1); 
         /*El 1 despues de  Fecha Ingreso indica que hasta alli 
         llega la linea */
 
-        $pdf->SetFont('helvetica','',10);
+        $pdf->SetFont('helvetica','',8); // el "10" es para el tamaño de letra del cuerpo de la tabla
 
-        // filtro de insumos
-        $filtropreguntas=($_POST['filtropreguntas']);
+        // filtro de producto
+        $filtroproducto=($_POST['filtroproducto']);
 
-        $sqlTrabajadores = ("SELECT * FROM TBL_preguntas WHERE pregunta LIKE'%".$filtropreguntas."%'");
+        $sqlTrabajadores = ("SELECT * FROM TBL_producto WHERE nom_producto LIKE'%".$filtroproducto."%'");
         
         //$sqlTrabajadores = ("SELECT * FROM trabajadores");
         $query = mysqli_query($conexion, $sqlTrabajadores);
 
         while ($dataRow = mysqli_fetch_array($query)) {
-                $pdf->Cell(60,6,($dataRow['pregunta']),1,1,'C');
+                $pdf->Cell(32,6,($dataRow['nom_producto']),1,0,'C');
+                $pdf->Cell(40,6,$dataRow['id_tipo_produ'],1,0,'C');
+                $pdf->Cell(35,6, $dataRow['des_produ'],1,0,'C');
+                $pdf->Cell(28,6, $dataRow['precio_produ'],1,0,'C');
+                $pdf->Cell(45,6, $dataRow['foto_produ'],1,1,'C');
             }
 
 
         // $pdf->AddPage(); //Agregar nueva Pagina
 
-        $pdf->Output('Resumen_Preguntas_'.date('d_m_y').'.pdf', 'I'); 
+        $pdf->Output('Resumen_Producto_'.date('d_m_y').'.pdf', 'I'); 
         // Output funcion que recibe 2 parameros, el nombre del archivo, ver archivo o descargar,
         // La D es para Forzar una desca
