@@ -81,9 +81,13 @@ if(isset($_GET['enviar'])){
 
 		</form>
 <div class="container-fluid">
-  <form class="d-flex">
-      <input class="form-control me-2 light-table-filter" data-table="table_id" type="text" 
-      placeholder="Buscar usuario">
+<form class="d-flex" action="../pdf/usuariospdf.php" method="post" accept-charset="utf-8">		
+		<input class="form-control me-2 light-table-filter" data-table="table_id" type="text" name="filtrousuarios"
+		placeholder="Buscar Usuarios"> <div class="row">
+					<div class="col">
+						<button type="submit" class="btn btn-danger mb-2"><i class="fas fa-file-pdf"></i> &nbsp;Descargar Reporte</button>
+					</div>
+					</div>>
       <hr>
       </form>
 </div>
