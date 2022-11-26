@@ -21,7 +21,7 @@ class MYPDF extends TCPDF{
                 //Mostrar cantidad de paginas
                 //$this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
                 $this->html = '<p style="border-top:1px solid #999; text-align:center;">
-                                        WORKNET | PAG 1
+                                                PAG 1
                                                 </p>';
                 $this->writeHTML($this->html, true, false, true, false, '');
         }
@@ -33,7 +33,7 @@ class MYPDF extends TCPDF{
         $pdf = new MYPDF(PDF_PAGE_ORIENTATION, 'mm', 'Letter', true, 'UTF-8', false);
         
         //Establecer margenes del PDF
-        $pdf->SetMargins(20, 35, 25);
+        $pdf->SetMargins(67, 35, 20);
         $pdf->SetHeaderMargin(20);
         $pdf->setPrintFooter(true);
         $pdf->setPrintHeader(true); //Eliminar la linea superior del PDF por defecto
@@ -89,7 +89,7 @@ class MYPDF extends TCPDF{
         //$pdf->SetTextColor(245,245,205); //Gris claro
         //$pdf->SetTextColor(100, 0, 0); //Color Carne
         $pdf->SetFont('helvetica','B', 15); 
-        $pdf->Cell(100,6,'LISTA DE PREGUNTAS',0,0,'C');
+        $pdf->Cell(2,6,'LISTA DE PREGUNTAS',0,0,'C');
 
 
         $pdf->Ln(10); //Salto de Linea
@@ -98,7 +98,7 @@ class MYPDF extends TCPDF{
         //Almando la cabecera de la Tabla
         $pdf->SetFillColor(232,232,232);
         $pdf->SetFont('helvetica','B',12); //La B es para letras en Negritas
-        $pdf->Cell(60,6,'PREGUNTA',1,1,'C',1);
+        $pdf->Cell(80,6,'PREGUNTA',1,1,'C',1);
         /*El 1 despues de  Fecha Ingreso indica que hasta alli 
         llega la linea */
 
@@ -113,13 +113,7 @@ class MYPDF extends TCPDF{
         $query = mysqli_query($conexion, $sqlTrabajadores);
 
         while ($dataRow = mysqli_fetch_array($query)) {
-                $pdf->SetFont('helvetica','B',10); //Tipo de fuente y tamaño de letra
-                $pdf->SetXY(15, 20); //Margen en X y en Y
-                $pdf->SetTextColor(204,0,0);
-                $pdf->Write(0, $dataRow);
-                $pdf->SetTextColor(0, 0, 0); //Color Negrita
-                $pdf->SetXY(15, 25);
-                $pdf->Write(0, "'La Felicidad Hecha Café'");
+                $pdf->Cell(80,6,($dataRow['pregunta']),1,1,'C');
             }
 
 

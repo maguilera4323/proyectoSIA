@@ -82,7 +82,7 @@ if(isset($_GET['enviar'])){
 ?>
 
 <div class="container-fluid">
-  <form class="d-flex" action="../pdf/pdfInsumos.php" method="post" accept-charset="utf-8">
+  <form class="d-flex" action="../pdf/insumospdf.php" method="post" accept-charset="utf-8">
   	<input class="form-control me-2 light-table-filter" data-table="table_id" type="text" name="filtroinsumo" placeholder="Buscar Insumo">
 	<button type="submit" class="btn btn-danger mx-auto btn-lg"><i class="fas fa-file-pdf"></i> &nbsp;Descargar Reporte</button>
       </form>
