@@ -33,7 +33,7 @@ class MYPDF extends TCPDF{
         $pdf = new MYPDF(PDF_PAGE_ORIENTATION, 'mm', 'Letter', true, 'UTF-8', false);
         
         //Establecer margenes del PDF
-        $pdf->SetMargins(67, 35, 20);
+        $pdf->SetMargins(25, 35, 20);
         $pdf->SetHeaderMargin(20);
         $pdf->setPrintFooter(true);
         $pdf->setPrintHeader(true); //Eliminar la linea superior del PDF por defecto
