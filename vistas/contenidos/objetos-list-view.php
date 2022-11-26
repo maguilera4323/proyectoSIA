@@ -154,7 +154,7 @@
 												<option value="5">Compras</option>
 												<option value="6">Facturación</option>
 												<option value="7">Mantenimiento</option> 
-												
+												<option value="8">Administración</option>
 											</select>
 											</div>
 										</div>

@@ -227,13 +227,6 @@
 			</div>
 		</a>
 
-		<a href="<?php echo SERVERURL; ?>reservation-pending/" class="tile">
-			<div class="tile-tittle">PRODUCTO</div>
-			<div class="tile-icon">
-				<i class="fas fa-hand-holding-usd fa-fw"></i>
-				<p>200  Cambiar</p>
-			</div>
-		</a>
 	</div>
 <?php
 }?>

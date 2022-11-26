@@ -303,7 +303,7 @@ class usuarioControlador extends usuarioModelo
 		$NombreUsuario=mainModel::limpiar_cadena($_POST['nombreusuario']);
 		$Correo=mainModel::limpiar_cadena($_POST['correousuario']);
 		$Contraseña=mainModel::limpiar_cadena($_POST['contraseña_nueva']);
-		$Contraseña_actual=mainModel::limpiar_cadena($_POST['contraseña_actual']);
+		/* $Contraseña_actual=mainModel::limpiar_cadena($_POST['contraseña_actual']); */
 		$Confirmar_contr=mainModel::limpiar_cadena($_POST['contraseña_confirmar']);
 		$id_actualizar=mainModel::limpiar_cadena($_POST['id_actualizacion']); 
 
@@ -374,6 +374,12 @@ class usuarioControlador extends usuarioModelo
 				"Texto"=>"Usuario actualizado exitosamente",
 				"Tipo"=>"success"
 			];
+			echo json_encode($alerta);
+
+			session_unset();
+			session_destroy();
+			echo "<script>window.location.replace('http//localhost/proyectoSIA/login/');</script>";
+			die();
 		}else
 		{
 			$alerta=[
@@ -382,9 +388,10 @@ class usuarioControlador extends usuarioModelo
 				"Texto"=>"No hemos podido actualizar el usuario",
 				"Tipo"=>"error"
 			];
+			echo json_encode($alerta);
+			die();
 		}
-		echo json_encode($alerta);
-		die();
+		
 	}
 
 

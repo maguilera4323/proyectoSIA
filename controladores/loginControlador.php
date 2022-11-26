@@ -73,6 +73,7 @@ class loginControlador extends mainModel{
 								session_start();
 								//datos que se envian para el uso del sistema y para el primer ingreso
 								$_SESSION['id_login']=$array['id'];
+								$_SESSION['id_rol']=$array['id_rol'];
 								$_SESSION['usuario_login']=$array['usuario'];
 								$_SESSION['nombre_usuario']=($array['nombre']);
 								$_SESSION['estado']=$array['estado'];
