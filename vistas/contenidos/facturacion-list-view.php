@@ -46,7 +46,7 @@
 <div class="container-fluid">
 	<ul class="full-box list-unstyled page-nav-tabs">
 		<li>
-			<a href="<?php echo SERVERURL; ?>facturacion/"><i class="fas fa-plus fa-fw"></i> &nbsp; AGREGAR VENTA</a>
+			<a href="<?php echo SERVERURL; ?>facturacion/"><i class="fas fa-plus fa-fw"></i> &nbsp; AGREGAR PEDIDO</a>
 		</li>
 		<li>
 			<a class="active" href="<?php echo SERVERURL; ?>facturacion-list/"><i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE FACTURAS</a>
@@ -64,7 +64,7 @@ if(isset($_GET['enviar'])){
 
 	if (isset($_GET['busqueda']))
 	{
-		$where="WHERE TBL_usuarios.usuario LIKE'%".$busqueda."%' OR nombre_usuario  LIKE'%".$busqueda."%'";
+		$where="WHERE TBL_pedidos.usuario LIKE'%".$busqueda."%' OR nombre_usuario  LIKE'%".$busqueda."%'";
 	}
   
 }
@@ -74,11 +74,12 @@ if(isset($_GET['enviar'])){
 
 <!-- para la parte de búsqueda-->
 	<div class="container-fluid">
-  <form class="d-flex">
-      <input class="form-control me-2 light-table-filter" data-table="table_id" type="text" 
-      placeholder="Buscar Factura">
-      <hr>
+	<div class="container-fluid">
+  <form class="d-flex" action="../pdf/pdfFacturas.php" method="post" accept-charset="utf-8">
+  	<input class="form-control me-2 light-table-filter" data-table="table_id" type="text" name="filtrofactura" placeholder="Buscar facturas">
+	<button type="submit" class="btn btn-danger mx-auto btn-lg"><i class="fas fa-file-pdf"></i> &nbsp;Descargar Reporte</button>
       </form>
+  </div>
   </div>
 
   <br>
@@ -89,54 +90,56 @@ if(isset($_GET['enviar'])){
 			<tr>
 				<th>Cliente</th>
 				<th>Fecha de Pedido</th>
+				<th>Fecha de entrega</th>
 				<th>Estado Pedido</th>
 				<th>Total Pedido</th>
-				<th>Detalle Compra</th>
-				<th>Editar Compra</th>
+				<th>Detalle Pedido</th>
+				<th>Actualizar</th>
+				<th>Imprimir</th>
 			</tr>
 		</thead>
 		<tbody>
 		
-			<?php
-				$SQL="SELECT c.id_compra,  c.id_proveedor, p.nom_proveedor,u.usuario,e.nom_estado_compra,c.fech_compra,
-				c.total_compra FROM TBL_compras c
-				inner JOIN TBL_Proveedores p ON p.id_Proveedores = c.id_proveedor
-				inner JOIN TBL_usuarios u ON u.id_usuario = c.id_usuario
-				inner JOIN TBL_estado_compras e ON e.id_estado_compra = c.id_estado_compra
-				ORDER BY c.id_compra DESC 
-				$where";
+		<?php
+		
+				$SQL="SELECT p.id_pedido,p.num_factura, p.fech_pedido, p.fech_entrega, p.total,
+							c.nom_cliente,
+							e.estado_pedido FROM TBL_pedidos p
+							
+						inner join TBL_Clientes c on p.id_cliente=c.id_clientes
+						inner join TBL_estado_pedido e on p.id_estado_pedido=e.id_estado_pedido
+						ORDER BY p.id_pedido DESC
+						$where";						
 				$dato = mysqli_query($conexion, $SQL);
 
 				if($dato -> num_rows >0){
 					while($fila=mysqli_fetch_array($dato)){
 
-			?>
+				?>
 				<tr>
-				<td><?php echo $fila['nom_proveedor']; ?></td>
-				<td><?php echo $fila['usuario']; ?></td>
-				<td><?php echo $fila['nom_estado_compra']; ?></td>
-				<td><?php echo $fila['fech_compra']; ?></td>
-				<td><?php echo $fila['total_compra']; ?></td>
+				<td><?php echo $fila['nom_cliente']; ?></td>
+				<td><?php echo $fila['fech_pedido']; ?></td>
+				<td><?php echo $fila['fech_entrega']; ?></td>
+				<td><?php echo $fila['estado_pedido']; ?></td>
+				<td><?php echo $fila['total']; ?></td>
 
 				<td>
-					<a href="<?php echo SERVERURL; ?>detallecompra-list/<?php echo $fila['id_compra']?>" class="btn btn-success">
+					<a href="<?php echo SERVERURL; ?>detalleventa-list/<?php echo $fila['id_pedido']?>" class="btn btn-success">
 					<i class="fas fa-info-circle"></i>
 					</a>
 				</td>
 				<td>
-					<a href="<?php echo SERVERURL; ?>facturacion-update/<?php echo $fila['id_compra']?>" class="btn btn-success">
+					<a href="<?php echo SERVERURL; ?>facturacion-update/<?php echo $fila['id_pedido']?>" class="btn btn-success">
 						<i class="fas fa-sync-alt"></i>	
 					</a>
 				</td>
 				<td>
-				<form class="FormularioAjax" action="<?php echo SERVERURL; ?>ajax/compraAjax.php" method="POST" data-form="delete" autocomplete="off">
-				<input type="hidden" pattern="" class="form-control" name="id_compra_del" value="<?php echo $fila['id_compra'] ?>">
-				<input type="hidden" pattern="" class="form-control" name="id_proveedor_del" value="<?php echo $fila['id_proveedor'] ?>">	
-				<button type="submit" class="btn btn-warning">
-					<i class="far fa-trash-alt"></i>
-				</button>
-				</form>
-			</td>
+				<form action="../pdf/pdfFacturaUnica.php" method="post" accept-charset="utf-8">
+					<input type="hidden" name="id_factura" value="<?php echo $fila['id_pedido']?>">
+					<button type="submit" class="btn btn-danger" ><i class="fas fa-file-pdf"></i></button>
+					</form>
+				</td>
+
 			</tr>
 			<?php
 				}

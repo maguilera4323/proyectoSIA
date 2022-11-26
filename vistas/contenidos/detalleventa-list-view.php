@@ -30,7 +30,7 @@
 					"fecha" => date('Y-m-d H:i:s'),
 					"id_usuario" => $_SESSION['id_login'],//cambiar aqui para que me pueda traer el USU conectado
 					"accion" => "Cambio de vista",
-					"descripcion" => "El usuario ".$_SESSION['usuario_login']." entró a la Vista de lista de facturas"
+					"descripcion" => "El usuario ".$_SESSION['usuario_login']." entró a la Vista de Detalle de Facturación"
 				];
 				Bitacora::guardar_bitacora($datos_bitacora);
 			}
@@ -38,7 +38,7 @@
 
 <div class="full-box page-header">
 	<h3 class="text-left">
-		<i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE DETALLE DE COMPRAS
+		<i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE DETALLE DE FACTURAS
 	</h3>
 
 </div>
@@ -77,27 +77,24 @@ if(isset($_GET['enviar'])){
 		<thead>
 			<tr>
 				<th>ID DETALLE</th>
-				<th>Insumo</th>
-				<th>Cantidad</th>
-				<th>Precio</th>
-				<th>Fecha de Caducidad</th>
-
+				<th>PRODUCTO</th>
+				<th>CANTIDAD</th>
+				<th>PRECIO</th>
 			</tr>
 		</thead>
 		<tbody>
 		
 		<?php
-			//variables para generar la url completa del sitio y obtener el id del registro
-			$host= $_SERVER["HTTP_HOST"];
-			$url= $_SERVER["REQUEST_URI"];
-			$url_completa="http://" . $host . $url; 
-			//variable que contiene el id de la compra a editar
-			$id_compra = explode('/',$url_completa)[5]; 
-		
-				$SQL="SELECT dc.id_detalle_compra, i.nom_insumo, dc.cantidad_comprada, dc.precio_costo, dc.fecha_caducidad
-							 FROM TBL_detalle_compra dc
-						inner join TBL_insumos i on dc.id_insumos=i.id_insumos
-						where dc.id_compra='$id_compra'";						
+		//variables para generar la url completa del sitio y obtener el id del registro
+		$host= $_SERVER["HTTP_HOST"];
+		$url= $_SERVER["REQUEST_URI"];
+		$url_completa="http://" . $host . $url; 
+		//variable que contiene el id de la compra a editar
+		$id_pedido = explode('/',$url_completa)[5]; 
+
+				$SQL="SELECT dp.id_detalle_pedido, p.nom_producto, dp.cantidad, dp.precio_venta FROM TBL_detalle_pedido dp
+						inner join TBL_producto p on p.id_producto=dp.id_producto
+						where dp.id_pedido='$id_pedido'";			
 				$dato = mysqli_query($conexion, $SQL);
 
 				if($dato -> num_rows >0){
@@ -105,23 +102,10 @@ if(isset($_GET['enviar'])){
 
 				?>
 				<tr>
-				<td><?php echo $fila['id_detalle_compra']; ?></td>
-				<td><?php echo $fila['nom_insumo']; ?></td>
-				<td><?php echo $fila['cantidad_comprada']; ?></td>
-				<td><?php echo $fila['precio_costo']; ?></td>
-				<td><?php echo $fila['fecha_caducidad']; ?></td>
-				
-
-<!-- 				<td>
-					<a href="<?php echo SERVERURL; ?>detallecompra-list/" class="btn btn-success">
-					<i class="fas fa-info-circle"></i>
-					</a>
-				</td>
-				<td>
-					<a href="<?php echo SERVERURL; ?>facturacion-update/" class="btn btn-success">
-						<i class="fas fa-sync-alt"></i>	
-					</a>
-				</td> -->
+				<td><?php echo $fila['id_detalle_pedido']; ?></td>
+				<td><?php echo $fila['nom_producto']; ?></td>
+				<td><?php echo $fila['cantidad']; ?></td>
+				<td><?php echo $fila['precio_venta']; ?></td>
 
 			</tr>
 			<?php

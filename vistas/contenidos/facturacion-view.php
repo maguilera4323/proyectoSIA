@@ -37,7 +37,7 @@
 ?>
 
 <div class="container content-invoice">
-	<form action="" id="invoice-form" method="post" class="invoice-form" role="form" novalidate="">
+	<form action="" id="invoice-form" method="post" class="invoice-form">
 		<div class="load-animate animated fadeInUp">
 			<div class="row">
 			<h3 class="text-left">
@@ -52,8 +52,11 @@
 					while($fila=mysqli_fetch_array($dato)){
 						$ultimoIdPedido=$fila['id_pedido'];
 					}
+					$idPedidoActual=$ultimoIdPedido+1;
+				}else{
+					$idPedidoActual=1;
 				}
-				$idPedidoActual=$ultimoIdPedido+1;
+				
 			?>
 			<br>
 			<input id="currency" type="hidden" value="$">
@@ -61,7 +64,7 @@
 				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
 					<div class="form-group">
 						<label class="color-label">Cliente</label>
-						<select class="form-control" name="cliente_pedido" id="cliente_pedido" >
+						<select class="form-control" name="cliente_pedido" id="cliente_pedido" required>
 						<option value="" selected="" disabled="">Seleccione una opción</option>
 							<?php
 							$SQL="SELECT * FROM TBL_Clientes";
@@ -78,11 +81,11 @@
 					<div class="form-group">
 						<label class="color-label">Num. Factura</label>
 						<input type="text" class="form-control" name="num_factura" id="num_factura" maxlength="40" 
-						style="text-transform:uppercase;">
+						style="text-transform:uppercase;" required>
 					</div>	
 					<div class="form-group">
 						<label class="color-label">Forma de Pago</label>
-						<select class="form-control" name="forma_pago_venta" id="forma_pago_venta" >
+						<select class="form-control" name="forma_pago_venta" id="forma_pago_venta" required>
 						<option value="" selected="" disabled="">Seleccione una opción</option>
 							<?php
 							$SQL="SELECT * FROM TBL_forma_pago";
@@ -100,12 +103,12 @@
 				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
 					<div class="form-group">
 						<label class="color-label">Sitio de Entrega</label>
-						<input type="text" name="sitio_entrega" id="sitio_entrega" class="form-control" autocomplete="off">
+						<input type="text" name="sitio_entrega" id="sitio_entrega" class="form-control" autocomplete="off" required>
 					    <input type="hidden" name="numPedido" id="numPedido" class="form-control" value="<?php echo $idPedidoActual; ?>" autocomplete="off">
 					</div>	
 					<div class="form-group">
 						<label class="color-label">Estado de Pedido</label>
-						<select class="form-control" name="estado_pedido" id="estado_pedido" >
+						<select class="form-control" name="estado_pedido" id="estado_pedido" required>
 						<option value="" selected="" disabled="">Seleccione una opción</option>
 							<?php
 							$SQL="SELECT * FROM TBL_estado_pedido";
@@ -128,11 +131,11 @@
 				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3 pull-right">
 					<div class="form-group">
 						<label class="color-label">Fecha Pedido</label>
-						<input type="date" class="form-control" name="fecha_pedido" id="fecha_pedido">
+						<input type="date" class="form-control" name="fecha_pedido" id="fecha_pedido" required>
 					</div>
 					<div class="form-group">
 						<label class="color-label">Fecha Entrega</label>
-						<input type="date" class="form-control" name="fecha_entrega" id="fecha_entrega">
+						<input type="date" class="form-control" name="fecha_entrega" id="fecha_entrega" required>
 					</div>
 				</div>
 			</div>
@@ -154,7 +157,8 @@
 						</tr>
 						<tr>
 							<td><input class="itemRowFactura" type="checkbox"></td>
-							<td><select name="nombreProducto[]" id="nombreProducto_1" class="form-control">
+							<td><select name="nombreProducto[]" id="nombreProducto_1" class="form-control nombreProducto"
+							 onchange="mifuncion(this.value)" required>
 								<option value="" selected="" disabled="">Seleccione una opción</option>
 									<?php
 									$SQL="SELECT * FROM TBL_producto";
@@ -167,9 +171,9 @@
 											}
 										?>
 							</select></td>
-							<td><input type="number" name="cantidad[]" id="cantidad_1" class="form-control quantity" autocomplete="off"></td>
-							<td><input type="number" name="precio[]" id="precio_1" class="form-control price" autocomplete="off"></td>
-							<td><input type="number" name="total[]" id="total_1" class="form-control total" autocomplete="off"></td>
+							<td><input type="number" name="cantidad[]" id="cantidad_1" class="form-control quantity" required></td>
+							<td><input type="number" name="precio[]" id="precio_1" class="form-control price"></td>
+							<td><input type="number" name="total[]" id="total_1" class="form-control total"></td>
 						</tr>
 					</table>
 				</div>
@@ -182,6 +186,8 @@
 						<input type="hidden" value="<?php echo $_SESSION['usuario_login']; ?>" class="form-control" name="userId">
 						<input data-loading-text="Guardando factura..." type="submit" name="invoice_btn" value="Guardar factura" 
 						class="btn btn-success submit_btn invoice-save-btm" style="font-size:20px; border: 2px solid #777574;">
+						<a href="<?php echo SERVERURL; ?>facturacion-list/"><input value="salir" 
+						class="btn btn-success submit_btn invoice-save-btm" style="font-size:20px; border: 2px solid #777574;"></a>
 					</div>
 
 				</div>
@@ -191,14 +197,15 @@
 							<label class="color-label">Total: &nbsp;</label>
 							<div class="input-group">
 								<div class="input-group-addon currency">L.</div>
-								<input value="" type="number" class="form-control" name="subTotal" id="subTotal" placeholder="Subtotal">
+								<input value="" type="number" class="form-control" name="subTotal" step="any" id="subTotal" placeholder="Subtotal">
 							</div>
 							<!-- Código para los demás cálculos de la factura como el impuesto y el cambio!-->
 							</div>
 							<div class="form-group">
 							<label>Porcentaje Impuestos: &nbsp;</label>
 							<div class="input-group">
-								<input value="" type="number" class="form-control" name="taxRate" id="taxRate" placeholder="Porcentaje Impuestos">
+								<input  type="number" class="form-control" name="taxRate" id="taxRate"  step="any" 
+								value="15" disabled>
 								<div class="input-group-addon">%</div>
 							</div>
 						</div>
@@ -206,28 +213,28 @@
 							<label>Monto impuestos: &nbsp;</label>
 							<div class="input-group">
 								<div class="input-group-addon currency">L.</div>
-								<input value="" type="number" class="form-control" name="taxAmount" id="taxAmount" placeholder="Monto impuestos">
+								<input value="" type="number" class="form-control" name="taxAmount" id="taxAmount" step="any" placeholder="Monto impuestos" novalidate>
 							</div>
 						</div>
 						<div class="form-group">
 							<label>Total: &nbsp;</label>
 							<div class="input-group">
 								<div class="input-group-addon currency">L.</div>
-								<input value="" type="number" class="form-control" name="totalAftertax" id="totalAftertax" placeholder="Total">
+								<input value="" type="number" class="form-control" name="totalAftertax" id="totalAftertax" step="any" placeholder="Total">
 							</div>
 						</div>
 						<div class="form-group">
 							<label>Monto Pagado: &nbsp;</label>
 							<div class="input-group">
 								<div class="input-group-addon currency">L.</div>
-								<input value="" type="number" class="form-control" name="amountPaid" id="amountPaid" placeholder="Monto Pagado">
+								<input value="" type="number" class="form-control" name="amountPaid" id="amountPaid" step="any" placeholder="Monto Pagado">
 							</div>
 						</div>
 						<div class="form-group">
 							<label>Cambio: &nbsp;</label>
 							<div class="input-group">
 								<div class="input-group-addon currency">L.</div>
-								<input value="" type="number" class="form-control" name="amountDue" id="amountDue" placeholder="Cambio">
+								<input value="" type="number" class="form-control" name="amountDue" id="amountDue" step="any" placeholder="Cambio">
 							</div>
 						</div>
 					</span>

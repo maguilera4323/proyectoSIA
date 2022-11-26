@@ -1,7 +1,6 @@
 <?php
 require_once('../tcpdf/tcpdf.php'); //Llamando a la Libreria TCPDF
-include ("../cone.php"); 
-
+include ("../cone.php");    //Llamando a la conexión para BD
 date_default_timezone_set('America/Tegucigalpa');
 
 ob_end_clean(); //limpiar la memoria
@@ -10,20 +9,10 @@ class MYPDF extends TCPDF{
     	public function Header() {
             $bMargin = $this->getBreakMargin();
             $auto_page_break = $this->AutoPageBreak;
+            $this->SetAutoPageBreak(false, 0);
             $this->Image('https://i.pinimg.com/564x/35/f5/3c/35f53c0062b906ca788a77b97e92e9f1.jpg', 90, 15, 35, 35, '', '', '', false, 30, '', false, false, 0);
             $this->SetAutoPageBreak($auto_page_break, $bMargin);
             $this->setPageMark();
-            $this->SetFont('helvetica', 'B',35);
-            $this->Cell(0,5, 'City Coffe', 0,0,'C');
-            $this->AddPage();
-        $this->SetFont('helvetica','B',10); //Tipo de fuente y tamaño de letra
-        $this->SetXY(150, 20);
-        $this->Write(0, 'Fecha: '. date('d-m-Y'));
-        $this->SetXY(150, 30);
-        $this->Write(0, 'Hora: '. date('h:i A'));
-
-            
-           
 	    }
 
             public function Footer() {
@@ -51,9 +40,9 @@ class MYPDF extends TCPDF{
         $pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM); //Activa o desactiva el modo de salto de página automático
         
         //Informacion del PDF
-        $pdf->SetCreator('UrianViera');
-        $pdf->SetAuthor('UrianViera');
-        $pdf->SetTitle('Informe de Insumos');
+        $pdf->SetCreator('WorkNet');
+        $pdf->SetAuthor('WorkNet');
+        $pdf->SetTitle('Reporte Movimientos Inventario');
         
         /** Eje de Coordenadas
          *          Y
@@ -77,7 +66,11 @@ class MYPDF extends TCPDF{
         $pdf->SetXY(150, 30);
         $pdf->Write(0, 'Hora: '. date('h:i A'));
 
-        
+        $canal ='WebDeveloper';
+        $pdf->SetFont('helvetica','B',10); //Tipo de fuente y tamaño de letra
+        $pdf->SetXY(15, 20); //Margen en X y en Y
+        $pdf->SetTextColor(204,0,0);
+        $pdf->Write(0, 'City Coffe');
         $pdf->SetTextColor(0, 0, 0); //Color Negrita
         $pdf->SetXY(15, 25);
         $pdf->Write(0, "'La Felicidad Hecha Café'");
@@ -96,7 +89,7 @@ class MYPDF extends TCPDF{
         //$pdf->SetTextColor(245,245,205); //Gris claro
         //$pdf->SetTextColor(100, 0, 0); //Color Carne
         $pdf->SetFont('helvetica','B', 15); 
-        $pdf->Cell(100,6,'LISTA DE INSUMOS',0,0,'C');
+        $pdf->Cell(100,6,'LISTA DE MOVIMIENTOS DEL INVENTARIO',0,0,'C');
 
 
         $pdf->Ln(10); //Salto de Linea
@@ -104,36 +97,43 @@ class MYPDF extends TCPDF{
 
         //Almando la cabecera de la Tabla
         $pdf->SetFillColor(232,232,232);
-        $pdf->SetFont('helvetica','B',12); //La B es para letras en Negritas
-        $pdf->Cell(30,6,'Nombre',1,0,'C',1);
-        $pdf->Cell(30,6,'Categoria',1,0,'C',1);
-        $pdf->Cell(38,6,'Cantidad Maxima',1,0,'C',1);
-        $pdf->Cell(38,6,'Cantidad Minima',1,0,'C',1); 
-        $pdf->Cell(35,6,'Unidad Medida',1,1,'C',1); 
+        $pdf->SetFont('helvetica','B',10); //La B es para letras en Negritas
+        $pdf->Cell(33,6,'NOMBRE INSUMO',1,0,'C',1);
+        $pdf->Cell(20,6,'CANTIDAD',1,0,'C',1);
+        $pdf->Cell(30,6,'MOVIMIENTO',1,0,'C',1);
+        $pdf->Cell(35,6,'FECHA',1,0,'C',1);
+        $pdf->Cell(20,6,'USUARIO',1,0,'C',1);
+        $pdf->Cell(35,6,'COMENTARIO',1,1,'C',1); 
         /*El 1 despues de  Fecha Ingreso indica que hasta alli 
         llega la linea */
 
         $pdf->SetFont('helvetica','',10);
 
-        // filtro de insumos
-        $filtroinsumos=($_POST['filtroinsumo']);
+        // filtro de INVENTARIO
+        $filtromovi_inventario=($_POST['filtromovi_inventario']);
 
-        $sqlTrabajadores = ("SELECT * FROM TBL_insumos WHERE nom_insumo LIKE'%".$filtroinsumos."%'");
+        $sqlmovi_inventario = ("SELECT i.id_insumos,i.nom_insumo, m.cant_movimiento,m.tipo_movimiento,m.fecha_movimiento,
+        u.usuario,m.comentario FROM TBL_movi_inventario m
+        inner join TBL_insumos i on i.id_insumos=m.id_insumos
+        inner join TBL_usuarios u on u.id_usuario=m.id_usuario
+        WHERE i.nom_insumo LIKE'%".$filtromovi_inventario."%'");
         
-        //$sqlTrabajadores = ("SELECT * FROM trabajadores");
-        $query = mysqli_query($conexion, $sqlTrabajadores);
+
+        $query = mysqli_query($conexion, $sqlmovi_inventario);
 
         while ($dataRow = mysqli_fetch_array($query)) {
-                $pdf->Cell(30,6,($dataRow['nom_insumo']),1,0,'C');
-                $pdf->Cell(30,6,$dataRow['id_categoria'],1,0,'C');
-                $pdf->Cell(38,6, $dataRow['cant_max'],1,0,'C');
-                $pdf->Cell(38,6, $dataRow['cant_min'],1,0,'C');
-                $pdf->Cell(35,6, $dataRow['unidad_medida'],1,1,'C');
+                $pdf->Cell(33,6,$dataRow['nom_insumo'],1,0,'C');
+                $pdf->Cell(20,6,$dataRow['cant_movimiento'],1,0,'C');
+                $pdf->Cell(30,6,$dataRow['tipo_movimiento'],1,0,'C');
+                $pdf->Cell(35,6,$dataRow['fecha_movimiento'],1,0,'C');
+                $pdf->Cell(20,6,$dataRow['usuario'],1,0,'C');
+                $pdf->Cell(35,6, $dataRow['comentario'],1,1,'C');
+                
             }
 
 
-        $pdf->AddPage(); 
+        // $pdf->AddPage(); //Agregar nueva Pagina
 
-        $pdf->Output('Resumen_Insumos_'.date('d_m_y').'.pdf', 'I'); 
+        $pdf->Output('Resumen_Proveedores_'.date('d_m_y').'.pdf', 'I'); 
         // Output funcion que recibe 2 parameros, el nombre del archivo, ver archivo o descargar,
-        // La D es para Forzar una descarga
+        // La D es para Forzar una desca

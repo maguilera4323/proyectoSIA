@@ -3,7 +3,7 @@
 if (session_status() == PHP_SESSION_NONE) {
 	session_start();
 }
-/* require_once "./pruebabitacora.php"; */
+require_once "./pruebabitacora.php";
 
 
 //clase para la factura
@@ -49,17 +49,11 @@ class Invoice{
 			mysqli_query($this->dbConnect, $sqlInsertItem);
 		} 
 
-		/* cho '<script>
-		Swal.fire({
-			title: "Compra realizad",
-    		text: "La compra fue realizada exitosamente",
-			confirmButtonText: "Aceptar"
-		}).then((result) => {
-			if(result.value){
-				location.reload();
-			}
-		});
-		</script>'; */
+		if (isset($lastInsertId)=='true'){
+			echo '<script>
+			swal.fire("Venta Realizada", "La venta se ha realizado exitosamente", "success")
+			</script>'; 
+		}
 
 		$datos_bitacora = [
 			"id_objeto" => 0,
@@ -68,7 +62,7 @@ class Invoice{
 			"accion" => "Nuevo pedido",
 			"descripcion" => "El usuario ".$_SESSION['usuario_login']." registró un pedido en el sistema"
 		];
-		Bitacora::guardar_bitacora($datos_bitacora); 
+		Bitacora::guardar_bitacora($datos_bitacora);  
 	}
 
 

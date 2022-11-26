@@ -8,8 +8,13 @@
 			$listaBlanca=["bitacora",
 			"cliente-new","cliente-list","cliente-update",
 			"detallecompra-list","compra-list", "compra-update" ,"compra-new",
+<<<<<<< HEAD
 			"facturacion","facturacion-list","facturacion-update",
 			"home",
+=======
+			"facturacion","facturacion-list","facturacion-update","factura-detalle",
+			"home","detalleventa-list",
+>>>>>>> 18ddc3a63a75a3ad47bbbf5e3deb92f5994383a1
 			"insumos-list","insumos-new","insumos-update",
 			"inventario-list","movimiento-inventario",
 			"objetos-list","parametros-list","perfilusuario",
