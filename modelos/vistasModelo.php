@@ -8,7 +8,7 @@
 			$listaBlanca=["bitacora",
 			"cliente-new","cliente-list","cliente-update",
 			"detallecompra-list","compra-list", "compra-update" ,"compra-new",
-			"facturacion","facturacion-list","facturacion-update","factura-detalle",
+			"facturacion","facturacion-list","facturacion-update",
 			"home",
 			"insumos-list","insumos-new","insumos-update",
 			"inventario-list","movimiento-inventario",
