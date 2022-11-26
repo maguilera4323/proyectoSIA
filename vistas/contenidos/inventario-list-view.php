@@ -86,6 +86,7 @@ if(isset($_GET['enviar'])){
                         <th>NOMBRE INSUMO</th>
                         <th>EXISTENCIAS</th>
                         <th>UNIDAD DE MEDIDA</th>
+						<th>VER MÁS</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -105,6 +106,10 @@ if($dato -> num_rows >0){
 <td><?php echo $fila['nom_insumo']; ?></td>
 <td><?php echo $fila['cant_existencia']; ?></td>
 <td><?php echo $fila['unidad_medida']; ?></td>
+<td>
+	<a href="<?php echo SERVERURL; ?>movimiento-inventario/<?php echo $fila['id_insumo']?>" class="btn btn-success">
+	<i class="fas fa-info-circle"></i></a>
+</td>
 </tr>
 
 
