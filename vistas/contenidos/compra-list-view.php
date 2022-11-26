@@ -73,12 +73,12 @@ if(isset($_GET['enviar'])){
 </form>
 
 <!-- para la parte de búsqueda-->
-	<div class="container-fluid">
-  <form class="d-flex">
-      <input class="form-control me-2 light-table-filter" data-table="table_id" type="text" 
-      placeholder="Buscar Compra">
-      <hr>
+<div class="container-fluid">
+  <form class="d-flex" action="../pdf/comprapdf.php" method="post" accept-charset="utf-8">
+  	<input class="form-control me-2 light-table-filter" data-table="table_id" type="text" name="filtrocompra" placeholder="Buscar Compra">
+	<button type="submit" class="btn btn-danger mx-auto btn-lg"><i class="fas fa-file-pdf"></i> &nbsp;Descargar Reporte</button>
       </form>
+  </div>
   </div>
 
   <br>

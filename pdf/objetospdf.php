@@ -22,7 +22,7 @@ class MYPDF extends TCPDF{
                 //Mostrar cantidad de paginas
                 //$this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
                 $this->html = '<p style="border-top:1px solid #999; text-align:center;">
-                                        WORKNET | PAG 1
+                                                PAG 1
                                                 </p>';
                 $this->writeHTML($this->html, true, false, true, false, '');
         }
@@ -34,7 +34,7 @@ class MYPDF extends TCPDF{
         $pdf = new MYPDF(PDF_PAGE_ORIENTATION, 'mm', 'Letter', true, 'UTF-8', false);
         
         //Establecer margenes del PDF
-        $pdf->SetMargins(20, 35, 25);
+        $pdf->SetMargins(15, 35, 15);
         $pdf->SetHeaderMargin(20);
         $pdf->setPrintFooter(true);
         $pdf->setPrintHeader(true); //Eliminar la linea superior del PDF por defecto
@@ -90,7 +90,7 @@ class MYPDF extends TCPDF{
         //$pdf->SetTextColor(245,245,205); //Gris claro
         //$pdf->SetTextColor(100, 0, 0); //Color Carne
         $pdf->SetFont('helvetica','B', 15); 
-        $pdf->Cell(100,6,'LISTA DE OBJETOS',0,0,'C');
+        $pdf->Cell(107,6,'LISTA DE OBJETOS',0,0,'C');
 
 
         $pdf->Ln(10); //Salto de Linea

@@ -20,7 +20,7 @@ class MYPDF extends TCPDF{
                 //Mostrar cantidad de paginas
                 //$this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
                 $this->html = '<p style="border-top:1px solid #999; text-align:center;">
-                                        WORKNET | PAG 1
+                                                 PAG 1
                                                 </p>';
                 $this->writeHTML($this->html, true, false, true, false, '');
         }
@@ -32,7 +32,7 @@ class MYPDF extends TCPDF{
         $pdf = new MYPDF(PDF_PAGE_ORIENTATION, 'mm', 'Letter', true, 'UTF-8', false);
         
         //Establecer margenes del PDF
-        $pdf->SetMargins(20, 35, 25);
+        $pdf->SetMargins(10, 35, 10);
         $pdf->SetHeaderMargin(20);
         $pdf->setPrintFooter(true);
         $pdf->setPrintHeader(true); //Eliminar la linea superior del PDF por defecto
@@ -88,7 +88,7 @@ class MYPDF extends TCPDF{
         //$pdf->SetTextColor(245,245,205); //Gris claro
         //$pdf->SetTextColor(100, 0, 0); //Color Carne
         $pdf->SetFont('helvetica','B', 15); 
-        $pdf->Cell(100,6,'LISTA DE PERMISOS',0,0,'C');
+        $pdf->Cell(115,6,'LISTA DE PERMISOS',0,0,'C');
 
 
         $pdf->Ln(10); //Salto de Linea
@@ -97,32 +97,36 @@ class MYPDF extends TCPDF{
         //Almando la cabecera de la Tabla
         $pdf->SetFillColor(232,232,232);
         $pdf->SetFont('helvetica','B',8); //La B es para letras en Negritas
-        $pdf->Cell(15,6,'ROL',1,0,'C',1);
-        $pdf->Cell(18,6,'OBJETO',1,0,'C',1);
-        $pdf->Cell(35,6,'INSERCION',1,0,'C',1);
-        $pdf->Cell(35,6,'ACTUALIZACION',1,0,'C',1); 
-        $pdf->Cell(35,6,'ELIMINACION',1,0,'C',1); 
-        $pdf->Cell(35,6,'CONSULTA',1,1,'C',1); 
+        $pdf->Cell(35,6,'ROL',1,0,'C',1);
+        $pdf->Cell(35,6,'OBJETO',1,0,'C',1);
+        $pdf->Cell(30,6,'INSERCION',1,0,'C',1);
+        $pdf->Cell(30,6,'ACTUALIZACION',1,0,'C',1); 
+        $pdf->Cell(30,6,'ELIMINACION',1,0,'C',1); 
+        $pdf->Cell(30,6,'CONSULTA',1,1,'C',1); 
         /*El 1 despues de  Fecha Ingreso indica que hasta alli 
         llega la linea */
 
-        $pdf->SetFont('helvetica','',10);
+        $pdf->SetFont('helvetica','',8);
 
         // filtro de permisos
         $filtropermisos=($_POST['filtropermisos']);
 
-        $sqlTrabajadores = ("SELECT * FROM TBL_permisos WHERE id_rol LIKE'%".$filtropermisos."%'");
+        $sqlTrabajadores = ("SELECT p.id_rol, r.rol, o.objeto, p.permiso_insercion,p.permiso_actualizacion,
+                                p.permiso_eliminacion, p.permiso_consulta,o.id_objeto FROM TBL_permisos p
+                                inner JOIN TBL_ms_roles r ON r.id_rol = p.id_rol
+				inner JOIN TBL_objetos o ON o.id_objeto = p.id_objeto
+                                WHERE r.rol  LIKE'%".$filtropermisos."%'");			
         
         //$sqlTrabajadores = ("SELECT * FROM trabajadores");
         $query = mysqli_query($conexion, $sqlTrabajadores);
 
         while ($dataRow = mysqli_fetch_array($query)) {
-                $pdf->Cell(15,6,($dataRow['id_rol']),1,0,'C');
-                $pdf->Cell(18,6,$dataRow['id_objeto'],1,0,'C');
-                $pdf->Cell(35,6, $dataRow['permiso_insercion'],1,0,'C');
-                $pdf->Cell(35,6, $dataRow['permiso_actualizacion'],1,0,'C');
-                $pdf->Cell(35,6, $dataRow['permiso_eliminacion'],1,0,'C');
-                $pdf->Cell(35,6, $dataRow['permiso_consulta'],1,1,'C');
+                $pdf->Cell(35,6,($dataRow['rol']),1,0,'C');
+                $pdf->Cell(35,6,$dataRow['objeto'],1,0,'C');
+                $pdf->Cell(30,6, $dataRow['permiso_insercion'],1,0,'C');
+                $pdf->Cell(30,6, $dataRow['permiso_actualizacion'],1,0,'C');
+                $pdf->Cell(30,6, $dataRow['permiso_eliminacion'],1,0,'C');
+                $pdf->Cell(30,6, $dataRow['permiso_consulta'],1,1,'C');
             }
 
 

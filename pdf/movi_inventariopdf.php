@@ -21,7 +21,7 @@ class MYPDF extends TCPDF{
                 //Mostrar cantidad de paginas
                 //$this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'C', 0, '', 0, false, 'T', 'M');
                 $this->html = '<p style="border-top:1px solid #999; text-align:center;">
-                                        WORKNET | PAG 1
+                                         PAG 1
                                                 </p>';
                 $this->writeHTML($this->html, true, false, true, false, '');
         }
