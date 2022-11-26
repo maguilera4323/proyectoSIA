@@ -78,7 +78,7 @@ class MYPDF extends TCPDF{
 
 
         $pdf->Ln(35); //Salto de Linea
-        $pdf->Cell(40,26,'',0,0,'L');
+        $pdf->Cell(40,26,'',0,0,'C');
         /*$pdf->SetDrawColor(50, 0, 0, 0);
         $pdf->SetFillColor(100, 0, 0, 0); */
         $pdf->SetTextColor(34,68,136);
@@ -89,7 +89,7 @@ class MYPDF extends TCPDF{
         //$pdf->SetTextColor(245,245,205); //Gris claro
         //$pdf->SetTextColor(100, 0, 0); //Color Carne
         $pdf->SetFont('helvetica','B', 15); 
-        $pdf->Cell(100,6,'LISTA DE PREGUNTAS',0,0,'L');
+        $pdf->Cell(2,6,'LISTA DE PREGUNTAS',0,0,'C');
 
 
         $pdf->Ln(10); //Salto de Linea
@@ -98,7 +98,7 @@ class MYPDF extends TCPDF{
         //Almando la cabecera de la Tabla
         $pdf->SetFillColor(232,232,232);
         $pdf->SetFont('helvetica','B',12); //La B es para letras en Negritas
-        $pdf->Cell(80,6,'PREGUNTA',1,1,'L',1);
+        $pdf->Cell(80,6,'PREGUNTA',1,1,'C',1);
         /*El 1 despues de  Fecha Ingreso indica que hasta alli 
         llega la linea */
 
@@ -113,8 +113,11 @@ class MYPDF extends TCPDF{
         $query = mysqli_query($conexion, $sqlTrabajadores);
 
         while ($dataRow = mysqli_fetch_array($query)) {
-                $pdf->Cell(80,6,($dataRow['pregunta']),1,1,'L');
+                $pdf->Cell(80,6,($dataRow['pregunta']),1,1,'C');
             }
+
+
+
 
         // $pdf->AddPage(); //Agregar nueva Pagina
 
