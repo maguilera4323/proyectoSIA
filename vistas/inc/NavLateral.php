@@ -205,7 +205,7 @@ include ("./cone.php");
 				?>
 
 				<?php
-					if($administracion=='true'){
+					if(isset($administracion)=='true'){
 				?>
 				<li>
 					<a href="<?php echo SERVERURL; ?>bitacora/"><i class="fas fa-book-reader"></i> &nbsp; Bitacora</a>
