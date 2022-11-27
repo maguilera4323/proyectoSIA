@@ -29,10 +29,10 @@ $(document).ready(function(){
 					success:function(response){
 						const productos=JSON.parse(response)
 
-						let template='<option class="form-control" selected disabled> Seleccione una opción</option>';
+						let template='<option value=\"\" data-price=\"\" selected>Seleccione una opción</option>';
 
 						productos.forEach(producto => {
-							template+=`<option value="${producto.idProducto}">${producto.nomProducto}</option>`
+							template+=`<option value=\"${producto.idProducto}\" data-price=\"${producto.precioProducto}\">${producto.nomProducto}</option>`
 						})
 
 						$producto.innerHTML=template;
@@ -42,7 +42,7 @@ $(document).ready(function(){
 
 			cargarInsumo();
 		})
-		//termina función
+
 
 		//se generan las filas para un nuevo insumo
 		var htmlRows = '';
@@ -56,6 +56,20 @@ $(document).ready(function(){
 		htmlRows += '<td><input type="number" name="total[]" id="total_'+count+'" class="form-control total" autocomplete="off"></td>';          
 		htmlRows += '</tr>';
 		$('#invoiceItemFactura').append(htmlRows);
+
+		//funcion para obtener el precio del segundo producto en adelante
+		//usando un elemento de atributo
+		document.getElementById("nombreProducto_"+count).onchange = function() {
+			/* Referencia a los atributos data de la opción seleccionada */
+			
+			var mData = this.options[this.selectedIndex].dataset;
+		  
+			/* Referencia a los input */
+			var elPrice = document.getElementById("precio_"+count);
+		  
+			/* Asignamos cada dato a su input*/
+			elPrice.value = mData.price;
+		  };
 	}); 
 
 	//funcion que se encarga de eliminar la fila y todos los registros guardados en esta

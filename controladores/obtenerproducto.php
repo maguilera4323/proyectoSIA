@@ -10,6 +10,7 @@
 		$json[]=array(
 			'idProducto'=>$fila['id_producto'],
 			'nomProducto'=>$fila['nom_producto'],
+			'precioProducto'=>$fila['precio_produ'],
 		);
 	}
 

@@ -72,7 +72,7 @@
 				
 				//validacion para verificar si ya se han registrado facturas con codigo CAI
 				if($numFacturaAnterior!=''){
-					//se extraen los primeros 11 caracteres del codigo de factura coon esta funcion
+					//se extraen los primeros 11 caracteres del codigo de factura con esta funcion
 					//usando la funcion substr, el parametro 0 es para indicar que se deben tomar desde el incio de la cadena
 					//el parametro -8 es para obviar los ultimos 8 caracteres
 					$cadenaPrimerosCaracteres=substr($numFacturaAnterior,0,-8);
@@ -197,16 +197,20 @@
 						<tr>
 							<td><input class="itemRowFactura" type="checkbox"></td>
 							<td><select name="nombreProducto[]" id="nombreProducto_1" class="form-control nombreProducto"
-							 onchange="mifuncion(this.value)" required>
-								<option value="" selected="" disabled="">Seleccione una opción</option>
+							 required>
 									<?php
 									$SQL="SELECT * FROM TBL_producto";
-										$dato = mysqli_query($conexion, $SQL);
-							
+									$dato = mysqli_query($conexion, $SQL);
+									$options="<option value=\"\" data-price=\"\" selected>Seleccione una opción</option>";
+									
 										if($dato -> num_rows >0){
 											while($fila=mysqli_fetch_array($dato)){
-												echo '<option value='.$fila["id_producto"].'>'.$fila['nom_producto'].'</option>';
+												$precio='data-price="'.$fila['precio_produ'].'"';  
+												$id=$fila['id_producto'];
+												$nombre=$fila['nom_producto'];
+												$options.="<option value=\"$id\" $precio>$nombre</option>";
 												}
+												echo $options;
 											}
 										?>
 							</select></td>
