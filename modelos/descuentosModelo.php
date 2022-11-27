@@ -26,7 +26,7 @@
 			$sql=mainModel::conectar()->prepare("UPDATE TBL_descuentos SET nom_descuento=?,porcentaje_descuento=? WHERE id_descuentos=?");
 
 			$sql->bindParam(1,$dato['nombre']);
-			$sql->bindParam(2,$dato['porcentaje']);			
+			$sql->bindParam(2,$dato['porc']);			
 			$sql->bindParam(3,$id);
 			$sql->execute();
 			return $sql;

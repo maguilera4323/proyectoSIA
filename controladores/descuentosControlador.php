@@ -63,8 +63,8 @@ class descuentosControlador extends descuentosModelo
 	public function actualizar_descuentos_controlador()
 	{	
 		$id_actualizar=mainModel::limpiar_cadena($_POST['id_actualizacion']);
-		$nombre=mainModel::limpiar_cadena($_POST['nombre_descuentos_actu']);
-		$porcentaje=mainModel::limpiar_cadena($_POST['porcentaje_descuentos_actu']);
+		$nombre=mainModel::limpiar_cadena($_POST['nombre_descuento_actu']);
+		$porcentaje=mainModel::limpiar_cadena($_POST['porcentaje_descuento_nuevo']);
 		
 		if($nombre=="" || $porcentaje=="" ){
 			$alerta=[
@@ -89,32 +89,21 @@ class descuentosControlador extends descuentosModelo
 				echo json_encode($alerta);
 				exit();
 			}
-
-			if(mainModel::verificar_datos("[0-9]{1,2}",$porcentaje)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El Porcentaje del Descuento no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
 			
 			/*== ACTUALIZAR Descuento ==*/
 		$datos_descuentos_actu=
 			[
-				"Nombre"=>$nombre,
-				"Porcentaje"=>$porcentaje,
+				"nombre"=>$nombre,
+				"porc"=>$porcentaje,
 			];
 
-			$actualizar_descuentos=descuentosModelo::actualizar_descuentos_modelo($datos_descuentos_actu,$id_actualizar);
+			$actualizar_descuentos=descuentosModelo::actualizar_descuento_modelo($datos_descuentos_actu,$id_actualizar);
 
 			if($actualizar_descuentos->rowCount()==1)
 			{
 				$alerta=[
-					"Alerta"=>"limpiar",
-					"Titulo"=>"Tipo de Producto Actualizado",
+					"Alerta"=>"recargar",
+					"Titulo"=>"Descuento Actualizado",
 					"Texto"=>"descuento actualizado exitosamente",
 					"Tipo"=>"success"
 				];
@@ -150,7 +139,7 @@ class descuentosControlador extends descuentosModelo
 	
 
 		//funcion para eliminar un descuento
-		public function eliminardescuentos()
+		public function eliminar_descuentos()
 		{
 			$id=mainModel::limpiar_cadena(($_POST['id_descuentos_del']));
 			$nombre=mainModel::limpiar_cadena(($_POST['descuentos_del']));
@@ -160,8 +149,8 @@ class descuentosControlador extends descuentosModelo
 		
 
 		//verifica que el usuario si exista en el sistema
-		$check_descuento=mainModel::ejecutar_consulta_simple("SELECT id_descuento FROM TBL_tipo_producto
-		WHERE id_descuento='$id'");
+		$check_descuento=mainModel::ejecutar_consulta_simple("SELECT id_descuentos FROM TBL_descuentos
+		WHERE id_descuentos='$id'");
 		if($check_descuento->rowCount()<=0){
 			$alerta=[
 				"Alerta"=>"simple",

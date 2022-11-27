@@ -89,7 +89,7 @@ class MYPDF extends TCPDF{
         //$pdf->SetTextColor(245,245,205); //Gris claro
         //$pdf->SetTextColor(100, 0, 0); //Color Carne
         $pdf->SetFont('helvetica','B', 15); 
-        $pdf->Cell(80,6,'LISTA DE DESCUENTOS',0,0,'C');
+        $pdf->Cell(85,6,'LISTA DE DESCUENTOS',0,0,'C');
 
         $pdf->Ln(10); //Salto de Linea
         $pdf->SetTextColor(0, 0, 0); 

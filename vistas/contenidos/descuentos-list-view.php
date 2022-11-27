@@ -89,7 +89,7 @@ if($dato -> num_rows >0){
 								<div class="form-group">
 									<label for="precio_producto_nuevo" class="color-label">% del descuento</label>
 									<input type="number" class="form-control" name="porcentaje_descuento_nuevo" step="any" id="precio_pro" 
-									value="<?php echo ($fila['porcentaje_descuento']*100) ?>" required>
+									value="<?php echo ($fila['porcentaje_descuento']) ?>" required>
 								</div>
 								<div class="form-group">
 									<input type="hidden" class="form-control" name="id_actualizacion" value="<?php echo $fila['id_descuentos']?>">
