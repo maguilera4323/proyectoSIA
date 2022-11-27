@@ -198,6 +198,13 @@ include ("./cone.php");
 						<li>
 						<a href="<?php echo SERVERURL; ?>facturacion-list/"><i class="fas fa-archive"></i> &nbsp; Lista de Facturas</a>
 						</li>
+						<!-- Se agregaron referencias de las promociones y descuentos -->
+						<li>
+						<a href="<?php echo SERVERURL; ?>descuentos-list/"><i class="fas fa-tags"></i> &nbsp; Lista de Descuentos</a>
+						</li>
+						<li>
+						<a href="<?php echo SERVERURL; ?>promociones-list/"><i class="fas fa-tags"></i> &nbsp; Lista de Promociones</a>
+						</li>
 					</ul>
 				</li>
 				<?php
