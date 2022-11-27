@@ -7,7 +7,7 @@
 <div class="container-fluid">
 	<ul class="full-box list-unstyled page-nav-tabs">
 		<li>
-			<div class="btn btn-dark btn-lg" data-toggle="modal" data-target="#ModalCrear"><i class="fas fa-plus fa-fw"></i> &nbsp; AGREGAR PREGUNTA</div>
+			<div class="btn btn-dark btn-lg" data-toggle="modal" data-target="#ModalCrear"><i class="fas fa-plus fa-fw"></i> &nbsp; AGREGAR PRODUCTO</div>
 		</li>
 		<li>
 			<a  href="<?php echo SERVERURL; ?>tipo-producto-new/"><i class="fas fa-search fa-fw"></i> AGREGAR TIPO DE PRODUCTO</a>
@@ -86,7 +86,7 @@ if($dato -> num_rows >0){
 							<div class="modal-dialog" role="document">
 								<div class="modal-content">
 								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLabel">Actualizar Pregunta</h5>
+									<h5 class="modal-title" id="exampleModalLabel">Actualizar Producto</h5>
 									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 									</button>
