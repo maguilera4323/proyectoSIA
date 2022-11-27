@@ -91,7 +91,7 @@ class promocionesControlador extends promocionesModelo
 			
 
 	
-			/*== ACTUALIZAR TIPO PRODUCTO ==*/
+			/*== ACTUALIZAR PROMOCIONES ==*/
 			$datos_promocion_actu=[
 				"promo"=>$Nombre_promo,
 				"inipromo"=>$Fecha_inicio,
@@ -131,68 +131,57 @@ class promocionesControlador extends promocionesModelo
 			Bitacora::guardar_bitacora($datos_bitacora);  
 	} /* Fin controlador */
 	
-
-	public function datosTipoproductoControlador($tipo,$id){
-		$tipo=mainModel::limpiar_cadena($tipo);
-		$id=mainModel::limpiar_cadena($id);
-
-		return TipoproductoModelo::datos_Tipo_producto_modelo($tipo,$id);
-	}
+	public function eliminarPromociones()
+	{
+		$id=mainModel::limpiar_cadena(($_POST['id_promociones_del']));
+		$Cliente=mainModel::limpiar_cadena(($_POST['promocion_del']));
+		$array=array();
+		$valor='';
 
 	
 
-		//funcion para eliminar un Tipo de producto
-		public function eliminarPromociones()
-		{
-			$id=mainModel::limpiar_cadena(($_POST['id_tipo_producto_del']));
-			$Tipo_producto=mainModel::limpiar_cadena(($_POST['tipo_producto_del']));
-			$array=array();
-			$valor='';
+	//verifica que el cliente si exista en el sistema
+	$check_promo=mainModel::ejecutar_consulta_simple("SELECT id_promociones FROM TBL_promociones
+	WHERE id_promociones='$id'");
+	if($check_promo->rowCount()<=0){
+		$alerta=[
+			"Alerta"=>"simple",
+			"Titulo"=>"Ha ocurrido un error",
+			"Texto"=>"La promocion seleccionado no existe",
+			"Tipo"=>"error"
+		];
+		echo json_encode($alerta);
+		exit();
+	}
 
-		
-
-		//verifica que el usuario si exista en el sistema
-		$check_proveedor=mainModel::ejecutar_consulta_simple("SELECT id_tipo_producto FROM TBL_tipo_producto
-		WHERE id_tipo_Producto='$id'");
-		if($check_Tipo_producto->rowCount()<=0){
+	
+	$eliminarpromocion=promocionesModelo::eliminar_promociones_modelo("borrar",$id);
+		if($eliminarpromocion->rowCount()==1){
+			$alerta=[
+				"Alerta"=>"recargar",
+				"Titulo"=>"Usuario Borrado",
+				"Texto"=>"La Promocion fue borrada",
+				"Tipo"=>"success"
+			];
+		}else{
 			$alerta=[
 				"Alerta"=>"simple",
 				"Titulo"=>"Ha ocurrido un error",
-				"Texto"=>"El Tipo de Producto seleccionado no existe",
+				"Texto"=>"La Promocion no pudo ser borrada",
 				"Tipo"=>"error"
 			];
-			echo json_encode($alerta);
-			exit();
 		}
+		echo json_encode($alerta);
+	$datos_bitacora = [
+		"id_objeto" => 0,
+		"fecha" => date('Y-m-d H:i:s'),
+		"id_usuario" => $_SESSION['id_login'],
+		"accion" => "Proveedor eliminado",
+		"descripcion" => "El usuario ".$_SESSION['usuario_login']." eliminó una promocion del sistema"
+	];
+	Bitacora::guardar_bitacora($datos_bitacora);
+		exit();
 
 		
-		$eliminarTipoproducto=TipoproductoModelo::eliminarPromociones("borrar",$id);
-			if($eliminarTipoproducto->rowCount()==1){
-				$alerta=[
-					"Alerta"=>"recargar",
-					"Titulo"=>"Usuario Borrado",
-					"Texto"=>"El Tipo de Producto fue borrado",
-					"Tipo"=>"success"
-				];
-			}else{
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ha ocurrido un error",
-					"Texto"=>"El Tipo de Producto no pudo ser borrado",
-					"Tipo"=>"error"
-				];
-			}
-			echo json_encode($alerta);
-		$datos_bitacora = [
-			"id_objeto" => 0,
-			"fecha" => date('Y-m-d H:i:s'),
-			"id_tipo_producto" => $_SESSION['id_login'],
-			"accion" => "Usuario inactivado",
-			"descripcion" => "El usuario ".$_SESSION['usuario_login']." inactivó un usuario del sistema"
-		];
-		Bitacora::guardar_bitacora($datos_bitacora);
-			exit();
-
-			
-	}
+}
 }
