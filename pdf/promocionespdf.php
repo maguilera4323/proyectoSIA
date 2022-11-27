@@ -42,7 +42,7 @@ class MYPDF extends TCPDF{
         //Informacion del PDF
         $pdf->SetCreator('WorkNet');
         $pdf->SetAuthor('WorkNet');
-        $pdf->SetTitle('Informe de Descuentos');
+        $pdf->SetTitle('Informe de Promociones');
         
         /** Eje de Coordenadas
          *          Y

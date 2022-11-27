@@ -26,7 +26,7 @@
 		protected static function actualizar_promociones_modelo($dato,$id)
 		{
 			$sql=mainModel::conectar()->prepare("UPDATE TBL_promociones SET nom_promocion=?,fech_ini_promo=?,fech_fin_promo=?,
-			id_estado_promocio=?, precio_promocion=? WHERE id_Promociones=?");
+			id_estado_promocio=?, precio_promocion=? WHERE id_promociones=?");
 
 			$sql->bindParam(1,$dato['promo']);
 			$sql->bindParam(2,$dato['inipromo']);	
