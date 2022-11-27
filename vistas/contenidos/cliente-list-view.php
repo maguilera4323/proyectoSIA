@@ -35,6 +35,25 @@
 				Bitacora::guardar_bitacora($datos_bitacora);
 			}
 ?>
+<script>
+	function solonumeros(e)
+	{
+		key=e.keyCode || e.which;
+		teclado=String.fromCharCode(key);
+		numeros="0123456789";
+		numerosinva="0000000000000"
+		especiales="8-37-38-46";
+		teclado_especial=false;
+		for(var i in especiales){
+			if(key==especiales[i]){
+				teclado_especial=true;
+			}
+		}
+		if(numeros.indexOf(teclado)==-1 && !teclado_especial){
+			return false;
+		}
+	}
+</script>
 
 <div class="full-box page-header">
 	<h3 class="text-left">
@@ -208,11 +227,11 @@ if($dato -> num_rows >0){
 			</div>
 			<div class="form-group">
 				<label class="color-label">DNI</label>
-				<input type="text" class="form-control" name="dni_cliente" id="cliente_nombre" required>
+				<input type="text" class="form-control" onkeypress="return solonumeros (event)" pattern="[0-9]{13,13}" name="dni_cliente" id="cliente_nombre" required>
 			</div>
 			<div class="form-group">
 				<label class="color-label">RTN</label>
-				<input type="text" class="form-control" name="rtn_cliente" id="cliente_apellido" required>
+				<input type="text" class="form-control" onkeypress="return solonumeros (event)" pattern="[0-9]{14,14}" name="rtn_cliente" id="cliente_apellido" required>
 			</div>
 			<div class="form-group">
 				<label class="color-label">Telefono</label>
