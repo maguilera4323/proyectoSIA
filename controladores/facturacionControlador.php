@@ -31,9 +31,9 @@ class Invoice{
 
 
 
-		//función para crear y guardar una factura de compra
+		//función para crear y guardar una factura
 		public function nuevaFactura($POST){	
-		//primer insert, para la tabla de Compras
+		//primer insert, para la tabla de Pedidos
 		$sqlInsert = "
 			INSERT INTO " . $this->datosPedido . "(id_cliente, num_factura, fech_pedido,  fech_entrega, sitio_entrega, id_estado_pedido, sub_total, ISV, total, id_forma_pago, fech_facturacion,porcentaje_isv) 
 			VALUES ('" . $POST['cliente_pedido'] . "', '" . $POST['num_factura'] . "', '" . $POST['fecha_pedido'] . "', '" . $POST['fecha_entrega'] . "','" . $POST['sitio_entrega'] . "',
@@ -48,8 +48,8 @@ class Invoice{
 				WHERE id_talonario_cai = 1";
 		mysqli_query($this->dbConnect, $sqlUpdate);
 
-		//segundo insert, para la tabla de Detalle Compras
-		//el ciclo es para insertar todos los insumos agregados a la compra
+		//segundo insert, para la tabla de Detalle Pedidos
+		//el ciclo es para insertar todos los productos agregados al pedido
 		for ($i = 0; $i < count($POST['nombreProducto']); $i++) {
 			$sqlInsertItem = "
 			INSERT INTO " . $this->datosDetallePedido . "(id_pedido, id_producto, cantidad, precio_venta) 

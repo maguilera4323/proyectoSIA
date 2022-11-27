@@ -12,6 +12,7 @@ if($peticionAjax){
 }
 
 
+
 class permisoControlador extends permisoModelo
 {
 
@@ -19,6 +20,12 @@ class permisoControlador extends permisoModelo
 	{
 		$nom_rol=mainModel::limpiar_cadena(strtoupper($_POST['rol_nuevo']));
 		$nom_objeto=mainModel::limpiar_cadena(strtoupper($_POST['objeto_nuevo']));
+
+		$query=mainModel::ejecutar_consulta_simple("SELECT tipo_objeto FROM TBL_objetos WHERE id_objeto='$nom_objeto'");
+		foreach ($query as $fila) {
+			$tipo_objeto=$fila['tipo_objeto'];
+		}
+
 		//condicionales para agregar los valores de los permisos
 		//si no recibieron ningún valor se dejan en cero, lo que indica que no fueron seleccionados
 		//y por lo tanto el permiso no fue otorgado
@@ -48,6 +55,7 @@ class permisoControlador extends permisoModelo
 			$datos_permiso_reg=[
 				"nombrerol"=>$nom_rol,
 				"nombreobjeto"=>$nom_objeto,
+				'tipo_obj'=>$tipo_objeto,
 				"ins"=>$insertar_permiso,
 				"act"=>$actualizar_permiso,
 				"eli"=>$eliminar_permiso,

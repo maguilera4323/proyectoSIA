@@ -158,8 +158,14 @@ if(isset($_GET['enviar'])){
 												<div class="form-group">
 													<label class="color-label">Categoria</label>
 													<select class="form-control" name="categoria_insumo_act" required>
-														<option value="1">Comestibles</option>
-														<option value="2">Equipo</option>
+													<?php
+														include ("./cone.php");   
+														$tipo="SELECT * FROM TBL_categoria_produ";
+														$resultado=mysqli_query($conexion, $tipo);
+														while ($valores = mysqli_fetch_array($resultado)){
+															echo '<option value="'.$valores['id_categoria'].'">'.$valores['nom_categoria'].'</option>';
+															}
+													?>
 													</select>
 												</div>
 											</div>
@@ -274,9 +280,15 @@ if(isset($_GET['enviar'])){
 							<div class="form-group">
 								<label class="color-label">Categoria</label>
 								<select class="form-control hola" name="categoria_insumo_nuevo" required>
-									<option value="" selected="" disabled="">Seleccione una opción</option>
-									<option value="1">Comestibles</option>
-									<option value="2">Equipo</option>
+								<option value="" selected="" disabled="">Seleccione una opción</option>
+								<?php
+									include ("./cone.php");   
+									$tipo="SELECT * FROM TBL_categoria_produ";
+									$resultado=mysqli_query($conexion, $tipo);
+									while ($valores = mysqli_fetch_array($resultado)){
+										echo '<option value="'.$valores['id_categoria'].'">'.$valores['nom_categoria'].'</option>';
+										}
+									?>
 								</select>
 							</div>
 						</div>
@@ -299,7 +311,7 @@ if(isset($_GET['enviar'])){
 						<div class="col-12 col-md-6">
 							<div class="form-group">
 								<label class="color-label">Unidad de medida</label>
-								<select class="form-control" name="unidad_insumo_nuevo" required>
+								<select class="form-control" name="unidad_insumo_nuevo" id="unidad_insumo_nuevo" required>
 									<option value="" selected="" disabled="">Seleccione una opción</option>
 									<option value="1">LB</option>
 									<option value="2">UN</option>

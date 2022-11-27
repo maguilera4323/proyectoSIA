@@ -212,7 +212,7 @@
 		<?php
 			if(isset($facturacion)=='true'){
 		?>
-		<a href="<?php echo SERVERURL; ?>facturacion/" class="tile">
+		<a href="<?php echo SERVERURL; ?>facturacion-list/" class="tile">
 			<div class="tile-tittle">FACTURACION</div>
 			<div class="tile-icon">
 				<i class="fas fa-store-alt fa-fw"></i>

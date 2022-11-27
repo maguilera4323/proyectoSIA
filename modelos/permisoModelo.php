@@ -1,24 +1,26 @@
 <?php
 	
 	require_once "mainModel.php";
+	include ("../cone.php");
 
 	class permisoModelo extends mainModel{
 
 		/*--------- Modelo agregar proveedor ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
 		protected static function agregar_permiso_modelo($datos)
 		{
-			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_permisos(id_rol,id_objeto,permiso_insercion,
+			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_permisos(id_rol,id_objeto,tipo_objeto,permiso_insercion,
 			permiso_actualizacion,permiso_eliminacion,permiso_consulta,creado_por,fecha_creacion)
-			VALUES(?,?,?,?,?,?,?,?)");
+			VALUES(?,?,?,?,?,?,?,?,?)");
 
 			$sql->bindParam(1,$datos['nombrerol']);
 			$sql->bindParam(2,$datos['nombreobjeto']);
-			$sql->bindParam(3,$datos['ins']);
-			$sql->bindParam(4,$datos['act']);
-			$sql->bindParam(5,$datos['eli']);
-			$sql->bindParam(6,$datos['cons']);
-			$sql->bindParam(7,$datos['creado']);
-			$sql->bindParam(8,$datos['fecha_crea']);
+			$sql->bindParam(3,$datos['tipo_obj']);
+			$sql->bindParam(4,$datos['ins']);
+			$sql->bindParam(5,$datos['act']);
+			$sql->bindParam(6,$datos['eli']);
+			$sql->bindParam(7,$datos['cons']);
+			$sql->bindParam(8,$datos['creado']);
+			$sql->bindParam(9,$datos['fecha_crea']);
 			$sql->execute();
 			return $sql;							
 		}
