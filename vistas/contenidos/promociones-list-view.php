@@ -214,11 +214,11 @@ if($dato -> num_rows >0){
 <div class="modal fade" id="ModalCrear" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 <?php
 	if(!isset($permiso_in)){
-		echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Usted no tiene autorización para crear un proveedor</div>';
+		echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Usted no tiene autorización para crear una promocion</div>';
 		echo "<script> window.location.href='".SERVERURL."home/'; </script>";	
 	//valida si el permiso tiene valor de cero, lo que significa que no puede acceder a la vista	
 	}else if($permiso_in==0){
-		echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Usted no tiene autorización para crear un proveedor
+		echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Usted no tiene autorización para crear una promocion
 		<button type="button" class="close" data-dismiss="alert" onclick="window.location.reload()">X</button>
 		</div>';
 	}else{
@@ -226,7 +226,7 @@ if($dato -> num_rows >0){
 <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Nuevo Proveedor</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Nueva Promoción</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>

@@ -2,7 +2,7 @@
 	$peticionAjax=true;
 	require_once "../config/APP.php";
 
-	if(isset($_POST['nombre_promocion_nuevo']) || isset($_POST['nombre_promocion_actu']) || isset($_POST['id_promocion_del']))
+	if(isset($_POST['nombre_promo_nuevo']) || isset($_POST['nombre_promo_actu']) || isset($_POST['id_promociones_del']))
 	{
 		/*--------- Instancia al controlador ---------*/
 		require_once "../controladores/promocionesControlador.php";
@@ -10,17 +10,17 @@
 
 
 		/*--------- Agregar una promocion ---------*/
-		if(isset($_POST['nombre_promocion_nuevo'])){
+		if(isset($_POST['nombre_promo_nuevo'])){
 			echo $ins_promociones->agregar_promociones_controlador();
 			die();
 		}
 		
-		if(isset($_POST['nombre_promocion_actu']) ){
+		if(isset($_POST['nombre_promo_actu']) ){
 			echo $ins_promociones->actualizar_promociones_controlador();
 			die();
 		}
 		
-		if(isset($_POST['id_promocion_del']) ){
+		if(isset($_POST['id_promociones_del']) ){
 			echo $ins_promociones->eliminarPromociones();
 			die();
 		}

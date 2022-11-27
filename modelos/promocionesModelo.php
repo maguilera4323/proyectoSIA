@@ -11,11 +11,11 @@
 			fech_fin_promo,id_estado_promocio,precio_promocion)
 			VALUES(?,?,?,?,?)");
 
-			$sql->bindParam(1,$datos['nombre']);
-			$sql->bindParam(2,$datos['fecha_inicial']);
-			$sql->bindParam(3,$datos['fecha_final']);
-			$sql->bindParam(4,$datos['id_estado']);
-			$sql->bindParam(5,$datos['precio']);
+			$sql->bindParam(1,$datos['promo']);
+			$sql->bindParam(2,$datos['inipromo']);
+			$sql->bindParam(3,$datos['finpromo']);
+			$sql->bindParam(4,$datos['estadopromo']);
+			$sql->bindParam(5,$datos['preciopromo']);
 			$sql->execute();
 			return $sql;
 

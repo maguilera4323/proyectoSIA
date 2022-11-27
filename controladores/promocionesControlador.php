@@ -4,35 +4,39 @@
 } 
 
 if($peticionAjax){
-	require_once "../modelos/TipoproductoModelo.php";
+	require_once "../modelos/promocionesModelo.php";
 	require_once "../pruebabitacora.php";
 }else{
-	require_once "./modelos/TipoproductoModelo.php";
+	require_once "./modelos/promocionesModelo.php";
 	require_once "./pruebabitacora.php";//aqui se ejecuta dentro del index y no se utiliza Ajax
 }
 
 
-class TipoproductoControlador extends TipoproductoModelo
+class promocionesControlador extends promocionesModelo
 {
 
-	/*--------- Controlador agregar Tipo de producto ---------*/
-	public function agregar_Tipo_producto_controlador()
+	/*--------- Controlador agregar promociones ---------*/
+	public function agregar_promociones_controlador()
 	{
-		$Tipo_producto=mainModel::limpiar_cadena(strtoupper($_POST['tipo_producto_nuevo']));
-		$Tamaño_producto=mainModel::limpiar_cadena(strtoupper($_POST['tamaño_producto_nuevo']));
-		$Clasificacion=mainModel::limpiar_cadena($_POST['clasificacion_producto_nuevo']);
+		$Nombre_promo=mainModel::limpiar_cadena(strtoupper($_POST['nombre_promo_nuevo']));
+		$Fecha_inicio=mainModel::limpiar_cadena(strtoupper($_POST['fecha_inicio_nuevo']));
+		$Fecha_fin=mainModel::limpiar_cadena($_POST['fecha_final_nuevo']);
+		$Estado_promo=mainModel::limpiar_cadena($_POST['estado_promo_nuevo']);
+		$Precio_promo=mainModel::limpiar_cadena($_POST['precio_promo_nuevo']);
  
 					
-			/*== AGREGAR TIPO DE PRODUCTO ==*/
-			$datos_Tipo_producto_reg=[
-				"tipo"=>$Tipo_producto,
-				"tamaño"=>$Tamaño_producto,
-				"clasificacion"=>$Clasificacion,
+			/*== AGREGAR PROMOCION ==*/
+			$datos_promocion_reg=[
+				"promo"=>$Nombre_promo,
+				"inipromo"=>$Fecha_inicio,
+				"finpromo"=>$Fecha_fin,
+				"estadopromo"=>$Estado_promo,
+				"preciopromo"=>$Precio_promo,
 			];
 
-			$agregar_Tipo_producto=TipoproductoModelo::agregar_Tipo_producto_modelo($datos_Tipo_producto_reg);
+			$agregar_promocion=promocionesModelo::agregar_promociones_modelo($datos_promocion_reg);
 
-			if($agregar_Tipo_producto->rowCount()==1){
+			if($agregar_promocion->rowCount()==1){
 				$alerta=[
 					"Alerta"=>"limpiar",
 					"Titulo"=>" Tipo Producto registrado",
@@ -56,7 +60,7 @@ class TipoproductoControlador extends TipoproductoModelo
 				"fecha" => date('Y-m-d h:i:s'),
 				"id_tipo_producto" => $_SESSION['id_login'],
 				"accion" => "Agregar Tipo de Producto",
-				"descripcion" => "Se agrego un nuevo Tipo de producto en el sistema"
+				"descripcion" => "Se agrego una nueva promoción en el sistema"
 			];
 			Bitacora::guardar_bitacora($datos_bitacora); 
 	} /* Fin controlador */
