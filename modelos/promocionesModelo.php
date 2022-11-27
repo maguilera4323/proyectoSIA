@@ -28,11 +28,11 @@
 			$sql=mainModel::conectar()->prepare("UPDATE TBL_promociones SET nom_promocion=?,fech_ini_promo=?,fech_fin_promo=?,
 			id_estado_promocio=?, precio_promocion=? WHERE id_Promociones=?");
 
-			$sql->bindParam(1,$dato['nombre']);
-			$sql->bindParam(2,$dato['fecha_inicial']);	
-			$sql->bindParam(3,$dato['fecha_final']);			
-			$sql->bindParam(4,$dato['id_estado']);			
-			$sql->bindParam(5,$dato['precio']);
+			$sql->bindParam(1,$dato['promo']);
+			$sql->bindParam(2,$dato['inipromo']);	
+			$sql->bindParam(3,$dato['finpromo']);			
+			$sql->bindParam(4,$dato['estadopromo']);			
+			$sql->bindParam(5,$dato['preciopromo']);
 			$sql->bindParam(6,$id);
 			$sql->execute();
 			return $sql;
