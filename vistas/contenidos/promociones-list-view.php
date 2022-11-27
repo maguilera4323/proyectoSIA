@@ -207,7 +207,7 @@ if($dato -> num_rows >0){
 											<input type="text" class="form-control" name="precio_promo_actu" id="estado_promo" value="<?php echo $fila['precio_promocion']?>" required>
 										</div>
 										<div class="form-group">
-											<input type="hidden" class="form-control" name="id_actualizacion" value="<?php echo $fila['id_promocion']?>">
+											<input type="hidden" class="form-control" name="id_actualizacion" value="<?php echo $fila['id_promociones']?>">
 										</div>
 										<button type="submit" class="btn btn-primary">Guardar</button>
 										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

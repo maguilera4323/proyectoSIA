@@ -39,7 +39,7 @@ class promocionesControlador extends promocionesModelo
 			if($agregar_promocion->rowCount()==1){
 				$alerta=[
 					"Alerta"=>"recargar",
-					"Titulo"=>" Tipo Producto registrado",
+					"Titulo"=>" Promocion registrada",
 					"Texto"=>"La promocion ha sido agregada con exito",
 					"Tipo"=>"success"
 				];
@@ -59,7 +59,7 @@ class promocionesControlador extends promocionesModelo
 				"id_objeto" => 0,
 				"fecha" => date('Y-m-d h:i:s'),
 				"id_tipo_producto" => $_SESSION['id_login'],
-				"accion" => "Agregar Tipo de Producto",
+				"accion" => "Agregar Promocion",
 				"descripcion" => "Se agrego una nueva promoción en el sistema"
 			];
 			Bitacora::guardar_bitacora($datos_bitacora); 
@@ -105,7 +105,7 @@ class promocionesControlador extends promocionesModelo
 			if($actualizar_promocion->rowCount()==1){
 				$alerta=[
 					"Alerta"=>"recargar",
-					"Titulo"=>" Tipo Producto registrado",
+					"Titulo"=>" Promoción registrada",
 					"Texto"=>"La promocion ha sido actualizada con exito",
 					"Tipo"=>"success"
 				];
@@ -125,7 +125,7 @@ class promocionesControlador extends promocionesModelo
 				"id_objeto" => 0,
 				"fecha" => date('Y-m-d h:i:s'),
 				"id_tipo_producto" => $_SESSION['id_login'],
-				"accion" => "Agregar Tipo de Producto",
+				"accion" => "Agregar Promocioón",
 				"descripcion" => "Se agrego una nueva promoción en el sistema"
 			];
 			Bitacora::guardar_bitacora($datos_bitacora);  
@@ -159,7 +159,7 @@ class promocionesControlador extends promocionesModelo
 		if($eliminarpromocion->rowCount()==1){
 			$alerta=[
 				"Alerta"=>"recargar",
-				"Titulo"=>"Usuario Borrado",
+				"Titulo"=>"Promoción Borrada",
 				"Texto"=>"La Promocion fue borrada",
 				"Tipo"=>"success"
 			];
@@ -176,7 +176,7 @@ class promocionesControlador extends promocionesModelo
 		"id_objeto" => 0,
 		"fecha" => date('Y-m-d H:i:s'),
 		"id_usuario" => $_SESSION['id_login'],
-		"accion" => "Proveedor eliminado",
+		"accion" => "Promocion eliminado",
 		"descripcion" => "El usuario ".$_SESSION['usuario_login']." eliminó una promocion del sistema"
 	];
 	Bitacora::guardar_bitacora($datos_bitacora);
