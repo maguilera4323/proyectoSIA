@@ -15,7 +15,7 @@ if($peticionAjax){
 class descuentosControlador extends descuentosModelo
 {
 
-	/*--------- Controlador agregar Tipo de producto ---------*/
+	/*--------- Controlador agregar Descuentos ---------*/
 	public function agregar_descuentos_controlador()
 	{
 		$nombre=mainModel::limpiar_cadena(strtoupper($_POST['nombre_descuento_nuevo']));
@@ -60,14 +60,13 @@ class descuentosControlador extends descuentosModelo
 
 
 	/*--------- Controlador actualizar tipo de producto ---------*/
-	public function actualizar_Tipo_producto_controlador()
+	public function actualizar_descuentos_controlador()
 	{	
 		$id_actualizar=mainModel::limpiar_cadena($_POST['id_actualizacion']);
-		$Tipo_producto=mainModel::limpiar_cadena($_POST['tipo_producto_actu']);
-		$Tamaño_producto=mainModel::limpiar_cadena($_POST['tamaño_producto_actu']);
-		$Clasificacion=mainModel::limpiar_cadena($_POST['clasificacion_producto_actu']);
+		$nombre=mainModel::limpiar_cadena($_POST['nombre_descuentos_actu']);
+		$porcentaje=mainModel::limpiar_cadena($_POST['porcentaje_descuentos_actu']);
 		
-		if($Tipo_producto=="" || $Tamaño_producto=="" || $Clasificacion==""){
+		if($nombre=="" || $porcentaje=="" ){
 			$alerta=[
 				"Alerta"=>"simple",
 				"Titulo"=>"Ocurrió un error inesperado",
@@ -80,56 +79,43 @@ class descuentosControlador extends descuentosModelo
 
 
 			/*== Verificando integridad de los datos ==*/
-			if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ ]{1,30}",$Tipo_producto)){
+			if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ ]{1,30}",$nombre)){
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El Tipo de Producto no coincide con el formato solicitado",
+					"Texto"=>"El Descuento no coincide con el formato solicitado",
 					"Tipo"=>"error"
 				];
 				echo json_encode($alerta);
 				exit();
 			}
 
-			if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ ]{1,30}",$Tamaño_producto)){
+			if(mainModel::verificar_datos("[0-9]{1,2}",$porcentaje)){
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El Tamaño del tipo de producto no coincide con el formato solicitado",
+					"Texto"=>"El Porcentaje del Descuento no coincide con el formato solicitado",
 					"Tipo"=>"error"
 				];
 				echo json_encode($alerta);
 				exit();
 			}
 			
-			if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ ]{1,30}",$Clasificacion)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"La Clasificacion no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-
-	
-			/*== ACTUALIZAR TIPO PRODUCTO ==*/
-		$datos_Tipo_producto_actu=
+			/*== ACTUALIZAR Descuento ==*/
+		$datos_descuentos_actu=
 			[
-				"tipo"=>$Tipo_producto,
-				"tamaño"=>$Tamaño_producto,
-				"clasificacion"=>$Clasificacion
+				"Nombre"=>$nombre,
+				"Porcentaje"=>$porcentaje,
 			];
 
-			$actualizar_Tipo_producto=TipoproductoModelo::actualizar_Tipo_producto_modelo($datos_Tipo_producto_actu,$id_actualizar);
+			$actualizar_descuentos=descuentosModelo::actualizar_descuentos_modelo($datos_descuentos_actu,$id_actualizar);
 
-			if($actualizar_Tipo_producto->rowCount()==1)
+			if($actualizar_descuentos->rowCount()==1)
 			{
 				$alerta=[
 					"Alerta"=>"limpiar",
 					"Titulo"=>"Tipo de Producto Actualizado",
-					"Texto"=>"Tipo de Producto actualizado exitosamente",
+					"Texto"=>"descuento actualizado exitosamente",
 					"Tipo"=>"success"
 				];
 			}else
@@ -137,7 +123,7 @@ class descuentosControlador extends descuentosModelo
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"No hemos podido actualizar el tipo de producto",
+					"Texto"=>"No hemos podido actualizar el descuento",
 					"Tipo"=>"error"
 				];
 			}
@@ -146,41 +132,41 @@ class descuentosControlador extends descuentosModelo
 			$datos_bitacora = [
 				"id_objeto" => 0,
 				"fecha" => date('Y-m-d h:i:s'),
-				"id_tipo_producto" => $_SESSION['id_login'],
-				"accion" => "Modificación del Tipo de Producto",
-				"descripcion" => "Se actualizó un Tipo de Producto en el sistema"
+				"id_usuario" => $_SESSION['id_login'],
+				"accion" => "Modificación de un descuento",
+				"descripcion" => "Se actualizó un descuento en el sistema"
 			];
 			Bitacora::guardar_bitacora($datos_bitacora); 
 	} /* Fin controlador */
 	
 
-	public function datosTipoproductoControlador($tipo,$id){
-		$tipo=mainModel::limpiar_cadena($tipo);
+	public function datosdescuentosControlador($nombre,$id){
+		$nombre=mainModel::limpiar_cadena($nombre);
 		$id=mainModel::limpiar_cadena($id);
 
-		return TipoproductoModelo::datos_Tipo_producto_modelo($tipo,$id);
+		return descuentosModelo::datos_descuentos_modelo($nombre,$id);
 	}
 
 	
 
-		//funcion para eliminar un Tipo de producto
-		public function eliminarTipoProducto()
+		//funcion para eliminar un descuento
+		public function eliminardescuentos()
 		{
-			$id=mainModel::limpiar_cadena(($_POST['id_tipo_producto_del']));
-			$Tipo_producto=mainModel::limpiar_cadena(($_POST['tipo_producto_del']));
+			$id=mainModel::limpiar_cadena(($_POST['id_descuentos_del']));
+			$nombre=mainModel::limpiar_cadena(($_POST['descuentos_del']));
 			$array=array();
 			$valor='';
 
 		
 
 		//verifica que el usuario si exista en el sistema
-		$check_proveedor=mainModel::ejecutar_consulta_simple("SELECT id_tipo_producto FROM TBL_tipo_producto
-		WHERE id_tipo_Producto='$id'");
-		if($check_Tipo_producto->rowCount()<=0){
+		$check_descuento=mainModel::ejecutar_consulta_simple("SELECT id_descuento FROM TBL_tipo_producto
+		WHERE id_descuento='$id'");
+		if($check_descuento->rowCount()<=0){
 			$alerta=[
 				"Alerta"=>"simple",
 				"Titulo"=>"Ha ocurrido un error",
-				"Texto"=>"El Tipo de Producto seleccionado no existe",
+				"Texto"=>"El descuento seleccionado no existe",
 				"Tipo"=>"error"
 			];
 			echo json_encode($alerta);
@@ -188,19 +174,19 @@ class descuentosControlador extends descuentosModelo
 		}
 
 		
-		$eliminarTipoproducto=TipoproductoModelo::eliminar_Tipo_producto_modelo("borrar",$id);
-			if($eliminarTipoproducto->rowCount()==1){
+		$eliminardescuentos=descuentosModelo::eliminar_descuentos_modelo("borrar",$id);
+			if($eliminardescuentos->rowCount()==1){
 				$alerta=[
 					"Alerta"=>"recargar",
 					"Titulo"=>"Usuario Borrado",
-					"Texto"=>"El Tipo de Producto fue borrado",
+					"Texto"=>"El descuentoo fue borrado",
 					"Tipo"=>"success"
 				];
 			}else{
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ha ocurrido un error",
-					"Texto"=>"El Tipo de Producto no pudo ser borrado",
+					"Texto"=>"El descuento no pudo ser borrado",
 					"Tipo"=>"error"
 				];
 			}
@@ -210,7 +196,7 @@ class descuentosControlador extends descuentosModelo
 			"fecha" => date('Y-m-d H:i:s'),
 			"id_tipo_producto" => $_SESSION['id_login'],
 			"accion" => "Usuario inactivado",
-			"descripcion" => "El usuario ".$_SESSION['usuario_login']." inactivó un usuario del sistema"
+			"descripcion" => "El usuario ".$_SESSION['usuario_login']." elimino un descuento del sistema"
 		];
 		Bitacora::guardar_bitacora($datos_bitacora);
 			exit();
