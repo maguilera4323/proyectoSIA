@@ -37,6 +37,16 @@
 ?>
 
 <div class="full-box page-header">
+	<?php	
+		//variables para generar la url completa del sitio y obtener el id del registro
+		$host= $_SERVER["HTTP_HOST"];
+		$url= $_SERVER["REQUEST_URI"];
+		$url_completa="http://" . $host . $url; 
+		//variable que contiene el id del insumo
+		//esta variable es para mostrar los movimientos de inventario de un solo insumo
+		$id_insumo = explode('/',$url_completa)[5]; 
+	?>
+
 	<h3 class="text-left">
 		<i class="fas fa-dolly-flatbed"></i> &nbsp; MOVIMIENTO DE INVENTARIO
 	</h3>
@@ -62,20 +72,20 @@ if(isset($_GET['enviar'])){
   $busqueda = $_GET['busqueda'];
 	if (isset($_GET['busqueda']))
 	{
-		$where="WHERE TBL_movi_inventario.id_insumo LIKE'%".$busqueda."%'";
+		$where="WHERE TBL_insumos.nom_insumo LIKE'%".$busqueda."%'";
 	}
   
 }
 ?>
 
 			</form>
-			<div class="container-fluid">
-  <form class="d-flex" action="../pdf/movi_inventariopdf.php" method="post" accept-charset="utf-8">
-  	<input class="form-control me-2 light-table-filter" data-table="table_id" type="text" name="filtromovi_inventario" placeholder="Buscar Movimientos">
-	<button type="submit" class="btn btn-danger mx-auto btn-lg"><i class="fas fa-file-pdf"></i> &nbsp;Descargar Reporte</button>
-      </form>
-  </div>
-  </div>
+<div class="container-fluid">
+  	<form class="d-flex" action="../pdf/movi_inventariopdf.php" method="post" accept-charset="utf-8">
+  		<input class="form-control me-2 light-table-filter" data-table="table_id" type="text" name="filtromovi_inventario" placeholder="Buscar Movimientos">
+		<button type="submit" class="btn btn-danger mx-auto btn-lg"><i class="fas fa-file-pdf"></i> &nbsp;Descargar Reporte</button>
+    </form>
+</div>
+</div>
       <hr>
       </form>
   </div>
@@ -94,13 +104,25 @@ if(isset($_GET['enviar'])){
                         <tbody>
 				<?php
 
-include ("./cone.php");              
-$SQL="SELECT iv.id_cardex, i.id_insumos, i.nom_insumo, iv.cant_movimiento,iv.tipo_movimiento, iv.fecha_movimiento,
- iv.id_usuario, u.usuario,iv.comentario FROM TBL_movi_inventario iv 
-inner JOIN TBL_insumos i ON i.id_insumos = iv.id_insumos
-inner JOIN TBL_usuarios u ON u.id_usuario = iv.id_usuario
-order by iv.id_cardex DESC
-$where";
+include ("./cone.php");    
+
+//validación para mostrar la tabla de movimientos de insumos completa o solo los datos de un insumo especifico
+//si se cumple la condicion se mostrará la tabla completa
+if($id_insumo==''){
+	$SQL="SELECT iv.id_cardex, i.id_insumos, i.nom_insumo, iv.cant_movimiento,iv.tipo_movimiento, iv.fecha_movimiento,
+	iv.id_usuario, u.usuario,iv.comentario FROM TBL_movi_inventario iv 
+		inner JOIN TBL_insumos i ON i.id_insumos = iv.id_insumos
+		inner JOIN TBL_usuarios u ON u.id_usuario = iv.id_usuario
+		order by iv.id_cardex DESC
+	$where";
+}else{
+	$SQL="SELECT iv.id_cardex, i.id_insumos, i.nom_insumo, iv.cant_movimiento,iv.tipo_movimiento, iv.fecha_movimiento,
+		iv.id_usuario, u.usuario,iv.comentario FROM TBL_movi_inventario iv 
+		inner JOIN TBL_insumos i ON i.id_insumos = iv.id_insumos
+		inner JOIN TBL_usuarios u ON u.id_usuario = iv.id_usuario
+		where iv.id_insumos='$id_insumo'";
+}
+
 $dato = mysqli_query($conexion, $SQL);
 
 if($dato -> num_rows >0){

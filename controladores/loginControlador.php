@@ -38,7 +38,7 @@ class loginControlador extends mainModel{
 
 			 //validacion en caso de que el estado del usuario sea Activo
 			 //y que el rol del usuario no sea default para poder iniciar sesion
-			 if($array['rol']!='default'){
+			 if($array['id_rol']!=4){
 					switch ($array['estado']){
 						case 'Activo':
 							session_start();
@@ -51,7 +51,7 @@ class loginControlador extends mainModel{
 							$_SESSION['id_rol']=$array['id_rol'];
 							$_SESSION['token_login']=md5(uniqid(mt_rand(),true));
 							$datos_bitacora = [
-								"id_objeto" => 0,
+								"id_objeto" => 1,
 								"fecha" => date('Y-m-d H:i:s'),
 								"id_usuario" => $fila['id_usuario'],
 								"accion" => "Inicio de sesion",
