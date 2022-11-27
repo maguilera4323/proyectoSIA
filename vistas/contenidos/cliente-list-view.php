@@ -46,9 +46,9 @@
 <div class="container-fluid">
 	<ul class="full-box list-unstyled page-nav-tabs">
 		<li>
-			<a href="<?php echo SERVERURL; ?>cliente-new/"><i class="fas fa-plus fa-fw"></i> &nbsp; AGREGAR CLIENTE</a>
+			<div class="btn btn-dark btn-lg" data-toggle="modal" data-target="#ModalCrear"><i class="fas fa-plus fa-fw"></i> &nbsp; AGREGAR CLIENTE</div>
 		</li>
-		</ul>	
+	</ul>	
 </div>
 
 <?php
@@ -110,10 +110,51 @@ if($dato -> num_rows >0){
 <td><?php echo $fila['dni_clinte']; ?></td>
 <td><?php echo $fila['tel_cliente']; ?></td>
 <td>
-	<a href="<?php echo SERVERURL; ?>cliente-update/<?php echo $fila['id_clientes']?>" class="btn btn-success">
-		<i class="fas fa-sync-alt"></i>	
-	</a>
-</td>
+				<div class="btn btn-success" data-toggle="modal" data-target="#ModalActualizar<?php echo $fila['id_clientes'];?>">
+					<i class="fas fa-sync-alt"> </i>
+				</div>
+						<!-- Modal actualizar-->
+						<div class="modal fade" id="ModalActualizar<?php echo $fila['id_clientes'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">Actualizar Cliente</h5>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body text-center">
+									<form action="<?php echo SERVERURL; ?>ajax/clienteAjax.php" class="FormularioAjax" method="POST" data-form="save" autocomplete="off">
+									<div class="form-group">
+										<label class="color-label">Nombre</label>
+										<input type="text" class="form-control" name="nombre_cliente_actu" id="cliente_dni" 
+										value="<?php echo $fila['nom_cliente']?>" style="text-transform:uppercase;" required>
+									</div>
+									<div class="form-group">
+										<label class="color-label">DNI</label>
+										<input type="text" class="form-control" name="dni_cliente_actu" id="cliente_nombre" 
+										value="<?php echo $fila['dni_clinte']?>" required>
+									</div>
+									<div class="form-group">
+										<label class="color-label">RTN</label>
+										<input type="text" class="form-control" name="rtn_cliente_actu" id="cliente_apellido" 
+										value="<?php echo $fila['rtn_cliente']?>" required>
+									</div>
+									<div class="form-group">
+										<label class="color-label">Telefono</label>
+										<input type="text" class="form-control" name="telefono_actu" id="cliente_telefono" 
+										value="<?php echo $fila['tel_cliente']?>"required>
+									</div>
+									<div class="form-group">
+											<input type="hidden" class="form-control" name="id_actualizacion" value="<?php echo $fila['id_clientes']?>">
+									</div>
+									<button type="submit" class="btn btn-primary">Guardar</button>
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+									</form>
+      							</div>
+							</div>
+					</div>
+			</td>
 <td>
 	<form class="FormularioAjax" action="<?php echo SERVERURL; ?>ajax/clienteAjax.php" method="POST" data-form="delete" autocomplete="off">
 	<input type="hidden" pattern="" class="form-control" name="id_clientes_del" value="<?php echo $fila['id_clientes'] ?>">
@@ -147,3 +188,41 @@ if($dato -> num_rows >0){
   </table>
   <div id="paginador" class=""></div>	
 <div class="container-fluid"></div>
+
+<!-- Modal crear-->
+<div class="modal fade" id="ModalCrear" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Nuevo Cliente</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body text-center">
+			<form action="<?php echo SERVERURL; ?>ajax/clienteAjax.php" class="FormularioAjax" method="POST" data-form="save" autocomplete="off">
+			<div class="form-group">
+				<label class="color-label">Nombre</label>
+				<input type="text" class="form-control" name="nombre_cliente_nuevo" id="cliente_dni" style="text-transform:uppercase;" required>
+			</div>
+			<div class="form-group">
+				<label class="color-label">DNI</label>
+				<input type="text" class="form-control" name="dni_cliente" id="cliente_nombre" required>
+			</div>
+			<div class="form-group">
+				<label class="color-label">RTN</label>
+				<input type="text" class="form-control" name="rtn_cliente" id="cliente_apellido" required>
+			</div>
+			<div class="form-group">
+				<label class="color-label">Telefono</label>
+				<input type="text" class="form-control" name="telefono_nuevo" id="cliente_telefono" required>
+			</div>
+			<button type="submit" class="btn btn-primary">Guardar</button>
+			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+			</form>
+      </div>
+    </div>
+  </div>
+  
+</div>

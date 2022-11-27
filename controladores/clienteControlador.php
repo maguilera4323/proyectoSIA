@@ -94,7 +94,7 @@ class clienteControlador extends clienteModelo
 
 			if($agregar_cliente->rowCount()==1){
 				$alerta=[
-					"Alerta"=>"limpiar",
+					"Alerta"=>"recargar",
 					"Titulo"=>"Cliente registrado",
 					"Texto"=>"Los datos del cliente han sido registrados con exito",
 					"Tipo"=>"success"
@@ -155,11 +155,11 @@ class clienteControlador extends clienteModelo
 				exit();
 			}
 
-			if(mainModel::verificar_datos("[0-9 -]{1,14}",$Rtn)){
+			if(mainModel::verificar_datos("[0-9 -]{1,13}",$Rtn)){
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El RTN no coincide con el formato solicitado",
+					"Texto"=>"El número de RTN no debe superar los 13 dígitos",
 					"Tipo"=>"error"
 				];
 				echo json_encode($alerta);
@@ -205,7 +205,7 @@ class clienteControlador extends clienteModelo
 			if($actualizar_cliente->rowCount()==1)
 			{
 				$alerta=[
-					"Alerta"=>"limpiar",
+					"Alerta"=>"recargar",
 					"Titulo"=>"Cliente Actualizado",
 					"Texto"=>"CLiente actualizado exitosamente",
 					"Tipo"=>"success"
