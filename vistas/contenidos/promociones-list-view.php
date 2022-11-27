@@ -100,8 +100,7 @@ if(isset($_GET['enviar'])){
 				<?php
 
 include ("./cone.php");              
- $SQL="SELECT  p.nom_estado_promociones FROM TBL_promociones r
- inner JOIN TBL_estado_promociones p ON p.id_estado_promocion = r.id_estado_promocion
+ $SQL="SELECT  * FROM TBL_promociones;
  $where";
 $dato = mysqli_query($conexion, $SQL);
 
@@ -113,7 +112,8 @@ if($dato -> num_rows >0){
 <td><?php echo $fila['nom_promocion']; ?></td>
 <td><?php echo $fila['fech_ini_promo']; ?></td>
 <td><?php echo $fila['fech_fin_promo']; ?></td>
-<td><?php echo $fila['nom_estado_promociones']; ?></td>
+<td><?php echo $fila['id_estado_promocion']; ?></td>
+<td><?php echo $fila['precio_promocion']; ?></td>
 <td>
 				<div class="btn btn-success" data-toggle="modal" data-target="#ModalActualizar<?php echo $fila['id_promociones'];?>">
 					<i class="fas fa-sync-alt"> </i>
@@ -155,7 +155,7 @@ if($dato -> num_rows >0){
 										</div>
 										<div class="form-group">
 											<label class="color-label">Estado Promoción</label>
-											<input type="text" class="form-control" name="estado_promo_actu" id="estado_promo" value="<?php echo $fila['nom_estado_promociones']?>" required>
+											<input type="text" class="form-control" name="estado_promo_actu" id="estado_promo" value="<?php echo $fila['id_estado_promocion']?>" required>
 										</div>
 										<div class="form-group">
 											<label class="color-label">Precio Promoción</label>
