@@ -201,11 +201,15 @@ if(isset($_GET['enviar'])){
 										<div class="col-12 col-md-4">
 											<div class="form-group">
 												<label class="color-label">Roles</label>
-													<select class="form-control" name="id_rol_actu">
-														<option value="1">ADMIN SISTEMA</option>
-														<option value="2">ADMIN INVENTARIO</option>
-														<option value="3">VENDEDOR</option>
-														<option value="4">DEFAULT</option>
+													<select class="form-control" name="id_rol_actu" id="id_rol_actu">
+													<?php
+														include ("./cone.php");   
+														$tipo="SELECT * FROM TBL_ms_roles";
+														$resultado=mysqli_query($conexion, $tipo);
+															while ($valores = mysqli_fetch_array($resultado)){
+																echo '<option value="'.$valores['id_rol'].'">'.$valores['rol'].'</option>';
+															}
+														?>
 													</select>
 												</div>
 										</div>
