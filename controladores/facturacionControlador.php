@@ -14,6 +14,7 @@ class Invoice{
 	private $database  = "proyecto_cafeteria";
 	private $datosPedido = 'TBL_pedidos';
 	private $datosDetallePedido = 'TBL_detalle_pedido';
+	private $datosCAI = 'TBL_talonario_cai';
 	private $dbConnect = false;
 
 	public function __construct()
@@ -40,6 +41,13 @@ class Invoice{
 		mysqli_query($this->dbConnect, $sqlInsert);
 		$lastInsertId = mysqli_insert_id($this->dbConnect); 
 
+		//funcion de update para actualizar el valor actual de las facturas del talonario CAI
+		$sqlUpdate = "
+		UPDATE " . $this->datosCAI . " 
+				SET cai_actual = '" . $POST['num_factura'] . "' 
+				WHERE id_talonario_cai = 1";
+		mysqli_query($this->dbConnect, $sqlUpdate);
+
 		//segundo insert, para la tabla de Detalle Compras
 		//el ciclo es para insertar todos los insumos agregados a la compra
 		for ($i = 0; $i < count($POST['nombreProducto']); $i++) {
@@ -53,16 +61,18 @@ class Invoice{
 			echo '<script>
 			swal.fire("Venta Realizada", "La venta se ha realizado exitosamente", "success")
 			</script>'; 
+
+			$datos_bitacora = [
+				"id_objeto" => 0,
+				"fecha" => date('Y-m-d H:i:s'),
+				"id_usuario" => $_SESSION['id_login'],
+				"accion" => "Nuevo pedido",
+				"descripcion" => "El usuario ".$_SESSION['usuario_login']." registró un pedido en el sistema"
+			];
+			Bitacora::guardar_bitacora($datos_bitacora); 
 		}
 
-		$datos_bitacora = [
-			"id_objeto" => 0,
-			"fecha" => date('Y-m-d H:i:s'),
-			"id_usuario" => $_SESSION['id_login'],
-			"accion" => "Nuevo pedido",
-			"descripcion" => "El usuario ".$_SESSION['usuario_login']." registró un pedido en el sistema"
-		];
-		Bitacora::guardar_bitacora($datos_bitacora);  
+		 
 	}
 
 

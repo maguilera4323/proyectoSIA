@@ -88,6 +88,7 @@ if(isset($_GET['enviar'])){
 		<!-- Encabezado de la tabla -->
 		<thead>
 			<tr>
+				<th>N° de Factura</th>
 				<th>Cliente</th>
 				<th>Fecha de Pedido</th>
 				<th>Fecha de entrega</th>
@@ -117,6 +118,7 @@ if(isset($_GET['enviar'])){
 
 				?>
 				<tr>
+				<td><?php echo $fila['num_factura']; ?></td>
 				<td><?php echo $fila['nom_cliente']; ?></td>
 				<td><?php echo $fila['fech_pedido']; ?></td>
 				<td><?php echo $fila['fech_entrega']; ?></td>

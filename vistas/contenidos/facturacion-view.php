@@ -56,6 +56,44 @@
 				}else{
 					$idPedidoActual=1;
 				}
+
+				//query de la tabla del talonario
+				//se obtienen los datos del valor inicial, valor actual y valor final del talonario
+				$SQL="SELECT * FROM TBL_talonario_cai";
+				$dato = mysqli_query($conexion, $SQL);
+					
+				if($dato -> num_rows >0){
+					while($fila=mysqli_fetch_array($dato)){
+						$rango_inicial=$fila['rango_inicial'];
+						$numFacturaAnterior=$fila['cai_actual'];
+						$rango_final=$fila['rango_final'];
+					}
+				}
+				
+				//validacion para verificar si ya se han registrado facturas con codigo CAI
+				if($numFacturaAnterior!=''){
+					//se extraen los primeros 11 caracteres del codigo de factura coon esta funcion
+					//usando la funcion substr, el parametro 0 es para indicar que se deben tomar desde el incio de la cadena
+					//el parametro -8 es para obviar los ultimos 8 caracteres
+					$cadenaPrimerosCaracteres=substr($numFacturaAnterior,0,-8);
+
+					//se extrae el rango de facturacion con la funcion substr
+					//como parametro se usa el 11 para indicar que comience a tomar caracteres desde el caracter 12
+					//se usa la funcion intval para convertir la cadena extraida a numero
+					//se suma 1 para obtener el valor de la factura actual
+					$numFactura=intval(substr($numFacturaAnterior,11))+1;
+
+					//se usa la funcion str_pad para reconvertir el numero de la factura actual a una cadena del rango de facturacion
+					$cadenaRangoFactura=str_pad($numFactura, 8, "0", STR_PAD_LEFT);
+
+					//se une la cadena actual de la factura con los 11 primeros caracteres para obtener el numero de factura completo
+					$numFacturaActual=$cadenaPrimerosCaracteres.$cadenaRangoFactura;
+
+					//Si es la primera factura que se realiza, esta tomara el valor del valor inicial del talonario
+				}else{
+					$numFacturaActual=$rango_inicial;
+				}
+				
 				
 			?>
 			<br>
@@ -80,8 +118,9 @@
 					</div>	
 					<div class="form-group">
 						<label class="color-label">Num. Factura</label>
-						<input type="text" class="form-control" name="num_factura" id="num_factura" maxlength="40" 
-						style="text-transform:uppercase;" required>
+						<input type="text" class="form-control" value="<?php echo $numFacturaActual;?>"   
+						style="text-transform:uppercase;"  disabled>
+						<input type="hidden" value="<?php echo $numFacturaActual;?>" class="form-control" id="num_factura" name="num_factura">
 					</div>	
 					<div class="form-group">
 						<label class="color-label">Forma de Pago</label>
@@ -204,8 +243,7 @@
 							<div class="form-group">
 							<label>Porcentaje Impuestos: &nbsp;</label>
 							<div class="input-group">
-								<input  type="number" class="form-control" name="taxRate" id="taxRate"  step="any" 
-								value="15" disabled>
+								<input  type="number" class="form-control" name="taxRate" id="taxRate"  step="any">
 								<div class="input-group-addon">%</div>
 							</div>
 						</div>

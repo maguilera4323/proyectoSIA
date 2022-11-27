@@ -1,4 +1,5 @@
 <?php
+	include ("./cone.php");
 	require_once "./pruebabitacora.php";
 
 	$datos_bitacora = [
@@ -9,6 +10,46 @@
 		"descripcion" => "El usuario ".$_SESSION['usuario_login']." entró a la vista del Home"
 	];
 	Bitacora::guardar_bitacora($datos_bitacora); 
+
+	$rol=$_SESSION['id_rol'];
+	//query para extraer los tipos de objeto con los que cuenta el sistema actualmente
+	$sql="SELECT tipo_objeto FROM TBL_permisos 
+	where id_rol='$rol'";
+	$dato = mysqli_query($conexion, $sql); 
+
+		if($dato -> num_rows >0){
+			while($fila=mysqli_fetch_array($dato)){
+				//se valida que el tipo de objeto concuerde con un valor en especifico
+				//para darle valor a la variable que servirá de comprobacion
+				if($fila['tipo_objeto']=='Proveedores'){
+					$proveedores='true';
+				}
+
+				if($fila['tipo_objeto']=='Insumos'){
+					$insumos='true';
+				}
+
+				if($fila['tipo_objeto']=='Productos'){
+					$productos='true';
+				}
+
+				if($fila['tipo_objeto']=='Compras'){
+					$compras='true';
+				}
+
+				if($fila['tipo_objeto']=='Mantenimiento'){
+					$mantenimiento='true';
+				}
+
+				if($fila['tipo_objeto']=='Administracion'){
+					$administracion='true';
+				}
+
+				if($fila['tipo_objeto']=='Facturacion'){
+					$facturacion='true';
+				}
+			}
+		} 
 ?>
 
 <!-- Page header -->
@@ -18,11 +59,11 @@
 	</h3>
 </div>
 
-<?php 
-	if($_SESSION['rol']=='ADMIN SISTEMA'){
-?>
 	<!-- Content -->
 	<div class="full-box tile-container">
+		<?php
+			if(isset($facturacion)=='true'){
+		?>
 		<a href="<?php echo SERVERURL; ?>proveedor-list/" class="tile">
 			<div class="tile-tittle">PROVEEDORES</div>
 			<div class="tile-icon">
@@ -30,8 +71,6 @@
 		<!-- AQUI INICIA EL CONTADOR PARA LOS USUARIOS EN EL HOME -->
 		<p>	
 			<?php
-				include ("./cone.php");
-
 				$sql=" SELECT COUNT(*) as total_proveedores FROM `TBL_Proveedores` ";
 				$result=mysqli_query($conexion,$sql);
 				while($mostrar=mysqli_fetch_assoc ($result)){
@@ -50,15 +89,19 @@
 	<!-- AQUI FINALIZA EL CONTADOR PARA LOS USUARIOS EN EL HOME -->
 			</div>
 		</a>
+		<?php
+			}
+		?>
 		
+		<?php
+			if(isset($compras)=='true'){
+		?>
 		<a href="<?php echo SERVERURL; ?>compra-list/" class="tile">
 			<div class="tile-tittle">COMPRAS</div>
 			<div class="tile-icon">
 				<i class="fas fa-shopping-cart"></i>
 				<p>
 			<?php
-				include ("./cone.php");
-
 				$sql=" SELECT COUNT(*) as total_compras FROM `TBL_compras` ";
 				$result=mysqli_query($conexion,$sql);
 				while($mostrar=mysqli_fetch_assoc ($result)){
@@ -74,15 +117,19 @@
 			?> Compras registradas</p>
 			</div>
 		</a>
-
+		<?php
+			}
+		?>
+		
+		<?php
+			if(isset($insumos)=='true'){
+		?>
 		<a href="<?php echo SERVERURL; ?>insumos-list/" class="tile">
 			<div class="tile-tittle">INSUMOS</div>
 			<div class="tile-icon">
 				<i class="fas fa-pallet fa-fw"></i>
 				<p>
 			<?php
-				include ("./cone.php");
-
 				$sql=" SELECT COUNT(*) as total_insumos FROM `TBL_insumos` ";
 				$result=mysqli_query($conexion,$sql);
 				while($mostrar=mysqli_fetch_assoc ($result)){
@@ -98,15 +145,19 @@
 			?> Insumos registrados</p>
 			</div>
 		</a>
+		<?php
+			}
+		?>
 
+		<?php
+			if(isset($productos)=='true'){
+		?>
 		<a href="<?php echo SERVERURL; ?>producto-list/" class="tile">
 			<div class="tile-tittle">PRODUCTO</div>
 			<div class="tile-icon">
 				<i class="fas fa-mug-hot fa-fw"></i>
 				<p>
 			<?php
-				include ("./cone.php");
-
 				$sql=" SELECT COUNT(*) as total_productos FROM `TBL_producto` ";
 				$result=mysqli_query($conexion,$sql);
 				while($mostrar=mysqli_fetch_assoc ($result)){
@@ -122,7 +173,13 @@
 			?> Productos registrados</p>
 			</div>
 		</a>
+		<?php
+			}
+		?>
 
+		<?php
+			if(isset($mantenimiento)=='true'){
+		?>
 		<a href="<?php echo SERVERURL; ?>user-list/" class="tile">
 			<div class="tile-tittle">Usuarios</div>
 			<div class="tile-icon">
@@ -130,8 +187,6 @@
 	<!-- AQUI INICIA EL CONTADOR PARA LOS USUARIOS EN EL HOME -->
 				<p>	
 			<?php
-				include ("./cone.php");
-
 				$sql=" SELECT COUNT(*) as total_usuarios FROM `TBL_usuarios` ";
 				$result=mysqli_query($conexion,$sql);
 				while($mostrar=mysqli_fetch_assoc ($result)){
@@ -150,109 +205,37 @@
 	<!-- AQUI FINALIZA EL CONTADOR PARA LOS USUARIOS EN EL HOME -->
 			</div>
 		</a>
-
-		<a href="<?php echo SERVERURL; ?>facturacion/" class="tile">
-			<div class="tile-tittle">FACTURACION</div>
-			<div class="tile-icon">
-				<i class="fas fa-store-alt fa-fw"></i>
-				<p>1 Cambiar</p>
-			</div>
-		</a>
-	</div>
-<?php
-}?>
-
-<?php 
-	if($_SESSION['rol']=='ADMIN INVENTARIO'){
-?>
-	<!-- Content -->
-	<div class="full-box tile-container">
-		<a href="<?php echo SERVERURL; ?>proveedor-list/" class="tile">
-			<div class="tile-tittle">PROVEEDORES</div>
-			<div class="tile-icon">
-				<i class="fas fa-users fa-fw"></i>
-		<!-- AQUI INICIA EL CONTADOR PARA LOS USUARIOS EN EL HOME -->
-		<p>	
-			<?php
-				include ("./cone.php");
-
-				$sql=" SELECT COUNT(*) as total_proveedores FROM `TBL_Proveedores` ";
-				$result=mysqli_query($conexion,$sql);
-				while($mostrar=mysqli_fetch_assoc ($result)){
-			?>
-					<tbody>
-						<tr class="text-center" >
-							<td><?php echo $mostrar['total_proveedores']?></td>
-
-						</tr>
-					</tbody>
-			<?php
-				}
-			?>
-			Proveedores Registrados
-			</p>
-	<!-- AQUI FINALIZA EL CONTADOR PARA LOS USUARIOS EN EL HOME -->
-			</div>
-		</a>
+		<?php
+			}
+		?>
 		
-		<a href="<?php echo SERVERURL; ?>compra-list/" class="tile">
-			<div class="tile-tittle">COMPRAS</div>
+		<?php
+			if(isset($facturacion)=='true'){
+		?>
+		<a href="<?php echo SERVERURL; ?>facturacion/" class="tile">
+			<div class="tile-tittle">FACTURACION</div>
 			<div class="tile-icon">
-				<i class="fas fa-shopping-cart"></i>
-				<p>4 cambiar</p>
-			</div>
-		</a>
-
-		<a href="<?php echo SERVERURL; ?>insumos-list/" class="tile">
-			<div class="tile-tittle">INSUMOS</div>
-			<div class="tile-icon">
-				<i class="fas fa-pallet fa-fw"></i>
-				<p>
-			<?php
-				include ("./cone.php");
-
-				$sql=" SELECT COUNT(*) as total_insumos FROM `TBL_insumos` ";
+				<i class="fas fa-store-alt fa-fw"></i>
+				<p><?php
+				$sql=" SELECT COUNT(*) as total_facturas FROM `TBL_pedidos` ";
 				$result=mysqli_query($conexion,$sql);
 				while($mostrar=mysqli_fetch_assoc ($result)){
-			?>
+				?>
 					<tbody>
 						<tr class="text-center" >
-							<td><?php echo $mostrar['total_insumos']?></td>
+							<td><?php echo $mostrar['total_facturas']?></td>
 
 						</tr>
 					</tbody>
 			<?php
 				}
-			?> Insumos registrados</p>
+			?>
+			Ventas Registradas</p>
 			</div>
 		</a>
-
+		<?php
+			}
+		?>
 	</div>
-<?php
-}?>
 
-<?php 
-	if($_SESSION['rol']=='Vendedor'){
-?>
-	<!-- Content -->
-	<div class="full-box tile-container">
-
-		<a href="<?php echo SERVERURL; ?>reservation-pending/" class="tile">
-			<div class="tile-tittle">PRODUCTO</div>
-			<div class="tile-icon">
-				<i class="fas fa-hand-holding-usd fa-fw"></i>
-				<p>200  Cambiar</p>
-			</div>
-		</a>
-
-		<a href="<?php echo SERVERURL; ?>facturacion/" class="tile">
-			<div class="tile-tittle">FACTURACION</div>
-			<div class="tile-icon">
-				<i class="fas fa-store-alt fa-fw"></i>
-				<p>1 Cambiar</p>
-			</div>
-		</a>
-	</div>
-<?php
-}?>
 
