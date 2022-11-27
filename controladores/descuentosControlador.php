@@ -4,39 +4,36 @@
 } 
 
 if($peticionAjax){
-	require_once "../modelos/TipoproductoModelo.php";
+	require_once "../modelos/descuentosModelo.php";
 	require_once "../pruebabitacora.php";
 }else{
-	require_once "./modelos/TipoproductoModelo.php";
+	require_once "./modelos/descuentosModelo.php";
 	require_once "./pruebabitacora.php";//aqui se ejecuta dentro del index y no se utiliza Ajax
 }
 
 
-class TipoproductoControlador extends TipoproductoModelo
+class descuentosControlador extends descuentosModelo
 {
 
 	/*--------- Controlador agregar Tipo de producto ---------*/
-	public function agregar_Tipo_producto_controlador()
+	public function agregar_descuentos_controlador()
 	{
-		$Tipo_producto=mainModel::limpiar_cadena(strtoupper($_POST['tipo_producto_nuevo']));
-		$Tamaño_producto=mainModel::limpiar_cadena(strtoupper($_POST['tamaño_producto_nuevo']));
-		$Clasificacion=mainModel::limpiar_cadena($_POST['clasificacion_producto_nuevo']);
- 
-					
-			/*== AGREGAR TIPO DE PRODUCTO ==*/
-			$datos_Tipo_producto_reg=[
-				"tipo"=>$Tipo_producto,
-				"tamaño"=>$Tamaño_producto,
-				"clasificacion"=>$Clasificacion,
+		$nombre=mainModel::limpiar_cadena(strtoupper($_POST['nombre_descuento_nuevo']));
+		$porcentaje=mainModel::limpiar_cadena($_POST['porcentaje_descuento_nuevo'])/100;
+				
+			
+			$datos_descuento_reg=[
+				"nombre"=>$nombre,
+				"porc"=>$porcentaje,
 			];
 
-			$agregar_Tipo_producto=TipoproductoModelo::agregar_Tipo_producto_modelo($datos_Tipo_producto_reg);
+			$agregar_descuento=descuentosModelo::agregar_descuento_modelo($datos_descuento_reg);
 
-			if($agregar_Tipo_producto->rowCount()==1){
+			if($agregar_descuento->rowCount()==1){
 				$alerta=[
-					"Alerta"=>"limpiar",
-					"Titulo"=>" Tipo Producto registrado",
-					"Texto"=>"Los datos del Tipo producto han sido registrados con exito",
+					"Alerta"=>"recargar",
+					"Titulo"=>" Descuento Registrado",
+					"Texto"=>"El descuento ha sido registrado con exito",
 					"Tipo"=>"success"
 				];
 
@@ -45,7 +42,7 @@ class TipoproductoControlador extends TipoproductoModelo
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"No hemos podido registrar el Tipo de Producto",
+					"Texto"=>"No hemos podido registrar el descuento",
 					"Tipo"=>"error"
 				];
 			}
@@ -55,8 +52,8 @@ class TipoproductoControlador extends TipoproductoModelo
 				"id_objeto" => 0,
 				"fecha" => date('Y-m-d h:i:s'),
 				"id_tipo_producto" => $_SESSION['id_login'],
-				"accion" => "Agregar Tipo de Producto",
-				"descripcion" => "Se agrego un nuevo Tipo de producto en el sistema"
+				"accion" => "Agregar Descuento",
+				"descripcion" => "Se agrego un nuevo descuento en el sistema"
 			];
 			Bitacora::guardar_bitacora($datos_bitacora); 
 	} /* Fin controlador */

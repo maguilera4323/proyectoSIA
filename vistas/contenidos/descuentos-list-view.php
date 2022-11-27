@@ -40,7 +40,7 @@ if(isset($_GET['enviar'])){
   </div>
 
 
-      <table class="table table-striped table-dark table_id " id="tblDatos">                   
+      <table class="table table-striped table-dark table_id text-center" id="tblDatos">                   
                     <thead>    
                          <tr>
                         <th>NOMBRE</th>
@@ -63,7 +63,7 @@ if($dato -> num_rows >0){
 ?>
 <tr>
 <td><?php echo $fila['nom_descuento']; ?></td>
-<td><?php echo $fila['porcentaje_descuento']; ?></td>
+<td><?php echo ($fila['porcentaje_descuento']*100); ?>%</td>
 <td>
 				<div class="btn btn-success" data-toggle="modal" data-target="#ModalActualizar<?php echo $fila['id_descuentos'];?>">
 					<i class="fas fa-sync-alt"> </i>
@@ -74,48 +74,25 @@ if($dato -> num_rows >0){
 							<div class="modal-dialog" role="document">
 								<div class="modal-content">
 								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLabel">Actualizar Pregunta</h5>
+									<h5 class="modal-title" id="exampleModalLabel">Actualizar Descuento</h5>
 									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 									</button>
 								</div>
 								<div class="modal-body">
-								<form action="<?php echo SERVERURL; ?>ajax/productoAjax.php" class="FormularioAjax" method="POST" data-form="save" autocomplete="off">
+								<form action="<?php echo SERVERURL; ?>ajax/descuentosAjax.php" class="FormularioAjax" method="POST" data-form="save" autocomplete="off">
 								<div class="form-group">
-									<label class="color-label">Nombre</label>
-									<input type="text" class="form-control" name="nombre_producto_actu" id="nombre_pro" 
-									style="text-transform:uppercase;" value="<?php echo $fila['nom_producto'] ?>" required>
+									<label class="color-label">Nombre del descuento</label>
+									<input type="text" class="form-control" name="nombre_descuento_actu" id="nombre_pro" style="text-transform:uppercase;" 
+									value="<?php echo $fila['nom_descuento'] ?>" required>
 								</div>
 								<div class="form-group">
-								<label class="color-label">Tipo Producto</label>
-									<select class="form-control" name="id_tipo_producto_actu" id="id_tipo_producto_act">
-										<?php
-										include ("./cone.php");   
-										$tipo="SELECT * FROM TBL_tipo_producto";
-										$resultado=mysqli_query($conexion, $tipo);
-											while ($valores = mysqli_fetch_array($resultado)){
-												echo '<option value="'.$valores['id_tipo_produ'].'">'.$valores['tipo_producto'].'</option>';
-											}
-										?>
-									</select>
+									<label for="precio_producto_nuevo" class="color-label">% del descuento</label>
+									<input type="number" class="form-control" name="porcentaje_descuento_nuevo" step="any" id="precio_pro" 
+									value="<?php echo ($fila['porcentaje_descuento']*100) ?>" required>
 								</div>
 								<div class="form-group">
-									<label for="descripcion_producto_nuevo" class="color-label">Descripcion</label>
-									<input type="text" class="form-control" name="descripcion_producto_actu" id="descripcion_pro" 
-									value="<?php echo $fila['des_produ'] ?>" required>
-								</div>
-								<div class="form-group">
-									<label for="precio_producto_nuevo" class="color-label">Precio</label>
-									<input type="text" class="form-control" name="precio_producto_actu" id="precio_pro" 
-									value="<?php echo $fila['precio_produ'] ?>" required>
-								</div>
-								<div class="form-group">
-									<label for="archivo" class="color-label">Agregar Imagen</label>
-									<input type="file" class="form-control" name="foto" id="archivo" accept="image/*" 
-									value="<?php echo $fila['foto_produ'] ?>" required>
-								</div>
-								<div class="form-group">
-									<input type="hidden" class="form-control" name="id_actualizacion" value="<?php echo $fila['id_producto']?>">
+									<input type="hidden" class="form-control" name="id_actualizacion" value="<?php echo $fila['id_descuentos']?>">
 								</div>
 								<button type="submit" class="btn btn-primary justify-content-center">Guardar</button>
 								<button type="button" class="btn btn-secondary justify-content-center" data-dismiss="modal">Cerrar</button>
@@ -127,8 +104,7 @@ if($dato -> num_rows >0){
 			</td>
 <td>
 	<form class="FormularioAjax" action="<?php echo SERVERURL; ?>ajax/productoAjax.php" method="POST" data-form="delete" autocomplete="off">
-	<input type="hidden" pattern="" class="form-control" name="id_producto_del" value="<?php echo $fila['id_producto'] ?>">
-	<input type="hidden" pattern="" class="form-control" name="producto_del" value="<?php echo $fila['nom_producto'] ?>">	
+	<input type="hidden" pattern="" class="form-control" name="id_producto_del" value="<?php echo $fila['id_descuentos'] ?>">
 	<button type="submit" class="btn btn-warning">
 		<i class="far fa-trash-alt"></i>
 	</button>

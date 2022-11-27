@@ -5,13 +5,13 @@
 	class descuentosModelo extends mainModel{
 
 		/*--------- Modelo agregar descuentos ------ESTE ES EL QUE INTERACTUA DIRECTO CON LA BD---*/
-		protected static function agregar_descuentos_modelo($datos)
+		protected static function agregar_descuento_modelo($datos)
 		{
 			$sql=mainModel::conectar()->prepare("INSERT INTO TBL_descuentos(nom_descuento,porcentaje_descuento)
 			VALUES(?,?)");
 
 			$sql->bindParam(1,$datos['nombre']);
-			$sql->bindParam(2,$datos['porcentaje']);
+			$sql->bindParam(2,$datos['porc']);
 			$sql->execute();
 			return $sql;
 
