@@ -41,7 +41,7 @@
 
 <div class="full-box page-header">
 	<h3 class="text-left">
-		<i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE PROVEEDORES
+		<i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE PROMOCIONES
 	</h3>
 
 </div>
@@ -49,7 +49,7 @@
 <div class="container-fluid">
 	<ul class="full-box list-unstyled page-nav-tabs">
 		<li>
-			<div class="btn btn-dark btn-lg" data-toggle="modal" data-target="#ModalCrear"><i class="fas fa-plus fa-fw"></i> &nbsp; AGREGAR PROVEEDOR</div>
+			<div class="btn btn-dark btn-lg" data-toggle="modal" data-target="#ModalCrear"><i class="fas fa-plus fa-fw"></i> &nbsp; AGREGAR PROMOCION</div>
 		</li>
 	</ul>	
 </div>
@@ -64,7 +64,7 @@ if(isset($_GET['enviar'])){
 
 	if (isset($_GET['busqueda']))
 	{
-		$where="WHERE TBL_Proveedores.nom_proveedor LIKE'%".$busqueda."%'";
+		$where="WHERE TBL_promociones.nom_promocion LIKE'%".$busqueda."%'";
 	}
   
 }
@@ -73,8 +73,8 @@ if(isset($_GET['enviar'])){
 ?>
 
 <div class="container-fluid">
-  <form class="d-flex" action="../pdf/proveedorpdf.php" method="post" accept-charset="utf-8">
-  	<input class="form-control me-2 light-table-filter" data-table="table_id" type="text" name="filtroproveedor" placeholder="Buscar Proveedor">
+  <form class="d-flex" action="" method="post" accept-charset="utf-8">
+  	<input class="form-control me-2 light-table-filter" data-table="table_id" type="text" name="" placeholder="Buscar Promocion">
 	<button type="submit" class="btn btn-danger mx-auto btn-lg"><i class="fas fa-file-pdf"></i> &nbsp;Descargar Reporte</button>
       </form>
   </div>
@@ -87,12 +87,12 @@ if(isset($_GET['enviar'])){
                          <thead>    
                          <tr>
                         <th>NOMBRE</th>
-                        <th>RTN</th>
-                        <th>TELEFONO</th>
-                        <th>CORREO</th>
-                        <th>DIRECCION</th>
-                    	<th>ACTUALIZAR</th>
-						<th>ELIMINAR</th>
+                        <th>FECHA DE INICIO</th>
+                        <th>FECHA FINAL</th>
+                        <th>ESTADO PROMOCION</th>
+                        <th>PRECIO PROMOCION</th>
+						<th>ACTUALIZAR</th>
+						<TH>ELIMINAR</TH>
                         </tr>
                         </thead>
                         <tbody>
@@ -100,33 +100,33 @@ if(isset($_GET['enviar'])){
 				<?php
 
 include ("./cone.php");              
-$SQL="SELECT * FROM TBL_Proveedores 
-$where";
+ $SQL="SELECT  * FROM TBL_promociones;
+ $where";
 $dato = mysqli_query($conexion, $SQL);
 
 if($dato -> num_rows >0){
     while($fila=mysqli_fetch_array($dato)){
     
 ?>
-<tr>
-<td><?php echo $fila['nom_proveedor']; ?></td>
-<td><?php echo $fila['rtn_proveedor']; ?></td>
-<td><?php echo $fila['tel_proveedor']; ?></td>
-<td><?php echo $fila['correo_proveedor']; ?></td>
-<td><?php echo $fila['dir_proveedor']; ?></td>
+
+<td><?php echo $fila['nom_promocion']; ?></td>
+<td><?php echo $fila['fech_ini_promo']; ?></td>
+<td><?php echo $fila['fech_fin_promo']; ?></td>
+<td><?php echo $fila['id_estado_promocion']; ?></td>
+<td><?php echo $fila['precio_promocion']; ?></td>
 <td>
-				<div class="btn btn-success" data-toggle="modal" data-target="#ModalActualizar<?php echo $fila['id_Proveedores'];?>">
+				<div class="btn btn-success" data-toggle="modal" data-target="#ModalActualizar<?php echo $fila['id_promociones'];?>">
 					<i class="fas fa-sync-alt"> </i>
 				</div>
 						<!-- Modal actualizar-->
-						<div class="modal fade" id="ModalActualizar<?php echo $fila['id_Proveedores'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal fade" id="ModalActualizar<?php echo $fila['id_promociones'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 						<?php
 							if(!isset($permiso_act)){
 								echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Usted no tiene autorización para actualizar un proveedor</div>';
 								echo "<script> window.location.href='".SERVERURL."home/'; </script>";	
 							//valida si el permiso tiene valor de cero, lo que significa que no puede acceder a la vista	
 							}else if($permiso_act==0){
-								echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Usted no tiene autorización para actualizar un proveedor
+								echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Usted no tiene autorización para actualizar una promoción
 								<button type="button" class="close" data-dismiss="alert" onclick="window.location.reload()">X</button>
 								</div>';
 							}else{
@@ -134,35 +134,35 @@ if($dato -> num_rows >0){
 						<div class="modal-dialog" role="document">
 								<div class="modal-content">
 								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLabel">Actualizar Proveedor</h5>
+									<h5 class="modal-title" id="exampleModalLabel">Actualizar Promocion</h5>
 									<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 									</button>
 								</div>
 								<div class="modal-body">
-									<form action="<?php echo SERVERURL; ?>ajax/proveedorAjax.php" class="FormularioAjax" method="POST" data-form="save" autocomplete="off">
+									<form action="<?php echo SERVERURL; ?>ajax/promocionesAjax.php" class="FormularioAjax" method="POST" data-form="save" autocomplete="off">
 									<div class="form-group">
-											<label class="color-label">Nombre</label>
-											<input type="text" class="form-control" name="nombre_proveedor_actu" id="cliente_dni" value="<?php echo $fila['nom_proveedor']?>"  required>
+											<label class="color-label">Nombre Promoción</label>
+											<input type="text" class="form-control" name="nombre_promo_actu" id="promo_nom" value="<?php echo $fila['nom_promocion']?>"  required>
 										</div>
 										<div class="form-group">
-											<label class="color-label">RTN</label>
-											<input type="text" class="form-control" name="rtn_proveedor_actu" id="cliente_dni" value="<?php echo $fila['rtn_proveedor']?>" required>
+											<label class="color-label">Fecha Inicio</label>
+											<input type="date" class="form-control" name="fecha_inicio_actu" id="inicio_promo" value="<?php echo $fila['fech_ini_promo']?>" required>
 										</div>
 										<div class="form-group">
-											<label class="color-label">Correo</label>
-											<input type="text" class="form-control" name="correo_proveedor_actu" id="cliente_dni" value="<?php echo $fila['correo_proveedor']?>" required>
+											<label class="color-label">Fecha Final</label>
+											<input type="date" class="form-control" name="fecha_fin_actu" id="fin_promo" value="<?php echo $fila['fech_fin_promo']?>" required>
 										</div>
 										<div class="form-group">
-											<label class="color-label">Telefono</label>
-											<input type="text" class="form-control" name="telefono_proveedor_actu" id="cliente_dni" value="<?php echo $fila['tel_proveedor']?>" required>
+											<label class="color-label">Estado Promoción</label>
+											<input type="text" class="form-control" name="estado_promo_actu" id="estado_promo" value="<?php echo $fila['id_estado_promocion']?>" required>
 										</div>
 										<div class="form-group">
-											<label class="color-label">Dirección</label>
-											<input type="text" class="form-control" name="direccion_proveedor_actu" id="cliente_dni" value="<?php echo $fila['dir_proveedor']?>" required>
+											<label class="color-label">Precio Promoción</label>
+											<input type="text" class="form-control" name="estado_promo_actu" id="estado_promo" value="<?php echo $fila['nom_estado_promociones']?>" required>
 										</div>
 										<div class="form-group">
-											<input type="hidden" class="form-control" name="id_actualizacion" value="<?php echo $fila['id_Proveedores']?>">
+											<input type="hidden" class="form-control" name="id_actualizacion" value="<?php echo $fila['id_promocion']?>">
 										</div>
 										<button type="submit" class="btn btn-primary">Guardar</button>
 										<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
@@ -176,9 +176,9 @@ if($dato -> num_rows >0){
 							?>
 			</td>
 <td>
-	<form class="FormularioAjax" action="<?php echo SERVERURL; ?>ajax/proveedorAjax.php" method="POST" data-form="delete" autocomplete="off">
-	<input type="hidden" pattern="" class="form-control" name="id_proveedor_del" value="<?php echo $fila['id_Proveedores'] ?>">
-	<input type="hidden" pattern="" class="form-control" name="proveedor_del" value="<?php echo $fila['nom_proveedor'] ?>">	
+	<form class="FormularioAjax" action="<?php echo SERVERURL; ?>ajax/promocionesAjax.php" method="POST" data-form="delete" autocomplete="off">
+	<input type="hidden" pattern="" class="form-control" name="id_promociones_del" value="<?php echo $fila['id_promociones'] ?>">
+	<input type="hidden" pattern="" class="form-control" name="promocion_del" value="<?php echo $fila['nom_promocion'] ?>">	
 	<button type="submit" class="btn btn-warning">
 		<i class="far fa-trash-alt"></i>
 	</button>
@@ -233,26 +233,26 @@ if($dato -> num_rows >0){
 
       </div>
       <div class="modal-body text-center">
-			<form action="<?php echo SERVERURL; ?>ajax/proveedorAjax.php" class="FormularioAjax" method="POST" data-form="save" autocomplete="off">
+			<form action="<?php echo SERVERURL; ?>ajax/promocionesAjax.php" class="FormularioAjax" method="POST" data-form="save" autocomplete="off">
 			<div class="form-group">
 				<label class="color-label">Nombre</label>
-				<input type="text" class="form-control" name="nombre_proveedor_nuevo" id="cliente_dni" maxlength="27" required>
+				<input type="text" class="form-control" name="nombre_promo_nuevo" id="cliente_dni" maxlength="27" required>
 			</div>
 			<div class="form-group">
-				<label class="color-label">RTN</label>
-				<input type="text" class="form-control" name="rtn_proveedor_nuevo" id="cliente_dni" maxlength="27" required>
+				<label class="color-label">Fecha Inicio</label>
+				<input type="date" class="form-control" name="fecha_inicio_nuevo" id="cliente_dni" maxlength="27" required>
 			</div>
 			<div class="form-group">
-				<label class="color-label">Correo</label>
-				<input type="text" class="form-control" name="correo_proveedor_nuevo" id="cliente_dni" maxlength="27" required>
+				<label class="color-label">Fecha Final</label>
+				<input type="date" class="form-control" name="fecha_final_nuevo" id="cliente_dni" maxlength="27" required>
 			</div>
 			<div class="form-group">
-				<label class="color-label">Telefono</label>
-				<input type="text" class="form-control" name="telefono_proveedor_nuevo" id="cliente_dni" maxlength="27" required>
+				<label class="color-label">Estado Promoción</label>
+				<input type="text" class="form-control" name="estado_promo_nuevo" id="cliente_dni" maxlength="27" required>
 			</div>
 			<div class="form-group">
-				<label class="color-label">Dirección</label>
-				<input type="text" class="form-control" name="direccion_proveedor_nuevo" id="cliente_dni" maxlength="27" required>
+				<label class="color-label">Precio Promoción</label>
+				<input type="text" class="form-control" name="precio_promo_nuevo" id="cliente_dni" maxlength="27" required>
 			</div>
 			<br>
 			<button type="submit" class="btn btn-primary">Guardar</button>

@@ -2,7 +2,7 @@
 	$peticionAjax=true;
 	require_once "../config/APP.php";
 
-	if(isset($_POST['descuentos_nuevo']) || isset($_POST['descuentos_actu']) || isset($_POST['id_descuentos_del']))
+	if(isset($_POST['nombre_descuento_nuevo']) || isset($_POST['descuentos_actu']) || isset($_POST['id_descuentos_del']))
 	{
 		/*--------- Instancia al controlador ---------*/
 		require_once "../controladores/descuentosControlador.php";
@@ -10,7 +10,7 @@
 
 
 		/*--------- Registrar un Descuento ---------*/
-		if(isset($_POST['descuentos_nuevo'])){
+		if(isset($_POST['nombre_descuento_nuevo'])){
 			echo $ins_descuentos->agregar_descuentos_controlador();
 			die();
 		}
