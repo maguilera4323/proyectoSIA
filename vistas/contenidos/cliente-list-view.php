@@ -242,19 +242,19 @@ if($dato -> num_rows >0){
 			<form action="<?php echo SERVERURL; ?>ajax/clienteAjax.php" class="FormularioAjax" method="POST" data-form="save" autocomplete="off">
 			<div class="form-group">
 				<label class="color-label">Nombre</label>
-				<input type="text" class="form-control" onkeypress="return sololetras (event)" name="nombre_cliente_nuevo" id="cliente_dni" style="text-transform:uppercase;" required>
+				<input type="text" class="form-control" onkeypress="return sololetras (event)" name="nombre_cliente_nuevo" id="cliente_dni" style="text-transform:uppercase;" maxlength="20" required>
 			</div>
 			<div class="form-group">
 				<label class="color-label">DNI</label>
-				<input type="text" class="form-control" onkeypress="return solonumeros (event)" pattern="[0-9]{13,13}" name="dni_cliente" id="cliente_nombre" required>
+				<input type="text" class="form-control" onkeypress="return solonumeros (event)" pattern="[0-9]{13,13}" name="dni_cliente" id="cliente_nombre" maxlength="13"required>
 			</div>
 			<div class="form-group">
 				<label class="color-label">RTN</label>
-				<input type="text" class="form-control" onkeypress="return solonumeros (event)" pattern="[0-9]{14,14}" name="rtn_cliente" id="cliente_apellido" required>
+				<input type="text" class="form-control" onkeypress="return solonumeros (event)" pattern="[0-9]{14,14}" name="rtn_cliente" id="cliente_apellido" maxlength="14" required>
 			</div>
 			<div class="form-group">
 				<label class="color-label">Telefono</label>
-				<input type="text" class="form-control" onkeypress="return solonumeros (event)" pattern="[0-9]{8,8}" name="telefono_nuevo" id="cliente_telefono" required>
+				<input type="text" class="form-control" onkeypress="return solonumeros (event)" pattern="[0-9]{8,8}" name="telefono_nuevo" id="cliente_telefono" maxlength="8" required>
 			</div>
 			<button type="submit" class="btn btn-primary">Guardar</button>
 			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

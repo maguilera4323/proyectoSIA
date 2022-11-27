@@ -38,7 +38,43 @@
 				Bitacora::guardar_bitacora($datos_bitacora);
 			}
 ?>
-
+<script>
+	function solonumeros(e)
+	{
+		key=e.keyCode || e.which;
+		teclado=String.fromCharCode(key);
+		numeros="0123456789";
+		
+		especiales="8-37-38-46";
+		teclado_especial=false;
+		for(var i in especiales){
+			if(key==especiales[i]){
+				teclado_especial=true;
+			}
+		}
+		if(numeros.indexOf(teclado)==-1 && !teclado_especial){
+			return false;
+		}
+	}
+</script>
+<script>
+	function sololetras(e)
+	{
+		key=e.keyCode || e.which;
+		teclado=String.fromCharCode(key);
+		letras="abcdefghijklmnñopqrstuvwxyz";		
+		especiales="";
+		teclado_especial=false;
+		for(var i in especiales){
+			if(key==especiales[i]){
+				teclado_especial=true;
+			}
+		}
+		if(letras.indexOf(teclado)==-1 && !teclado_especial){
+			return false;
+		}
+	}
+</script>
 <div class="full-box page-header">
 	<h3 class="text-left">
 		<i class="fas fa-clipboard-list fa-fw"></i> &nbsp; LISTA DE PROMOCIONES
@@ -112,7 +148,7 @@ if($dato -> num_rows >0){
 <td><?php echo $fila['nom_promocion']; ?></td>
 <td><?php echo $fila['fech_ini_promo']; ?></td>
 <td><?php echo $fila['fech_fin_promo']; ?></td>
-<td><?php echo $fila['id_estado_promocion']; ?></td>
+<td><?php echo $fila['id_estado_promocio']; ?></td>
 <td><?php echo $fila['precio_promocion']; ?></td>
 <td>
 				<div class="btn btn-success" data-toggle="modal" data-target="#ModalActualizar<?php echo $fila['id_promociones'];?>">
@@ -154,12 +190,21 @@ if($dato -> num_rows >0){
 											<input type="date" class="form-control" name="fecha_fin_actu" id="fin_promo" value="<?php echo $fila['fech_fin_promo']?>" required>
 										</div>
 										<div class="form-group">
-											<label class="color-label">Estado Promoción</label>
-											<input type="text" class="form-control" name="estado_promo_actu" id="estado_promo" value="<?php echo $fila['id_estado_promocion']?>" required>
+											<label class="color-label">Estado Promocion</label>
+															<select class="form-control" name="estado_promo_actu" id="Id_producto_nuevo" value="<?php echo $fila['id_estado_promocio']?>"required>
+																<!-- <option value="0">Seleccione una opción</option> -->
+																<option >activa</option>
+																<option >caducada</option>
+
+															</select>
 										</div>
+<!-- 										<div class="form-group">
+											<label class="color-label">Estado Promoción</label>											
+											<input type="text" class="form-control" name="estado_promo_actu" id="estado_promo" value="<?php echo $fila['id_estado_promocio']?>" required>
+										</div> -->
 										<div class="form-group">
 											<label class="color-label">Precio Promoción</label>
-											<input type="text" class="form-control" name="estado_promo_actu" id="estado_promo" value="<?php echo $fila['nom_estado_promociones']?>" required>
+											<input type="text" class="form-control" name="precio_promo_actu" id="estado_promo" value="<?php echo $fila['precio_promocion']?>" required>
 										</div>
 										<div class="form-group">
 											<input type="hidden" class="form-control" name="id_actualizacion" value="<?php echo $fila['id_promocion']?>">
@@ -214,11 +259,11 @@ if($dato -> num_rows >0){
 <div class="modal fade" id="ModalCrear" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 <?php
 	if(!isset($permiso_in)){
-		echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Usted no tiene autorización para crear un proveedor</div>';
+		echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Usted no tiene autorización para crear una promocion</div>';
 		echo "<script> window.location.href='".SERVERURL."home/'; </script>";	
 	//valida si el permiso tiene valor de cero, lo que significa que no puede acceder a la vista	
 	}else if($permiso_in==0){
-		echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Usted no tiene autorización para crear un proveedor
+		echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Usted no tiene autorización para crear una promocion
 		<button type="button" class="close" data-dismiss="alert" onclick="window.location.reload()">X</button>
 		</div>';
 	}else{
@@ -226,7 +271,7 @@ if($dato -> num_rows >0){
 <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Nuevo Proveedor</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Nueva Promoción</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -236,7 +281,7 @@ if($dato -> num_rows >0){
 			<form action="<?php echo SERVERURL; ?>ajax/promocionesAjax.php" class="FormularioAjax" method="POST" data-form="save" autocomplete="off">
 			<div class="form-group">
 				<label class="color-label">Nombre</label>
-				<input type="text" class="form-control" name="nombre_promo_nuevo" id="cliente_dni" maxlength="27" required>
+				<input type="text" class="form-control" name="nombre_promo_nuevo" id="cliente_dni" maxlength="20" required>
 			</div>
 			<div class="form-group">
 				<label class="color-label">Fecha Inicio</label>
@@ -247,12 +292,17 @@ if($dato -> num_rows >0){
 				<input type="date" class="form-control" name="fecha_final_nuevo" id="cliente_dni" maxlength="27" required>
 			</div>
 			<div class="form-group">
-				<label class="color-label">Estado Promoción</label>
-				<input type="text" class="form-control" name="estado_promo_nuevo" id="cliente_dni" maxlength="27" required>
+			<label class="color-label">Estado Promocion</label>
+							<select class="form-control" name="estado_promo_nuevo" id="Id_producto_nuevo" required>
+								<!-- <option value="0">Seleccione una opción</option> -->
+								<option >activa</option>
+								<option >caducada</option>
+
+							</select>
 			</div>
 			<div class="form-group">
 				<label class="color-label">Precio Promoción</label>
-				<input type="text" class="form-control" name="precio_promo_nuevo" id="cliente_dni" maxlength="27" required>
+				<input type="text" class="form-control" onkeypress="return solonumeros (event)"  name="precio_promo_nuevo" id="cliente_dni" maxlength="4" required>
 			</div>
 			<br>
 			<button type="submit" class="btn btn-primary">Guardar</button>

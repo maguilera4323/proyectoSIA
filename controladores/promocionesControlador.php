@@ -4,39 +4,43 @@
 } 
 
 if($peticionAjax){
-	require_once "../modelos/TipoproductoModelo.php";
+	require_once "../modelos/promocionesModelo.php";
 	require_once "../pruebabitacora.php";
 }else{
-	require_once "./modelos/TipoproductoModelo.php";
+	require_once "./modelos/promocionesModelo.php";
 	require_once "./pruebabitacora.php";//aqui se ejecuta dentro del index y no se utiliza Ajax
 }
 
 
-class TipoproductoControlador extends TipoproductoModelo
+class promocionesControlador extends promocionesModelo
 {
 
-	/*--------- Controlador agregar Tipo de producto ---------*/
-	public function agregar_Tipo_producto_controlador()
+	/*--------- Controlador agregar promociones ---------*/
+	public function agregar_promociones_controlador()
 	{
-		$Tipo_producto=mainModel::limpiar_cadena(strtoupper($_POST['tipo_producto_nuevo']));
-		$Tamaño_producto=mainModel::limpiar_cadena(strtoupper($_POST['tamaño_producto_nuevo']));
-		$Clasificacion=mainModel::limpiar_cadena($_POST['clasificacion_producto_nuevo']);
+		$Nombre_promo=mainModel::limpiar_cadena(strtoupper($_POST['nombre_promo_nuevo']));
+		$Fecha_inicio=mainModel::limpiar_cadena(strtoupper($_POST['fecha_inicio_nuevo']));
+		$Fecha_fin=mainModel::limpiar_cadena($_POST['fecha_final_nuevo']);
+		$Estado_promo=mainModel::limpiar_cadena($_POST['estado_promo_nuevo']);
+		$Precio_promo=mainModel::limpiar_cadena($_POST['precio_promo_nuevo']);
  
 					
-			/*== AGREGAR TIPO DE PRODUCTO ==*/
-			$datos_Tipo_producto_reg=[
-				"tipo"=>$Tipo_producto,
-				"tamaño"=>$Tamaño_producto,
-				"clasificacion"=>$Clasificacion,
+			/*== AGREGAR PROMOCION ==*/
+			$datos_promocion_reg=[
+				"promo"=>$Nombre_promo,
+				"inipromo"=>$Fecha_inicio,
+				"finpromo"=>$Fecha_fin,
+				"estadopromo"=>$Estado_promo,
+				"preciopromo"=>$Precio_promo,
 			];
 
-			$agregar_Tipo_producto=TipoproductoModelo::agregar_Tipo_producto_modelo($datos_Tipo_producto_reg);
+			$agregar_promocion=promocionesModelo::agregar_promociones_modelo($datos_promocion_reg);
 
-			if($agregar_Tipo_producto->rowCount()==1){
+			if($agregar_promocion->rowCount()==1){
 				$alerta=[
-					"Alerta"=>"limpiar",
+					"Alerta"=>"recargar",
 					"Titulo"=>" Tipo Producto registrado",
-					"Texto"=>"Los datos del Tipo producto han sido registrados con exito",
+					"Texto"=>"La promocion ha sido agregada con exito",
 					"Tipo"=>"success"
 				];
 
@@ -45,7 +49,7 @@ class TipoproductoControlador extends TipoproductoModelo
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"No hemos podido registrar el Tipo de Producto",
+					"Texto"=>"No hemos podido agregar la promocion",
 					"Tipo"=>"error"
 				];
 			}
@@ -56,21 +60,23 @@ class TipoproductoControlador extends TipoproductoModelo
 				"fecha" => date('Y-m-d h:i:s'),
 				"id_tipo_producto" => $_SESSION['id_login'],
 				"accion" => "Agregar Tipo de Producto",
-				"descripcion" => "Se agrego un nuevo Tipo de producto en el sistema"
+				"descripcion" => "Se agrego una nueva promoción en el sistema"
 			];
 			Bitacora::guardar_bitacora($datos_bitacora); 
 	} /* Fin controlador */
 
 
-	/*--------- Controlador actualizar tipo de producto ---------*/
-	public function actualizar_Tipo_producto_controlador()
+	/*--------- Controlador actualizar promociones ---------*/
+	public function actualizar_promociones_controlador()
 	{	
 		$id_actualizar=mainModel::limpiar_cadena($_POST['id_actualizacion']);
-		$Tipo_producto=mainModel::limpiar_cadena($_POST['tipo_producto_actu']);
-		$Tamaño_producto=mainModel::limpiar_cadena($_POST['tamaño_producto_actu']);
-		$Clasificacion=mainModel::limpiar_cadena($_POST['clasificacion_producto_actu']);
+		$Nombre_promo=mainModel::limpiar_cadena(strtoupper($_POST['nombre_promo_actu']));
+		$Fecha_inicio=mainModel::limpiar_cadena(strtoupper($_POST['fecha_inicio_actu']));
+		$Fecha_fin=mainModel::limpiar_cadena($_POST['fecha_fin_actu']);
+		$Estado_promo=mainModel::limpiar_cadena($_POST['estado_promo_actu']);
+		$Precio_promo=mainModel::limpiar_cadena($_POST['precio_promo_actu']);
 		
-		if($Tipo_producto=="" || $Tamaño_producto=="" || $Clasificacion==""){
+		if($Nombre_promo=="" || $Fecha_inicio=="" || $Fecha_fin=="" || $Estado_promo=="" || $Precio_promo==""){
 			$alerta=[
 				"Alerta"=>"simple",
 				"Titulo"=>"Ocurrió un error inesperado",
@@ -82,65 +88,34 @@ class TipoproductoControlador extends TipoproductoModelo
 		}
 
 
-			/*== Verificando integridad de los datos ==*/
-			if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ ]{1,30}",$Tipo_producto)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El Tipo de Producto no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-
-			if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ ]{1,30}",$Tamaño_producto)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"El Tamaño del tipo de producto no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
 			
-			if(mainModel::verificar_datos("[A-ZÁÉÍÓÚÑ ]{1,30}",$Clasificacion)){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"La Clasificacion no coincide con el formato solicitado",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
 
 	
 			/*== ACTUALIZAR TIPO PRODUCTO ==*/
-		$datos_Tipo_producto_actu=
-			[
-				"tipo"=>$Tipo_producto,
-				"tamaño"=>$Tamaño_producto,
-				"clasificacion"=>$Clasificacion
+			$datos_promocion_actu=[
+				"promo"=>$Nombre_promo,
+				"inipromo"=>$Fecha_inicio,
+				"finpromo"=>$Fecha_fin,
+				"estadopromo"=>$Estado_promo,
+				"preciopromo"=>$Precio_promo,
 			];
 
-			$actualizar_Tipo_producto=TipoproductoModelo::actualizar_Tipo_producto_modelo($datos_Tipo_producto_actu,$id_actualizar);
+			$actualizar_promocion=promocionesModelo::actualizar_promociones_modelo($datos_promocion_actu,$id_actualizar);
 
-			if($actualizar_Tipo_producto->rowCount()==1)
-			{
+			if($actualizar_promocion->rowCount()==1){
 				$alerta=[
-					"Alerta"=>"limpiar",
-					"Titulo"=>"Tipo de Producto Actualizado",
-					"Texto"=>"Tipo de Producto actualizado exitosamente",
+					"Alerta"=>"recargar",
+					"Titulo"=>" Tipo Producto registrado",
+					"Texto"=>"La promocion ha sido actualizada con exito",
 					"Tipo"=>"success"
 				];
-			}else
-			{
+
+				
+			}else{
 				$alerta=[
 					"Alerta"=>"simple",
 					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"No hemos podido actualizar el tipo de producto",
+					"Texto"=>"No hemos podido actualizar la promocion",
 					"Tipo"=>"error"
 				];
 			}
@@ -150,10 +125,10 @@ class TipoproductoControlador extends TipoproductoModelo
 				"id_objeto" => 0,
 				"fecha" => date('Y-m-d h:i:s'),
 				"id_tipo_producto" => $_SESSION['id_login'],
-				"accion" => "Modificación del Tipo de Producto",
-				"descripcion" => "Se actualizó un Tipo de Producto en el sistema"
+				"accion" => "Agregar Tipo de Producto",
+				"descripcion" => "Se agrego una nueva promoción en el sistema"
 			];
-			Bitacora::guardar_bitacora($datos_bitacora); 
+			Bitacora::guardar_bitacora($datos_bitacora);  
 	} /* Fin controlador */
 	
 
@@ -167,7 +142,7 @@ class TipoproductoControlador extends TipoproductoModelo
 	
 
 		//funcion para eliminar un Tipo de producto
-		public function eliminarTipoProducto()
+		public function eliminarPromociones()
 		{
 			$id=mainModel::limpiar_cadena(($_POST['id_tipo_producto_del']));
 			$Tipo_producto=mainModel::limpiar_cadena(($_POST['tipo_producto_del']));
@@ -191,7 +166,7 @@ class TipoproductoControlador extends TipoproductoModelo
 		}
 
 		
-		$eliminarTipoproducto=TipoproductoModelo::eliminar_Tipo_producto_modelo("borrar",$id);
+		$eliminarTipoproducto=TipoproductoModelo::eliminarPromociones("borrar",$id);
 			if($eliminarTipoproducto->rowCount()==1){
 				$alerta=[
 					"Alerta"=>"recargar",
