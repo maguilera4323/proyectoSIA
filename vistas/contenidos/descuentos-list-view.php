@@ -30,8 +30,8 @@ if(isset($_GET['enviar'])){
 ?>
 
 <div class="container-fluid">
-  <form class="d-flex" action="../pdf/productopdf.php" method="post" accept-charset="utf-8">
-  	<input class="form-control me-2 light-table-filter" data-table="table_id" type="text" name="filtroproducto" placeholder="Buscar descuento">
+  <form class="d-flex" action="../pdf/descuentopdf.php" method="post" accept-charset="utf-8">
+  	<input class="form-control me-2 light-table-filter" data-table="table_id" type="text" name="filtrodescuento" placeholder="Buscar descuento">
 	<button type="submit" class="btn btn-danger mx-auto btn-lg"><i class="fas fa-file-pdf"></i> &nbsp;Descargar Reporte</button>
       </form>
   </div>

@@ -109,8 +109,8 @@ if(isset($_GET['enviar'])){
 ?>
 
 <div class="container-fluid">
-  <form class="d-flex" action="" method="post" accept-charset="utf-8">
-  	<input class="form-control me-2 light-table-filter" data-table="table_id" type="text" name="" placeholder="Buscar Promocion">
+  <form class="d-flex" action="../pdf/promocionespdf.php" method="post" accept-charset="utf-8">
+  	<input class="form-control me-2 light-table-filter" data-table="table_id" type="text" name="filtropromocion" placeholder="Buscar Promocion">
 	<button type="submit" class="btn btn-danger mx-auto btn-lg"><i class="fas fa-file-pdf"></i> &nbsp;Descargar Reporte</button>
       </form>
   </div>
