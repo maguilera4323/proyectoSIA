@@ -159,7 +159,7 @@
 					<br>
 					<div class="form-group">
 						<input type="hidden" value="<?php echo $_SESSION['usuario_login']; ?>" class="form-control" name="userId">
-						<input type="submit" name="invoice_btn" value="Guardar Compra" 
+						<input type="submit" name="invoice_btn" id="invoice_btn" value="Guardar Compra" 
 						class="btn btn-success submit_btn invoice-save-btm" style="font-size:20px; border: 2px solid #777574;">
 						<a href="<?php echo SERVERURL; ?>compra-list/"><input value="salir" 
 						class="btn btn-success submit_btn invoice-save-btm" style="font-size:20px; border: 2px solid #777574;"></a>

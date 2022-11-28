@@ -50,7 +50,13 @@ class Invoice{
 
 		if (isset($lastInsertId)=='true'){
 			echo '<script>
-			swal.fire("Compra Realizada", "Su compra se ha realizado exitosamente", "success")
+			swal.fire({
+			title: "Compra Realizada",
+			text: "Su compra ha sido realizada exitosamente",
+			type: "success"
+		  }).then(function() {
+			  window.location.href = "../compra-list";
+		  })
 			</script>'; 
 		}
 		
