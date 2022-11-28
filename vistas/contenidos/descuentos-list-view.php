@@ -103,8 +103,8 @@ if($dato -> num_rows >0){
 					</div>
 			</td>
 <td>
-	<form class="FormularioAjax" action="<?php echo SERVERURL; ?>ajax/productoAjax.php" method="POST" data-form="delete" autocomplete="off">
-	<input type="hidden" pattern="" class="form-control" name="id_producto_del" value="<?php echo $fila['id_descuentos'] ?>">
+	<form class="FormularioAjax" action="<?php echo SERVERURL; ?>ajax/descuentosAjax.php" method="POST" data-form="delete" autocomplete="off">
+	<input type="hidden" pattern="" class="form-control" name="id_descuentos_del" value="<?php echo $fila['id_descuentos'] ?>">
 	<button type="submit" class="btn btn-warning">
 		<i class="far fa-trash-alt"></i>
 	</button>

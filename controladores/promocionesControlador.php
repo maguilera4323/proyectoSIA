@@ -105,7 +105,7 @@ class promocionesControlador extends promocionesModelo
 			if($actualizar_promocion->rowCount()==1){
 				$alerta=[
 					"Alerta"=>"recargar",
-					"Titulo"=>" Promoción registrada",
+					"Titulo"=>" Promoción Actualizada",
 					"Texto"=>"La promocion ha sido actualizada con exito",
 					"Tipo"=>"success"
 				];

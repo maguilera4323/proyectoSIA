@@ -56,7 +56,7 @@
 		 protected static function eliminar_descuentos_modelo($accion,$id){
 			
 			if ($accion=='borrar'){
-				$sql=mainModel::conectar()->prepare("DELETE FROM TBL_descuentos where id_descuetos=?");
+				$sql=mainModel::conectar()->prepare("DELETE FROM TBL_descuentos where id_descuentos=?");
 				$sql->bindParam(1,$id);
 				$sql->execute();
 				return $sql;

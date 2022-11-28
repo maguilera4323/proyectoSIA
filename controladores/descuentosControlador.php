@@ -59,7 +59,7 @@ class descuentosControlador extends descuentosModelo
 	} /* Fin controlador */
 
 
-	/*--------- Controlador actualizar tipo de producto ---------*/
+	/*--------- Controlador actualizar descuento ---------*/
 	public function actualizar_descuentos_controlador()
 	{	
 		$id_actualizar=mainModel::limpiar_cadena($_POST['id_actualizacion']);
@@ -142,7 +142,7 @@ class descuentosControlador extends descuentosModelo
 		public function eliminar_descuentos()
 		{
 			$id=mainModel::limpiar_cadena(($_POST['id_descuentos_del']));
-			$nombre=mainModel::limpiar_cadena(($_POST['descuentos_del']));
+			$nombre=mainModel::limpiar_cadena(($_POST['id_descuentos_del']));
 			$array=array();
 			$valor='';
 
@@ -167,7 +167,7 @@ class descuentosControlador extends descuentosModelo
 			if($eliminardescuentos->rowCount()==1){
 				$alerta=[
 					"Alerta"=>"recargar",
-					"Titulo"=>"Usuario Borrado",
+					"Titulo"=>"Descuento Borrado",
 					"Texto"=>"El descuentoo fue borrado",
 					"Tipo"=>"success"
 				];
@@ -183,7 +183,7 @@ class descuentosControlador extends descuentosModelo
 		$datos_bitacora = [
 			"id_objeto" => 0,
 			"fecha" => date('Y-m-d H:i:s'),
-			"id_tipo_producto" => $_SESSION['id_login'],
+			"id_usuario" => $_SESSION['id_login'],
 			"accion" => "Usuario inactivado",
 			"descripcion" => "El usuario ".$_SESSION['usuario_login']." elimino un descuento del sistema"
 		];
