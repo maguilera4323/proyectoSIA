@@ -15,6 +15,9 @@ class Invoice{
 	private $datosPedido = 'TBL_pedidos';
 	private $datosDetallePedido = 'TBL_detalle_pedido';
 	private $datosCAI = 'TBL_talonario_cai';
+	private $recetario = 'TBL_recetario';
+	private $inventario = 'TBL_inventario';
+	private $movi_inv = 'TBL_movi_inventario';
 	private $dbConnect = false;
 
 	public function __construct()
@@ -51,10 +54,45 @@ class Invoice{
 		//segundo insert, para la tabla de Detalle Pedidos
 		//el ciclo es para insertar todos los productos agregados al pedido
 		for ($i = 0; $i < count($POST['nombreProducto']); $i++) {
+
 			$sqlInsertItem = "
 			INSERT INTO " . $this->datosDetallePedido . "(id_pedido, id_producto, cantidad, precio_venta) 
 			VALUES ('" . $POST['numPedido'] . "', '" . $POST['nombreProducto'][$i] . "', '" . $POST['cantidad'][$i] . "', '" . $POST['precio'][$i] . "')";
 			mysqli_query($this->dbConnect, $sqlInsertItem);
+
+			//select para obtener los datos de los insumos que componen el producto vendido
+			$sqlSelectRecetario = " 
+			SELECT * FROM " . $this->recetario . " WHERE id_producto='" . $POST['nombreProducto'][$i] . "'";
+			$query=mysqli_query($this->dbConnect,$sqlSelectRecetario);
+				if (!$query) {
+					die('Error in query');
+				}
+
+				//se crea un arreglo para recibir todos los insumos y las respectivas cantidades de los mismos
+				$id_insumo = array();
+				$cantidad= array();
+				$cont = 0;
+				while ($row = $query->fetch_assoc()) {
+					$id_insumo[$cont]=$row['id_insumo'];
+					$cantidad[$cont]=$row['cant_insumo'];
+					$cont++;
+				}																																																											
+			
+				//ciclo que se encarga de actualizar el inventario, restando los insumos consumidos por cada producto
+				//y de insertar en la tabla de movimientos de inventario la cantidad de insumos usados y el tipo de movimiento
+				for($j=0;$j<$cont;$j++){
+					$sqlUpdateInventario = "
+						UPDATE " . $this->inventario . " 
+						SET cant_existencia = cant_existencia - '" . $cantidad[$j]*$POST['cantidad'][$i] . "' 
+						WHERE id_insumo = '" . $id_insumo[$j] . "' ";
+					mysqli_query($this->dbConnect, $sqlUpdateInventario);
+
+					$sqlInsertMoviInventario = "
+					INSERT INTO " . $this->movi_inv . "(id_insumos, cant_movimiento, tipo_movimiento, fecha_movimiento,id_usuario,comentario) 
+					VALUES ('" . $id_insumo[$j] . "', '" . $cantidad[$j] . "', 2, now(),'" . $_SESSION['id_login'] . "','Salida de insumos')";
+					mysqli_query($this->dbConnect, $sqlInsertMoviInventario);
+				}
+			  
 		} 
 
 		if (isset($lastInsertId)=='true'){
@@ -112,7 +150,7 @@ class Invoice{
 	}
 	public function deleteInvoice($invoiceId)
 	{
-		$sqlQuery = "
+		$sql = "
 			DELETE FROM " . $this->invoiceOrderTable . " 
 			WHERE order_id = '" . $invoiceId . "'";
 		mysqli_query($this->dbConnect, $sqlQuery);
