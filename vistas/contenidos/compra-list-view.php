@@ -34,6 +34,13 @@
 				];
 				Bitacora::guardar_bitacora($datos_bitacora);
 			}
+
+			//llamado al controlador de la factura
+			require_once 'controladores/compraControlador.php';
+			$factura = new Invoice();
+			if (isset($_POST['boton'])) {
+				$factura->anularCompra($_POST);
+			} 
 ?>
 
 <div class="full-box page-header">
@@ -131,12 +138,12 @@ if(isset($_GET['enviar'])){
 					</a>
 				</td>
 				<td>
-				<form class="FormularioAjax" action="<?php echo SERVERURL; ?>ajax/compraAjax.php" method="POST" data-form="delete" autocomplete="off">
-				<input type="hidden" pattern="" class="form-control" name="id_compra_del" value="<?php echo $fila['id_compra'] ?>">
-				<input type="hidden" pattern="" class="form-control" name="id_proveedor_del" value="<?php echo $fila['id_proveedor'] ?>">	
-				<button type="submit" class="btn btn-warning">
-					<i class="far fa-trash-alt"></i>
-				</button>
+				<form action="" id="invoice-form" method="post" class="invoice-form" data-form="save">
+					<input type="hidden" pattern="" class="form-control" name="id_compra_del" id="id_compra_del" value="<?php echo $fila['id_compra'] ?>">
+					<input type="hidden" pattern="" class="form-control" name="id_proveedor_del" id="id_proveedor_del" value="<?php echo $fila['id_proveedor'] ?>">	
+					<button type="submit" class="btn btn-warning" name="boton">
+						<i class="far fa-trash-alt"></i>
+					</button>
 				</form>
 			</td>
 			</tr>
