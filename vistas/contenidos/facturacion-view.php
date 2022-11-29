@@ -178,8 +178,7 @@
 					</div>
 					<div class="form-group">
 					<label class="color-label">Descuento</label>
-					<td><select name="nombredescuento[]" id="nombredescuento_1" class="form-control nombreDescuento"
-							 required>
+					<td><select name="nombredescuento[]" id="nombredescuento_1" class="form-control nombreDescuento">
 									<?php
 									$SQL="SELECT * FROM TBL_descuentos";
 									$dato = mysqli_query($conexion, $SQL);
@@ -262,57 +261,57 @@
 				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 					<span class="form-inline">
 						<div class="form-group">
-							<label class="color-label">Total: &nbsp;</label>
+							<label class="color-label">Subtotal: &nbsp;</label>
 							<div class="input-group">
 								<div class="input-group-addon currency">L.</div>
 								<input value="" type="number" class="form-control" name="subTotal" step="any" id="subTotal" placeholder="Subtotal">
 							</div>
-							<!-- Código para los demás cálculos de la factura como el impuesto y el cambio!-->
-							</div>
-							<div class="form-group">
-							<label>Porcentaje Impuestos: &nbsp;</label>
+						</div>
+						<div class="form-group">
+							<label class="color-label">Porcentaje Descuento: &nbsp;</label>
 							<div class="input-group">
-								<input  type="number" class="form-control" name="taxRate" id="taxRate"  step="any">
+								<input type="number" class="form-control" name="nombredescuento" id="nomdesc" step="any" placeholder="Monto descuento" disabled>
 								<div class="input-group-addon">%</div>
 							</div>
 						</div>
 						<div class="form-group">
-							<label >Porcentaje Descuento: &nbsp;</label>
+							<label class="color-label">Monto después de descuento: &nbsp;</label>
 							<div class="input-group">
-								<input value="" type="number" class="form-control" name="nombredescuento" id="nomdesc" step="any" placeholder="Monto descuento" disabled>
+								<div class="input-group-addon currency">L.</div>
+								<input type="number" class="form-control" name="montodescuento" id="descuentomonto" step="any" placeholder="Monto descuento" novalidate>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="color-label">Porcentaje Impuestos: &nbsp;</label>
+							<div class="input-group">
+								<input  value="15" type="number" class="form-control" name="taxRate" id="taxRate" step="any" disabled>
 								<div class="input-group-addon">%</div>
 							</div>
 						</div>
 						<div class="form-group">
-							<label >Monto impuestos: &nbsp;</label>
+							<label class="color-label">Monto impuestos: &nbsp;</label>
 							<div class="input-group">
 								<div class="input-group-addon currency">L.</div>
 								<input value="" type="number" class="form-control" name="taxAmount" id="taxAmount" step="any" placeholder="Monto impuestos" novalidate>
 							</div>
 						</div>
+						
 						<div class="form-group">
-							<label >Monto Descuento: &nbsp;</label>
-							<div class="input-group">
-								<div class="input-group-addon currency">L.</div>
-								<input value="" type="number" class="form-control" name="montodescuento" id="descuentomonto" step="any" placeholder="Monto descuento" novalidate>
-							</div>
-						</div>
-						<div class="form-group">
-							<label>Total: &nbsp;</label>
+							<label class="color-label">Total: &nbsp;</label>
 							<div class="input-group">
 								<div class="input-group-addon currency">L.</div>
 								<input value="" type="number" class="form-control" name="totalAftertax" id="totalAftertax" step="any" placeholder="Total">
 							</div>
 						</div>
 						<div class="form-group">
-							<label>Monto Pagado: &nbsp;</label>
+							<label class="color-label">Monto Pagado: &nbsp;</label>
 							<div class="input-group">
 								<div class="input-group-addon currency">L.</div>
 								<input value="" type="number" class="form-control" name="amountPaid" id="amountPaid" step="any" placeholder="Monto Pagado">
 							</div>
 						</div>
 						<div class="form-group">
-							<label>Cambio: &nbsp;</label>
+							<label class="color-label">Cambio: &nbsp;</label>
 							<div class="input-group">
 								<div class="input-group-addon currency">L.</div>
 								<input value="" type="number" class="form-control" name="amountDue" id="amountDue" step="any" placeholder="Cambio">

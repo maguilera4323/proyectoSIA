@@ -86,6 +86,9 @@ $(document).ready(function(){
 	$(document).on('blur', "[id^=precio_]", function(){
 		calculateTotal();
 	});	
+	$(document).on('blur', "#nomdesc", function(){		
+		calculateTotal();
+	});
 	$(document).on('blur', "#taxRate", function(){		
 		calculateTotal();
 	});	
@@ -136,19 +139,29 @@ function calculateTotal(){
 	});
 	$('#subTotal').val(parseFloat(totalAmount));	
 	var taxRate = $("#taxRate").val();
-	var subTotal = $('#subTotal').val();	
+	var subTotal = $('#subTotal').val();
+	var descuento = $('#nomdesc').val();	 
 	if(subTotal) {
-		var taxAmount = subTotal*taxRate/100;
+		 if (descuento){
+			montoDescuento=subTotal*descuento;
+			subTotalDes=subTotal-montoDescuento;
+			$('#descuentomonto').val(subTotalDes);
+		}else{
+			subTotalDes=subTotal*1;
+			
+		}
+		
+		var taxAmount = subTotalDes*taxRate/100;
 		$('#taxAmount').val(taxAmount);
-		subTotal = parseFloat(subTotal)+parseFloat(taxAmount);
-		$('#totalAftertax').val(subTotal);		
+		subTotalDes = parseFloat(subTotalDes)+parseFloat(taxAmount);
+		$('#totalAftertax').val(subTotalDes);		
 		var amountPaid = $('#amountPaid').val();
 		var totalAftertax = $('#totalAftertax').val();	
 		if(amountPaid && totalAftertax) {
 			totalAftertax = amountPaid-totalAftertax;			
 			$('#amountDue').val(totalAftertax);
 		} else {		
-			$('#amountDue').val(subTotal);
+			$('#amountDue').val(subTotalDes);
 		}
 	}
 }
