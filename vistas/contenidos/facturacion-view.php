@@ -277,9 +277,9 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label >% Descuento: &nbsp;</label>
+							<label >Porcentaje Descuento: &nbsp;</label>
 							<div class="input-group">
-								<input value="" type="number" class="form-control" name="nombredescuento" id="nomdesc" step="any" placeholder="Monto descuento">
+								<input value="" type="number" class="form-control" name="nombredescuento" id="nomdesc" step="any" placeholder="Monto descuento" disabled>
 								<div class="input-group-addon">%</div>
 							</div>
 						</div>
@@ -294,7 +294,7 @@
 							<label >Monto Descuento: &nbsp;</label>
 							<div class="input-group">
 								<div class="input-group-addon currency">L.</div>
-								<input value="" type="number" class="form-control" name="montodescuento" id="montodesc" step="any" placeholder="Monto descuento" novalidate>
+								<input value="" type="number" class="form-control" name="montodescuento" id="descuentomonto" step="any" placeholder="Monto descuento" novalidate>
 							</div>
 						</div>
 						<div class="form-group">
