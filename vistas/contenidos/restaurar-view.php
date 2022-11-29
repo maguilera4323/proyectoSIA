@@ -51,7 +51,7 @@ function restoreMysqlDB($filePath, $conn)
         } else {
             $response = array(
                 "type" => "success",
-                "message" => "Database Restore Completed Successfully."
+                "message" => "base de datos restaurada con exito."
             );
         }
     } // end if file exists
