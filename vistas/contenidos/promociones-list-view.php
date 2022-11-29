@@ -133,6 +133,7 @@ if(isset($_GET['enviar'])){
                         </thead>
                         <tbody>
 
+						
 				<?php
 
 include ("./cone.php");              
@@ -144,6 +145,21 @@ if($dato -> num_rows >0){
     while($fila=mysqli_fetch_array($dato)){
     
 ?>
+
+<!-- validación para verificar fecha de vencimiento -->
+	<?php
+		include ("./cone.php");   
+		$fecha_actual = new DateTime(date('Y-m-d'));//nueva variable para vencimiento//
+		$fecha_final = new DateTime($fila['fech_fin_promo']);
+        $dias = $fecha_actual->diff($fecha_final)->format('%r%a');
+		if ($dias <= 0) {
+			$SQL="UPDATE TBL_promociones SET id_estado_promocio=5 WHERE id_promociones=24";
+
+			}
+
+			$dato = mysqli_query($conexion, $SQL);
+	?>
+
 
 <td><?php echo $fila['nom_promocion']; ?></td>
 <td><?php echo $fila['fech_ini_promo']; ?></td>
