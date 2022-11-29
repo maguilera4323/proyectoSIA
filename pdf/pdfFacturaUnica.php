@@ -108,9 +108,8 @@ class MYPDF extends TCPDF{
         /*El 1 despues de  Fecha Ingreso indica que hasta alli 
         llega la linea */
 
-           $sql = ("SELECT p.id_pedido,c.nom_cliente, p.fech_pedido, p.fech_entrega,p.sitio_entrega,p.num_factura,
+           $sql = ("SELECT p.id_pedido,p.id_cliente, p.fech_pedido, p.fech_entrega,p.sitio_entrega,p.num_factura,
            ep.estado_pedido,p.sub_total,p.ISV,p.total,f.forma_pago,p.fech_facturacion,p.porcentaje_isv FROM TBL_pedidos p
-           inner join TBL_Clientes c on c.id_clientes=p.id_cliente
            inner join TBL_estado_pedido ep on ep.id_estado_pedido=p.id_estado_pedido
            inner join TBL_forma_pago f on f.id_forma_pago=p.id_forma_pago
            WHERE p.id_pedido='$id_factura'");
@@ -119,7 +118,7 @@ class MYPDF extends TCPDF{
 
         while ($dataRow = mysqli_fetch_array($query)) {
                 $pedido=$dataRow['id_pedido'];
-                $cliente=$dataRow['nom_cliente'];
+                $cliente=$dataRow['id_cliente'];
                 $num_factura=$dataRow['num_factura'];
                 $fech_pedido=$dataRow['fech_pedido'];
                 $fech_entrega=$dataRow['fech_entrega'];
@@ -201,6 +200,7 @@ class MYPDF extends TCPDF{
             $pdf->Cell(120,6,'FECHA LIMITE DE EMISIÓN: '.$fecha_venc,0,0,'L',1);
         /* $pdf->AddPage();  *///Agregar nueva Pagina
 
-        $pdf->Output('Resumen_Clientes_'.date('d_m_y').'.pdf', 'I'); 
+
+        $pdf->Output('Factura_Unica_'.date('d_m_y').'.pdf', 'I'); 
         // Output funcion que recibe 2 parameros, el nombre del archivo, ver archivo o descargar,
         // La D es para Forzar una desca
