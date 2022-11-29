@@ -93,7 +93,9 @@
 						}
 					}
 
-
+					//query para obtener y mostrar los datos del descuento
+					//estos datos se mostrarán tanto en la parte de arriba con el descuento seleccionado como en la parte final
+					//con el monto de descuento y el porcentaje del mismo
 					$queryDescuento="SELECT d.nom_descuento, d.porcentaje_descuento, pd.id_pedidos, pd.total_descontado FROM TBL_pedido_descuentos pd
 					inner join TBL_descuentos d on d.id_descuentos=pd.id_descuentos
 					where pd.id_pedidos='$id_act_pedido'";
@@ -104,6 +106,7 @@
 								$porcentaje=$filaDetalle['porcentaje_descuento'];
 								$totalDescontado=$filaDetalle['total_descontado'];
 							}
+						//si no se selecionó ningun descuento en la parte donde se seleccionan los descuentos se verá en blanco
 						}else{
 							$nomDescuento='';
 						}
@@ -199,13 +202,13 @@
 							<th width="15%">Total</th>
 						</tr>
 						<?php
-						//Ciclo para obtener todos los registros de la tabla TBL_detalle_compra usando el valor del primer id del detalle compra
-						//este id aumentará en 1 con cada iteración del ciclo debido a que los registros del detalle_compra relacionados con una compra especifica
+						//Ciclo para obtener todos los registros de la tabla TBL_detalle_pedido usando el valor del primer id del detalle pedido
+						//este id aumentará en 1 con cada iteración del ciclo debido a que los registros del detalle_pedido relacionados con un pedido especifico
 						//están en la tabla TBL_detalle_compra de forma seguida
 						for ($i = 1; $i <=$cantidadProductosVenta; $i++) {
 
-							//query para obtener los datos de TBL_detalle_compra
-							//Estos datos se imprimirán en la tabla
+							//query para obtener los datos de TBL_detalle_pedido
+							//Estos datos se imprimirán en la tabla donde aparecen todos los productos correspondientes a la factura
 							$queryDetalle="SELECT p.nom_producto, dp.id_detalle_pedido, dp.id_producto,dp.cantidad,dp.precio_venta
 							FROM TBL_detalle_pedido dp
 							inner join TBL_producto p on p.id_producto=dp.id_producto
@@ -233,6 +236,7 @@
 								<!--datos enviados para realizar las actualizaciones en el controlador!-->
 								<!--id_act_compra[] para realizar el primer query de actualizacion del pedido!-->
 								<!--id_act_detallecompra[] para realizar el segundo query de actualizacion del detalle de pedido!-->
+								<!--nombreProducto[] para realizar la validacion del segundo query!-->
 								<input type="hidden" value="<?php echo $id_act_pedido; ?>" class="form-control" 
 								id="id_act_pedido_<?php echo $i; ?>" name="id_act_pedido[]">
 								<input type="hidden" value="<?php echo $id_act_detalle; ?>" class="form-control" 
@@ -241,6 +245,7 @@
 								id="nombreProducto_<?php echo $i; ?>" name="nombreProducto[]">
 							</div>
 						<?php 
+						
 						//después de traer un registro a la tabla el valor de $id_act_detalle aumenta en 1
 						//para traer todos los registros relacionados con la compra
 						$id_act_detalle+=1;
@@ -305,20 +310,6 @@
 							<div class="input-group">
 								<div class="input-group-addon currency">L.</div>
 								<input type="number" class="form-control" name="totalAftertax" id="totalAftertax" placeholder="Total" value="<?php echo $Total; ?>">
-							</div>
-						</div>
-						<div class="form-group">
-							<label>Monto Pagado: &nbsp;</label>
-							<div class="input-group">
-								<div class="input-group-addon currency">L.</div>
-								<input type="number" class="form-control" name="amountPaid" id="amountPaid" placeholder="Monto Pagado">
-							</div>
-						</div>
-						<div class="form-group">
-							<label>Cambio: &nbsp;</label>
-							<div class="input-group">
-								<div class="input-group-addon currency">L.</div>
-								<input type="number" class="form-control" name="amountDue" id="amountDue" placeholder="Cambio">
 							</div>
 						</div>
 					</span>
