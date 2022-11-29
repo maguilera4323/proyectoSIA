@@ -176,6 +176,22 @@
 						<label class="color-label">Fecha Entrega</label>
 						<input type="date" class="form-control" name="fecha_entrega" id="fecha_entrega" required>
 					</div>
+					<div class="form-group">
+						<label class="color-label">Descuentos</label>
+						<select class="form-control" name="descuento" id="desc" required>
+						<option value="" selected="" disabled="">Seleccione una opción</option>
+							<?php
+							$SQL="SELECT * FROM TBL_descuentos";
+								$dato = mysqli_query($conexion, $SQL);
+					
+								if($dato -> num_rows >0){
+									while($fila=mysqli_fetch_array($dato)){
+										echo '<option value='.$fila['id_descuentos'].'>'.$fila['nom_descuento'].'</option>';
+										}
+									}
+								?>
+						</select>
+					</div>	
 				</div>
 			</div>
 			<div class="row">
@@ -249,6 +265,13 @@
 							<div class="input-group">
 								<input  type="number" class="form-control" name="taxRate" id="taxRate"  step="any">
 								<div class="input-group-addon">%</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label>Monto Descuento: &nbsp;</label>
+							<div class="input-group">
+								<div class="input-group-addon currency">L.</div>
+								<input value="" type="number" class="form-control" name="nombredescuento" id="nombredescuento_1" step="any" placeholder="Monto descuento" novalidate>
 							</div>
 						</div>
 						<div class="form-group">
