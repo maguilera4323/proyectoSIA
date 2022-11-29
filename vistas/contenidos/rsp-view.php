@@ -10,7 +10,7 @@ $year=date("Y");
 $hora=date("H.i.s");
 $fecha=$day.'_'.$mont.'_'.$year.'_-_'.$hora;
 
-/* const BACKUP_PATH =  "../backup/";*/ 
+ 
 //conectado a la BD
 $conn = mysqli_connect($host, $username, $password, $database_name);
 $conn->set_charset("utf8");
@@ -63,11 +63,12 @@ foreach ($tables as $table) {
     
     $sqlScript .= "\n"; 
 }
-
+//const BACKUP_PATH =  "../backup";
 if(!empty($sqlScript))
 {
     // Guarde el script SQL en un archivo de copia de seguridad
     $backup_file_name = $database_name . '_backup_' . $fecha . '.sql';
+    $fileHandler = fopen("backup/".$backup_file_name, 'w+');
     $fileHandler = fopen($backup_file_name, 'w+');
     $number_of_lines = fwrite($fileHandler, $sqlScript);
     fclose($fileHandler); 
