@@ -33,7 +33,7 @@ class MYPDF extends TCPDF{
         $pdf = new MYPDF(PDF_PAGE_ORIENTATION, 'mm', 'Letter', true, 'UTF-8', false);
         
         //Establecer margenes del PDF
-        $pdf->SetMargins(20, 35, 25);
+        $pdf->SetMargins(12, 35, 12);
         $pdf->SetHeaderMargin(20);
         $pdf->setPrintFooter(true);
         $pdf->setPrintHeader(true); //Eliminar la linea superior del PDF por defecto
@@ -89,7 +89,7 @@ class MYPDF extends TCPDF{
         //$pdf->SetTextColor(245,245,205); //Gris claro
         //$pdf->SetTextColor(100, 0, 0); //Color Carne
         $pdf->SetFont('helvetica','B', 15); 
-        $pdf->Cell(100,6,'LISTA DE FACTURAS',0,0,'C');
+        $pdf->Cell(112,6,'LISTA DE FACTURAS',0,0,'C');
 
 
         $pdf->Ln(10); //Salto de Linea
