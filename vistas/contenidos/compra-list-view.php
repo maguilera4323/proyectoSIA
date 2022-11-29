@@ -107,7 +107,7 @@ if(isset($_GET['enviar'])){
 		<tbody>
 		
 			<?php
-				$SQL="SELECT c.id_compra,  c.id_proveedor, p.nom_proveedor,u.usuario,e.nom_estado_compra,c.fech_compra,
+				$SQL="SELECT c.id_compra, c.id_estado_compra, c.id_proveedor, p.nom_proveedor,u.usuario,e.nom_estado_compra,c.fech_compra,
 				c.total_compra FROM TBL_compras c
 				inner JOIN TBL_Proveedores p ON p.id_Proveedores = c.id_proveedor
 				inner JOIN TBL_usuarios u ON u.id_usuario = c.id_usuario
@@ -140,7 +140,8 @@ if(isset($_GET['enviar'])){
 				<td>
 				<form action="" id="invoice-form" method="post" class="invoice-form" data-form="save">
 					<input type="hidden" pattern="" class="form-control" name="id_compra_del" id="id_compra_del" value="<?php echo $fila['id_compra'] ?>">
-					<input type="hidden" pattern="" class="form-control" name="id_proveedor_del" id="id_proveedor_del" value="<?php echo $fila['id_proveedor'] ?>">	
+					<input type="hidden" pattern="" class="form-control" name="id_proveedor_del" id="id_proveedor_del" value="<?php echo $fila['id_proveedor'] ?>">
+					<input type="hidden" pattern="" class="form-control" name="id_estado_del" id="id_estado_del" value="<?php echo $fila['id_estado_compra'] ?>">	
 					<button type="submit" class="btn btn-warning" name="boton">
 						<i class="far fa-trash-alt"></i>
 					</button>

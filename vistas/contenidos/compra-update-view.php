@@ -48,13 +48,17 @@
 					
 					//query para obtener los datos guardados en la tabla de compras
 					//estos datos serán mostrados en la vista
-					$query="SELECT * FROM TBL_compras where id_compra='$id_act_compra'";
+					$query="SELECT p.nom_proveedor,p.id_Proveedores, u.usuario,c.fech_compra,c.total_compra FROM TBL_compras c
+					inner join TBL_Proveedores p on p.id_Proveedores=c.id_proveedor
+					inner join TBL_usuarios u on u.id_usuario=c.id_usuario
+					where c.id_compra='$id_act_compra'";
 					$resultado=mysqli_query($conexion,$query);
 
 					if($resultado -> num_rows >0){
 					while($fila=mysqli_fetch_array($resultado)){
-							$idCompra=$fila['id_usuario'];
-							$idUsuario=$fila['id_usuario'];
+							$id_proveedor=$fila['id_Proveedores'];
+							$Usuario=$fila['usuario'];
+							$Proveedor=$fila['nom_proveedor'];
 							$Fecha=$fila['fech_compra'];
 							$Total=$fila['total_compra'];
 						}
@@ -98,23 +102,13 @@
 				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 					<div class="form-group">
 						<label class="color-label">Proveedor</label>
-						<select class="form-control" name="proveedor_compra" id="proveedor_compra" required >
-							<?php
-							$SQL="SELECT * FROM TBL_Proveedores";
-								$dato = mysqli_query($conexion, $SQL);
-					
-								if($dato -> num_rows >0){
-									while($fila=mysqli_fetch_array($dato)){
-										echo '<option value='.$fila['id_Proveedores'].'>'.$fila['nom_proveedor'].'</option>';
-										}
-									}
-								?>
-						</select>
+						<input type="text" class="form-control" id="cliente_dni" style="text-transform:uppercase;" 
+						value="<?php echo $Proveedor?>" disabled>
 					</div>	
 					<div class="form-group">
 						<label class="color-label">Usuario</label>
 						<input type="text" class="form-control" name="usuario_compra" id="cliente_apellido" maxlength="40" 
-						value="<?php echo $idUsuario; ?>" style="text-transform:uppercase;">
+						value="<?php echo $Usuario ?>" style="text-transform:uppercase;" disabled>
 					</div>	
 				</div>      		
 				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 pull-right">
@@ -165,13 +159,16 @@
 
 							//query para obtener los datos de TBL_detalle_compra
 							//Estos datos se imprimirán en la tabla
-							$queryDetalle="SELECT id_detalle_compra, id_insumos,cantidad_comprada,precio_costo,fecha_caducidad
-							FROM TBL_detalle_compra where id_detalle_compra='$id_act_detalle' LIMIT 1";
+							$queryDetalle="SELECT d.id_detalle_compra, i.id_insumos,i.nom_insumo,d.cantidad_comprada,d.precio_costo,
+							d.fecha_caducidad FROM TBL_detalle_compra d
+							inner join TBL_insumos i on i.id_insumos=d.id_insumos
+							where d.id_detalle_compra='$id_act_detalle' LIMIT 1";
 							$resultadoDetalle=mysqli_query($conexion,$queryDetalle);
 							
 							if($resultadoDetalle -> num_rows >0){
 							while($filaDetalle=mysqli_fetch_array($resultadoDetalle)){
 									$idInsumo=$filaDetalle['id_insumos'];
+									$nomInsumo=$filaDetalle['nom_insumo'];
 									$cantidad=$filaDetalle['cantidad_comprada'];
 									$precio=$filaDetalle['precio_costo'];
 									$fechaCad=$filaDetalle['fecha_caducidad'];
@@ -181,18 +178,7 @@
 						<tr>
 							<td><input class="itemRow" type="checkbox"></td>
 							<td><input type="text" name="productCode[]" id="productCode_<?php echo $count; ?>" class="form-control" value="<?php echo $id_act_detalle;?>" autocomplete="off"></td>
-							<td><select name="productName[]" id="productName_<?php echo $count; ?>" class="form-control">
-									<?php
-									$SQL="SELECT * FROM TBL_insumos";
-										$dato = mysqli_query($conexion, $SQL);
-							
-										if($dato -> num_rows >0){
-											while($fila=mysqli_fetch_array($dato)){
-												echo '<option value='.$fila["id_insumos"].'>'.$fila['nom_insumo'].'</option>';
-												}
-											}
-										?>
-							</select></td>
+							<td><input type="text" name="Name[]" id="Name_<?php echo $count; ?>" class="form-control" value="<?php echo $nomInsumo;?>" autocomplete="off" disabled></td>
 							<td><input type="date" name="fechaCaducidad[]" id="fechaCaducidad_<?php echo $i; ?>" class="form-control" value="<?php echo $fechaCad; ?>" autocomplete="off"></td>
 							<td><input type="number" name="quantity[]" id="quantity_<?php echo $i; ?>" class="form-control quantity" value="<?php echo $cantidad; ?>" autocomplete="off"></td>
 							<td><input type="number" name="price[]" id="price_<?php echo $i; ?>" class="form-control price" value="<?php echo $precio; ?>" autocomplete="off"></td>
@@ -202,10 +188,17 @@
 								<!--datos enviados para realizar las actualizaciones en el controlador!-->
 								<!--id_act_compra[] para realizar el primer query de actualizacion de la compra!-->
 								<!--id_act_detallecompra[] para realizar el segundo query de actualizacion del detalle de compra!-->
+								<!--productName[] para enviar el id de los insumos!-->
+								<!--proveedor_compra para comprobar la condicional del primer query
+								 y para enviar el id del proveedor!-->
 								<input type="hidden" value="<?php echo $id_act_compra; ?>" class="form-control" 
 								id="id_act_compra_<?php echo $i; ?>" name="id_act_compra[]">
 								<input type="hidden" value="<?php echo $id_act_detalle; ?>" class="form-control" 
 								id="id_act_detallecompra_<?php echo $i; ?>" name="id_act_detallecompra[]">
+								<input type="hidden" value="<?php echo $idInsumo; ?>" class="form-control" 
+								id="productName_<?php echo $count; ?>" name="productName[]">
+								<input type="hidden" value="<?php echo $id_proveedor; ?>" class="form-control" 
+								id="proveedor_compra" name="proveedor_compra">
 							</div>
 						<?php 
 						//después de traer un registro a la tabla el valor de $id_act_detalle aumenta en 1
@@ -231,7 +224,7 @@
 							<label class="color-label">Total: &nbsp;</label>
 							<div class="input-group">
 								<div class="input-group-addon currency">L.</div>
-								<input value="" type="number" class="form-control" name="subTotal" value="<?php echo $Total; ?>" id="subTotal">
+								<input type="number" class="form-control" name="subTotal" value="<?php echo $Total; ?>" id="subTotal">
 							</div>
 							<!-- Código para los demás cálculos de la factura como el impuesto y el cambio!-->
 

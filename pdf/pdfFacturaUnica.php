@@ -31,6 +31,22 @@ class MYPDF extends TCPDF{
 //Iniciando un nuevo pdf
         $id_factura=$_POST['id_factura'];
 
+        $sqlFactura = ("SELECT * FROM TBL_pedidos WHERE id_pedido='$id_factura'");
+        $query = mysqli_query($conexion, $sqlFactura);
+
+        while ($fila = mysqli_fetch_array($query)) {
+                $n_factura=$fila['num_factura'];
+                }
+
+        $sqlCAI = ("SELECT * FROM TBL_talonario_cai");
+        $query = mysqli_query($conexion, $sqlCAI);
+        
+        while ($fila = mysqli_fetch_array($query)) {
+                 $inicio=$fila['rango_inicial'];
+                 $fin=$fila['rango_final'];
+                 $fecha_venc=$fila['fecha_vencimiento'];
+         }
+
         $pdf = new MYPDF(PDF_PAGE_ORIENTATION, 'mm', 'Letter', true, 'UTF-8', false);
         
         //Establecer margenes del PDF
@@ -72,7 +88,7 @@ class MYPDF extends TCPDF{
         $pdf->Ln(8); //Salto de Linea
         $pdf->Cell(170,6,'Fecha: '. date('d-m-Y h:i:s A'),0,0,'C');
         $pdf->Ln(8); //Salto de Linea
-        $pdf->Cell(170,6,'N. FACTURA:002-001-01-00000006',0,0,'C');
+        $pdf->Cell(170,6,'N. FACTURA: '. $n_factura,0,0,'C');
         $pdf->Ln(25); //Salto de Linea
         /*$pdf->SetDrawColor(50, 0, 0, 0);
         $pdf->SetFillColor(100, 0, 0, 0); */
@@ -92,14 +108,14 @@ class MYPDF extends TCPDF{
         /*El 1 despues de  Fecha Ingreso indica que hasta alli 
         llega la linea */
 
-           $sqlTrabajadores = ("SELECT p.id_pedido,c.nom_cliente, p.fech_pedido, p.fech_entrega,p.sitio_entrega,p.num_factura,
+           $sql = ("SELECT p.id_pedido,c.nom_cliente, p.fech_pedido, p.fech_entrega,p.sitio_entrega,p.num_factura,
            ep.estado_pedido,p.sub_total,p.ISV,p.total,f.forma_pago,p.fech_facturacion,p.porcentaje_isv FROM TBL_pedidos p
            inner join TBL_Clientes c on c.id_clientes=p.id_cliente
            inner join TBL_estado_pedido ep on ep.id_estado_pedido=p.id_estado_pedido
            inner join TBL_forma_pago f on f.id_forma_pago=p.id_forma_pago
            WHERE p.id_pedido='$id_factura'");
 
-        $query = mysqli_query($conexion, $sqlTrabajadores);
+        $query = mysqli_query($conexion, $sql);
 
         while ($dataRow = mysqli_fetch_array($query)) {
                 $pedido=$dataRow['id_pedido'];
@@ -180,9 +196,9 @@ class MYPDF extends TCPDF{
             $pdf->SetFont('helvetica','B',10); //La B es para letras en Negritas
             $pdf->Cell(120,6,'CAI: A2E6TY-GT463S-FRIR421-465732-NSGH35D-GT',0,0,'L',1);
             $pdf->Ln(9); //Salto de Linea
-            $pdf->Cell(120,6,'RANGO DE FACTURACIÓN: 002-001-01-00000000 AL 002-001-01-00100000',0,0,'L',1);
+            $pdf->Cell(120,6,'RANGO DE FACTURACIÓN: '.$inicio.' AL '.$fin,0,0,'L',1);
             $pdf->Ln(9); //Salto de Linea
-            $pdf->Cell(120,6,'FECHA LIMITE DE EMISIÓN: 12-10-2023',0,0,'L',1);
+            $pdf->Cell(120,6,'FECHA LIMITE DE EMISIÓN: '.$fecha_venc,0,0,'L',1);
         /* $pdf->AddPage();  *///Agregar nueva Pagina
 
         $pdf->Output('Resumen_Clientes_'.date('d_m_y').'.pdf', 'I'); 

@@ -51,6 +51,15 @@ class Invoice{
 		}
 
 		if (isset($lastInsertId)=='true'){
+			$datos_bitacora = [
+				"id_objeto" => 0,
+				"fecha" => date('Y-m-d H:i:s'),
+				"id_usuario" => $_SESSION['id_login'],
+				"accion" => "Nueva compra",
+				"descripcion" => "El usuario ".$_SESSION['usuario_login']." registró una compra en el sistema"
+			];
+			Bitacora::guardar_bitacora($datos_bitacora);  
+
 			echo '<script>
 			swal.fire({
 			title: "Compra Realizada",
@@ -62,15 +71,6 @@ class Invoice{
 			</script>'; 
 		}
 		
-
-		$datos_bitacora = [
-			"id_objeto" => 0,
-			"fecha" => date('Y-m-d H:i:s'),
-			"id_usuario" => $_SESSION['id_login'],
-			"accion" => "Nueva compra",
-			"descripcion" => "El usuario ".$_SESSION['usuario_login']." registró una compra en el sistema"
-		];
-		Bitacora::guardar_bitacora($datos_bitacora);  
 	}
 
 
@@ -94,22 +94,48 @@ class Invoice{
 				SET id_compra = '" . $POST['id_act_compra'][$i] . "', id_insumos= '" . $POST['productName'][$i] . "', cantidad_comprada = '" . $POST['quantity'][$i] . "', precio_costo = '" . $POST['price'][$i] . "', fecha_caducidad = '" . $POST['fechaCaducidad'][$i] . "' 
 					WHERE id_detalle_compra = '" . $POST['id_act_detallecompra'][$i] . "' ";
 				mysqli_query($this->dbConnect, $sqlUpdateItem); 
+
+
+				if($POST['estado_compra']==2){
+					$sqlUpdateInventario = "
+						UPDATE " . $this->inventario . " 
+						SET cant_existencia = cant_existencia + '" . $POST['quantity'][$i] . "' 
+						WHERE id_insumo = '" . $POST['productName'][$i] . "' ";
+					mysqli_query($this->dbConnect, $sqlUpdateInventario);
+
+					$sqlInsertMoviInventario = "
+					INSERT INTO " . $this->movi_inv . "(id_insumos, cant_movimiento, tipo_movimiento, fecha_movimiento,id_usuario,comentario) 
+					VALUES ('" . $POST['productName'][$i] . "', '" . $POST['quantity'][$i] . "', 1, now(),'" . $_SESSION['id_login'] . "','Entrada de insumos')";
+					mysqli_query($this->dbConnect, $sqlInsertMoviInventario);}
 			}
 		}
 
-		$datos_bitacora = [
-			"id_objeto" => 0,
-			"fecha" => date('Y-m-d H:i:s'),
-			"id_usuario" => $_SESSION['id_login'],
-			"accion" => "Nueva compra",
-			"descripcion" => "El usuario ".$_SESSION['usuario_login']." actualizó los datos de una compra en el sistema"
-		];
-		Bitacora::guardar_bitacora($datos_bitacora);
+		if (isset($sqlUpdateItem)=='true'){
+			$datos_bitacora = [
+				"id_objeto" => 0,
+				"fecha" => date('Y-m-d H:i:s'),
+				"id_usuario" => $_SESSION['id_login'],
+				"accion" => "Actualización de compra",
+				"descripcion" => "El usuario ".$_SESSION['usuario_login']." actualizó una compra en el sistema"
+			];
+			Bitacora::guardar_bitacora($datos_bitacora);  
+
+			echo '<script>
+			swal.fire({
+			title: "Compra Actualizada",
+			text: "Su compra ha sido actualizada exitosamente",
+			type: "success"
+		  }).then(function() {
+			  window.location.href = "../compra-list";
+		  })
+			</script>'; 
+		}
 	}
 
 
 
 	public function anularCompra($POST){
+		if($POST['id_estado_del']==2){
 		//select para obtener los datos de los insumos comprados desde el detalle de compraS
 		$sqlSelectDetalleCompra = " 
 		SELECT * FROM " . $this->datosDetalleCompra . " WHERE id_compra='" . $POST['id_compra_del'] . "'";
@@ -145,6 +171,8 @@ class Invoice{
 				mysqli_query($this->dbConnect, $sqlInsertMoviInventario);
 			}
 
+		}
+
 			//query que actualiza el estado de la compra a Anulado
 			$sqlUpdateEstadoCompra = "
 			UPDATE " . $this->datosCompra . " 
@@ -153,6 +181,15 @@ class Invoice{
 
 
 			if (isset($sqlUpdateEstadoCompra)=='true'){
+				$datos_bitacora = [
+					"id_objeto" => 0,
+					"fecha" => date('Y-m-d H:i:s'),
+					"id_usuario" => $_SESSION['id_login'],
+					"accion" => "Nueva compra",
+					"descripcion" => "El usuario ".$_SESSION['usuario_login']." anuló una compra en el sistema"
+				];
+				Bitacora::guardar_bitacora($datos_bitacora);  
+
 				echo '<script>
 				swal.fire({
 				title: "Compra Anulada",

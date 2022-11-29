@@ -47,11 +47,15 @@
 					
 					//query para obtener los datos guardados en la tabla de compras
 					//estos datos serán mostrados en la vista
-					$query="SELECT * FROM TBL_pedidos where id_pedido='$id_act_pedido'";
+					$query="SELECT p.id_pedido, p.id_cliente, p.num_factura, p.fech_pedido, p.fech_entrega, p.sitio_entrega,
+					p.sub_total, p.ISV, p.total, f.forma_pago, p.fech_facturacion FROM TBL_pedidos p
+					inner join TBL_forma_pago f on f.id_forma_pago=p.id_forma_pago
+					where p.id_pedido='$id_act_pedido'";
 					$resultado=mysqli_query($conexion,$query);
 
 					if($resultado -> num_rows >0){
 					while($fila=mysqli_fetch_array($resultado)){
+							$id_cliente=$fila['id_cliente'];
 							$numFactura=$fila['num_factura'];
 							$sitioEntrega=$fila['sitio_entrega'];
 							$fechaPedido=$fila['fech_pedido'];
@@ -60,6 +64,7 @@
 							$impuesto=$fila['ISV'];
 							$Total=$fila['total'];
 							$fechaFact=$fila['fech_facturacion'];
+							$formaPago=$fila['forma_pago'];
 						}
 					}
 
@@ -87,6 +92,23 @@
 							$cantidadProductosVenta=$filaDetalle['contador'];
 						}
 					}
+
+
+					$queryDescuento="SELECT d.nom_descuento, d.porcentaje_descuento, pd.id_pedidos, pd.total_descontado FROM TBL_pedido_descuentos pd
+					inner join TBL_descuentos d on d.id_descuentos=pd.id_descuentos
+					where pd.id_pedidos='$id_act_pedido'";
+					$resultadoDetalle=mysqli_query($conexion,$queryDescuento);
+					if($resultadoDetalle -> num_rows >0){
+						while($filaDetalle=mysqli_fetch_array($resultadoDetalle)){
+								$nomDescuento=$filaDetalle['nom_descuento'];
+								$porcentaje=$filaDetalle['porcentaje_descuento'];
+								$totalDescontado=$filaDetalle['total_descontado'];
+							}
+						}else{
+							$nomDescuento='';
+						}
+						$isv=15;
+
 			?>
 	<form action="" id="invoice-form" method="post" class="invoice-form" role="form" novalidate="">
 		<div class="load-animate animated fadeInUp">
@@ -101,41 +123,20 @@
 				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
 					<div class="form-group">
 						<label class="color-label">Cliente</label>
-						<select class="form-control" name="cliente_pedido" id="cliente_pedido" >
-						<option value="" selected="" disabled="">Seleccione una opción</option>
-							<?php
-							$SQL="SELECT * FROM TBL_Clientes";
-								$dato = mysqli_query($conexion, $SQL);
-					
-								if($dato -> num_rows >0){
-									while($fila=mysqli_fetch_array($dato)){
-										echo '<option value='.$fila['id_clientes'].'>'.$fila['nom_cliente'].'</option>';
-										}
-									}
-								?>
-						</select>
+						<input type="text" class="form-control" name="cliente_pedido" id="cliente_pedido" maxlength="27" 
+						value="<?php echo $id_cliente; ?>" required>
 					</div>	
 					<div class="form-group">
 						<label class="color-label">Num. Factura</label>
 						<input type="text" class="form-control" name="num_factura" id="num_factura" maxlength="40" 
-						style="text-transform:uppercase;" value="<?php echo $numFactura; ?>">
-					</div>	
+						style="text-transform:uppercase;" value="<?php echo $numFactura; ?> " disabled>
+					</div>
 					<div class="form-group">
 						<label class="color-label">Forma de Pago</label>
-						<select class="form-control" name="forma_pago_venta" id="forma_pago_venta" >
-						<option value="" selected="" disabled="">Seleccione una opción</option>
-							<?php
-							$SQL="SELECT * FROM TBL_forma_pago";
-								$dato = mysqli_query($conexion, $SQL);
+						<input type="text" class="form-control" name="forma_pago_venta" id="forma_pago_venta" maxlength="40" 
+						 value="<?php echo $formaPago; ?> " disabled>
+					</div>		
 					
-								if($dato -> num_rows >0){
-									while($fila=mysqli_fetch_array($dato)){
-										echo '<option value='.$fila['id_forma_pago'].'>'.$fila['forma_pago'].'</option>';
-										}
-									}
-								?>
-						</select>
-					</div>	
 				</div> 
 				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
 					<div class="form-group">
@@ -145,9 +146,8 @@
 					<div class="form-group">
 						<label class="color-label">Estado de Pedido</label>
 						<select class="form-control" name="estado_pedido" id="estado_pedido" >
-						<option value="" selected="" disabled="">Seleccione una opción</option>
 							<?php
-							$SQL="SELECT * FROM TBL_estado_pedido";
+							$SQL="SELECT * FROM TBL_estado_pedido where id_estado_pedido<=2";
 								$dato = mysqli_query($conexion, $SQL);
 					
 								if($dato -> num_rows >0){
@@ -173,6 +173,12 @@
 						<label class="color-label">Fecha Entrega</label>
 						<input type="date" class="form-control" name="fecha_entrega" id="fecha_entrega" value="<?php echo $fechaEntrega; ?>">
 					</div>
+					<div class="form-group">
+					<label class="color-label">Descuento</label>
+					<td><input type="text" class="form-control" name="nombredescuento[]" id="nombredescuento_1" value="<?php echo $nomDescuento; ?>"></td>
+							
+						</tr>
+					</div>	
 				</div>
 			</div>
 			<div class="row">
@@ -200,13 +206,16 @@
 
 							//query para obtener los datos de TBL_detalle_compra
 							//Estos datos se imprimirán en la tabla
-							$queryDetalle="SELECT id_detalle_pedido, id_producto,cantidad,precio_venta
-							FROM TBL_detalle_pedido where id_detalle_pedido='$id_act_detalle' LIMIT 1";
+							$queryDetalle="SELECT p.nom_producto, dp.id_detalle_pedido, dp.id_producto,dp.cantidad,dp.precio_venta
+							FROM TBL_detalle_pedido dp
+							inner join TBL_producto p on p.id_producto=dp.id_producto
+							where dp.id_detalle_pedido='$id_act_detalle' LIMIT 1";
 							$resultadoDetalle=mysqli_query($conexion,$queryDetalle);
 							
 							if($resultadoDetalle -> num_rows >0){
 							while($filaDetalle=mysqli_fetch_array($resultadoDetalle)){
 									$idProducto=$filaDetalle['id_producto'];
+									$nomProducto=$filaDetalle['nom_producto'];
 									$cantidad=$filaDetalle['cantidad'];
 									$precio=$filaDetalle['precio_venta'];
 								}
@@ -215,19 +224,7 @@
 						<tr>
 							<td><input class="itemRowFactura" type="checkbox"></td>
 							<td><input type="text" name="productCode[]" id="productCode_<?php echo $count; ?>" class="form-control" value="<?php echo $id_act_detalle;?>" autocomplete="off"></td>
-							<td><select name="nombreProducto[]" id="nombreProducto_<?php echo $i; ?>" class="form-control">
-								<option value="" selected="" disabled="">Seleccione una opción</option>
-									<?php
-									$SQL="SELECT * FROM TBL_producto";
-										$dato = mysqli_query($conexion, $SQL);
-							
-										if($dato -> num_rows >0){
-											while($fila=mysqli_fetch_array($dato)){
-												echo '<option value='.$fila["id_producto"].'>'.$fila['nom_producto'].'</option>';
-												}
-											}
-										?>
-							</select></td>
+							<td><input type="text" class="form-control"   value="<?php echo $nomProducto; ?>"></td>
 							<td><input type="number" name="cantidad[]" id="cantidad_<?php echo $i; ?>" value="<?php echo $cantidad;?>"class="form-control quantity" autocomplete="off"></td>
 							<td><input type="number" name="precio[]" id="precio_<?php echo $i; ?>" value="<?php echo $precio;?>" class="form-control price" autocomplete="off"></td>
 							<td><input type="number" name="total[]" id="total_<?php echo $i; ?>" value="<?php echo $precio*$cantidad; ?>" class="form-control total" autocomplete="off"></td>
@@ -240,6 +237,8 @@
 								id="id_act_pedido_<?php echo $i; ?>" name="id_act_pedido[]">
 								<input type="hidden" value="<?php echo $id_act_detalle; ?>" class="form-control" 
 								id="id_act_detallepedido_<?php echo $i; ?>" name="id_act_detallepedido[]">
+								<input type="hidden" value="<?php echo $idProducto; ?>" class="form-control" 
+								id="nombreProducto_<?php echo $i; ?>" name="nombreProducto[]">
 							</div>
 						<?php 
 						//después de traer un registro a la tabla el valor de $id_act_detalle aumenta en 1
@@ -271,9 +270,26 @@
 							<!-- Código para los demás cálculos de la factura como el impuesto y el cambio!-->
 							</div>
 							<div class="form-group">
+							<label class="color-label">Porcentaje Descuento: &nbsp;</label>
+							<div class="input-group">
+								<input type="number" class="form-control" name="nombredescuento" id="nomdesc" step="any" 
+								value="<?php echo $porcentaje; ?>" placeholder="Monto descuento">
+								<div class="input-group-addon">%</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="color-label">Monto después de descuento: &nbsp;</label>
+							<div class="input-group">
+								<div class="input-group-addon currency">L.</div>
+								<input type="number" class="form-control" name="montodescuento" id="descuentomonto" step="any" 
+								value="<?php echo $subtotal-($subtotal*$porcentaje); ?>" placeholder="Monto descuento" novalidate>
+							</div>
+						</div>
+							<div class="form-group">
 							<label>Porcentaje Impuestos: &nbsp;</label>
 							<div class="input-group">
-								<input type="number" class="form-control" name="taxRate" id="taxRate" placeholder="Porcentaje Impuestos" >
+								<input type="number" class="form-control" name="taxRate" id="taxRate" 
+								value="<?php echo $isv; ?>" placeholder="Porcentaje Impuestos" >
 								<div class="input-group-addon">%</div>
 							</div>
 						</div>

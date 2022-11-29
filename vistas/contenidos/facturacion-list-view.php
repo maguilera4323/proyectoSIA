@@ -34,6 +34,13 @@
 				];
 				Bitacora::guardar_bitacora($datos_bitacora);
 			}
+
+			//llamado al controlador de la factura
+			require_once 'controladores/facturacionControlador.php';
+			$factura = new Invoice();
+			if (isset($_POST['boton'])) {
+				$factura->anularPedido($_POST);
+			} 
 ?>
 
 <div class="full-box page-header">
@@ -97,6 +104,7 @@ if(isset($_GET['enviar'])){
 				<th>Detalle Pedido</th>
 				<th>Actualizar</th>
 				<th>Imprimir</th>
+				<th>Eliminar</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -104,10 +112,8 @@ if(isset($_GET['enviar'])){
 		<?php
 		
 				$SQL="SELECT p.id_pedido,p.num_factura, p.fech_pedido, p.fech_entrega, p.total,
-							c.nom_cliente,
+							p.id_cliente,
 							e.estado_pedido FROM TBL_pedidos p
-							
-						inner join TBL_Clientes c on p.id_cliente=c.id_clientes
 						inner join TBL_estado_pedido e on p.id_estado_pedido=e.id_estado_pedido
 						ORDER BY p.id_pedido DESC
 						$where";						
@@ -119,7 +125,7 @@ if(isset($_GET['enviar'])){
 				?>
 				<tr>
 				<td><?php echo $fila['num_factura']; ?></td>
-				<td><?php echo $fila['nom_cliente']; ?></td>
+				<td><?php echo $fila['id_cliente']; ?></td>
 				<td><?php echo $fila['fech_pedido']; ?></td>
 				<td><?php echo $fila['fech_entrega']; ?></td>
 				<td><?php echo $fila['estado_pedido']; ?></td>
@@ -141,6 +147,14 @@ if(isset($_GET['enviar'])){
 					<button type="submit" class="btn btn-danger" ><i class="fas fa-file-pdf"></i></button>
 					</form>
 				</td>
+				<td>
+				<form action="" id="invoice-form" method="post" class="invoice-form" data-form="save">
+					<input type="hidden" pattern="" class="form-control" name="id_pedido_del" id="id_pedido_del" value="<?php echo $fila['id_pedido'] ?>">
+					<button type="submit" class="btn btn-warning" name="boton">
+						<i class="far fa-trash-alt"></i>
+					</button>
+				</form>
+			</td>
 
 			</tr>
 			<?php

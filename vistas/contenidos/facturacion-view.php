@@ -93,6 +93,7 @@
 				}else{
 					$numFacturaActual=$rango_inicial;
 				}
+				$isv=15;
 				
 				
 			?>
@@ -102,19 +103,8 @@
 				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
 					<div class="form-group">
 						<label class="color-label">Cliente</label>
-						<select class="form-control" name="cliente_pedido" id="cliente_pedido" required>
-						<option value="" selected="" disabled="">Seleccione una opción</option>
-							<?php
-							$SQL="SELECT * FROM TBL_Clientes";
-								$dato = mysqli_query($conexion, $SQL);
-					
-								if($dato -> num_rows >0){
-									while($fila=mysqli_fetch_array($dato)){
-										echo '<option value='.$fila['id_clientes'].'>'.$fila['nom_cliente'].'</option>';
-										}
-									}
-								?>
-						</select>
+						<input type="number" class="form-control" name="cliente_pedido" id="cliente_pedido" 
+						maxlength="13" required>
 					</div>	
 					<div class="form-group">
 						<label class="color-label">Num. Factura</label>
@@ -148,14 +138,13 @@
 					<div class="form-group">
 						<label class="color-label">Estado de Pedido</label>
 						<select class="form-control" name="estado_pedido" id="estado_pedido" required>
-						<option value="" selected="" disabled="">Seleccione una opción</option>
 							<?php
-							$SQL="SELECT * FROM TBL_estado_pedido";
+							$SQL="SELECT * FROM TBL_estado_pedido LIMIT 1";
 								$dato = mysqli_query($conexion, $SQL);
 					
 								if($dato -> num_rows >0){
 									while($fila=mysqli_fetch_array($dato)){
-										echo '<option value='.$fila['id_estado_pedido'].'>'.$fila['estado_pedido'].'</option>';
+										echo '<option value='.$fila['id_estado_pedido'].' selected="">'.$fila['estado_pedido'].'</option>';
 										}
 									}
 								?>
@@ -178,7 +167,7 @@
 					</div>
 					<div class="form-group">
 					<label class="color-label">Descuento</label>
-					<td><select name="nombredescuento[]" id="nombredescuento_1" class="form-control nombreDescuento">
+					<td><select name="nombredescuento_1" id="nombredescuento_1" class="form-control nombreDescuento">
 									<?php
 									$SQL="SELECT * FROM TBL_descuentos";
 									$dato = mysqli_query($conexion, $SQL);
@@ -195,9 +184,7 @@
 											}
 										?>
 							</select></td>
-							<!-- <td><input type="number" name="cantidad[]" id="cantidad_1" class="form-control quantity" required></td> -->
-							<!-- <td><input type="number" name="precio[]" id="precio_1" class="form-control price"></td> -->
-							<!-- <td><input type="number" name="total[]" id="total_1" class="form-control total"></td> -->
+							
 						</tr>
 					</div>	
 				</div>
@@ -264,7 +251,7 @@
 							<label class="color-label">Subtotal: &nbsp;</label>
 							<div class="input-group">
 								<div class="input-group-addon currency">L.</div>
-								<input value="" type="number" class="form-control" name="subTotal" step="any" id="subTotal" placeholder="Subtotal">
+								<input type="number" class="form-control" name="subTotal" step="any" id="subTotal" placeholder="Subtotal">
 							</div>
 						</div>
 						<div class="form-group">
@@ -284,7 +271,7 @@
 						<div class="form-group">
 							<label class="color-label">Porcentaje Impuestos: &nbsp;</label>
 							<div class="input-group">
-								<input  value="15" type="number" class="form-control" name="taxRate" id="taxRate" step="any" disabled>
+								<input value="<?php echo $isv; ?>" type="number" class="form-control" name="taxRate" id="taxRate" step="any" disabled novalidate>
 								<div class="input-group-addon">%</div>
 							</div>
 						</div>
@@ -292,7 +279,7 @@
 							<label class="color-label">Monto impuestos: &nbsp;</label>
 							<div class="input-group">
 								<div class="input-group-addon currency">L.</div>
-								<input value="" type="number" class="form-control" name="taxAmount" id="taxAmount" step="any" placeholder="Monto impuestos" novalidate>
+								<input type="number" class="form-control" name="taxAmount" id="taxAmount" step="any" placeholder="Monto impuestos" novalidate>
 							</div>
 						</div>
 						
