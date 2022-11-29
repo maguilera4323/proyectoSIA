@@ -1,4 +1,18 @@
+<script type="text/javascript">
+	function confir(){
+		var respuesta=confirm("Desea Guardar la Base de Datos, ESTA SE GUARDARA EN LA CARPETA backup");
+		if(respuesta== true)
+		{
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+
+</script>
 <?php
+
 	require_once "./pruebabitacora.php";
 		include ("./cone.php");     
 
@@ -43,7 +57,7 @@
 <center>
 <h1>Haga Click Para Realizar Backups</h1>
 <a href="<?php echo SERVERURL; ?>rsp/">
-<div class="tile-icon">
+<div class="tile-icon" onclick="return confir()">
 <i class="fab fa-hackerrank"></i>                
 </div>
 </a>
