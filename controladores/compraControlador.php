@@ -50,6 +50,8 @@ class Invoice{
 			mysqli_query($this->dbConnect, $sqlInsertItem);
 		}
 
+
+		//mensaje de alerta indicando que se realizó una compra de forma exitosa
 		if (isset($lastInsertId)=='true'){
 			$datos_bitacora = [
 				"id_objeto" => 0,
@@ -96,6 +98,9 @@ class Invoice{
 				mysqli_query($this->dbConnect, $sqlUpdateItem); 
 
 
+				//validación para comprobar que el estado de compra sea igual a Realizada
+				//en caso afirmativo se realiza la actualizacion del inventario
+				//y el registro de los insumos ingresados en los movimientos de inventario
 				if($POST['estado_compra']==2){
 					$sqlUpdateInventario = "
 						UPDATE " . $this->inventario . " 
@@ -135,6 +140,9 @@ class Invoice{
 
 
 	public function anularCompra($POST){
+		//validación para comprobar que el estado de compra sea igual a Realizada
+		//en caso afirmativo se realiza la actualizacion del inventario, restando los insumos de la compra seleccionada
+		//y el registro de los insumos ingresados en los movimientos de inventario
 		if($POST['id_estado_del']==2){
 		//select para obtener los datos de los insumos comprados desde el detalle de compraS
 		$sqlSelectDetalleCompra = " 

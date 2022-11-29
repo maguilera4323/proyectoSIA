@@ -93,7 +93,6 @@
 				}else{
 					$numFacturaActual=$rango_inicial;
 				}
-				$isv=15;
 				
 				
 			?>
@@ -271,7 +270,7 @@
 						<div class="form-group">
 							<label class="color-label">Porcentaje Impuestos: &nbsp;</label>
 							<div class="input-group">
-								<input value="<?php echo $isv; ?>" type="number" class="form-control" name="taxRate" id="taxRate" step="any" disabled novalidate>
+								<input value="15" type="number" class="form-control" name="taxRate" id="taxRate" step="any" disabled novalidate>
 								<div class="input-group-addon">%</div>
 							</div>
 						</div>
@@ -288,20 +287,6 @@
 							<div class="input-group">
 								<div class="input-group-addon currency">L.</div>
 								<input value="" type="number" class="form-control" name="totalAftertax" id="totalAftertax" step="any" placeholder="Total">
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="color-label">Monto Pagado: &nbsp;</label>
-							<div class="input-group">
-								<div class="input-group-addon currency">L.</div>
-								<input value="" type="number" class="form-control" name="amountPaid" id="amountPaid" step="any" placeholder="Monto Pagado">
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="color-label">Cambio: &nbsp;</label>
-							<div class="input-group">
-								<div class="input-group-addon currency">L.</div>
-								<input value="" type="number" class="form-control" name="amountDue" id="amountDue" step="any" placeholder="Cambio">
 							</div>
 						</div>
 					</span>

@@ -19,6 +19,7 @@ class Invoice{
 	private $inventario = 'TBL_inventario';
 	private $movi_inv = 'TBL_movi_inventario';
 	private $ped_desc = 'TBL_pedido_descuentos';
+	private $parametros = 'TBL_ms_parametros';
 	private $dbConnect = false;
 
 	public function __construct()
@@ -38,17 +39,31 @@ class Invoice{
 		//función para crear y guardar una factura
 		public function nuevaFactura($POST){	
 		
-		//primer insert, para la tabla de Pedidos
+			//query para obtener el valor del parametro del impuesto sobre ventas
+		$sqlValorISV = " 
+			SELECT valor FROM " . $this->parametros . " WHERE id_parametro=17";
+			$query=mysqli_query($this->dbConnect,$sqlValorISV);
+				if (!$query) {
+					die('Error in query');
+				}
+
+				//se guarda el valor del ISV en una variable
+				while ($fila = $query->fetch_assoc()) {
+					$isv=$fila['valor'];
+				}	
+		
+
+		//Insert para la tabla de Pedidos
 		$sqlInsert = "
 			INSERT INTO " . $this->datosPedido . "(id_cliente, num_factura, fech_pedido,  fech_entrega, sitio_entrega, id_estado_pedido, sub_total, ISV, total, id_forma_pago, fech_facturacion,porcentaje_isv) 
 			VALUES ('" . $POST['cliente_pedido'] . "', '" . $POST['num_factura'] . "', '" . $POST['fecha_pedido'] . "', '" . $POST['fecha_entrega'] . "','" . $POST['sitio_entrega'] . "',
-			'" . $POST['estado_pedido'] . "', '" . $POST['subTotal'] . "','" . $POST['taxAmount'] . "','" . $POST['totalAftertax'] . "','" . $POST['forma_pago_venta'] . "', now(),(15)/100 )";
+			'" . $POST['estado_pedido'] . "', '" . $POST['subTotal'] . "','" . $POST['taxAmount'] . "','" . $POST['totalAftertax'] . "','" . $POST['forma_pago_venta'] . "', now(),'" . $isv . "'/100 )";
 		mysqli_query($this->dbConnect, $sqlInsert);
 		$lastInsertId = mysqli_insert_id($this->dbConnect);
 		
 
-		//validacion si se seleccionón un descuento para el pedido
-		//se guarda en la tabla de Pedidos_descuentos
+		//validacion de si se seleccionó un descuento para el pedido
+		//se hace un insert y se guarda en la tabla de Pedidos_descuentos
 		if(($POST['montodescuento'])!=''){
 			$sqlInsertDesc = "
 				INSERT INTO " . $this->ped_desc . "(id_descuentos, id_pedidos, total_descontado) 
@@ -56,12 +71,14 @@ class Invoice{
 			mysqli_query($this->dbConnect, $sqlInsertDesc);
 		}
 		
+
 		//funcion de update para actualizar el valor actual de las facturas del talonario CAI
 		$sqlUpdate = "
 		UPDATE " . $this->datosCAI . " 
 				SET cai_actual = '" . $POST['num_factura'] . "' 
 				WHERE id_talonario_cai = 1";
 		mysqli_query($this->dbConnect, $sqlUpdate);
+
 
 		//segundo insert, para la tabla de Detalle Pedidos
 		//el ciclo es para insertar todos los productos agregados al pedido
@@ -74,6 +91,8 @@ class Invoice{
 			  
 		} 
 
+
+		//mensaje de alerta confirmando que la venta ha sido exitosa
 		if (isset($lastInsertId)=='true'){
 			echo '<script>
 			swal.fire({
@@ -100,7 +119,8 @@ class Invoice{
 
 
 	public function actualizarFactura($POST){
-		//primer update, para la tabla de Compras
+		//primer update, para la tabla de Pedidos
+		//se valida si se ha enviado el id de un producto
 		if ($POST['nombreProducto']) {
 			for ($i = 0; $i <1; $i++) {
 			$sqlUpdate = "
@@ -113,8 +133,8 @@ class Invoice{
 		}
 
 
-		//segundo update, para la tabla de DetalleCompras
-		//el ciclo for para actualizar los insumos agregados a la compra
+		//segundo update, para la tabla de DetallePedidos
+		//el ciclo for para actualizar los productos agregados a la venta
 			for ($i = 0; $i < count($POST['nombreProducto']); $i++) {
 				 $sqlUpdateItem = "
 				UPDATE " . $this->datosDetallePedido . "
@@ -122,6 +142,10 @@ class Invoice{
 					WHERE id_detalle_pedido = '" . $POST['id_act_detallepedido'][$i] . "' ";
 				mysqli_query($this->dbConnect, $sqlUpdateItem); 
 
+
+				//validación para revisar si el estado del pedido es 2
+				//de ser afirmativo se procede a restar insumos del inventario segun los datos del recetario
+				//y a registrar las salidas de inventario en Movimientos de Inventario
 			if($POST['estado_pedido']==2){
 				//select para obtener los datos de los insumos que componen el producto vendido
 			$sqlSelectRecetario = " 
@@ -160,6 +184,7 @@ class Invoice{
 		}
 	}
 
+	//mensaje de alerta indicando que la venta fue actualizada exitosamente
 		if (isset($sqlUpdateItem)=='true'){
 			echo '<script>
 			swal.fire({
@@ -192,6 +217,7 @@ class Invoice{
 		mysqli_query($this->dbConnect, $sqlUpdateEstadoPedido);
 
 
+		//mensaje de alerta que muestra que una factura fue anulada de forma exitosa
 		if (isset($sqlUpdateEstadoPedido)=='true'){
 			echo '<script>
 			swal.fire({
