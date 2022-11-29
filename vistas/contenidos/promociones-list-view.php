@@ -37,6 +37,21 @@
 				];
 				Bitacora::guardar_bitacora($datos_bitacora);
 			}
+
+		//query para obtener los datos de la fecha y id de promocion
+		//para verificar si la promoción ya está vencida y actualizar el estado
+		$SQL="SELECT  * FROM TBL_promociones";
+		$dato = mysqli_query($conexion, $SQL);
+		//contador para guardar los datos de todas las promociones que puedan existir en la tabla
+		$contador=0;
+		   
+		   if($dato -> num_rows >0){
+			   while($fila=mysqli_fetch_array($dato)){
+				$id_promocion[$contador]=$fila['id_promociones'];
+				$fecha_final[$contador]=new DateTime($fila['fech_fin_promo']);
+				$contador++;
+				}
+			}
 ?>
 <script>
 	function solonumeros(e)
@@ -137,34 +152,31 @@ if(isset($_GET['enviar'])){
 				<?php
 
 include ("./cone.php");              
- $SQL="SELECT  * FROM TBL_promociones;
+ $SQL="SELECT p.id_promociones, p.nom_promocion, p.fech_ini_promo, p.fech_fin_promo, 
+ ep.nom_estado_promociones, p.precio_promocion FROM TBL_promociones p
+ inner join TBL_estado_promociones ep on ep.id_estado_promociones=p.id_estado_promocio;
  $where";
 $dato = mysqli_query($conexion, $SQL);
+//contador para hacer comprobacion de todas los registros guardados en el arreglo de id_promocion y fecha_final
+$i=0;
 
 if($dato -> num_rows >0){
     while($fila=mysqli_fetch_array($dato)){
-    
-?>
-
-<!-- validación para verificar fecha de vencimiento -->
-	<?php
-		include ("./cone.php");   
+		
+		//se obtiene la fecha actual y se hace la resta de la fecha final de promocion
 		$fecha_actual = new DateTime(date('Y-m-d'));//nueva variable para vencimiento//
-		$fecha_final = new DateTime($fila['fech_fin_promo']);
-        $dias = $fecha_actual->diff($fecha_final)->format('%r%a');
+		//si la fecha actual es mayor que la fecha final se procede a actualizar el estado de la promocion
+		$dias = $fecha_actual->diff($fecha_final[$i])->format('%r%a');
 		if ($dias <= 0) {
-			$SQL="UPDATE TBL_promociones SET id_estado_promocio=5 WHERE id_promociones=24";
-
-			}
-
-			$dato = mysqli_query($conexion, $SQL);
-	?>
-
-
+			$SQL="UPDATE TBL_promociones SET id_estado_promocio=5 WHERE id_promociones='$id_promocion[$i]'";
+		}
+		$datos = mysqli_query($conexion, $SQL);
+		$i++;
+?>
 <td><?php echo $fila['nom_promocion']; ?></td>
 <td><?php echo $fila['fech_ini_promo']; ?></td>
 <td><?php echo $fila['fech_fin_promo']; ?></td>
-<td><?php echo $fila['id_estado_promocio']; ?></td>
+<td><?php echo $fila['nom_estado_promociones']; ?></td>
 <td><?php echo $fila['precio_promocion']; ?></td>
 <td>
 				<div class="btn btn-success" data-toggle="modal" data-target="#ModalActualizar<?php echo $fila['id_promociones'];?>">
@@ -207,17 +219,18 @@ if($dato -> num_rows >0){
 										</div>
 										<div class="form-group">
 											<label class="color-label">Estado Promocion</label>
-															<select class="form-control" name="estado_promo_actu" id="Id_producto_nuevo" value="<?php echo $fila['id_estado_promocio']?>"required>
-																<!-- <option value="0">Seleccione una opción</option> -->
-																<option >activa</option>
-																<option >caducada</option>
-
-															</select>
+												<select class="form-control" name="estado_promo_actu" id="Id_producto_nuevo" value="<?php echo $fila['id_estado_promocio']?>"required>
+													<?php
+													include ("./cone.php");   
+													$tipo="SELECT * FROM TBL_estado_promociones";
+													$resultado=mysqli_query($conexion, $tipo);
+														while ($valores = mysqli_fetch_array($resultado)){
+															echo '<option value="'.$valores['id_estado_promociones'].'">'.$valores['nom_estado_promociones'].'</option>';
+													}
+													?>
+												</select>
 										</div>
-<!-- 										<div class="form-group">
-											<label class="color-label">Estado Promoción</label>											
-											<input type="text" class="form-control" name="estado_promo_actu" id="estado_promo" value="<?php echo $fila['id_estado_promocio']?>" required>
-										</div> -->
+
 										<div class="form-group">
 											<label class="color-label">Precio Promoción</label>
 											<input type="text" class="form-control" name="precio_promo_actu" id="estado_promo" value="<?php echo $fila['precio_promocion']?>" required>
@@ -309,12 +322,17 @@ if($dato -> num_rows >0){
 			</div>
 			<div class="form-group">
 			<label class="color-label">Estado Promocion</label>
-							<select class="form-control" name="estado_promo_nuevo" id="Id_producto_nuevo" required>
-								<!-- <option value="0">Seleccione una opción</option> -->
-								<option >activa</option>
-								<option >caducada</option>
-
-							</select>
+				<select class="form-control" name="estado_promo_nuevo" id="Id_producto_nuevo" required>
+				<option value="0">Seleccione una opción</option>
+					<?php
+					include ("./cone.php");   
+					$tipo="SELECT * FROM TBL_estado_promociones";
+					$resultado=mysqli_query($conexion, $tipo);
+						while ($valores = mysqli_fetch_array($resultado)){
+							echo '<option value="'.$valores['id_estado_promociones'].'">'.$valores['nom_estado_promociones'].'</option>';
+						}
+					?>
+				</select>
 			</div>
 			<div class="form-group">
 				<label class="color-label">Precio Promoción</label>
