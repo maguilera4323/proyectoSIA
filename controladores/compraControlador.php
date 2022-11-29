@@ -14,6 +14,8 @@ class Invoice{
 	private $database  = "proyecto_cafeteria";
 	private $datosCompra = 'TBL_compras';
 	private $datosDetalleCompra = 'TBL_detalle_compra';
+	private $inventario = 'TBL_inventario';
+	private $movi_inv = 'TBL_movi_inventario';
 	private $dbConnect = false;
 
 	public function __construct()
@@ -107,20 +109,58 @@ class Invoice{
 
 
 
-	public function deleteInvoiceItems($invoiceId)
-	{
-		$sqlQuery = "
-			DELETE FROM " . $this->invoiceOrderItemTable . " 
-			WHERE order_id = '" . $invoiceId . "'";
-		mysqli_query($this->dbConnect, $sqlQuery);
+	public function anularCompra($POST){
+		//select para obtener los datos de los insumos comprados desde el detalle de compraS
+		$sqlSelectDetalleCompra = " 
+		SELECT * FROM " . $this->datosDetalleCompra . " WHERE id_compra='" . $POST['id_compra_del'] . "'";
+		$query=mysqli_query($this->dbConnect,$sqlSelectDetalleCompra);
+			if (!$query) {
+				die('Error in query');
+			}
+
+			//se crea un arreglo para recibir todos los insumos y las cantidades adquiridas de los mismos
+			$id_insumo = array();
+			$cantidad= array();
+			$cont = 0;
+			while ($fila = $query->fetch_assoc()) {
+				$id_insumo[$cont]=$fila['id_insumos'];
+				$cantidad[$cont]=$fila['cantidad_comprada'];
+				$cont++;
+			}																																																											
+		
+			//ciclo que se encarga de actualizar el inventario, restando los insumos comprados
+			//y de insertar en la tabla de movimientos de inventario la cantidad de insumos restados
+			for($j=0;$j<$cont;$j++){
+				$sqlUpdateInventario = "
+					UPDATE " . $this->inventario . " 
+					SET cant_existencia = cant_existencia - '" . $cantidad[$j] . "' 
+					WHERE id_insumo = '" . $id_insumo[$j] . "' ";
+				mysqli_query($this->dbConnect, $sqlUpdateInventario);
+
+
+				//query que se encarga de registrar la salida de los insumos al anularse la compra
+				$sqlInsertMoviInventario = "
+				INSERT INTO " . $this->movi_inv . "(id_insumos, cant_movimiento, tipo_movimiento, fecha_movimiento,id_usuario,comentario) 
+				VALUES ('" . $id_insumo[$j] . "', '" . $cantidad[$j] . "', 2, now(),'" . $_SESSION['id_login'] . "','Salida de insumos por compra anulada')";
+				mysqli_query($this->dbConnect, $sqlInsertMoviInventario);
+			}
+
+			//query que actualiza el estado de la compra a Anulado
+			$sqlUpdateEstadoCompra = "
+			UPDATE " . $this->datosCompra . " 
+			SET id_estado_compra = 3 WHERE id_compra = '" . $POST['id_compra_del'] . "' ";
+			mysqli_query($this->dbConnect, $sqlUpdateEstadoCompra);
+
+
+			if (isset($sqlUpdateEstadoCompra)=='true'){
+				echo '<script>
+				swal.fire({
+				title: "Compra Anulada",
+				text: "La compra seleccionada ha sido anulada del sistema",
+				type: "success"
+			  });
+				</script>'; 
+			}
 	}
-	public function deleteInvoice($invoiceId)
-	{
-		$sqlQuery = "
-			DELETE FROM " . $this->invoiceOrderTable . " 
-			WHERE order_id = '" . $invoiceId . "'";
-		mysqli_query($this->dbConnect, $sqlQuery);
-		$this->deleteInvoiceItems($invoiceId);
-		return 1;
-	}
+
 }

@@ -31,6 +31,7 @@
 		{
 			$sql=mainModel::conectar()->prepare("UPDATE TBL_permisos SET permiso_insercion=?,permiso_actualizacion=?,
 			permiso_eliminacion=?,permiso_consulta=?, modificado_por=?, fecha_modificacion=? WHERE id_rol=? and id_objeto=?");
+			
 			$sql->bindParam(1,$datos['ins']);
 			$sql->bindParam(2,$datos['act']);
 			$sql->bindParam(3,$datos['eli']);
