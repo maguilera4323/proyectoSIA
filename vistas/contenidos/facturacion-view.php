@@ -177,20 +177,29 @@
 						<input type="date" class="form-control" name="fecha_entrega" id="fecha_entrega" required>
 					</div>
 					<div class="form-group">
-						<label class="color-label">Descuentos</label>
-						<select class="form-control" name="descuento" id="desc" required>
-						<option value="" selected="" disabled="">Seleccione una opción</option>
-							<?php
-							$SQL="SELECT * FROM TBL_descuentos";
-								$dato = mysqli_query($conexion, $SQL);
-					
-								if($dato -> num_rows >0){
-									while($fila=mysqli_fetch_array($dato)){
-										echo '<option value='.$fila['id_descuentos'].'>'.$fila['nom_descuento'].'</option>';
-										}
-									}
-								?>
-						</select>
+					<label class="color-label">Descuento</label>
+					<td><select name="nombredescuento[]" id="nombredescuento_1" class="form-control nombreDescuento"
+							 required>
+									<?php
+									$SQL="SELECT * FROM TBL_descuentos";
+									$dato = mysqli_query($conexion, $SQL);
+									$options="<option value=\"\" data-price=\"\" selected>Seleccione una opción</option>";
+									
+										if($dato -> num_rows >0){
+											while($fila=mysqli_fetch_array($dato)){
+												$precio='data-price="'.$fila['porcentaje_descuento'].'"';  
+												$id=$fila['id_descuentos'];
+												$nombre=$fila['nom_descuento'];
+												$options.="<option value=\"$id\" $precio>$nombre</option>";
+												}
+												echo $options;
+											}
+										?>
+							</select></td>
+							<!-- <td><input type="number" name="cantidad[]" id="cantidad_1" class="form-control quantity" required></td> -->
+							<!-- <td><input type="number" name="precio[]" id="precio_1" class="form-control price"></td> -->
+							<!-- <td><input type="number" name="total[]" id="total_1" class="form-control total"></td> -->
+						</tr>
 					</div>	
 				</div>
 			</div>
@@ -268,17 +277,24 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label>Monto Descuento: &nbsp;</label>
+							<label >% Descuento: &nbsp;</label>
 							<div class="input-group">
-								<div class="input-group-addon currency">L.</div>
-								<input value="" type="number" class="form-control" name="nombredescuento" id="nombredescuento_1" step="any" placeholder="Monto descuento" novalidate>
+								<input value="" type="number" class="form-control" name="nombredescuento" id="nomdesc" step="any" placeholder="Monto descuento">
+								<div class="input-group-addon">%</div>
 							</div>
 						</div>
 						<div class="form-group">
-							<label>Monto impuestos: &nbsp;</label>
+							<label >Monto impuestos: &nbsp;</label>
 							<div class="input-group">
 								<div class="input-group-addon currency">L.</div>
 								<input value="" type="number" class="form-control" name="taxAmount" id="taxAmount" step="any" placeholder="Monto impuestos" novalidate>
+							</div>
+						</div>
+						<div class="form-group">
+							<label >Monto Descuento: &nbsp;</label>
+							<div class="input-group">
+								<div class="input-group-addon currency">L.</div>
+								<input value="" type="number" class="form-control" name="montodescuento" id="montodesc" step="any" placeholder="Monto descuento" novalidate>
 							</div>
 						</div>
 						<div class="form-group">
