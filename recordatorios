@@ -56,3 +56,42 @@ TAMBIEN EL ARCHIVO info-view.php de la carpeta contenidos
 
 
 -->
+
+CODIGO PARA DESHABILITAR CASILLAS
+<script>
+cambioTextBox1 = function() {
+  var textbox1 = document.getElementById("textbox1");
+  var textbox2 = document.getElementById("textbox2");
+  
+  var valorTextBox1 = textbox1.value;
+  
+  if(
+    valorTextBox1 == "0000000000000" 
+  ) {
+    textbox2.disabled = true;
+  } else {
+    textbox2.disabled = false;
+  }
+}
+</script>
+
+
+<input type="text" id="textbox1" onChange="cambioTextBox1()">
+<input type="text" id="textbox2">
+
+<!-- CON ESTE IMPRIMO LA ETIQUETA EL LA CAJA DE TEXTO -->
+value="<?php print "0000000000000";?>"
+
+
+<!-- <input type="text" name="cliente_pedido" id="caja" disabled="" >
+    <input type="button" name="" value="activar caja" onclick="activarcaja">
+    <input type="button" name="" value="desactivar caja" onclick="desactivarcaja">
+    <script type="text/javascript">
+        function activarcaja(){
+            document.getElementById('caja').disabled=true
+        }
+        function desactivarcaja(){
+            document.getElementById('caja').disabled=false
+        }
+
+    </script> -->

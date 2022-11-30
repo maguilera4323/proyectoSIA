@@ -35,6 +35,43 @@
 		$factura->nuevaFactura($_POST);
 	}
 ?>
+<script>
+	function solonumeros(e)
+	{
+		key=e.keyCode || e.which;
+		teclado=String.fromCharCode(key);
+		numeros="0123456789";
+		
+		especiales="8-37-38-46";
+		teclado_especial=false;
+		for(var i in especiales){
+			if(key==especiales[i]){
+				teclado_especial=true;
+			}
+		}
+		if(numeros.indexOf(teclado)==-1 && !teclado_especial){
+			return false;
+		}
+	}
+</script>
+<script>
+	function sololetras(e)
+	{
+		key=e.keyCode || e.which;
+		teclado=String.fromCharCode(key);
+		letras="abcdefghijklmnñopqrstuvwxyz";		
+		especiales="";
+		teclado_especial=false;
+		for(var i in especiales){
+			if(key==especiales[i]){
+				teclado_especial=true;
+			}
+		}
+		if(letras.indexOf(teclado)==-1 && !teclado_especial){
+			return false;
+		}
+	}
+</script>
 
 <div class="container content-invoice">
 	<form action="" id="invoice-form" method="post" class="invoice-form">
@@ -101,9 +138,28 @@
 			<div class="row">
 				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
 					<div class="form-group">
-						<label class="color-label">Cliente</label>
-						<input type="number" class="form-control" name="cliente_pedido" id="cliente_pedido" 
-						maxlength="13" required>
+						<label class="color-label">DNI</label>
+						<input type="text" value="<?php print "0000000000000";?>" maxlength="13" placeholder="Escribe tu DNI" id="textbox1" onkeypress="return solonumeros (event)" onChange="cambioTextBox1()">
+						<!-- <input type="text" class="form-control" onkeypress="return solonumeros (event)" name="cliente_pedido" id="cliente_pedido" maxlength="13" required> -->
+						
+						<!-- ESTE SIRVE PARA BLOQUEAR LA CAJA DE TEXTO DE NOMBRE DE CLIENTE SIEMPRE Y CUANDO SE CUMPLA LA CONDICION DE 
+						LOS 13 CEROS -->
+						<script>
+						cambioTextBox1 = function() {
+						var textbox1 = document.getElementById("textbox1");
+						var textbox2 = document.getElementById("textbox2");
+						
+						var valorTextBox1 = textbox1.value;
+						
+						if(
+							valorTextBox1 == "0000000000000" 
+						) {
+							textbox2.disabled = true;
+						} else {
+							textbox2.disabled = false;
+						}
+						}
+						</script>
 					</div>	
 					<div class="form-group">
 						<label class="color-label">Num. Factura</label>
@@ -129,11 +185,18 @@
 					</div>	
 				</div> 
 				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+				   <div class="form-group">
+						<label class="color-label">CLIENTE</label>
+						<input type="text" id="textbox2" value="<?php print "Consumidor Final";?>" placeholder="Escribe tu Cliente" >
+						<!-- <input type="text" class="form-control"  name="cliente_pedido" id="cliente_pedido" maxlength="13" required> -->
+					</div>	
 					<div class="form-group">
 						<label class="color-label">Sitio de Entrega</label>
 						<input type="text" name="sitio_entrega" id="sitio_entrega" class="form-control" autocomplete="off" required>
 					    <input type="hidden" name="numPedido" id="numPedido" class="form-control" value="<?php echo $idPedidoActual; ?>" autocomplete="off">
-					</div>	
+					</div>		
+					
+
 					<div class="form-group">
 						<label class="color-label">Estado de Pedido</label>
 						<select class="form-control" name="estado_pedido" id="estado_pedido" required>
@@ -182,13 +245,14 @@
 												echo $options;
 											}
 										?>
-							</select></td>
+							</select>
+					</td>
 							
-						</tr>
+			</tr>
 					</div>	
 				</div>
 			</div>
-			<div class="row">
+		  <div class="row">
 				<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
 					<button class="btn btn-danger delete" id="removeRowsFactura" type="button">- Eliminar</button>
 					<button class="btn btn-success" id="addRowsFactura" type="button">+ Agregar Más</button>
@@ -196,11 +260,11 @@
 			</div>
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-					<table class="table table-bordered table-hover" id="invoiceItemFactura">
+					<table class="table table-bordered table-hover" onkeypress="return solonumeros (event)" id="invoiceItemFactura">
 						<tr>
 							<th width="2%"><input id="checkAllFactura" class="formcontrol" type="checkbox"></th>
 							<th width="19%">Producto</th>
-							<th width="15%">Cantidad</th>
+							<th width="15%">Cantidad </th>
 							<th width="15%">Precio</th>
 							<th width="15%">Total</th>
 						</tr>
@@ -224,13 +288,61 @@
 											}
 										?>
 							</select></td>
-							<td><input type="number" name="cantidad[]" id="cantidad_1" class="form-control quantity" required></td>
-							<td><input type="number" name="precio[]" id="precio_1" class="form-control price"></td>
-							<td><input type="number" name="total[]" id="total_1" class="form-control total"></td>
+							<td><input type="number" name="cantidad[]" id="cantidad_1" class="form-control quantity" required ></td>
+							<td><input type="number" name="precio[]" id="precio_1" class="form-control price" disabled></td>
+							<td><input type="number" name="total[]" id="total_1" class="form-control total" disabled></td>
 						</tr>
 					</table>
 				</div>
 			</div>
+	<!-- 	<div class="row"> -->
+
+<!-- INICIO PROMOCIONES -->
+			<div class="row">
+				<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+					<button class="btn btn-danger delete" id="removeRowsPomociones" type="button">- Eliminar</button>
+					<button class="btn btn-success" id="addRowsPromocion" type="button">+ Agregar Más</button>    <!-- cambie addRowsFactura -->
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<table class="table table-bordered table-hover" onkeypress="return solonumeros (event)" id="invoiceItemPromociones">
+						<tr>
+							<th width="2%"><input id="checkAllPromo"  class="formcontrol" type="checkbox"></th>
+							<th width="19%">Promocion</th>
+							<th width="15%">Cantidad</th>
+							<th width="15%">Precio</th>
+							<th width="15%">Total</th>
+						</tr>
+						<tr>
+							<td><input class="itemRowPromociones" type="checkbox"></td>
+							<td><select name="nombrePromocion[]" id="nombrePromocion_1" class="form-control nombrePromocion"
+							 required>
+									<?php
+									$SQL="SELECT * FROM TBL_producto";
+									$dato = mysqli_query($conexion, $SQL);
+									$options="<option value=\"\" data-price=\"\" selected>Seleccione una opción</option>";
+									
+										if($dato -> num_rows >0){
+											while($fila=mysqli_fetch_array($dato)){
+												$precio='data-price="'.$fila['precio_produ'].'"';  
+												$id=$fila['id_producto'];
+												$nombre=$fila['nom_producto'];
+												$options.="<option value=\"$id\" $precio>$nombre</option>";
+												}
+												echo $options;
+											}
+										?>
+							</select></td>
+							<td><input type="number" name="cantidad[]" id="cantidad_1"  class="form-control quantity" required ></td>
+							<td><input type="number" name="precio[]" id="precio_1" class="form-control price" disabled></td>
+							<td><input type="number" name="total[]" id="total_1" class="form-control total" disabled></td>
+						</tr>
+					</table>
+				</div>
+			</div> 
+<!-- FIN PROMOCIOES -->
+
 			<div class="row">
 				<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
 					

@@ -35,6 +35,8 @@
 
 <script src="<?php echo SERVERURL; ?>vistas/js/invoiceFacturacion.js" ></script>
 
+<script src="<?php echo SERVERURL; ?>vistas/js/invoicePromociones.js" ></script>
+
 <script src="<?php echo SERVERURL; ?>vistas/js/obtenerPrecios.js" ></script>
 
 <script src="<?php echo SERVERURL; ?>vistas/js/obtenerdescuento.js" ></script>
