@@ -41,6 +41,8 @@
 
 <script src="<?php echo SERVERURL; ?>vistas/js/obtenerdescuento.js" ></script>
 
+<script src="<?php echo SERVERURL; ?>vistas/js/obtenerpromo.js" ></script>
+
 	<!-- 
     //// eliminanos el punto de inicio y colocamos <?php echo SERVERURL;?>vistas  para poder reconocer los JS
 	-->
