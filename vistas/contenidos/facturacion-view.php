@@ -319,24 +319,24 @@
 							<td><select name="nombrePromocion[]" id="nombrePromocion_1" class="form-control nombrePromocion"
 							 required>
 									<?php
-									$SQL="SELECT * FROM TBL_producto";
+									$SQL="SELECT * FROM TBL_promociones";
 									$dato = mysqli_query($conexion, $SQL);
 									$options="<option value=\"\" data-price=\"\" selected>Seleccione una opción</option>";
 									
 										if($dato -> num_rows >0){
 											while($fila=mysqli_fetch_array($dato)){
-												$precio='data-price="'.$fila['precio_produ'].'"';  
-												$id=$fila['id_producto'];
-												$nombre=$fila['nom_producto'];
+												$precio='data-price="'.$fila['precio_promocion'].'"';  
+												$id=$fila['id_promociones'];
+												$nombre=$fila['nom_promocion'];
 												$options.="<option value=\"$id\" $precio>$nombre</option>";
 												}
 												echo $options;
 											}
 										?>
 							</select></td>
-							<td><input type="number" name="cantidad[]" id="cantidad_1"  class="form-control quantity" required ></td>
-							<td><input type="number" name="precio[]" id="precio_1" class="form-control price" disabled></td>
-							<td><input type="number" name="total[]" id="total_1" class="form-control total" disabled></td>
+							<td><input type="number" name="cantidadpromo[]" id="cantidadpromo_1"  class="form-control quantitypromo" required ></td>
+							<td><input type="number" name="preciopromo[]" id="preciopromo_1" class="form-control pricepromo"></td>
+							<td><input type="number" name="totalpromo[]" id="totalpromo_1" class="form-control totalpromo"></td>
 						</tr>
 					</table>
 				</div>
@@ -366,8 +366,6 @@
 							</div>
 						</div>
 						<div class="form-group">
-						</div>
-						<div class="form-group">
 							<label class="color-label">Monto después de descuento: &nbsp;</label>
 							<div class="input-group">
 								<div class="input-group-addon currency">L.</div>
@@ -379,9 +377,6 @@
 								style="width:5rem;" placeholder="% descuento" disabled>
 								<div class="input-group-addon">%</div>
 							</div>
-						</div>
-						<div class="form-group">
-							
 						</div>
 						<div class="form-group">
 							<label class="color-label">Monto impuestos: &nbsp;</label>

@@ -82,7 +82,7 @@ if(isset($_GET['enviar'])){
 <!-- para la parte de búsqueda-->
 	<div class="container-fluid">
 	<div class="container-fluid">
-  <form class="d-flex" action="../pdf/pdfFacturas.php" method="post" accept-charset="utf-8">
+  <form class="d-flex" action="<?php echo SERVERURL; ?>pdf/pdfFacturas.php" method="post" accept-charset="utf-8">
   	<input class="form-control me-2 light-table-filter" data-table="table_id" type="text" name="filtrofactura" placeholder="Buscar facturas">
 	<button type="submit" class="btn btn-danger mx-auto btn-lg"><i class="fas fa-file-pdf"></i> &nbsp;Descargar Reporte</button>
       </form>
@@ -142,7 +142,7 @@ if(isset($_GET['enviar'])){
 					</a>
 				</td>
 				<td>
-				<form action="../pdf/pdfFacturaUnica.php" method="post" accept-charset="utf-8">
+				<form action="<?php echo SERVERURL; ?>pdf/pdfFacturaUnica.php" method="post" accept-charset="utf-8">
 					<input type="hidden" name="id_factura" value="<?php echo $fila['id_pedido']?>">
 					<button type="submit" class="btn btn-danger" ><i class="fas fa-file-pdf"></i></button>
 					</form>

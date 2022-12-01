@@ -93,6 +93,31 @@
 						}
 					}
 
+					//query para obtener el id de la primera promocion de la venta
+					//este dato será utilizado en un ciclo más abajo para poder obtener los id de todos las promociones agregadas
+					$queryPrimerIdPromocion="SELECT id_pedido_promocion FROM TBL_pedidos_promociones
+					where id_pedido='$id_act_pedido' LIMIT 1";
+					$resultadoPrimerIdPromocion=mysqli_query($conexion,$queryPrimerIdPromocion);
+
+					if($resultadoPrimerIdPromocion -> num_rows >0){
+					while($filaPriDetalle=mysqli_fetch_array($resultadoPrimerIdPromocion)){
+							//se obtiene el id del primer insumo comprado
+							$id_prom_detalle=$filaPriDetalle['id_pedido_promocion'];
+						}
+					}
+
+					//query para obtener la cantidad de promociones que corresponden a la venta seleccionada para editar
+					//el valor obtenido será utilizado en el ciclo de abajo como limite 
+					$queryRegistrosPromocion="SELECT COUNT(*) as contador FROM TBL_pedidos_promociones 
+					where id_pedido='$id_act_pedido'";
+					$resultadoDetalle=mysqli_query($conexion,$queryRegistrosPromocion);
+
+					if($resultadoDetalle -> num_rows >0){
+					while($filaDetalle=mysqli_fetch_array($resultadoDetalle)){
+							$cantidadPromocionesVenta=$filaDetalle['contador'];
+						}
+					}
+
 					//query para obtener y mostrar los datos del descuento
 					//estos datos se mostrarán tanto en la parte de arriba con el descuento seleccionado como en la parte final
 					//con el monto de descuento y el porcentaje del mismo
@@ -204,7 +229,7 @@
 						<?php
 						//Ciclo para obtener todos los registros de la tabla TBL_detalle_pedido usando el valor del primer id del detalle pedido
 						//este id aumentará en 1 con cada iteración del ciclo debido a que los registros del detalle_pedido relacionados con un pedido especifico
-						//están en la tabla TBL_detalle_compra de forma seguida
+						//están en la tabla TBL_detalle_pedido de forma seguida
 						for ($i = 1; $i <=$cantidadProductosVenta; $i++) {
 
 							//query para obtener los datos de TBL_detalle_pedido
@@ -247,8 +272,81 @@
 						<?php 
 						
 						//después de traer un registro a la tabla el valor de $id_act_detalle aumenta en 1
-						//para traer todos los registros relacionados con la compra
+						//para traer todos los registros relacionados con el pedido
 						$id_act_detalle+=1;
+						}?>
+					</table>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+					<button class="btn btn-danger delete" id="removeRowsPromociones" type="button">- Eliminar</button>
+					<button class="btn btn-success" id="addRowsPromocion" type="button">+ Agregar Más</button>    
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+					<table class="table table-bordered table-hover" onkeypress="return solonumeros (event)" id="invoiceItemPromociones">
+						<tr>
+							<th width="2%"><input id="checkAllPromo"  class="formcontrol" type="checkbox"></th>
+							<th width="19%">ID Promocion</th>
+							<th width="19%">Promocion</th>
+							<th width="15%">Cantidad</th>
+							<th width="15%">Precio</th>
+							<th width="15%">Total</th>
+						</tr>
+						<tr>
+						<?php
+						//Ciclo para obtener todos los registros de la tabla TBL_pedidos_promociones usando el valor del primer id del pedido promocion
+						//este id aumentará en 1 con cada iteración del ciclo debido a que los registros del detalle_pedido relacionados con un pedido especifico
+						//están en la tabla TBL_detalle_compra de forma seguida
+						for ($j = 1; $j <=$cantidadPromocionesVenta; $j++) {
+
+							//query para obtener los datos de TBL_detalle_pedido
+							//Estos datos se imprimirán en la tabla donde aparecen todos los productos correspondientes a la factura
+							$queryPromocion="SELECT pp.id_pedido_promocion, pp.id_pedido_promocion, pr.nom_promocion,pp.id_pedido,
+							pp.cantidad,pp.precio_venta,pp.id_promocion
+							FROM TBL_pedidos_promociones pp
+							inner join TBL_pedidos p on p.id_pedido=pp.id_pedido
+							inner join TBL_promociones pr on pr.id_promociones=pp.id_promocion
+							where pp.id_pedido_promocion='$id_prom_detalle' LIMIT 1";
+							$resultadoDetalle=mysqli_query($conexion,$queryPromocion);
+							
+							if($resultadoDetalle -> num_rows >0){
+							while($filaDetalle=mysqli_fetch_array($resultadoDetalle)){
+									$idPedPromocion=$filaDetalle['id_pedido_promocion'];
+									$idPromocion=$filaDetalle['id_promocion'];
+									$nomPromocion=$filaDetalle['nom_promocion'];
+									$cantidad=$filaDetalle['cantidad'];
+									$precio=$filaDetalle['precio_venta'];
+								}
+							} 
+						?>
+						<tr>
+							<td><input class="itemRowFactura" type="checkbox"></td>
+							<td><input type="text" name="productCode[]" id="productCode_<?php echo $count; ?>" class="form-control" value="<?php echo $id_prom_detalle;?>" autocomplete="off"></td>
+							<td><input type="text" class="form-control"   value="<?php echo $nomPromocion; ?>"></td>
+							<td><input type="number" name="cantidadpromo[]" id="cantidadpromo_<?php echo $i; ?>" value="<?php echo $cantidad;?>"class="form-control quantity" autocomplete="off"></td>
+							<td><input type="number" name="preciopromo[]" id="preciopromo_<?php echo $i; ?>" value="<?php echo $precio;?>" class="form-control price" autocomplete="off"></td>
+							<td><input type="number" name="totalpromo[]" id="totalpromo_<?php echo $i; ?>" value="<?php echo $precio*$cantidad; ?>" class="form-control total" autocomplete="off"></td>
+						</tr>
+						<div class="form-group">
+								<!--datos enviados para realizar las actualizaciones en el controlador!-->
+								<!--id_act_compra[] para realizar el primer query de actualizacion del pedido!-->
+								<!--id_act_detallecompra[] para realizar el segundo query de actualizacion del detalle de pedido!-->
+								<!--nombreProducto[] para realizar la validacion del segundo query!-->
+								<input type="hidden" value="<?php echo $id_prom_detalle; ?>" class="form-control" 
+								id="id_prom_detalleprom_<?php echo $j; ?>" name="id_prom_detalleprom[]">
+								<input type="hidden" value="<?php echo $idPromocion; ?>" class="form-control" 
+								id="idPromocion_<?php echo $j; ?>" name="idPromocion[]">
+							</div>
+						
+						<?php 
+						
+						//después de traer un registro a la tabla el valor de $id_prom_detalle aumenta en 1
+						//para traer todos los registros relacionados con la venta
+						$id_prom_detalle+=1;
 						}?>
 					</table>
 				</div>
@@ -266,20 +364,12 @@
 				</div>
 				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 					<span class="form-inline">
-						<div class="form-group">
-							<label class="color-label">Total: &nbsp;</label>
+					<div class="form-group">
+							<label class="color-label">Subtotal: &nbsp;</label>
 							<div class="input-group">
 								<div class="input-group-addon currency">L.</div>
-								<input type="number" class="form-control" name="subTotal" id="subTotal" placeholder="Subtotal" value="<?php echo $subtotal; ?>">
-							</div>
-							<!-- Código para los demás cálculos de la factura como el impuesto y el cambio!-->
-							</div>
-							<div class="form-group">
-							<label class="color-label">Porcentaje Descuento: &nbsp;</label>
-							<div class="input-group">
-								<input type="number" class="form-control" name="nombredescuento" id="nomdesc" step="any" 
-								value="<?php echo $porcentaje; ?>" placeholder="Monto descuento">
-								<div class="input-group-addon">%</div>
+								<input type="number" class="form-control" name="subTotal" step="any" id="subTotal" 
+								value="<?php echo $subtotal; ?>" placeholder="Subtotal">
 							</div>
 						</div>
 						<div class="form-group">
@@ -287,29 +377,36 @@
 							<div class="input-group">
 								<div class="input-group-addon currency">L.</div>
 								<input type="number" class="form-control" name="montodescuento" id="descuentomonto" step="any" 
-								value="<?php echo $subtotal-($subtotal*$porcentaje); ?>" placeholder="Monto descuento" novalidate>
+								value="<?php echo $subtotal-($subtotal*$porcentaje); ?>" placeholder="Monto descuento" >
 							</div>
-						</div>
-							<div class="form-group">
-							<label>Porcentaje Impuestos: &nbsp;</label>
+							<!-- <label class="color-label">Porcentaje Descuento: &nbsp;</label> -->
 							<div class="input-group">
-								<input type="number" class="form-control" name="taxRate" id="taxRate" 
-								value="<?php echo $isv; ?>" placeholder="Porcentaje Impuestos" >
+								<input type="number" class="form-control" name="nombredescuento" id="nomdesc" step="any" 
+								style="width:5rem;" placeholder="% descuento" value="<?php echo $porcentaje; ?>" disabled>
 								<div class="input-group-addon">%</div>
 							</div>
 						</div>
 						<div class="form-group">
-							<label>Monto impuestos: &nbsp;</label>
+							<label class="color-label">Monto impuestos: &nbsp;</label>
 							<div class="input-group">
 								<div class="input-group-addon currency">L.</div>
-								<input type="number" class="form-control" name="taxAmount" id="taxAmount" placeholder="Monto impuestos" value="<?php echo $impuesto; ?>">
+								<input type="number" class="form-control" name="taxAmount" id="taxAmount" step="any"
+								value="<?php echo $impuesto; ?>" placeholder="Monto impuestos" novalidate>
+							</div>
+							<!-- <label class="color-label">Porcentaje Impuestos: &nbsp;</label> -->
+							<div class="input-group">
+								<input value="15" type="number" class="form-control" name="taxRate" id="taxRate" 
+								style="width:5rem;" value="<?php echo $isv; ?>" step="any" disabled>
+								<div class="input-group-addon">%</div>
 							</div>
 						</div>
+						
 						<div class="form-group">
-							<label>Total: &nbsp;</label>
+							<label class="color-label">Total: &nbsp;</label>
 							<div class="input-group">
 								<div class="input-group-addon currency">L.</div>
-								<input type="number" class="form-control" name="totalAftertax" id="totalAftertax" placeholder="Total" value="<?php echo $Total; ?>">
+								<input type="number" class="form-control" name="totalAftertax" id="totalAftertax" step="any" 
+								value="<?php echo $Total; ?>" placeholder="Total">
 							</div>
 						</div>
 					</span>

@@ -80,6 +80,8 @@ $(document).ready(function(){
 		$(".itemRowFactura:checked").each(function() {
 			$(this).closest('tr').remove();
 		});
+
+
 		$('#checkAllFactura').prop('checked', false);
 		calculateTotal();
 	});		
@@ -194,7 +196,7 @@ $(document).ready(function(){
 			var mData = this.options[this.selectedIndex].dataset;
 		  
 			/* Referencia a los input */
-			var elPrice = document.getElementById("precio_"+count);
+			var elPrice = document.getElementById("preciopromo_"+count);
 		  
 			/* Asignamos cada dato a su input*/
 			elPrice.value = mData.price;
@@ -206,56 +208,29 @@ $(document).ready(function(){
 		$(".itemRowPromociones:checked").each(function() {
 			$(this).closest('tr').remove();
 		});
+
+	//funciones de instancia a la función CalculateTotal()
+	//la funcion encargada de realizar los calculos en la factura
 		$('#checkAllPromo').prop('checked', false);
 		calculateTotal();
 	});		
-	$(document).on('blur', "[id^=cantidad_]", function(){
+	$(document).on('blur', "[id^=cantidadpromo_]", function(){
 		calculateTotal();
 	});	
-	$(document).on('blur', "[id^=precio_]", function(){
+	$(document).on('blur', "[id^=preciopromo_]", function(){
 		calculateTotal();
 	});	
-	$(document).on('blur', "#nomdesc", function(){		
-		calculateTotal();
-	});
-	$(document).on('blur', "#taxRate", function(){		
-		calculateTotal();
-	});	
-	$(document).on('blur', "#amountPaid", function(){
-		var amountPaid = $(this).val();
-		var totalAftertax = $('#totalAftertax').val();	
-		if(amountPaid && totalAftertax) {
-			totalAftertax = amountPaid-totalAftertax;			
-			$('#amountDue').val(totalAftertax);
-		} else {
-			$('#amountDue').val(totalAftertax);
-		}	
-	});	
-	$(document).on('click', '.deleteInvoice', function(){
-		var id = $(this).attr("id");
-		if(confirm("¿Deseas eliminar este registro?")){
-			$.ajax({
-				url:"action.php",
-				method:"POST",
-				dataType: "json",
-				data:{id:id, action:'delete_invoice'},				
-				success:function(response) {
-					if(response.status == 1) {
-						$('#'+id).closest("tr").remove();
-					}
-				}
-			});
-		} else {
-			return false;
-		}
-	});
+	
 });	
 
 
 
 //funcion que realiza los cálculos de las filas
 function calculateTotal(){
-	var totalAmount = 0; 
+	//la variable totalVenta es la que recaba la suma de los productos y promciones
+	//este valor se transfiere al subtotal
+	var totalVenta = 0; 
+	//se toman los valores de los productos y sus cantidades
 	$("[id^='precio_']").each(function() {
 		var id = $(this).attr('id');
 		id = id.replace("precio_",'');
@@ -264,11 +239,32 @@ function calculateTotal(){
 		if(!quantity) {
 			quantity = 1;
 		}
-		var total = price*quantity;
-		$('#total_'+id).val(parseFloat(total));
-		totalAmount += total;			
+		var total_producto = price*quantity;
+		//se manda al textbox de total individual de cada producto
+		$('#total_'+id).val(parseFloat(total_producto));
+		//se actualiza la variable de totalVenta con los valores de todos los productos
+		totalVenta += total_producto;			
 	});
-	$('#subTotal').val(parseFloat(totalAmount));	
+
+	//se toman los valores de las promociones y sus cantidades
+	$("[id^='preciopromo_']").each(function() {
+		var id = $(this).attr('id');
+		id = id.replace("preciopromo_",'');
+		var pricepromo = $('#preciopromo_'+id).val();
+		var quantitypromo  = $('#cantidadpromo_'+id).val();
+		if(!quantitypromo) {
+			quantitypromo = 1;
+		}
+		var total_promocion = pricepromo*quantitypromo;
+		//se manda al textbox de total individual de cada promocion
+		$('#totalpromo_'+id).val(parseFloat(total_promocion));	
+		//se actualiza la variable de totalVenta con los valores de todos las promociones
+		//estas se suman a los valores de los productos si existen	
+		totalVenta += total_promocion;
+	});
+
+	//el valor de totalVenta se envia al textbox del subtotal para que se muestre en pantalla
+	$('#subTotal').val(parseFloat(totalVenta));	
 	var taxRate = $("#taxRate").val();
 	var subTotal = $('#subTotal').val();
 	var descuento = $('#nomdesc').val();	 

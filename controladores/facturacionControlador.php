@@ -20,6 +20,8 @@ class Invoice{
 	private $movi_inv = 'TBL_movi_inventario';
 	private $ped_desc = 'TBL_pedido_descuentos';
 	private $parametros = 'TBL_ms_parametros';
+	private $promo_ped = 'TBL_pedidos_promociones';
+	private $promo_prod = 'TBL_promociones_productos';
 	private $dbConnect = false;
 
 	public function __construct()
@@ -83,12 +85,20 @@ class Invoice{
 		//segundo insert, para la tabla de Detalle Pedidos
 		//el ciclo es para insertar todos los productos agregados al pedido
 		for ($i = 0; $i < count($POST['nombreProducto']); $i++) {
-
 			$sqlInsertItem = "
 			INSERT INTO " . $this->datosDetallePedido . "(id_pedido, id_producto, cantidad, precio_venta) 
 			VALUES ('" . $POST['numPedido'] . "', '" . $POST['nombreProducto'][$i] . "', '" . $POST['cantidad'][$i] . "', '" . $POST['precio'][$i] . "')";
 			mysqli_query($this->dbConnect, $sqlInsertItem);
-			  
+		} 
+
+
+		//Tercer insert, para la tabla de Pedido Promociones
+		//el ciclo es para insertar todos los promociones agregados a un producto especifico
+		for ($j = 0; $j < count($POST['nombrePromocion']); $j++) {
+			$sqlInsertPromocion = "
+			INSERT INTO " . $this->promo_ped . "(id_promocion, id_pedido, precio_venta) 
+			VALUES ( '" . $POST['nombrePromocion'][$j] . "', '" . $POST['numPedido'] . "','" . $POST['totalpromo'][$j] . "')";
+			mysqli_query($this->dbConnect, $sqlInsertPromocion);  
 		} 
 
 
@@ -116,6 +126,9 @@ class Invoice{
 
 		 
 	}
+
+
+
 
 
 	public function actualizarFactura($POST){
@@ -161,7 +174,7 @@ class Invoice{
 				$cont = 0;
 				while ($row = $query->fetch_assoc()) {
 					$id_insumo[$cont]=$row['id_insumo'];
-					$cantidad[$cont]=$row['cant_insumo'];
+					$cantidad_insumo[$cont]=$row['cant_insumo'];
 					$cont++;
 				}																																																											
 			
@@ -170,17 +183,83 @@ class Invoice{
 				for($j=0;$j<$cont;$j++){
 					$sqlUpdateInventario = "
 						UPDATE " . $this->inventario . " 
-						SET cant_existencia = cant_existencia - '" . $cantidad[$j]*$POST['cantidad'][$i] . "' 
+						SET cant_existencia = cant_existencia - '" . $cantidad_insumo[$j]*$POST['cantidad'][$i] . "' 
 						WHERE id_insumo = '" . $id_insumo[$j] . "' ";
 					mysqli_query($this->dbConnect, $sqlUpdateInventario);
 
 					$sqlInsertMoviInventario = "
 					INSERT INTO " . $this->movi_inv . "(id_insumos, cant_movimiento, tipo_movimiento, fecha_movimiento,id_usuario,comentario) 
-					VALUES ('" . $id_insumo[$j] . "', '" . $cantidad[$j]*$POST['cantidad'][$i] . "', 2, now(),'" . $_SESSION['id_login'] . "','Salida de insumos')";
+					VALUES ('" . $id_insumo[$j] . "', '" . $cantidad_insumo[$j]*$POST['cantidad'][$i] . "', 2, now(),'" . $_SESSION['id_login'] . "','Salida de insumos por producto')";
 					mysqli_query($this->dbConnect, $sqlInsertMoviInventario);
 				}
 			} 
 
+		}
+
+
+		for ($i = 0; $i < count($POST['idPromocion']); $i++) {
+			$sqlUpdateItem = "
+		   UPDATE " . $this->promo_ped . "
+		   SET cantidad = '" . $POST['cantidadpromo'][$i] . "', precio_venta= '" . $POST['preciopromo'][$i] . "' 
+			   WHERE id_pedido_promocion = '" . $POST['id_prom_detalleprom'][$i] . "' ";
+		   mysqli_query($this->dbConnect, $sqlUpdateItem);
+
+
+		   	//validación para revisar si el estado del pedido es 2
+				//de ser afirmativo se procede a restar insumos del inventario segun los datos del recetario
+				//y a registrar las salidas de inventario en Movimientos de Inventario
+			if($POST['estado_pedido']==2){
+				//select para obtener los datos de los insumos que componen el producto vendido
+			
+				$sqlSelectPromProductos = " 
+				SELECT * FROM " . $this->promo_prod . " WHERE id_promociones='" . $POST['idPromocion'][$i] . "'";
+				$query=mysqli_query($this->dbConnect,$sqlSelectRecetario);
+					if (!$query) {
+						die('Error in query');
+					}
+	
+					//se crea un arreglo para recibir todos los insumos y las respectivas cantidades de los mismos
+					$id_producto = array();
+					$cantidad_producto= array();
+					$cont = 0;
+					while ($row = $query->fetch_assoc()) {
+						$id_producto[$cont]=$row['id_producto'];
+						$cantidad_producto[$cont]=1;
+						$cont++;
+					}	
+
+			$sqlSelectRecetario = " 
+			SELECT * FROM " . $this->recetario . " WHERE id_producto='" . $id_producto[$i] . "'";
+			$query=mysqli_query($this->dbConnect,$sqlSelectRecetario);
+				if (!$query) {
+					die('Error in query');
+				}
+
+				//se crea un arreglo para recibir todos los insumos y las respectivas cantidades de los mismos
+				$id_insumo = array();
+				$cantidad_insumo= array();
+				$cont = 0;
+				while ($row = $query->fetch_assoc()) {
+					$id_insumo[$cont]=$row['id_insumo'];
+					$cantidad_insumo[$cont]=$row['cant_insumo'];
+					$cont++;
+				}																																																											
+			
+				//ciclo que se encarga de actualizar el inventario, restando los insumos consumidos por cada producto
+				//y de insertar en la tabla de movimientos de inventario la cantidad de insumos usados y el tipo de movimiento
+				for($j=0;$j<$cont;$j++){
+					$sqlUpdateInventario = "
+						UPDATE " . $this->inventario . " 
+						SET cant_existencia = cant_existencia - '" . ($cantidad_insumo[$j]*$POST['cantidadpromo'][$i])*$cantidad_producto[$i] . "' 
+						WHERE id_insumo = '" . $id_insumo[$j] . "' ";
+					mysqli_query($this->dbConnect, $sqlUpdateInventario);
+
+					$sqlInsertMoviInventario = "
+					INSERT INTO " . $this->movi_inv . "(id_insumos, cant_movimiento, tipo_movimiento, fecha_movimiento,id_usuario,comentario) 
+					VALUES ('" . $id_insumo[$j] . "', '" . ($cantidad_insumo[$j]*$POST['cantidadpromo'][$i])*$cantidad_producto[$i] . "', 2, now(),'" . $_SESSION['id_login'] . "','Salida de insumos por promoción')";
+					mysqli_query($this->dbConnect, $sqlInsertMoviInventario);
+				}
+			} 
 		}
 	}
 
@@ -206,6 +285,9 @@ class Invoice{
 			Bitacora::guardar_bitacora($datos_bitacora); 
 		}
 	}
+
+
+
 
 
 	public function anularPedido($POST)

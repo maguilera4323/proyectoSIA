@@ -5,7 +5,7 @@
 		var mData = this.options[this.selectedIndex].dataset;
 	  
 		/* Referencia a los input */
-		var elPrice = document.getElementById('precio_2');
+		var elPrice = document.getElementById('preciopromo_1');
 	  
 		/* Asignamos cada dato a su input*/
 		elPrice.value = mData.price;
