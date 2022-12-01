@@ -319,24 +319,24 @@
 							<td><select name="nombrePromocion[]" id="nombrePromocion_1" class="form-control nombrePromocion"
 							 required>
 									<?php
-									$SQL="SELECT * FROM TBL_promociones";
+									$SQL="SELECT * FROM TBL_producto";
 									$dato = mysqli_query($conexion, $SQL);
 									$options="<option value=\"\" data-price=\"\" selected>Seleccione una opción</option>";
 									
 										if($dato -> num_rows >0){
 											while($fila=mysqli_fetch_array($dato)){
-												$precio='data-price="'.$fila['precio_promocion'].'"';  
-												$id=$fila['id_promociones'];
-												$nombre=$fila['nom_promocion'];
+												$precio='data-price="'.$fila['precio_produ'].'"';  
+												$id=$fila['id_producto'];
+												$nombre=$fila['nom_producto'];
 												$options.="<option value=\"$id\" $precio>$nombre</option>";
 												}
 												echo $options;
 											}
 										?>
 							</select></td>
-							<td><input type="number" name="cantidadpromo[]" id="cantidadpromo_1"  class="form-control quantitypromo" required ></td>
-							<td><input type="number" name="preciopromo[]" id="preciopromo_1" class="form-control pricepromo"></td>
-							<td><input type="number" name="totalpromo[]" id="totalpromo_1" class="form-control totalpromo"></td>
+							<td><input type="number" name="cantidad[]" id="cantidad_1"  class="form-control quantity" required ></td>
+							<td><input type="number" name="precio[]" id="precio_1" class="form-control price" disabled></td>
+							<td><input type="number" name="total[]" id="total_1" class="form-control total" disabled></td>
 						</tr>
 					</table>
 				</div>
