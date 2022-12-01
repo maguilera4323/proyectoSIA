@@ -55,8 +55,8 @@ class Invoice{
 
 		//Insert para la tabla de Pedidos
 		$sqlInsert = "
-			INSERT INTO " . $this->datosPedido . "(id_cliente, num_factura, fech_pedido,  fech_entrega, sitio_entrega, id_estado_pedido, sub_total, ISV, total, id_forma_pago, fech_facturacion,porcentaje_isv) 
-			VALUES ('" . $POST['cliente_pedido'] . "', '" . $POST['num_factura'] . "', '" . $POST['fecha_pedido'] . "', '" . $POST['fecha_entrega'] . "','" . $POST['sitio_entrega'] . "',
+			INSERT INTO " . $this->datosPedido . "(num_factura, fech_pedido,  fech_entrega, sitio_entrega, id_estado_pedido, sub_total, ISV, total, id_forma_pago, fech_facturacion,porcentaje_isv) 
+			VALUES ('" . $POST['num_factura'] . "', '" . $POST['fecha_pedido'] . "', '" . $POST['fecha_entrega'] . "','" . $POST['sitio_entrega'] . "',
 			'" . $POST['estado_pedido'] . "', '" . $POST['subTotal'] . "','" . $POST['taxAmount'] . "','" . $POST['totalAftertax'] . "','" . $POST['forma_pago_venta'] . "', now(),'" . $isv . "'/100 )";
 		mysqli_query($this->dbConnect, $sqlInsert);
 		$lastInsertId = mysqli_insert_id($this->dbConnect);
@@ -176,7 +176,7 @@ class Invoice{
 
 					$sqlInsertMoviInventario = "
 					INSERT INTO " . $this->movi_inv . "(id_insumos, cant_movimiento, tipo_movimiento, fecha_movimiento,id_usuario,comentario) 
-					VALUES ('" . $id_insumo[$j] . "', '" . $cantidad[$j] . "', 2, now(),'" . $_SESSION['id_login'] . "','Salida de insumos')";
+					VALUES ('" . $id_insumo[$j] . "', '" . $cantidad[$j]*$POST['cantidad'][$i] . "', 2, now(),'" . $_SESSION['id_login'] . "','Salida de insumos')";
 					mysqli_query($this->dbConnect, $sqlInsertMoviInventario);
 				}
 			} 

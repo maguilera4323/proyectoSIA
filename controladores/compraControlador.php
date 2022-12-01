@@ -39,7 +39,6 @@ class Invoice{
 			INSERT INTO " . $this->datosCompra . "(id_proveedor, id_usuario, id_estado_compra,  fech_compra,total_compra) 
 			VALUES ('" . $POST['proveedor_compra'] . "', '" . $_SESSION['id_login'] . "', '" . $POST['estado_compra'] . "', now(),'" . $POST['subTotal'] . "')";
 		mysqli_query($this->dbConnect, $sqlInsert);
-		$lastInsertId = mysqli_insert_id($this->dbConnect); 
 
 		//segundo insert, para la tabla de Detalle Compras
 		//el ciclo es para insertar todos los insumos agregados a la compra
@@ -48,11 +47,12 @@ class Invoice{
 			INSERT INTO " . $this->datosDetalleCompra . "(id_compra, id_insumos, cantidad_comprada, precio_costo, fecha_caducidad,estado_compra) 
 			VALUES ('" . $POST['productCode'] . "', '" . $POST['productName'][$i] . "', '" . $POST['quantity'][$i] . "', '" . $POST['price'][$i] . "', '" . $POST['fechaCaducidad'][$i] . "', '" . $POST['estado_compra'] . "')";
 			mysqli_query($this->dbConnect, $sqlInsertItem);
-		}
+			
+			}
 
 
 		//mensaje de alerta indicando que se realizó una compra de forma exitosa
-		if (isset($lastInsertId)=='true'){
+		if (isset($sqlInsert)=='true'){
 			$datos_bitacora = [
 				"id_objeto" => 0,
 				"fecha" => date('Y-m-d H:i:s'),
@@ -67,9 +67,9 @@ class Invoice{
 			title: "Compra Realizada",
 			text: "Su compra ha sido realizada exitosamente",
 			type: "success"
-		  }).then(function() {
-			  window.location.href = "../compra-list";
-		  })
+		}).then(function() {
+			window.location.href = "../compra-list";
+		})
 			</script>'; 
 		}
 		
@@ -97,21 +97,6 @@ class Invoice{
 					WHERE id_detalle_compra = '" . $POST['id_act_detallecompra'][$i] . "' ";
 				mysqli_query($this->dbConnect, $sqlUpdateItem); 
 
-
-				//validación para comprobar que el estado de compra sea igual a Realizada
-				//en caso afirmativo se realiza la actualizacion del inventario
-				//y el registro de los insumos ingresados en los movimientos de inventario
-				if($POST['estado_compra']==2){
-					$sqlUpdateInventario = "
-						UPDATE " . $this->inventario . " 
-						SET cant_existencia = cant_existencia + '" . $POST['quantity'][$i] . "' 
-						WHERE id_insumo = '" . $POST['productName'][$i] . "' ";
-					mysqli_query($this->dbConnect, $sqlUpdateInventario);
-
-					$sqlInsertMoviInventario = "
-					INSERT INTO " . $this->movi_inv . "(id_insumos, cant_movimiento, tipo_movimiento, fecha_movimiento,id_usuario,comentario) 
-					VALUES ('" . $POST['productName'][$i] . "', '" . $POST['quantity'][$i] . "', 1, now(),'" . $_SESSION['id_login'] . "','Entrada de insumos')";
-					mysqli_query($this->dbConnect, $sqlInsertMoviInventario);}
 			}
 		}
 

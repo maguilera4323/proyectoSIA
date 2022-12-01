@@ -289,8 +289,8 @@
 										?>
 							</select></td>
 							<td><input type="number" name="cantidad[]" id="cantidad_1" class="form-control quantity" required ></td>
-							<td><input type="number" name="precio[]" id="precio_1" class="form-control price" disabled></td>
-							<td><input type="number" name="total[]" id="total_1" class="form-control total" disabled></td>
+							<td><input type="number" name="precio[]" id="precio_1" class="form-control price" ></td>
+							<td><input type="number" name="total[]" id="total_1" class="form-control total" ></td>
 						</tr>
 					</table>
 				</div>
@@ -298,10 +298,10 @@
 	<!-- 	<div class="row"> -->
 
 <!-- INICIO PROMOCIONES -->
-			<div class="row">
+<div class="row">
 				<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-					<button class="btn btn-danger delete" id="removeRowsPomociones" type="button">- Eliminar</button>
-					<button class="btn btn-success" id="addRowsPromocion" type="button">+ Agregar Más</button>    <!-- cambie addRowsFactura -->
+					<button class="btn btn-danger delete" id="removeRowsPromociones" type="button">- Eliminar</button>
+					<button class="btn btn-success" id="addRowsPromocion" type="button">+ Agregar Más</button>    
 				</div>
 			</div>
 			<div class="row">
@@ -319,24 +319,24 @@
 							<td><select name="nombrePromocion[]" id="nombrePromocion_1" class="form-control nombrePromocion"
 							 required>
 									<?php
-									$SQL="SELECT * FROM TBL_producto";
+									$SQL="SELECT * FROM TBL_promociones";
 									$dato = mysqli_query($conexion, $SQL);
 									$options="<option value=\"\" data-price=\"\" selected>Seleccione una opción</option>";
 									
 										if($dato -> num_rows >0){
 											while($fila=mysqli_fetch_array($dato)){
-												$precio='data-price="'.$fila['precio_produ'].'"';  
-												$id=$fila['id_producto'];
-												$nombre=$fila['nom_producto'];
+												$precio='data-price="'.$fila['precio_promocion'].'"';  
+												$id=$fila['id_promociones'];
+												$nombre=$fila['nom_promocion'];
 												$options.="<option value=\"$id\" $precio>$nombre</option>";
 												}
 												echo $options;
 											}
 										?>
 							</select></td>
-							<td><input type="number" name="cantidad[]" id="cantidad_1"  class="form-control quantity" required ></td>
-							<td><input type="number" name="precio[]" id="precio_1" class="form-control price" disabled></td>
-							<td><input type="number" name="total[]" id="total_1" class="form-control total" disabled></td>
+							<td><input type="number" name="cantidadpromo[]" id="cantidadpromo_1"  class="form-control quantitypromo" required ></td>
+							<td><input type="number" name="preciopromo[]" id="preciopromo_1" class="form-control pricepromo"></td>
+							<td><input type="number" name="totalpromo[]" id="totalpromo_1" class="form-control totalpromo"></td>
 						</tr>
 					</table>
 				</div>
@@ -344,7 +344,7 @@
 <!-- FIN PROMOCIOES -->
 
 			<div class="row">
-				<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+				<div class="col-xs-10 col-sm-8 col-md-8 col-lg-8">
 					
 					<br>
 					<div class="form-group">
@@ -356,7 +356,7 @@
 					</div>
 
 				</div>
-				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
 					<span class="form-inline">
 						<div class="form-group">
 							<label class="color-label">Subtotal: &nbsp;</label>
@@ -366,11 +366,6 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="color-label">Porcentaje Descuento: &nbsp;</label>
-							<div class="input-group">
-								<input type="number" class="form-control" name="nombredescuento" id="nomdesc" step="any" placeholder="Monto descuento" disabled>
-								<div class="input-group-addon">%</div>
-							</div>
 						</div>
 						<div class="form-group">
 							<label class="color-label">Monto después de descuento: &nbsp;</label>
@@ -378,19 +373,27 @@
 								<div class="input-group-addon currency">L.</div>
 								<input type="number" class="form-control" name="montodescuento" id="descuentomonto" step="any" placeholder="Monto descuento" novalidate>
 							</div>
-						</div>
-						<div class="form-group">
-							<label class="color-label">Porcentaje Impuestos: &nbsp;</label>
+							<!-- <label class="color-label">Porcentaje Descuento: &nbsp;</label> -->
 							<div class="input-group">
-								<input value="15" type="number" class="form-control" name="taxRate" id="taxRate" step="any" disabled novalidate>
+								<input type="number" class="form-control" name="nombredescuento" id="nomdesc" step="any" 
+								style="width:5rem;" placeholder="% descuento" disabled>
 								<div class="input-group-addon">%</div>
 							</div>
+						</div>
+						<div class="form-group">
+							
 						</div>
 						<div class="form-group">
 							<label class="color-label">Monto impuestos: &nbsp;</label>
 							<div class="input-group">
 								<div class="input-group-addon currency">L.</div>
 								<input type="number" class="form-control" name="taxAmount" id="taxAmount" step="any" placeholder="Monto impuestos" novalidate>
+							</div>
+							<!-- <label class="color-label">Porcentaje Impuestos: &nbsp;</label> -->
+							<div class="input-group">
+								<input value="15" type="number" class="form-control" name="taxRate" id="taxRate" 
+								style="width:5rem;" step="any" disabled>
+								<div class="input-group-addon">%</div>
 							</div>
 						</div>
 						

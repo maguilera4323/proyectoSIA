@@ -48,7 +48,7 @@
 					
 					//query para obtener los datos guardados en la tabla de compras
 					//estos datos serán mostrados en la vista
-					$query="SELECT p.nom_proveedor,p.id_Proveedores, u.usuario,c.fech_compra,c.total_compra FROM TBL_compras c
+					$query="SELECT p.nom_proveedor,p.id_Proveedores, c.id_estado_compra, u.usuario,c.fech_compra,c.total_compra FROM TBL_compras c
 					inner join TBL_Proveedores p on p.id_Proveedores=c.id_proveedor
 					inner join TBL_usuarios u on u.id_usuario=c.id_usuario
 					where c.id_compra='$id_act_compra'";
@@ -61,8 +61,16 @@
 							$Proveedor=$fila['nom_proveedor'];
 							$Fecha=$fila['fech_compra'];
 							$Total=$fila['total_compra'];
+							$estado=$fila['id_estado_compra'];
 						}
 					}
+
+					//valida si el query anterior no retornó ningún valor
+			//en este caso no había un permiso registrado del objeto para el rol del usuario conectado
+				if($estado!=1){
+				echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Solo puede editar compras con estado Pendiente</div>';
+				echo "<script> window.location.href='".SERVERURL."compra-list/'; </script>";	
+			}
 
 					//query para obtener el id del primer insumo de la compra
 					//este dato será utilizado en un ciclo más abajo para poder obtener los id de todos los insumos

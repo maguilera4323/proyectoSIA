@@ -57,18 +57,6 @@ class recetarioControlador extends recetarioModelo
 			exit();
 		}
 
-		$check_recetario=mainModel::ejecutar_consulta_simple("SELECT id_recetario FROM TBL_recetario WHERE id_recetario='$Id_producto'");
-			if($check_recetario->rowCount()>0){
-				$alerta=[
-					"Alerta"=>"simple",
-					"Titulo"=>"Ocurrió un error inesperado",
-					"Texto"=>"La receta ingresada ya se encuentra registrada en el sistema",
-					"Tipo"=>"error"
-				];
-				echo json_encode($alerta);
-				exit();
-			}
-
 			$datos_recetario_reg=[
 				"id_producto"=>$Id_producto,
 				"id_insumo"=>$Id_insumo,

@@ -57,6 +57,9 @@ $(document).ready(function(){
 		htmlRows += '</tr>';
 		$('#invoiceItemFactura').append(htmlRows);
 
+//funciones para las promociones
+
+
 		//funcion para obtener el precio del segundo producto en adelante
 		//usando un elemento de atributo
 		document.getElementById("nombreProducto_"+count).onchange = function() {
@@ -121,6 +124,134 @@ $(document).ready(function(){
 		}
 	});
 });	
+
+
+// funciones para las promociones
+//función de cálculo de la factura
+
+$(document).ready(function(){
+	$(document).on('click', '#checkAllPromo', function() {          	
+		$(".itemRowPromociones").prop("checked", this.checked);
+	});	
+
+	//función para generar filas al presionar el botón de agregar más
+	$(document).on('click', '.itemRowPromociones', function() {  	
+		if ($('.itemRowPromociones:checked').length == $('.itemRowPromociones').length) {
+			$('#checkAllPromo').prop('checked', true);
+		} else {
+			$('#checkAllPromo').prop('checked', false);
+		}
+	});
+
+	//inicia función que sirve para agregar datos al select que se genere en cada nueva fila
+	var count = $(".itemRowPromociones").length;
+	$(document).on('click', '#addRowsPromocion', function() { 
+		//variable count para generar valores unicos para el id de cada input o select
+		count++;
+		$(document).ready(function(){
+			let $promocion=document.querySelector("#nombrePromocion_"+count);
+
+			function cargarPromocion(){
+				$.ajax({
+					type:'GET',
+					url:"../controladores/obtenerPromocion.php",
+					success:function(response){
+						const promociones=JSON.parse(response)
+
+						let template='<option value=\"\" data-price=\"\" selected>Seleccione una opción</option>';
+
+						promociones.forEach(promocion => {
+							template+=`<option value=\"${promocion.idPromocion}\" data-price=\"${promocion.precioPromocion}\">${promocion.nomPromocion}</option>`
+						})
+
+						$promocion.innerHTML=template;
+					}
+				});
+			}
+
+			cargarPromocion();
+		})
+
+
+		//se generan las filas para una nueva promocion
+		var htmlRows = '';
+		htmlRows += '<tr>';
+		htmlRows += '<td><input class="itemRowPromociones" type="checkbox"></td>';                   
+		htmlRows += '<td><select name="nombrePromocion[]" id="nombrePromocion_'+count+'" class="form-control">\
+							<option value="" selected="" disabled="">Seleccione una opción</option>\
+					</select></td>';
+		htmlRows += '<td><input type="number" name="cantidadpromo[]" id="cantidadpromo_'+count+'" class="form-control quantitypromo" autocomplete="off"></td>';   		
+		htmlRows += '<td><input type="number" name="preciopromo[]" id="preciopromo_'+count+'" class="form-control pricepromo" autocomplete="off"></td>';		 
+		htmlRows += '<td><input type="number" name="totalpromo[]" id="totalpromo_'+count+'" class="form-control totalpromo" autocomplete="off"></td>';          
+		htmlRows += '</tr>';
+		$('#invoiceItemPromociones').append(htmlRows);
+
+		//funcion para obtener el precio del segundo producto en adelante
+		//usando un elemento de atributo
+		document.getElementById("nombrePromocion_"+count).onchange = function() {
+			/* Referencia a los atributos data de la opción seleccionada */
+			
+			var mData = this.options[this.selectedIndex].dataset;
+		  
+			/* Referencia a los input */
+			var elPrice = document.getElementById("precio_"+count);
+		  
+			/* Asignamos cada dato a su input*/
+			elPrice.value = mData.price;
+		  };
+	}); 
+
+	//funcion que se encarga de eliminar la fila y todos los registros guardados en esta
+	$(document).on('click', '#removeRowsPromociones', function(){
+		$(".itemRowPromociones:checked").each(function() {
+			$(this).closest('tr').remove();
+		});
+		$('#checkAllPromo').prop('checked', false);
+		calculateTotal();
+	});		
+	$(document).on('blur', "[id^=cantidad_]", function(){
+		calculateTotal();
+	});	
+	$(document).on('blur', "[id^=precio_]", function(){
+		calculateTotal();
+	});	
+	$(document).on('blur', "#nomdesc", function(){		
+		calculateTotal();
+	});
+	$(document).on('blur', "#taxRate", function(){		
+		calculateTotal();
+	});	
+	$(document).on('blur', "#amountPaid", function(){
+		var amountPaid = $(this).val();
+		var totalAftertax = $('#totalAftertax').val();	
+		if(amountPaid && totalAftertax) {
+			totalAftertax = amountPaid-totalAftertax;			
+			$('#amountDue').val(totalAftertax);
+		} else {
+			$('#amountDue').val(totalAftertax);
+		}	
+	});	
+	$(document).on('click', '.deleteInvoice', function(){
+		var id = $(this).attr("id");
+		if(confirm("¿Deseas eliminar este registro?")){
+			$.ajax({
+				url:"action.php",
+				method:"POST",
+				dataType: "json",
+				data:{id:id, action:'delete_invoice'},				
+				success:function(response) {
+					if(response.status == 1) {
+						$('#'+id).closest("tr").remove();
+					}
+				}
+			});
+		} else {
+			return false;
+		}
+	});
+});	
+
+
 
 //funcion que realiza los cálculos de las filas
 function calculateTotal(){
