@@ -92,7 +92,6 @@ class Invoice{
 		} 
 
 
-		if(isset($POST['nombrePromocion'])){
 			//Tercer insert, para la tabla de Pedido Promociones
 			//el ciclo es para insertar todos los promociones agregados a un producto especifico
 			for ($j = 0; $j < count($POST['nombrePromocion']); $j++) {
@@ -101,7 +100,7 @@ class Invoice{
 				VALUES ( '" . $POST['nombrePromocion'][$j] . "', '" . $POST['numPedido'] . "','" . $POST['cantidadpromo'][$j] . "','" . $POST['preciopromo'][$j] . "')";
 				mysqli_query($this->dbConnect, $sqlInsertPromocion);  
 			} 
-		}
+	
 
 
 		//mensaje de alerta confirmando que la venta ha sido exitosa
