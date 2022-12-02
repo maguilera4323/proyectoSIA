@@ -46,7 +46,7 @@ class recetarioControlador extends recetarioModelo
 			exit();
 		}
 
-		if(mainModel::verificar_datos("[0-9]{1,40}",$cant_insumo)){
+		if(mainModel::verificar_datos("[0-9.]{1,40}",$cant_insumo)){
 			$alerta=[
 				"Alerta"=>"simple",
 				"Titulo"=>"Ocurrió un error inesperado",
@@ -106,7 +106,7 @@ class recetarioControlador extends recetarioModelo
 		
 
 		//verificar datos ingresados
-		if(mainModel::verificar_datos("[0-9]{1,40}",$cant_insumo)){
+		if(mainModel::verificar_datos("[0-9.]{1,40}",$cant_insumo)){
 			$alerta=[
 				"Alerta"=>"simple",
 				"Titulo"=>"Ocurrió un error inesperado",

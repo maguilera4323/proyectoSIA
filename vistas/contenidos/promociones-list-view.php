@@ -5,7 +5,7 @@
 		//verificación de permisos
 		//se revisa si el usuario tiene acceso a una vista específica por medio del rol que tiene y el objeto al que quiere acceder
 		$id_rol=$_SESSION['id_rol'];
-			$SQL="SELECT * FROM TBL_permisos where id_rol='$id_rol' and id_objeto=2";
+			$SQL="SELECT * FROM TBL_permisos where id_rol='$id_rol' and id_objeto=21";
 			$dato = mysqli_query($conexion, $SQL);
 
 			if($dato -> num_rows >0){
@@ -29,11 +29,11 @@
 			}else{
 				$datos_bitacora = 
 				[
-					"id_objeto" => 2,
+					"id_objeto" => 21,
 					"fecha" => date('Y-m-d H:i:s'),
 					"id_usuario" => $_SESSION['id_login'],//cambiar aqui para que me pueda traer el USU conectado
 					"accion" => "Cambio de vista",
-					"descripcion" => "El usuario ".$_SESSION['usuario_login']." entró a la Vista de Proveedores"
+					"descripcion" => "El usuario ".$_SESSION['usuario_login']." entró a la Vista de Promociones"
 				];
 				Bitacora::guardar_bitacora($datos_bitacora);
 			}
@@ -168,7 +168,7 @@ if($dato -> num_rows >0){
 		//si la fecha actual es mayor que la fecha final se procede a actualizar el estado de la promocion
 		$dias = $fecha_actual->diff($fecha_final[$i])->format('%r%a');
 		if ($dias <= 0) {
-			$SQL="UPDATE TBL_promociones SET id_estado_promocio=5 WHERE id_promociones='$id_promocion[$i]'";
+			$SQL="UPDATE TBL_promociones SET id_estado_promocio=2 WHERE id_promociones='$id_promocion[$i]'";
 		}
 		$datos = mysqli_query($conexion, $SQL);
 		$i++;
@@ -186,7 +186,7 @@ if($dato -> num_rows >0){
 						<div class="modal fade" id="ModalActualizar<?php echo $fila['id_promociones'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 						<?php
 							if(!isset($permiso_act)){
-								echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Usted no tiene autorización para actualizar un proveedor</div>';
+								echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Usted no tiene autorización para actualizar una promoción</div>';
 								echo "<script> window.location.href='".SERVERURL."home/'; </script>";	
 							//valida si el permiso tiene valor de cero, lo que significa que no puede acceder a la vista	
 							}else if($permiso_act==0){

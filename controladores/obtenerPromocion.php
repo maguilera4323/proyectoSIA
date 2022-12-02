@@ -1,7 +1,7 @@
 <?php
 	include("../cone.php");
 
-	$query="SELECT * FROM TBL_promociones";
+	$query="SELECT * FROM TBL_promociones where id_estado_promocio=4";
 	$resultado=mysqli_query($conexion,$query);
 
 	$json=array();

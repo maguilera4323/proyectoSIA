@@ -163,7 +163,7 @@
 								
 								<div class="form-group">
 								<label class="color-label">Cantidad Insumo</label>
-								<input type="text" class="form-control" name="cant_insumo_act" value="<?php echo $fila['cant_insumo']; ?>" id="id_insumo" required>
+								<input type="text" class="form-control" name="cant_insumo_act" value="<?php echo $fila['cant_insumo']; ?>" id="id_insumo" step="any" required>
 								<input type="hidden" class="form-control" name="id_actualizacion" value="<?php echo $fila['id_recetario']?>">
 								</div>
 											
@@ -262,7 +262,7 @@
 							</div>
 				<div class="form-group">
 				<label class="color-label">Cantidad Insumo</label>
-				<input type="text" class="form-control" name="cant_insumo_nuevo" id="id_insumo" required>
+				<input type="text" class="form-control" name="cant_insumo_nuevo" id="id_insumo" step="any" required>
 			</div>
 			<button type="submit" class="btn btn-primary">Guardar</button>
 			<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

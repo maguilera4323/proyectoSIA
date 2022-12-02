@@ -316,10 +316,9 @@
 						</tr>
 						<tr>
 							<td><input class="itemRowPromociones" type="checkbox"></td>
-							<td><select name="nombrePromocion[]" id="nombrePromocion_1" class="form-control nombrePromocion"
-							 required>
+							<td><select name="nombrePromocion[]" id="nombrePromocion_1" class="form-control nombrePromocion">
 									<?php
-									$SQL="SELECT * FROM TBL_promociones";
+									$SQL="SELECT * FROM TBL_promociones where id_estado_promocio=1";
 									$dato = mysqli_query($conexion, $SQL);
 									$options="<option value=\"\" data-price=\"\" selected>Seleccione una opción</option>";
 									
@@ -334,7 +333,7 @@
 											}
 										?>
 							</select></td>
-							<td><input type="number" name="cantidadpromo[]" id="cantidadpromo_1"  class="form-control quantitypromo" required ></td>
+							<td><input type="number" name="cantidadpromo[]" id="cantidadpromo_1"  class="form-control quantitypromo"></td>
 							<td><input type="number" name="preciopromo[]" id="preciopromo_1" class="form-control pricepromo"></td>
 							<td><input type="number" name="totalpromo[]" id="totalpromo_1" class="form-control totalpromo"></td>
 						</tr>

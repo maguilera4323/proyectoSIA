@@ -48,7 +48,7 @@
 					//query para obtener los datos guardados en la tabla de compras
 					//estos datos serán mostrados en la vista
 					$query="SELECT p.id_pedido, p.id_cliente, p.num_factura, p.fech_pedido, p.fech_entrega, p.sitio_entrega,
-					p.sub_total, p.ISV, p.total, f.forma_pago, p.fech_facturacion FROM TBL_pedidos p
+					p.sub_total, p.ISV, p.total, f.forma_pago, p.fech_facturacion,p.id_estado_pedido FROM TBL_pedidos p
 					inner join TBL_forma_pago f on f.id_forma_pago=p.id_forma_pago
 					where p.id_pedido='$id_act_pedido'";
 					$resultado=mysqli_query($conexion,$query);
@@ -65,7 +65,15 @@
 							$Total=$fila['total'];
 							$fechaFact=$fila['fech_facturacion'];
 							$formaPago=$fila['forma_pago'];
+							$estado=$fila['id_estado_pedido'];
 						}
+					}
+
+					//valida si el query anterior no retornó ningún valor
+					//si el estado es distinto a Pendiente no se puede editar la venta
+					if($estado!=1){
+						echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Solo puede editar ventas con estado Pendiente</div>';
+						echo "<script> window.location.href='".SERVERURL."facturacion-list/'; </script>";	
 					}
 
 					//query para obtener el id del primer insumo de la compra
@@ -318,8 +326,8 @@
 									$idPedPromocion=$filaDetalle['id_pedido_promocion'];
 									$idPromocion=$filaDetalle['id_promocion'];
 									$nomPromocion=$filaDetalle['nom_promocion'];
-									$cantidad=$filaDetalle['cantidad'];
-									$precio=$filaDetalle['precio_venta'];
+									$cantidadPromocion=$filaDetalle['cantidad'];
+									$precioPromocion=$filaDetalle['precio_venta'];
 								}
 							} 
 						?>
@@ -327,9 +335,9 @@
 							<td><input class="itemRowFactura" type="checkbox"></td>
 							<td><input type="text" name="productCode[]" id="productCode_<?php echo $count; ?>" class="form-control" value="<?php echo $id_prom_detalle;?>" autocomplete="off"></td>
 							<td><input type="text" class="form-control"   value="<?php echo $nomPromocion; ?>"></td>
-							<td><input type="number" name="cantidadpromo[]" id="cantidadpromo_<?php echo $i; ?>" value="<?php echo $cantidad;?>"class="form-control quantity" autocomplete="off"></td>
-							<td><input type="number" name="preciopromo[]" id="preciopromo_<?php echo $i; ?>" value="<?php echo $precio;?>" class="form-control price" autocomplete="off"></td>
-							<td><input type="number" name="totalpromo[]" id="totalpromo_<?php echo $i; ?>" value="<?php echo $precio*$cantidad; ?>" class="form-control total" autocomplete="off"></td>
+							<td><input type="number" name="cantidadpromo[]" id="cantidadpromo_<?php echo $i; ?>" value="<?php echo $cantidadPromocion;?>"class="form-control quantity" autocomplete="off"></td>
+							<td><input type="number" name="preciopromo[]" id="preciopromo_<?php echo $i; ?>" value="<?php echo $precioPromocion;?>" class="form-control price" autocomplete="off"></td>
+							<td><input type="number" name="totalpromo[]" id="totalpromo_<?php echo $i; ?>" value="<?php echo $precioPromocion*$cantidadPromocion; ?>" class="form-control total" autocomplete="off"></td>
 						</tr>
 						<div class="form-group">
 								<!--datos enviados para realizar las actualizaciones en el controlador!-->

@@ -66,7 +66,7 @@
 					}
 
 					//valida si el query anterior no retornó ningún valor
-			//en este caso no había un permiso registrado del objeto para el rol del usuario conectado
+					//si el estado es diferente a Pendiente no se podrá editar la compra
 				if($estado!=1){
 				echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Solo puede editar compras con estado Pendiente</div>';
 				echo "<script> window.location.href='".SERVERURL."compra-list/'; </script>";	
