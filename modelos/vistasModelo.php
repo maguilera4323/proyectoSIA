@@ -24,7 +24,7 @@
 			"salir",
 			"tipo-producto-new",
 			"user-list","user-new","user-update",	
-			"promociones-list", "descuentos-list",	//vistas de desc y prom
+			"promociones-list", "descuentos-list", "promocion_producto-list"	//vistas de desc y prom
 /* 			"client-update",
 			"objetos-new","objetos-update", */			  
 			 ];
