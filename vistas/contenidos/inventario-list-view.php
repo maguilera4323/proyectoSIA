@@ -34,6 +34,40 @@
 				];
 				Bitacora::guardar_bitacora($datos_bitacora);
 			}
+
+			//validación para obtener la alerta de cantidades bajos de insumos
+	//se obtiene la cantidad minima de cada insumo con este query
+	$sqlInsumos="SELECT* FROM TBL_insumos";
+	$dato = mysqli_query($conexion, $sqlInsumos); 
+	$cont=0;
+		if($dato -> num_rows >0){
+			while($fila=mysqli_fetch_array($dato)){
+				$cantidad[$cont]=$fila['cant_min'];
+				$cont++;
+			}
+		} 
+
+		//query para obtener las cantidades en inventario de cada insumo
+		$sqlInventario="SELECT* FROM TBL_inventario";
+		$dato = mysqli_query($conexion, $sqlInventario); 
+		$cont=0;
+			if($dato -> num_rows >0){
+				while($fila=mysqli_fetch_array($dato)){
+					$cantidad_inv[$cont]=$fila['cant_existencia'];
+					$cont++;
+				}
+			}
+		
+		//ciclo para validar si se debe mostrar la alerta de bajo inventario
+		//condicion de si la cantidad en inventario es menor o igual a la cantidad minina del insumo más 10
+		for($i=0;$i<$cont;$i++){
+			if($cantidad_inv[$i]<=($cantidad[$i]+10)){
+				echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Uno o más insumos están por terminarse. Revise el inventario de insumos
+					<button type="button" class="close" data-dismiss="alert"">X</button>
+					</div>';
+					break;
+			}
+		}
 ?>
 
 <div class="full-box page-header">

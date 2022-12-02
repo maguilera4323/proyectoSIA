@@ -97,6 +97,7 @@ if(isset($_GET['enviar'])){
 			<tr>
 				<th>N° de Factura</th>
 				<th>Cliente</th>
+				<th>DNI</th>
 				<th>Fecha de Pedido</th>
 				<th>Fecha de entrega</th>
 				<th>Estado Pedido</th>
@@ -112,7 +113,7 @@ if(isset($_GET['enviar'])){
 		<?php
 		
 				$SQL="SELECT p.id_pedido,p.num_factura, p.fech_pedido, p.fech_entrega, p.total,
-							p.id_cliente,
+							p.nom_cliente,p.dni_cliente,
 							e.estado_pedido FROM TBL_pedidos p
 						inner join TBL_estado_pedido e on p.id_estado_pedido=e.id_estado_pedido
 						ORDER BY p.id_pedido DESC
@@ -125,7 +126,8 @@ if(isset($_GET['enviar'])){
 				?>
 				<tr>
 				<td><?php echo $fila['num_factura']; ?></td>
-				<td><?php echo $fila['id_cliente']; ?></td>
+				<td><?php echo $fila['nom_cliente']; ?></td>
+				<td><?php echo $fila['dni_cliente']; ?></td>
 				<td><?php echo $fila['fech_pedido']; ?></td>
 				<td><?php echo $fila['fech_entrega']; ?></td>
 				<td><?php echo $fila['estado_pedido']; ?></td>

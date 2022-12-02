@@ -47,7 +47,7 @@
 					
 					//query para obtener los datos guardados en la tabla de compras
 					//estos datos serán mostrados en la vista
-					$query="SELECT p.id_pedido, p.id_cliente, p.num_factura, p.fech_pedido, p.fech_entrega, p.sitio_entrega,
+					$query="SELECT p.id_pedido, p.nom_cliente,  p.dni_cliente, p.num_factura, p.fech_pedido, p.fech_entrega, p.sitio_entrega,
 					p.sub_total, p.ISV, p.total, f.forma_pago, p.fech_facturacion,p.id_estado_pedido FROM TBL_pedidos p
 					inner join TBL_forma_pago f on f.id_forma_pago=p.id_forma_pago
 					where p.id_pedido='$id_act_pedido'";
@@ -55,7 +55,8 @@
 
 					if($resultado -> num_rows >0){
 					while($fila=mysqli_fetch_array($resultado)){
-							$id_cliente=$fila['id_cliente'];
+							$nom_cliente=$fila['nom_cliente'];
+							$dni_cliente=$fila['dni_cliente'];
 							$numFactura=$fila['num_factura'];
 							$sitioEntrega=$fila['sitio_entrega'];
 							$fechaPedido=$fila['fech_pedido'];
@@ -68,13 +69,13 @@
 							$estado=$fila['id_estado_pedido'];
 						}
 					}
-
+/* 
 					//valida si el query anterior no retornó ningún valor
 					//si el estado es distinto a Pendiente no se puede editar la venta
 					if($estado!=1){
 						echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Solo puede editar ventas con estado Pendiente</div>';
 						echo "<script> window.location.href='".SERVERURL."facturacion-list/'; </script>";	
-					}
+					} */
 
 					//query para obtener el id del primer insumo de la compra
 					//este dato será utilizado en un ciclo más abajo para poder obtener los id de todos los insumos
@@ -158,9 +159,9 @@
 			<div class="row">
 				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
 					<div class="form-group">
-						<label class="color-label">Cliente</label>
-						<input type="text" class="form-control" name="cliente_pedido" id="cliente_pedido" maxlength="27" 
-						value="<?php echo $id_cliente; ?>" required>
+						<label class="color-label">DNI</label>
+						<input type="text" class="form-control" name="dni_pedido" id="dni_pedido" maxlength="27" 
+						value="<?php echo $dni_cliente; ?>" required>
 					</div>	
 					<div class="form-group">
 						<label class="color-label">Num. Factura</label>
@@ -175,6 +176,11 @@
 					
 				</div> 
 				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+					<div class="form-group">
+						<label class="color-label">Cliente</label>
+						<input type="text" class="form-control" name="cliente_pedido" id="cliente_pedido" maxlength="27" 
+						value="<?php echo $nom_cliente; ?>" required>
+					</div>	
 					<div class="form-group">
 						<label class="color-label">Sitio de Entrega</label>
 						<input type="text" name="sitio_entrega" id="sitio_entrega" class="form-control" value="<?php echo $sitioEntrega; ?>" autocomplete="off">
@@ -218,10 +224,7 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-					<button class="btn btn-danger delete" id="removeRowsFactura" type="button">- Eliminar</button>
-					<button class="btn btn-success" id="addRowsFactura" type="button">+ Agregar Más</button>
-				</div>
+	
 			</div>
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -288,10 +291,7 @@
 			</div>
 
 			<div class="row">
-				<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-					<button class="btn btn-danger delete" id="removeRowsPromociones" type="button">- Eliminar</button>
-					<button class="btn btn-success" id="addRowsPromocion" type="button">+ Agregar Más</button>    
-				</div>
+
 			</div>
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
@@ -344,6 +344,8 @@
 								<!--id_act_compra[] para realizar el primer query de actualizacion del pedido!-->
 								<!--id_act_detallecompra[] para realizar el segundo query de actualizacion del detalle de pedido!-->
 								<!--nombreProducto[] para realizar la validacion del segundo query!-->
+								<input type="hidden" value="<?php echo $id_act_pedido; ?>" class="form-control" 
+								id="id_act_pedido_<?php echo $i; ?>" name="id_act_pedido[]">
 								<input type="hidden" value="<?php echo $id_prom_detalle; ?>" class="form-control" 
 								id="id_prom_detalleprom_<?php echo $j; ?>" name="id_prom_detalleprom[]">
 								<input type="hidden" value="<?php echo $idPromocion; ?>" class="form-control" 

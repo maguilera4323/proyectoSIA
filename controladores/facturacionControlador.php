@@ -53,12 +53,24 @@ class Invoice{
 				while ($fila = $query->fetch_assoc()) {
 					$isv=$fila['valor'];
 				}	
+				
+/* 				//Se valida si el campo del nombre del cliente está vacío
+				//de ser cierto se le asigna un nombre por defecto
+				if($POST['cliente_pedido']=''){
+					$POST['cliente_pedido']='CONSUMIDOR FINAL';
+				}
+
+				//Se valida si el campo del nombre del cliente está vacío
+				//de ser cierto se le asigna un nombre por defecto
+				if($POST['dni_pedido']=''){
+					$POST['dni_pedido']='0000000000000';
+				} */
 		
 
 		//Insert para la tabla de Pedidos
 		$sqlInsert = "
-			INSERT INTO " . $this->datosPedido . "(num_factura, fech_pedido,  fech_entrega, sitio_entrega, id_estado_pedido, sub_total, ISV, total, id_forma_pago, fech_facturacion,porcentaje_isv) 
-			VALUES ('" . $POST['num_factura'] . "', '" . $POST['fecha_pedido'] . "', '" . $POST['fecha_entrega'] . "','" . $POST['sitio_entrega'] . "',
+			INSERT INTO " . $this->datosPedido . "(nom_cliente, dni_cliente, num_factura, fech_pedido,  fech_entrega, sitio_entrega, id_estado_pedido, sub_total, ISV, total, id_forma_pago, fech_facturacion,porcentaje_isv) 
+			VALUES ('" . $POST['cliente_pedido'] . "', '" . $POST['dni_pedido'] . "','" . $POST['num_factura'] . "', '" . $POST['fecha_pedido'] . "', '" . $POST['fecha_entrega'] . "','" . $POST['sitio_entrega'] . "',
 			'" . $POST['estado_pedido'] . "', '" . $POST['subTotal'] . "','" . $POST['taxAmount'] . "','" . $POST['totalAftertax'] . "','" . $POST['forma_pago_venta'] . "', now(),'" . $isv . "'/100 )";
 		mysqli_query($this->dbConnect, $sqlInsert);
 		$lastInsertId = mysqli_insert_id($this->dbConnect);
@@ -84,15 +96,18 @@ class Invoice{
 
 		//segundo insert, para la tabla de Detalle Pedidos
 		//el ciclo es para insertar todos los productos agregados al pedido
+		if(isset($POST['nombreProducto'])){
 		for ($i = 0; $i < count($POST['nombreProducto']); $i++) {
 			$sqlInsertItem = "
 			INSERT INTO " . $this->datosDetallePedido . "(id_pedido, id_producto, cantidad, precio_venta) 
 			VALUES ('" . $POST['numPedido'] . "', '" . $POST['nombreProducto'][$i] . "', '" . $POST['cantidad'][$i] . "', '" . $POST['precio'][$i] . "')";
 			mysqli_query($this->dbConnect, $sqlInsertItem);
 		} 
+	}
 
 
 			//Tercer insert, para la tabla de Pedido Promociones
+			if(isset($POST['nombrePromocion'])){
 			//el ciclo es para insertar todos los promociones agregados a un producto especifico
 			for ($j = 0; $j < count($POST['nombrePromocion']); $j++) {
 				$sqlInsertPromocion = "
@@ -100,6 +115,7 @@ class Invoice{
 				VALUES ( '" . $POST['nombrePromocion'][$j] . "', '" . $POST['numPedido'] . "','" . $POST['cantidadpromo'][$j] . "','" . $POST['preciopromo'][$j] . "')";
 				mysqli_query($this->dbConnect, $sqlInsertPromocion);  
 			} 
+		}
 	
 
 
@@ -135,11 +151,11 @@ class Invoice{
 	public function actualizarFactura($POST){
 		//primer update, para la tabla de Pedidos
 		//se valida si se ha enviado el id de un producto
-		if ($POST['nombreProducto']) {
+		
 			for ($i = 0; $i <1; $i++) {
 			$sqlUpdate = "
 				UPDATE " . $this->datosPedido . " 
-				SET id_cliente = '" . $POST['cliente_pedido'] . "', fech_pedido = '" . $POST['fecha_pedido'] . "', 
+				SET nom_cliente = '" . $POST['cliente_pedido'] . "', dni_cliente = '" . $POST['dni_pedido'] . "', fech_pedido = '" . $POST['fecha_pedido'] . "', 
 				fech_entrega = '" . $POST['fecha_entrega'] . "', sitio_entrega = '" . $POST['sitio_entrega'] . "', id_estado_pedido = '" . $POST['estado_pedido'] . "',
 				sub_total = '" . $POST['subTotal'] . "', ISV = '" . $POST['taxAmount'] . "', total = '" . $POST['totalAftertax'] . "',
 				fech_facturacion = now() WHERE id_pedido = '" . $POST['id_act_pedido'][$i] . "' ";
@@ -149,6 +165,7 @@ class Invoice{
 
 		//segundo update, para la tabla de DetallePedidos
 		//el ciclo for para actualizar los productos agregados a la venta
+		if (isset($POST['nombreProducto'])) {
 			for ($i = 0; $i < count($POST['nombreProducto']); $i++) {
 				 $sqlUpdateItem = "
 				UPDATE " . $this->datosDetallePedido . "
@@ -193,21 +210,23 @@ class Invoice{
 					INSERT INTO " . $this->movi_inv . "(id_insumos, cant_movimiento, tipo_movimiento, fecha_movimiento,id_usuario,comentario) 
 					VALUES ('" . $id_insumo[$j] . "', '" . $cantidad_insumo[$j]*$POST['cantidad'][$i] . "', 2, now(),'" . $_SESSION['id_login'] . "','Salida de insumos por producto')";
 					mysqli_query($this->dbConnect, $sqlInsertMoviInventario);
-				}
-			} 
+					}
+				} 
 
+			}
 		}
+		
 
 
 		if(isset($POST['idPromocion'])){
 		//segundo update, para la tabla de PedidosPromociones
 		//el ciclo for para actualizar las promociones agregadas a la venta
 		for ($i = 0; $i < count($POST['idPromocion']); $i++) {
-			$sqlUpdateItem = "
+			$sqlUpdateProm = "
 		   UPDATE " . $this->promocion_pedido . "
 		   SET cantidad = '" . $POST['cantidadpromo'][$i] . "', precio_venta= '" . $POST['preciopromo'][$i] . "' 
 			   WHERE id_pedido_promocion = '" . $POST['id_prom_detalleprom'][$i] . "' ";
-		   mysqli_query($this->dbConnect, $sqlUpdateItem);
+		   mysqli_query($this->dbConnect, $sqlUpdateProm);
 
 
 		   	//validación para revisar si el estado del pedido es Realizado
@@ -274,10 +293,10 @@ class Invoice{
 			} 
 		}
 	}
-}
+
 
 	//mensaje de alerta indicando que la venta fue actualizada exitosamente
-		if (isset($sqlUpdateItem)=='true'){
+		if (isset($sqlUpdateItem)=='true' || isset($sqlUpdateProm)=='true'){
 			echo '<script>
 			swal.fire({
 			title: "Pedido Actualizado",

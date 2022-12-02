@@ -64,13 +64,13 @@
 							$estado=$fila['id_estado_compra'];
 						}
 					}
-
+/* 
 					//valida si el query anterior no retornó ningún valor
 					//si el estado es diferente a Pendiente no se podrá editar la compra
 				if($estado!=1){
 				echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Solo puede editar compras con estado Pendiente</div>';
 				echo "<script> window.location.href='".SERVERURL."compra-list/'; </script>";	
-			}
+			} */
 
 					//query para obtener el id del primer insumo de la compra
 					//este dato será utilizado en un ciclo más abajo para poder obtener los id de todos los insumos

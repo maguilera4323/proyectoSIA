@@ -36,6 +36,7 @@ class MYPDF extends TCPDF{
 
         while ($fila = mysqli_fetch_array($query)) {
                 $n_factura=$fila['num_factura'];
+                $fecha_facturacion=$fila['fech_facturacion'];
                 }
 
         $sqlCAI = ("SELECT * FROM TBL_talonario_cai");
@@ -86,7 +87,7 @@ class MYPDF extends TCPDF{
         $pdf->Ln(8); //Salto de Linea
         $pdf->Cell(170,6,'TELEFONO: 1234-5678',0,0,'C');
         $pdf->Ln(8); //Salto de Linea
-        $pdf->Cell(170,6,'Fecha: '. date('d-m-Y h:i:s A'),0,0,'C');
+        $pdf->Cell(170,6,'Fecha: '. $fecha_facturacion,0,0,'C');
         $pdf->Ln(8); //Salto de Linea
         $pdf->Cell(170,6,'N. FACTURA: '. $n_factura,0,0,'C');
         $pdf->Ln(25); //Salto de Linea
@@ -108,7 +109,7 @@ class MYPDF extends TCPDF{
         /*El 1 despues de  Fecha Ingreso indica que hasta alli 
         llega la linea */
 
-           $sql = ("SELECT p.id_pedido,p.id_cliente, p.fech_pedido, p.fech_entrega,p.sitio_entrega,p.num_factura,
+           $sql = ("SELECT p.id_pedido,p.nom_cliente, p.dni_cliente,p.fech_pedido, p.fech_entrega,p.sitio_entrega,p.num_factura,
            ep.estado_pedido,p.sub_total,p.ISV,p.total,f.forma_pago,p.fech_facturacion,p.porcentaje_isv FROM TBL_pedidos p
            inner join TBL_estado_pedido ep on ep.id_estado_pedido=p.id_estado_pedido
            inner join TBL_forma_pago f on f.id_forma_pago=p.id_forma_pago
@@ -118,7 +119,8 @@ class MYPDF extends TCPDF{
 
         while ($dataRow = mysqli_fetch_array($query)) {
                 $pedido=$dataRow['id_pedido'];
-                $cliente=$dataRow['id_cliente'];
+                $cliente=$dataRow['nom_cliente'];
+                $dni=$dataRow['dni_cliente'];
                 $num_factura=$dataRow['num_factura'];
                 $fech_pedido=$dataRow['fech_pedido'];
                 $fech_entrega=$dataRow['fech_entrega'];
@@ -137,9 +139,11 @@ class MYPDF extends TCPDF{
             $pdf->SetFont('helvetica','B',12); //La B es para letras en Negritas
             $pdf->Cell(45,6,'CLIENTE',1,0,'C',1);
             $pdf->Cell(45,6,($cliente),1,1,'C',1);
+            $pdf->Cell(45,6,'DNI',1,0,'C',1);
+            $pdf->Cell(45,6,($dni),1,1,'C',1);
             $pdf->Cell(45,6,'FECHA PEDIDO',1,0,'C');
             $pdf->Cell(45,6,$fech_pedido,1,1,'C');
-            $pdf->Cell(45,6,'FECHA PEDIDO',1,0,'C',1);
+            $pdf->Cell(45,6,'FECHA ENTREGA',1,0,'C',1);
             $pdf->Cell(45,6,($fech_entrega),1,1,'C',1);
             $pdf->Cell(45,6,'SITIO DE ENTREGA',1,0,'C');
             $pdf->Cell(45,6, $sitio,1,1,'C');
@@ -171,6 +175,29 @@ class MYPDF extends TCPDF{
                      $pdf->Cell(40,6, $dataRow['precio_venta'],1,0,'C');
                      $pdf->Cell(40,6, ($dataRow['precio_venta']*$dataRow['cantidad']),1,1,'C');
                  }
+        
+        
+                //Almando la cabecera de la Tabla
+             $pdf->SetFillColor(232,232,232);
+             $pdf->SetFont('helvetica','B',12); //La B es para letras en Negritas
+             $pdf->SetTextColor(0, 0, 0);
+             $pdf->Cell(60,6,'PROMOCION',1,0,'C',1);
+             $pdf->Cell(30,6,'CANTIDAD',1,0,'C',1);
+             $pdf->Cell(40,6,'PRECIO UNIT.',1,0,'C',1); 
+             $pdf->Cell(40,6,'TOTAL',1,1,'C',1); 
+     
+             $sqlDetalle = ("SELECT pr.nom_promocion,pp.id_pedido,pp.id_promocion, pp.cantidad, pp.precio_venta FROM TBL_pedidos_promociones pp
+                     inner join TBL_promociones pr on pr.id_promociones=pp.id_promocion
+             WHERE pp.id_pedido='$pedido'");
+     
+                  $query2 = mysqli_query($conexion, $sqlDetalle);
+          
+                  while ($dataRow = mysqli_fetch_array($query2)) {
+                          $pdf->Cell(60,6,($dataRow['nom_promocion']),1,0,'C');
+                          $pdf->Cell(30,6,$dataRow['cantidad'],1,0,'C');
+                          $pdf->Cell(40,6, $dataRow['precio_venta'],1,0,'C');
+                          $pdf->Cell(40,6, ($dataRow['precio_venta']*$dataRow['cantidad']),1,1,'C');
+                      }
    
         
         

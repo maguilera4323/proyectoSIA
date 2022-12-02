@@ -34,6 +34,7 @@ class Invoice{
 
 		//función para crear y guardar una factura de compra
 		public function nuevaFactura($POST){	
+
 		//primer insert, para la tabla de Compras
 		$sqlInsert = "
 			INSERT INTO " . $this->datosCompra . "(id_proveedor, id_usuario, id_estado_compra,  fech_compra,total_compra) 
@@ -111,13 +112,17 @@ class Invoice{
 			Bitacora::guardar_bitacora($datos_bitacora);  
 
 			echo '<script>
-			swal.fire({
-			title: "Compra Actualizada",
-			text: "Su compra ha sido actualizada exitosamente",
-			type: "success"
-		  }).then(function() {
-			  window.location.href = "../compra-list";
-		  })
+			document.getElementById("invoice_btn").addEventListener("click", function(event){
+				event.preventDefault()
+			  
+				swal.fire({
+				title: "Compra Actualizada",
+				text: "Su compra ha sido actualizada exitosamente",
+				type: "success"
+			}).then(function() {
+				window.location.href = "../compra-list";
+			})
+		});
 			</script>'; 
 		}
 	}

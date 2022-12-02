@@ -64,7 +64,7 @@ class descuentosControlador extends descuentosModelo
 	{	
 		$id_actualizar=mainModel::limpiar_cadena($_POST['id_actualizacion']);
 		$nombre=mainModel::limpiar_cadena($_POST['nombre_descuento_actu']);
-		$porcentaje=mainModel::limpiar_cadena($_POST['porcentaje_descuento_nuevo']);
+		$porcentaje=mainModel::limpiar_cadena($_POST['porcentaje_descuento_nuevo'])/100;
 		
 		if($nombre=="" || $porcentaje=="" ){
 			$alerta=[

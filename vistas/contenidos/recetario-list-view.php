@@ -82,6 +82,7 @@
             <th>PRODUCTO</th>
             <th>INSUMO</th>
 			<th>CANTIDAD INSUMO</th>
+			<th>UNIDAD MEDIDA</th>
             <th>ACTUALIZAR</th>
 			<th>ELIMINAR</th>
             </tr>
@@ -90,7 +91,7 @@
 
 		<?php
 			include ("./cone.php");              
-			$SQL="SELECT p.id_producto, p.nom_producto, i.id_insumos, i.nom_insumo, r.id_recetario, r.cant_insumo FROM TBL_recetario r
+			$SQL="SELECT p.id_producto, p.nom_producto, i.id_insumos, i.nom_insumo, i.unidad_medida, r.id_recetario, r.cant_insumo FROM TBL_recetario r
 			inner JOIN TBL_producto p ON p.id_producto = r.id_producto
 			inner JOIN TBL_insumos i ON i.id_insumos = r.id_insumo
 			$where";
@@ -105,6 +106,7 @@
 			<td><?php echo $fila['nom_producto']; ?></td>
 			<td><?php echo $fila['nom_insumo']; ?></td>
 			<td><?php echo $fila['cant_insumo']; ?></td>
+			<td><?php echo $fila['unidad_medida']; ?></td>
 			<td>
 				<div class="btn btn-success" data-toggle="modal" data-target="#ModalActualizar<?php echo $fila['id_recetario'];?>">
 					<i class="fas fa-sync-alt"> </i>

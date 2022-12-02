@@ -110,7 +110,7 @@
 					<i class="fas fa-sync-alt"> </i>
 				</div>
 						<!-- Modal actualizar-->
-						<div class="modal fade" id="ModalActualizar<?php echo $fila['id_id_promociones_productos'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal fade" id="ModalActualizar<?php echo $fila['id_promociones_productos'];?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 						<?php
 							if(!isset($permiso_act)){
 								echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Usted no tiene autorización para actualizar una promocion de productos</div>';

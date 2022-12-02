@@ -71,6 +71,7 @@ if(isset($_GET['enviar'])){
   </div>
 
   <br>
+  <h3 class="text-center">PRODUCTOS</h3>
 <!-- tabla  -->
 	<table class="table table-striped table-dark table_id text-center" id="tblDatos">
 		<!-- Encabezado de la tabla -->
@@ -106,7 +107,6 @@ if(isset($_GET['enviar'])){
 				<td><?php echo $fila['nom_producto']; ?></td>
 				<td><?php echo $fila['cantidad']; ?></td>
 				<td><?php echo $fila['precio_venta']; ?></td>
-
 			</tr>
 			<?php
 				}
@@ -117,12 +117,60 @@ if(isset($_GET['enviar'])){
 				<td colspan="16">No existen registros</td>
 				</tr>
 			
-				
 				<?php
 				
 			}
+
+			
 			?>
 		</tbody>
+	</table>
+	<br>
+	<h3 class="text-center">PROMOCIONES</h3>
+	<table class="table table-striped table-dark table_id text-center" id="tblDatos">
+		<!-- Encabezado de la tabla -->
+		<thead>
+			<tr>
+				<th>ID DETALLE</th>
+				<th>PROMOCION</th>
+				<th>CANTIDAD</th>
+				<th>PRECIO</th>
+			</tr>
+		</thead>
+		<tbody>
+		
+		<?php
 
+				$SQLProm="SELECT pp.id_pedido_promocion, pr.nom_promocion, pp.cantidad, pp.precio_venta FROM TBL_pedidos_promociones pp
+						inner join TBL_promociones pr on pr.id_promociones=pp.id_promocion
+						where pp.id_pedido='$id_pedido'";			
+				$dato = mysqli_query($conexion, $SQLProm);
+
+				if($dato -> num_rows >0){
+					while($fila=mysqli_fetch_array($dato)){
+
+				?>
+				<tr>
+				<td><?php echo $fila['id_pedido_promocion']; ?></td>
+				<td><?php echo $fila['nom_promocion']; ?></td>
+				<td><?php echo $fila['cantidad']; ?></td>
+				<td><?php echo $fila['precio_venta']; ?></td>
+			</tr>
+			<?php
+				}
+			}else{
+
+				?>
+				<tr class="text-center">
+				<td colspan="16">No existen registros</td>
+				</tr>
+			
+				<?php
+				
+			}
+
+			
+			?>
+		</tbody>
 	</table>
 	<div id="paginador" class=""></div>

@@ -139,15 +139,17 @@
 				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
 					<div class="form-group">
 						<label class="color-label">DNI</label>
-						<input type="text" value="<?php print "0000000000000";?>" maxlength="13" placeholder="Escribe tu DNI" id="textbox1" onkeypress="return solonumeros (event)" onChange="cambioTextBox1()">
+						<input type="text" value="<?php print "0000000000000";?>" class="form-control"  name="dni_pedido" id="dni_pedido" maxlength="13" 
+						onkeypress="return solonumeros (event)" onChange="cambioTextBox1()">
+						<!-- <input type="text"  maxlength="13"  id="textbox1" onkeypress="return solonumeros (event)" onChange="cambioTextBox1()"> -->
 						<!-- <input type="text" class="form-control" onkeypress="return solonumeros (event)" name="cliente_pedido" id="cliente_pedido" maxlength="13" required> -->
 						
 						<!-- ESTE SIRVE PARA BLOQUEAR LA CAJA DE TEXTO DE NOMBRE DE CLIENTE SIEMPRE Y CUANDO SE CUMPLA LA CONDICION DE 
 						LOS 13 CEROS -->
 						<script>
 						cambioTextBox1 = function() {
-						var textbox1 = document.getElementById("textbox1");
-						var textbox2 = document.getElementById("textbox2");
+						var textbox1 = document.getElementById("dni_pedido");
+						var textbox2 = document.getElementById("cliente_pedido");
 						
 						var valorTextBox1 = textbox1.value;
 						
@@ -185,28 +187,27 @@
 					</div>	
 				</div> 
 				<div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
-				   <div class="form-group">
-						<label class="color-label">CLIENTE</label>
-						<input type="text" id="textbox2" value="<?php print "Consumidor Final";?>" placeholder="Escribe tu Cliente" >
-						<!-- <input type="text" class="form-control"  name="cliente_pedido" id="cliente_pedido" maxlength="13" required> -->
-					</div>	
+					<div class="form-group">
+						<label class="color-label">Cliente</label>
+						<input type="text" placeholder="Ingrese nombre de cliente" name="cliente_pedido" id="cliente_pedido" class="form-control" 
+						value="<?php print "Consumidor Final";?>" autocomplete="off">
+					</div>
 					<div class="form-group">
 						<label class="color-label">Sitio de Entrega</label>
-						<input type="text" name="sitio_entrega" id="sitio_entrega" class="form-control" autocomplete="off" required>
+						<input type="text" placeholder="Ingrese dirección" name="sitio_entrega" id="sitio_entrega" class="form-control" autocomplete="off" required>
 					    <input type="hidden" name="numPedido" id="numPedido" class="form-control" value="<?php echo $idPedidoActual; ?>" autocomplete="off">
-					</div>		
-					
+					</div>			
 
 					<div class="form-group">
 						<label class="color-label">Estado de Pedido</label>
-						<select class="form-control" name="estado_pedido" id="estado_pedido" required>
+						<select class="form-control" name="estado_pedido" id="estado_pedido">
 							<?php
 							$SQL="SELECT * FROM TBL_estado_pedido LIMIT 1";
 								$dato = mysqli_query($conexion, $SQL);
 					
 								if($dato -> num_rows >0){
 									while($fila=mysqli_fetch_array($dato)){
-										echo '<option value='.$fila['id_estado_pedido'].' selected="">'.$fila['estado_pedido'].'</option>';
+										echo '<option value='.$fila['id_estado_pedido'].' selected>'.$fila['estado_pedido'].'</option>';
 										}
 									}
 								?>
@@ -288,7 +289,7 @@
 											}
 										?>
 							</select></td>
-							<td><input type="number" name="cantidad[]" id="cantidad_1" class="form-control quantity" required ></td>
+							<td><input type="number" name="cantidad[]" id="cantidad_1" class="form-control quantity" required></td>
 							<td><input type="number" name="precio[]" id="precio_1" class="form-control price" ></td>
 							<td><input type="number" name="total[]" id="total_1" class="form-control total" ></td>
 						</tr>
@@ -316,7 +317,7 @@
 						</tr>
 						<tr>
 							<td><input class="itemRowPromociones" type="checkbox"></td>
-							<td><select name="nombrePromocion[]" id="nombrePromocion_1" class="form-control nombrePromocion">
+							<td><select name="nombrePromocion[]" id="nombrePromocion_1" class="form-control nombrePromocion" required>
 									<?php
 									$SQL="SELECT * FROM TBL_promociones where id_estado_promocio=1";
 									$dato = mysqli_query($conexion, $SQL);
@@ -333,7 +334,7 @@
 											}
 										?>
 							</select></td>
-							<td><input type="number" name="cantidadpromo[]" id="cantidadpromo_1"  class="form-control quantitypromo"></td>
+							<td><input type="number" name="cantidadpromo[]" id="cantidadpromo_1"  class="form-control quantitypromo" required></td>
 							<td><input type="number" name="preciopromo[]" id="preciopromo_1" class="form-control pricepromo"></td>
 							<td><input type="number" name="totalpromo[]" id="totalpromo_1" class="form-control totalpromo"></td>
 						</tr>
