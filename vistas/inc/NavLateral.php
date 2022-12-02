@@ -206,7 +206,7 @@ include ("./cone.php");
 						<a href="<?php echo SERVERURL; ?>promociones-list/"><i class="fas fa-tags"></i> &nbsp; Lista de Promociones</a>
 						</li>
 						<li>
-						<a href="<?php echo SERVERURL; ?>promocion_producto-list/"><i class="fas fa-tags"></i> &nbsp; Promociones de Productos</a>
+						<a href="<?php echo SERVERURL; ?>promocionproducto-list/"><i class="fas fa-tags"></i> &nbsp; Promociones de Productos</a>
 						</li>
 					</ul>
 				</li>
