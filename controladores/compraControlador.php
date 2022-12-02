@@ -98,6 +98,24 @@ class Invoice{
 					WHERE id_detalle_compra = '" . $POST['id_act_detallecompra'][$i] . "' ";
 				mysqli_query($this->dbConnect, $sqlUpdateItem); 
 
+				if($POST['estado_compra']==2){
+					//select para obtener los datos de los insumos que componen el producto vendido																																																									
+				
+					//ciclo que se encarga de actualizar el inventario, restando los insumos consumidos por cada producto
+					//y de insertar en la tabla de movimientos de inventario la cantidad de insumos usados y el tipo de movimiento
+						$sqlUpdateInventario = "
+							UPDATE " . $this->inventario . " 
+							SET cant_existencia = cant_existencia + '" . $POST['quantity'][$i] . "' 
+							WHERE id_insumo = '" . $POST['productName'][$i] . "' ";
+						mysqli_query($this->dbConnect, $sqlUpdateInventario);
+	
+						$sqlInsertMoviInventario = "
+						INSERT INTO " . $this->movi_inv . "(id_insumos, cant_movimiento, tipo_movimiento, fecha_movimiento,id_usuario,comentario) 
+						VALUES ('" . $POST['productName'][$i] . "', '" . $POST['quantity'][$i] . "', 1, now(),'" . $_SESSION['id_login'] . "','Entrada de insumos')";
+						mysqli_query($this->dbConnect, $sqlInsertMoviInventario);
+
+					} 
+
 			}
 		}
 
@@ -112,9 +130,6 @@ class Invoice{
 			Bitacora::guardar_bitacora($datos_bitacora);  
 
 			echo '<script>
-			document.getElementById("invoice_btn").addEventListener("click", function(event){
-				event.preventDefault()
-			  
 				swal.fire({
 				title: "Compra Actualizada",
 				text: "Su compra ha sido actualizada exitosamente",
@@ -122,7 +137,6 @@ class Invoice{
 			}).then(function() {
 				window.location.href = "../compra-list";
 			})
-		});
 			</script>'; 
 		}
 	}

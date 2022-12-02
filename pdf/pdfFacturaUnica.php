@@ -60,7 +60,7 @@ class MYPDF extends TCPDF{
         //Informacion del PDF
         $pdf->SetCreator('WorkNet');
         $pdf->SetAuthor('WorkNet');
-        $pdf->SetTitle('Informe de Facturas');
+        $pdf->SetTitle('Factura de Ventas');
         
         /** Eje de Coordenadas
          *          Y
