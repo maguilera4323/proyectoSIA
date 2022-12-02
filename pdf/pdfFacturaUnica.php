@@ -198,8 +198,19 @@ class MYPDF extends TCPDF{
                           $pdf->Cell(40,6, $dataRow['precio_venta'],1,0,'C');
                           $pdf->Cell(40,6, ($dataRow['precio_venta']*$dataRow['cantidad']),1,1,'C');
                       }
-   
-        
+                
+                $sqlDescuento = ("SELECT total_descontado FROM TBL_pedido_descuentos WHERE id_pedidos='$pedido'");
+                $query2 = mysqli_query($conexion, $sqlDescuento);
+          
+                  while ($dataRow = mysqli_fetch_array($query2)) {
+                          $descuento=$dataRow['total_descontado'];
+                      }
+
+                      if(!isset($descuento)){
+                        $descuento='0.00';
+                      }
+
+                      
         
          $pdf->SetFillColor(232,232,232);
             $pdf->SetFont('helvetica','B',12); //La B es para letras en Negritas
@@ -207,13 +218,17 @@ class MYPDF extends TCPDF{
             $pdf->Cell(130,6,'SUBTOTAL L.',1,0,'R',1);
             $pdf->SetFillColor(232,232,232);
             $pdf->Cell(40,6,($subtotal),1,1,'C',1);
+            $pdf->SetFillColor(255,255,255);
+            $pdf->Cell(130,6,'DESCUENTO L.',0,0,'R',1);
+            $pdf->SetFillColor(255,255,255);
+            $pdf->Cell(40,6,'- '.($descuento),1,1,'C',1);
             $pdf-> SetFillColor(255,255,255);
             $pdf->Cell(130,6,'ISV 15% L.',0,0,'R',1);
-            $pdf->SetFillColor(232,232,232);
+            $pdf->SetFillColor(255,255,255);
             $pdf->Cell(40,6,($impuesto),1,1,'C',1);
             $pdf-> SetFillColor(255,255,255);
             $pdf->Cell(130,6,'TOTAL L.',0,0,'R',1);
-            $pdf->SetFillColor(232,232,232);
+            $pdf->SetFillColor(255,255,255);
             $pdf->Cell(40,6,($total),1,1,'C',1);
         
             $pdf->Ln(30); //Salto de Linea
