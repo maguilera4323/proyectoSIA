@@ -31,7 +31,7 @@ class usuarioControlador extends usuarioModelo
 		$Vencimiento=date("Y-m-d",strtotime($fcha."+ 360 days"));
 		$creado=mainModel::limpiar_cadena($_POST['usuario_creacion']);
 		$Creacion=date('y-m-d H:i:s');
-		$privilegio=mainModel::limpiar_cadena($_POST['id_rol']);
+		$privilegio=mainModel::limpiar_cadena($_POST['rol_nuevo']);
 
 			/*== Verificando integridad de los datos ==*/
 			if(mainModel::verificar_datos("[A-Z]{1,20}",$Usuario)){
