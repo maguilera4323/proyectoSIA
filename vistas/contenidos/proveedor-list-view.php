@@ -51,6 +51,11 @@
 		<li>
 			<div class="btn btn-dark btn-lg" data-toggle="modal" data-target="#ModalCrear"><i class="fas fa-plus fa-fw"></i> &nbsp; AGREGAR PROVEEDOR</div>
 		</li>
+	<li>
+		<form class="d-flex" action="<?php echo SERVERURL; ?>excel/exportarProveedor.php" method="post" accept-charset="utf-8">
+			<button type="submit" class="btn btn-success mx-auto btn-lg"><i class="fas fa-file-excel"></i> &nbsp;Descargar Excel</button>
+		</form>
+	</li>
 	</ul>	
 </div>
 
@@ -73,13 +78,11 @@ if(isset($_GET['enviar'])){
 ?>
 
 <div class="container-fluid">
-  <form class="d-flex" action="../pdf/proveedorpdf.php" method="post" accept-charset="utf-8">
-  	<input class="form-control me-2 light-table-filter" data-table="table_id" type="text" name="filtroproveedor" placeholder="Buscar Proveedor">
-	<button type="submit" class="btn btn-danger mx-auto btn-lg"><i class="fas fa-file-pdf"></i> &nbsp;Descargar Reporte</button>
-      </form>
+	<form class="d-flex" action="../pdf/proveedorpdf.php" method="post" accept-charset="utf-8">
+		<input class="form-control me-2 light-table-filter" data-table="table_id" type="text" name="filtroproveedor" placeholder="Buscar Proveedor">
+		<button type="submit" class="btn btn-danger mx-auto btn-lg"><i class="fas fa-file-pdf"></i> &nbsp;Descargar Reporte</button>
+	</form>
   </div>
-  </div>
-
   <br>
 
  
