@@ -62,10 +62,10 @@
 			<a href="<?php echo SERVERURL; ?>inventario-list/"><div class="btn btn-dark btn-lg"><i class="fas fa-warehouse"></i> &nbsp; INVENTARIO DISPONIBLE</div></a>
 		</li>
 		<li>
-		<form class="d-flex" action="<?php echo SERVERURL; ?>excel/exportarMoviInv.php" method="post" accept-charset="utf-8">
-			<button type="submit" class="btn btn-success mx-auto btn-lg"><i class="fas fa-file-excel"></i> &nbsp;Descargar Excel</button>
-		</form>
-	</li>
+			<form class="d-flex" action="<?php echo SERVERURL; ?>excel/exportarMoviInv.php" method="post" accept-charset="utf-8">
+				<button type="submit" class="btn btn-success mx-auto btn-lg"><i class="fas fa-file-excel"></i> &nbsp;Descargar Excel</button>
+			</form>
+		</li>
 	</ul>	
 </div>
 
@@ -82,18 +82,13 @@ if(isset($_GET['enviar'])){
   
 }
 ?>
-
-			</form>
+			
 <div class="container-fluid">
   	<form class="d-flex" action="../pdf/movi_inventariopdf.php" method="post" accept-charset="utf-8">
   		<input class="form-control me-2 light-table-filter" data-table="table_id" type="text" name="filtromovi_inventario" placeholder="Buscar Movimientos">
 		<button type="submit" class="btn btn-danger mx-auto btn-lg"><i class="fas fa-file-pdf"></i> &nbsp;Descargar Reporte</button>
     </form>
 </div>
-</div>
-      <hr>
-      </form>
-  </div>
  
       <table class="table table-striped table-dark table_id text-center" id="tblDatos">
                          <thead>    
