@@ -63,7 +63,11 @@
 		<li>
 			<a href="<?php echo SERVERURL; ?>movimiento-inventario/"><div class="btn btn-danger btn-lg"><i class="fas fa-dolly-flatbed"></i> &nbsp; MOVIMIENTOS DE INVENTARIO</div></a>
 		</li>
-		
+		<li>
+			<form class="d-flex" action="<?php echo SERVERURL; ?>excel/exportarInsumo.php" method="post" accept-charset="utf-8">
+				<button type="submit" class="btn btn-success mx-auto btn-lg"><i class="fas fa-file-excel"></i> &nbsp;Descargar Excel</button>
+			</form>
+		</li>
 	</ul>	
 </div>
 

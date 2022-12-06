@@ -14,9 +14,9 @@
 		$output .="
             <h3>Informe de Movimientos de Inventario</h3>
             <br>
-			<table>
+			<table border='1'>
 				<thead>
-					<tr>
+				<tr style='background-color:#22C6F7;'>
 						<th >ID</th>
 						<th>Nombre    </th>
 						<th align='center'>Cantidad     </th>

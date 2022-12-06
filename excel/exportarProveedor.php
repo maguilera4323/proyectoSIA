@@ -1,6 +1,7 @@
 <?php
+	date_default_timezone_set('America/Tegucigalpa');
 	header("Content-Type: application/xls");    
-	header("Content-Disposition: attachment; filename=documento_exportado_" . date('Y:m:d:m:s').".xls");
+	header("Content-Disposition: attachment; filename=Informe_Movimientos_Inventario_" . date('Y:m:d H:i:s').".xls");
 	header("Pragma: no-cache"); 
 	header("Expires: 0");
 
@@ -12,9 +13,9 @@
 		$output .="
             <h3>Informe de Proveedores</h3>
             <br>
-			<table>
+			<table border='1'>
 				<thead>
-					<tr>
+				<tr style='background-color:#22C6F7;'>
 						<th>ID</th>
 						<th>Nombre</th>
 						<th>RTN</th>
