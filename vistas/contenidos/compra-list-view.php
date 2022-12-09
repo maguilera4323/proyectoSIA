@@ -55,11 +55,6 @@
 		<li>
 			<a href="<?php echo SERVERURL; ?>compra-new/"><i class="fas fa-plus fa-fw"></i> &nbsp; AGREGAR COMPRA</a>
 		</li>
-		<li>
-			<form class="d-flex" action="<?php echo SERVERURL; ?>excel/exportarCompras.php" method="post" accept-charset="utf-8">
-				<button type="submit" class="btn btn-success mx-auto btn-lg"><i class="fas fa-file-excel"></i> &nbsp;Descargar Excel</button>
-			</form>
-		</li>
 	</ul>	
 </div>
 
