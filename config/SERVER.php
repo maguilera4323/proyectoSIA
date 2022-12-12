@@ -6,7 +6,7 @@ const USER="admin_bd";/* */
 const PASS="clave1234";/* */
 const HOST_SMTP='smtp.gmail.com';
 const USER_SMTP="citycoffeehn1@gmail.com";
-const CLAVE_SMTP="yimaeiygjhdcthct";
+const CLAVE_SMTP="fdbxxmaiaikaviwc";
 const PUERTO_SMTP=465;
 
 
