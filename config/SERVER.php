@@ -1,12 +1,15 @@
 <?php
 
+//datos de conexion al servidor de la base de datos
 const SERVER="20.163.218.52";/* servidor de base de datos */
 const DB="proyecto_cafeteria";/* NOMBRE DE BD */
 const USER="admin_bd";/* */
 const PASS="clave1234";/* */
+
+//datos de conexion al servidor de correo
 const HOST_SMTP='smtp.gmail.com';
-const USER_SMTP="citycoffeehn1@gmail.com";
-const CLAVE_SMTP="fdbxxmaiaikaviwc";
+const USER_SMTP="soportecitycoffe@gmail.com";
+const CLAVE_SMTP="auipcxsessbbvniz";
 const PUERTO_SMTP=465;
 
 
