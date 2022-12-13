@@ -148,7 +148,7 @@ if($dato -> num_rows >0){
 <tr>
 <td><?php echo $fila['nom_cliente']; ?></td>
 <td><?php echo $fila['rtn_cliente']; ?></td>
-<td><?php echo $fila['dni_clinte']; ?></td>
+<td><?php echo $fila['dni_cliente']; ?></td>
 <td><?php echo $fila['tel_cliente']; ?></td>
 <td>
 				<div class="btn btn-success" data-toggle="modal" data-target="#ModalActualizar<?php echo $fila['id_clientes'];?>">
