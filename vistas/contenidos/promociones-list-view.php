@@ -152,7 +152,7 @@ if(isset($_GET['enviar'])){
 				<?php
 
 include ("./cone.php");              
- $SQL="SELECT p.id_promociones, p.nom_promocion, p.fech_ini_promo, p.fech_fin_promo, 
+ $SQL="SELECT p.id_promociones, p.id_estado_promocio, p.nom_promocion, p.fech_ini_promo, p.fech_fin_promo, 
  ep.nom_estado_promociones, p.precio_promocion FROM TBL_promociones p
  inner join TBL_estado_promociones ep on ep.id_estado_promociones=p.id_estado_promocio;
  $where";
@@ -225,7 +225,15 @@ if($dato -> num_rows >0){
 													$tipo="SELECT * FROM TBL_estado_promociones";
 													$resultado=mysqli_query($conexion, $tipo);
 														while ($valores = mysqli_fetch_array($resultado)){
+											
+													//validación para obtener el valor guardado en la base de datos
+													//y que este se muestre seleccionado en la base de datos
+														if($fila['id_estado_promocio']==$valores['id_estado_promociones']){
+															echo '<option value="'.$valores['id_estado_promociones'].'" selected>'.$valores['nom_estado_promociones'].'</option>';
+													//validación para obtener los demás valores de la base de datos para el select
+														}elseif($fila['id_estado_promocio']!=$valores['id_estado_promociones']){
 															echo '<option value="'.$valores['id_estado_promociones'].'">'.$valores['nom_estado_promociones'].'</option>';
+														}
 													}
 													?>
 												</select>

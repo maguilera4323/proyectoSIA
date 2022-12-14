@@ -59,7 +59,7 @@ if(isset($_GET['enviar'])){
 				<?php
 
 include ("./cone.php");              
-$SQL="SELECT p.id_producto,p.nom_producto,tp.tipo_producto,p.des_produ,p.precio_produ, p.foto_produ FROM TBL_producto p
+$SQL="SELECT p.id_producto,p.nom_producto,p.id_tipo_produ,tp.tipo_producto,p.des_produ,p.precio_produ, p.foto_produ FROM TBL_producto p
 	INNER JOIN TBL_tipo_producto tp ON tp.id_tipo_produ=p.id_tipo_produ;
 $where";
 $dato = mysqli_query($conexion, $SQL);
@@ -106,7 +106,14 @@ if($dato -> num_rows >0){
 										$tipo="SELECT * FROM TBL_tipo_producto";
 										$resultado=mysqli_query($conexion, $tipo);
 											while ($valores = mysqli_fetch_array($resultado)){
-												echo '<option value="'.$valores['id_tipo_produ'].'">'.$valores['tipo_producto'].'</option>';
+											//validación para obtener el valor guardado en la base de datos
+											//y que este se muestre seleccionado en la base de datos
+												if($fila['id_tipo_produ']==$valores['id_tipo_produ']){
+													echo '<option value="'.$valores['id_tipo_produ'].'" selected>'.$valores['tipo_producto'].'</option>';
+											//validación para obtener los demás valores de la base de datos para el select
+												}elseif($fila['id_tipo_produ']!=$valores['id_tipo_produ']){
+													echo '<option value="'.$valores['id_tipo_produ'].'">'.$valores['tipo_producto'].'</option>';
+												}
 											}
 										?>
 									</select>

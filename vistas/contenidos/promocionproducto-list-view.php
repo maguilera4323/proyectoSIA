@@ -140,7 +140,14 @@
 											$tipo="SELECT * FROM TBL_promociones";
 											$resultado=mysqli_query($conexion, $tipo);
 											while ($valores = mysqli_fetch_array($resultado)){
-											echo '<option value="'.$valores['id_promociones'].'">'.$valores['nom_promocion'].'</option>';
+											//validación para obtener el valor guardado en la base de datos
+											//y que este se muestre seleccionado en la base de datos
+												if($fila['id_promociones']==$valores['id_promociones']){
+													echo '<option value="'.$valores['id_promociones'].'" selected>'.$valores['nom_promocion'].'</option>';
+											//validación para obtener los demás valores de la base de datos para el select
+												}elseif($fila['id_promociones']!=$valores['id_promociones']){
+													echo '<option value="'.$valores['id_promociones'].'">'.$valores['nom_promocion'].'</option>';
+												}
 											}
 										?>
 									</select>
@@ -153,7 +160,14 @@
 									$tipo="SELECT * FROM TBL_producto";
 									$resultado=mysqli_query($conexion, $tipo);
 									while ($valores = mysqli_fetch_array($resultado)){
-									echo '<option value="'.$valores['id_producto'].'">'.$valores['nom_producto'].'</option>';
+									//validación para obtener el valor guardado en la base de datos
+									//y que este se muestre seleccionado en la base de datos
+										if($fila['id_producto']==$valores['id_producto']){
+											echo '<option value="'.$valores['id_producto'].'" selected>'.$valores['nom_producto'].'</option>';
+									//validación para obtener los demás valores de la base de datos para el select
+										}elseif($fila['id_producto']!=$valores['id_producto']){
+											echo '<option value="'.$valores['id_producto'].'">'.$valores['nom_producto'].'</option>';
+										}
 									}
 									?>
 								</select>

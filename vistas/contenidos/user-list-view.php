@@ -107,7 +107,7 @@ if(isset($_GET['enviar'])){
 
 				<?php
 					include ("./cone.php");              
-					$SQL="SELECT u.id_usuario, u.usuario, u.nombre_usuario, u.estado_usuario, r.rol,u.correo_electronico,
+					$SQL="SELECT u.id_usuario, u.usuario, u.nombre_usuario, u.estado_usuario, r.id_rol,r.rol,u.correo_electronico,
 					u.creado_por FROM TBL_usuarios u
 					inner JOIN TBL_ms_roles r ON r.id_rol = u.id_rol
 					$where";
@@ -191,10 +191,10 @@ if(isset($_GET['enviar'])){
 											<div class="form-group">
 													<label class="color-label">Estado</label>
 													<select class="form-control" name="estado_actu" required>
-														<option value="1">Activo</option>
-														<option value="2">Inactivo</option>
-														<option value="3">Bloqueado</option>
-														<option value="4">Nuevo</option> 
+														<option value="1" <?php if ($fila['estado_usuario'] == 'Activo'): ?>selected<?php endif; ?>>Activo</option>
+														<option value="2" <?php if ($fila['estado_usuario'] == 'Inactivo'): ?>selected<?php endif; ?>>Inactivo</option>
+														<option value="3" <?php if ($fila['estado_usuario'] == 'Bloqueado'): ?>selected<?php endif; ?>>Bloqueado</option>
+														<option value="4" <?php if ($fila['estado_usuario'] == 'Nuevo'): ?>selected<?php endif; ?>>Nuevo</option> 
 													</select>
 												</div>
 										</div>
@@ -207,7 +207,14 @@ if(isset($_GET['enviar'])){
 														$tipo="SELECT * FROM TBL_ms_roles";
 														$resultado=mysqli_query($conexion, $tipo);
 															while ($valores = mysqli_fetch_array($resultado)){
-																echo '<option value="'.$valores['id_rol'].'">'.$valores['rol'].'</option>';
+															//validación para obtener el valor guardado en la base de datos
+															//y que este se muestre seleccionado en la base de datos
+																if($fila['id_rol']==$valores['id_rol']){
+																	echo '<option value="'.$valores['id_rol'].'" selected>'.$valores['rol'].'</option>';
+															//validación para obtener los demás valores de la base de datos para el select
+																}elseif($fila['id_rol']!=$valores['id_rol']){
+																	echo '<option value="'.$valores['id_rol'].'">'.$valores['rol'].'</option>';
+																}
 															}
 														?>
 													</select>

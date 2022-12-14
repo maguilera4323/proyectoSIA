@@ -103,7 +103,7 @@ if(isset($_GET['enviar'])){
         <tbody>
 			<?php
 				include ("./cone.php");              
-				$SQL="SELECT i.id_insumos, i.nom_insumo, c.nom_categoria, i.cant_max, i.cant_min,i.unidad_medida FROM TBL_insumos i
+				$SQL="SELECT i.id_insumos, i.nom_insumo, c.id_categoria, c.nom_categoria, i.cant_max, i.cant_min,i.unidad_medida FROM TBL_insumos i
 				inner JOIN TBL_categoria_produ c ON c.id_categoria = i.id_categoria
 				$where";
 				$dato = mysqli_query($conexion, $SQL);
@@ -162,8 +162,18 @@ if(isset($_GET['enviar'])){
 														$tipo="SELECT * FROM TBL_categoria_produ";
 														$resultado=mysqli_query($conexion, $tipo);
 														while ($valores = mysqli_fetch_array($resultado)){
-															echo '<option value="'.$valores['id_categoria'].'">'.$valores['nom_categoria'].'</option>';
+															//validación para obtener el valor guardado en la base de datos
+															//y que este se muestre seleccionado en la base de datos
+															if($fila['id_categoria']==$valores['id_categoria']){
+																echo '<option value="'.$valores['id_categoria'].'" selected>'.$valores['nom_categoria'].'</option>';
+															//validación para obtener los demás valores de la base de datos para el select
+															}elseif($fila['id_categoria']!=$valores['id_categoria']){
+																echo '<option value="'.$valores['id_categoria'].'">'.$valores['nom_categoria'].'</option>';
 															}
+															
+														}
+															
+										
 													?>
 													</select>
 												</div>
@@ -190,10 +200,10 @@ if(isset($_GET['enviar'])){
 												<div class="form-group">
 													<label class="color-label">Unidad de medida</label>
 													<select class="form-control" name="unidad_insumo_act" required>
-														<option value="1">LB</option>
-														<option value="2">UN</option>
-														<option value="3">L</option>
-														<option value="4">GAL</option>
+														<option value="1" <?php if ($fila['unidad_medida'] == 'LB'): ?>selected<?php endif; ?>>LB</option>
+														<option value="2" <?php if ($fila['unidad_medida'] == 'UN'): ?>selected<?php endif; ?>>UN</option>
+														<option value="3" <?php if ($fila['unidad_medida'] == 'L'): ?>selected<?php endif; ?>>L</option>
+														<option value="4" <?php if ($fila['unidad_medida'] == 'GAL'): ?>selected<?php endif; ?>>GAL</option>
 													</select>
 												</div>
 											</div>

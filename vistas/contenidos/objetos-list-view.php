@@ -147,14 +147,14 @@
 											<div class="form-group">
 											<label class="color-label">Tipo de Objeto</label>
 											<select class="form-control" name="tipo_objeto_act">
-												<option value="1">Home</option>
-												<option value="2">Proveedores</option>
-												<option value="3">Insumos</option>
-												<option value="4">Productos</option>
-												<option value="5">Compras</option>
-												<option value="6">Facturación</option>
-												<option value="7">Mantenimiento</option> 
-												<option value="8">Administración</option>
+												<option value="1" <?php if ($fila['tipo_objeto'] == 'Home'): ?>selected<?php endif; ?>>Home</option>
+												<option value="2" <?php if ($fila['tipo_objeto'] == 'Proveedores'): ?>selected<?php endif; ?>>Proveedores</option>
+												<option value="3" <?php if ($fila['tipo_objeto'] == 'Insumos'): ?>selected<?php endif; ?>>Insumos</option>
+												<option value="4" <?php if ($fila['tipo_objeto'] == 'Productos'): ?>selected<?php endif; ?>>Productos</option>
+												<option value="5" <?php if ($fila['tipo_objeto'] == 'Compras'): ?>selected<?php endif; ?>>Compras</option>
+												<option value="6" <?php if ($fila['tipo_objeto'] == 'Facturacion'): ?>selected<?php endif; ?>>Facturación</option>
+												<option value="7" <?php if ($fila['tipo_objeto'] == 'Mantenimiento'): ?>selected<?php endif; ?>>Mantenimiento</option> 
+												<option value="8" <?php if ($fila['tipo_objeto'] == 'Administracion'): ?>selected<?php endif; ?>>Administración</option>
 											</select>
 											</div>
 										</div>

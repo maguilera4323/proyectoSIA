@@ -197,21 +197,25 @@
 									<div class="form-group">
 										<div class="form-group">
 										<label>Permisos</label>
-										<div class="form-check">
-											<input class="form-check-input" type="checkbox" name="insertar_permiso_act" value="1" id="defaultCheck1">
-											<label class="form-check-label" for="defaultCheck1" value="<?php echo $fila['permiso_insercion']?>">Insertar</label>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" name="insertar_permiso_act" 
+												<?php if ($fila['permiso_insercion'] == 1): ?>checked<?php endif; ?> id="defaultCheck1">
+												<label class="form-check-label" for="defaultCheck1">Insertar</label>
 											</div>
 											<div class="form-check">
-											<input class="form-check-input" type="checkbox" name="actualizar_permiso_act" value="1" id="defaultCheck1">
-											<label class="form-check-label" for="defaultCheck1">Actualizar</label>
+												<input class="form-check-input" type="checkbox" name="actualizar_permiso_act"
+												<?php if ($fila['permiso_actualizacion'] == 1): ?>checked<?php endif; ?> id="defaultCheck1">
+												<label class="form-check-label" for="defaultCheck1">Actualizar</label>
 											</div>
 											<div class="form-check">
-											<input class="form-check-input" type="checkbox" name="eliminar_permiso_act" value="1" id="defaultCheck1">
-											<label class="form-check-label" for="defaultCheck1">Eliminar</label>
+												<input class="form-check-input" type="checkbox" name="eliminar_permiso_act"
+												<?php if ($fila['permiso_eliminacion'] == 1): ?>checked<?php endif; ?> id="defaultCheck1">
+												<label class="form-check-label" for="defaultCheck1">Eliminar</label>
 											</div>
 											<div class="form-check">
-											<input class="form-check-input" type="checkbox" name="consultar_permiso_act" value="1" id="defaultCheck1">
-											<label class="form-check-label" for="defaultCheck1">Consultar</label>
+												<input class="form-check-input" type="checkbox" name="consultar_permiso_act"
+												<?php if ($fila['permiso_consulta'] == 1): ?>checked<?php endif; ?> id="defaultCheck1">
+												<label class="form-check-label" for="defaultCheck1">Consultar</label>
 											</div>
 											</div>
 											<button type="submit" class="btn btn-primary text-center">Guardar</button>

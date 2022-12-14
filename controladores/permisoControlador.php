@@ -32,22 +32,22 @@ class permisoControlador extends permisoModelo
 		if(!isset($_POST['insertar_permiso'])){
 			$insertar_permiso=0;
 		}else{
-			$insertar_permiso=mainModel::limpiar_cadena($_POST['insertar_permiso']);
+			$insertar_permiso=1;
 		}
 		if(!isset($_POST['actualizar_permiso'])){
 			$actualizar_permiso=0;
 		}else{
-			$actualizar_permiso=mainModel::limpiar_cadena($_POST['actualizar_permiso']);
+			$actualizar_permiso=1;
 		}
 		if(!isset($_POST['eliminar_permiso'])){
 			$eliminar_permiso=0;
 		}else{
-			$eliminar_permiso=mainModel::limpiar_cadena($_POST['eliminar_permiso']);
+			$eliminar_permiso=1;
 		}
 		if(!isset($_POST['consultar_permiso'])){
 			$consultar_permiso=0;
 		}else{
-			$consultar_permiso=mainModel::limpiar_cadena($_POST['consultar_permiso']);
+			$consultar_permiso=1;
 		}
 		$creado=$_SESSION['usuario_login'];
 		$fec_creacion=date('y-m-d H:i:s');
@@ -103,22 +103,22 @@ class permisoControlador extends permisoModelo
 		if(!isset($_POST['insertar_permiso_act'])){
 			$insertar_permiso=0;
 		}else{
-			$insertar_permiso=mainModel::limpiar_cadena($_POST['insertar_permiso_act']);
+			$insertar_permiso=1;
 		}
 		if(!isset($_POST['actualizar_permiso_act'])){
 			$actualizar_permiso=0;
 		}else{
-			$actualizar_permiso=mainModel::limpiar_cadena($_POST['actualizar_permiso_act']);
+			$actualizar_permiso=1;
 		}
 		if(!isset($_POST['eliminar_permiso_act'])){
 			$eliminar_permiso=0;
 		}else{
-			$eliminar_permiso=mainModel::limpiar_cadena($_POST['eliminar_permiso_act']);
+			$eliminar_permiso=1;
 		}
 		if(!isset($_POST['consultar_permiso_act'])){
 			$consultar_permiso=0;
 		}else{
-			$consultar_permiso=mainModel::limpiar_cadena($_POST['consultar_permiso_act']);
+			$consultar_permiso=1;
 		}
 		$modificado=$_SESSION['usuario_login'];
 		$fec_modificacion=date('y-m-d H:i:s');
