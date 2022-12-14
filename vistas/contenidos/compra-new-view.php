@@ -94,7 +94,7 @@
 						<select class="form-control" name="estado_compra" id="estado_compra" required>
 						<option value="" selected="" disabled="">Seleccione una opción</option>
 							<?php
-							$SQL="SELECT * FROM TBL_estado_compras";
+							$SQL="SELECT * FROM TBL_estado_compras where id_estado_compra<3";
 								$dato = mysqli_query($conexion, $SQL);
 					
 								if($dato -> num_rows >0){

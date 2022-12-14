@@ -64,13 +64,13 @@
 							$estado=$fila['id_estado_compra'];
 						}
 					}
-/* 
-					//valida si el query anterior no retornó ningún valor
-					//si el estado es diferente a Pendiente no se podrá editar la compra
+ 
+				//valida si el query anterior no retornó ningún valor
+				//si el estado es diferente a Pendiente no se podrá editar la compra
 				if($estado!=1){
-				echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Solo puede editar compras con estado Pendiente</div>';
-				echo "<script> window.location.href='".SERVERURL."compra-list/'; </script>";	
-			} */
+					echo '<div class="alert alert-warning text-center" style="font-size: 28px;">Solo puede editar compras con estado Pendiente</div>';
+					echo "<script> window.location.href='".SERVERURL."compra-list/'; </script>";	
+				} 
 
 					//query para obtener el id del primer insumo de la compra
 					//este dato será utilizado en un ciclo más abajo para poder obtener los id de todos los insumos
@@ -124,12 +124,20 @@
 						<label class="color-label">Estado de Compra</label>
 						<select class="form-control" name="estado_compra" id="estado_compra" required>
 							<?php
-							$SQL="SELECT * FROM TBL_estado_compras";
+							$SQL="SELECT * FROM TBL_estado_compras where id_estado_compra<3";
 								$dato = mysqli_query($conexion, $SQL);
 					
 								if($dato -> num_rows >0){
 									while($fila=mysqli_fetch_array($dato)){
-										echo '<option value="'.$fila['id_estado_compra'].'">'.$fila['nom_estado_compra'].'</option>';
+										//validación para obtener el valor guardado en la base de datos
+										//y que este se muestre seleccionado en la base de datos
+											if($estado==$fila['id_estado_compra']){
+												echo '<option value="'.$fila['id_estado_compra'].'" selected>'.$fila['nom_estado_compra'].'</option>';
+
+										//validación para obtener los demás valores de la base de datos para el select
+											}elseif($estado!=$fila['id_estado_compra']){
+												echo '<option value="'.$fila['id_estado_compra'].'">'.$fila['nom_estado_compra'].'</option>';
+											}
 										}
 									}
 								?>

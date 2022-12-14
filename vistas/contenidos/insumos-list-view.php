@@ -157,24 +157,22 @@ if(isset($_GET['enviar'])){
 												<div class="form-group">
 													<label class="color-label">Categoria</label>
 													<select class="form-control" name="categoria_insumo_act" required>
-													<?php
-														include ("./cone.php");   
-														$tipo="SELECT * FROM TBL_categoria_produ";
-														$resultado=mysqli_query($conexion, $tipo);
-														while ($valores = mysqli_fetch_array($resultado)){
-															//validación para obtener el valor guardado en la base de datos
-															//y que este se muestre seleccionado en la base de datos
-															if($fila['id_categoria']==$valores['id_categoria']){
-																echo '<option value="'.$valores['id_categoria'].'" selected>'.$valores['nom_categoria'].'</option>';
-															//validación para obtener los demás valores de la base de datos para el select
-															}elseif($fila['id_categoria']!=$valores['id_categoria']){
-																echo '<option value="'.$valores['id_categoria'].'">'.$valores['nom_categoria'].'</option>';
+														<?php
+															include ("./cone.php");   
+															$tipo="SELECT * FROM TBL_categoria_produ";
+															$resultado=mysqli_query($conexion, $tipo);
+															while ($valores = mysqli_fetch_array($resultado)){
+																//validación para obtener el valor guardado en la base de datos
+																//y que este se muestre seleccionado en la base de datos
+																if($fila['id_categoria']==$valores['id_categoria']){
+																	echo '<option value="'.$valores['id_categoria'].'" selected>'.$valores['nom_categoria'].'</option>';
+																//validación para obtener los demás valores de la base de datos para el select
+																}elseif($fila['id_categoria']!=$valores['id_categoria']){
+																	echo '<option value="'.$valores['id_categoria'].'">'.$valores['nom_categoria'].'</option>';
+																}
+																
 															}
-															
-														}
-															
-										
-													?>
+														?>
 													</select>
 												</div>
 											</div>
