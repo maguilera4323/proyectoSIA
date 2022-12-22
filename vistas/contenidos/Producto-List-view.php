@@ -12,7 +12,11 @@
 		<li>
 			<a  href="<?php echo SERVERURL; ?>tipo-producto-new/"><i class="fas fa-search fa-fw"></i> AGREGAR TIPO DE PRODUCTO</a>
 		</li>
-		</ul>
+		<li>
+			<form class="d-flex" action="<?php echo SERVERURL; ?>excel/exportarProductos.php" method="post" accept-charset="utf-8">
+				<button type="submit" class="btn btn-success mx-auto btn-lg"><i class="fas fa-file-excel"></i> &nbsp;Descargar Excel</button>
+			</form>
+		</li>
 	</ul>	
 </div>
 

@@ -89,6 +89,11 @@
 		<li>
 			<div class="btn btn-dark btn-lg" data-toggle="modal" data-target="#ModalCrear"><i class="fas fa-plus fa-fw"></i> &nbsp; AGREGAR CLIENTE</div>
 		</li>
+		<li>
+			<form class="d-flex" action="<?php echo SERVERURL; ?>excel/exportarClientes.php" method="post" accept-charset="utf-8">
+				<button type="submit" class="btn btn-success mx-auto btn-lg"><i class="fas fa-file-excel"></i> &nbsp;Descargar Excel</button>
+			</form>
+		</li>
 	</ul>	
 </div>
 
