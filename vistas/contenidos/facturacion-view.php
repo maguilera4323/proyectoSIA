@@ -84,7 +84,8 @@
 			<?php
 				$SQL="SELECT * FROM TBL_pedidos";
 				$dato = mysqli_query($conexion, $SQL);
-					
+				
+				//Validacion para obtener el id del pedido que estamos realizando
 				if($dato -> num_rows >0){
 					while($fila=mysqli_fetch_array($dato)){
 						$ultimoIdPedido=$fila['id_pedido'];
@@ -109,7 +110,7 @@
 				
 				//validacion para verificar si ya se han registrado facturas con codigo CAI
 				if($numFacturaAnterior!=''){
-					//se extraen los primeros 11 caracteres del codigo de factura con esta funcion
+					//se extraen los primeros 11 caracteres del codigo de factura con la funcion substr
 					//usando la funcion substr, el parametro 0 es para indicar que se deben tomar desde el incio de la cadena
 					//el parametro -8 es para obviar los ultimos 8 caracteres
 					$cadenaPrimerosCaracteres=substr($numFacturaAnterior,0,-8);
@@ -121,6 +122,9 @@
 					$numFactura=intval(substr($numFacturaAnterior,11))+1;
 
 					//se usa la funcion str_pad para reconvertir el numero de la factura actual a una cadena del rango de facturacion
+					//el parametro 8 es para indicar el tamaño del rango del numero de la factura, que son 8 digitos(00000000)
+					//debido a que el numero obtenido en $numFactura será menor a 8 digitos se ingresa un caracter para rellenar los espacios sobrantes
+					//Los espacios sobrantes a la izquierda se rellenan con ceros (parametro 0 de la funcion)
 					$cadenaRangoFactura=str_pad($numFactura, 8, "0", STR_PAD_LEFT);
 
 					//se une la cadena actual de la factura con los 11 primeros caracteres para obtener el numero de factura completo
@@ -141,8 +145,6 @@
 						<label class="color-label">DNI</label>
 						<input type="text" value="<?php print "0000000000000";?>" class="form-control"  name="dni_pedido" id="dni_pedido" maxlength="13" 
 						onkeypress="return solonumeros (event)" onChange="cambioTextBox1()">
-						<!-- <input type="text"  maxlength="13"  id="textbox1" onkeypress="return solonumeros (event)" onChange="cambioTextBox1()"> -->
-						<!-- <input type="text" class="form-control" onkeypress="return solonumeros (event)" name="cliente_pedido" id="cliente_pedido" maxlength="13" required> -->
 						
 						<!-- ESTE SIRVE PARA BLOQUEAR LA CAJA DE TEXTO DE NOMBRE DE CLIENTE SIEMPRE Y CUANDO SE CUMPLA LA CONDICION DE 
 						LOS 13 CEROS -->
